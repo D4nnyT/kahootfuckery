@@ -10,7 +10,51 @@
 	}
 	!function(r){
 		var e=n("$injector"),t=n("ng");
-		return r=r.angular||(r.angular={}),r.$$minErr=r.$$minErr||n,r.module||(r.module=function(){var n={};return function(r,o,i){if("hasOwnProperty"===r)throw t("badname","module");return o&&n.hasOwnProperty(r)&&(n[r]=null),n[r]||(n[r]=function(){function n(n,r,e){return function(){return t[e||"push"]([n,r,arguments]),a}}if(!o)throw e("nomod",r);var t=[],u=[],c=n("$injector","invoke"),a={_invokeQueue:t,_runBlocks:u,requires:o,name:r,provider:n("$provide","provider"),factory:n("$provide","factory"),service:n("$provide","service"),value:n("$provide","value"),constant:n("$provide","constant","unshift"),animation:n("$animateProvider","register"),filter:n("$filterProvider","register"),controller:n("$controllerProvider","register"),directive:n("$compileProvider","directive"),config:c,run:function(n){return u.push(n),this}};return i&&c(i),a}())}}())
+		return r=r.angular||(r.angular={}),
+		       r.$$minErr=r.$$minErr||n,
+		       r.module||(
+				       r.module=function(){
+					       var n={};
+					       return function(r,o,i){
+						       if("hasOwnProperty"===r)
+			       					throw t("badname","module");
+		       					return o&&n.hasOwnProperty(r)&&(n[r]=null),
+		       						n[r]||(
+									n[r]=function(){
+										function n(n,r,e){
+											return function(){
+												t[e||"push"]([n,r,arguments]);
+												return a
+											}
+										}
+										if(!o)
+											throw e("nomod",r);
+										var t=[],
+										    u=[],
+										    c=n("$injector","invoke"),
+										    a={
+											    _invokeQueue:t,
+											    _runBlocks:u,
+											    requires:o,
+											    name:r,
+											    provider:n("$provide","provider"),
+											    factory:n("$provide","factory"),
+											    service:n("$provide","service"),
+											    value:n("$provide","value"),
+											    constant:n("$provide","constant","unshift"),
+											    animation:n("$animateProvider","register"),
+											    filter:n("$filterProvider","register"),
+											    controller:n("$controllerProvider","register"),
+											    directive:n("$compileProvider","directive"),
+											    config:c,
+											    run:function(n){return u.push(n),this}
+										    };
+										i && c(i);
+										return a
+									}()
+									)
+					       }
+				     }())
 	}(window)
 }(window),
 function(n,r){
