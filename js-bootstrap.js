@@ -2,9 +2,22 @@
 	"use strict";
 	function n(n){
 		return function(){
-			var r,e=arguments[0],e="["+(n?n+":":"")+e+"] http://errors.angularjs.org/1.2.16/"+(n?n+"/":"")+e;
-			for(r=1;r<arguments.length;r++)
-				e=e+(1==r?"?":"&")+"p"+(r-1)+"="+encodeURIComponent("function"==typeof arguments[r]?arguments[r].toString().replace(/ \{[\s\S]*$/,""):"undefined"==typeof arguments[r]?"undefined":"string"!=typeof arguments[r]?JSON.stringify(arguments[r]):arguments[r]);
+			var r,
+			    e=arguments[0],
+			    e="["+(n?n+":":"")+e+"] http://errors.angularjs.org/1.2.16/"+(n?n+"/":"")+e,
+			    enc;
+			for(r=1;r<arguments.length;r++){
+				if(typeof arguments[r] == "function")       enc = arguments[r].toString().replace(/ \{[\s\S]*$/,"");
+				else if(typeof arguments[r] == "undefined") enc = "undefined";
+				else if(typeof arguments[r] != "string")    enc = JSON.stringify(arguments[r]);
+				else                                        enc = arguments[r];
+				enc = encodeURIComponent(enc);
+				e=e+
+					(1==r?"?":"&")+
+					"p"+
+					(r-1)+
+					"="+enc;
+			}
 			return Error(e)
 		}
 	}
