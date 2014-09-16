@@ -80,26 +80,30 @@
 	r = function(){
 		function n(n,r){
 			for(var e = 0, t = n.length; t > e; ++e){
-				if(!r(n[e])) return c;
+				if(!r(n[e])) return false;
 			}
-			return 1;
+			return true;
 		}
 		function r(r,e){
 			n(r,function(n){return !e(n)})
 		}
+		// $script( array of js urls,
 		function e(i,u,c){
 			function f(n){
-				return n.call?n():d[n]
+				return n.call ? n() : d[n]
 			}
 			function s(){
 				if(!--$){
-					d[h]=1,v&&v();
+					d[h]=1;
+					if(v) v();
 					for(var e in m){
-						n(e.split("|"),f)&&!r(m[e],f)&&(m[e]=[])
+						if(n(e.split("|"),f) && !r(m[e],f)){
+							m[e]=[];
+						}
 					}
 				}
 			}
-			i=i[a]?i:[i];
+			i=i.push ? i : [i];
 			var g=u && u.call,
 			    v=g ? u : c,
 			    h=g?i.join(""):u,
@@ -130,21 +134,17 @@
 		}
 		function t(n,r){
 			var e,
-			    t=i.createElement("script");
-			t.onload=t.onerror=t[s]=function(){
-				t[f] && !/^c|loade/.test(t[f]) || e || (t.onload=t[s]=null,e=1,p[n]=2,r());
+			    t=document.createElement("script");
+			t.onload=t.onerror=t.onreadystatechange=function(){
+				t.readyState && !/^c|loade/.test(t.readyState) || e || (t.onload=t.onreadystatechange=null,e=1,p[n]=2,r());
 			};
 			t.async=1;
 			t.src=n;
-			u.insertBefore(t,u.lastChild);
+			document.getElementsByTagName("head")[0].insertBefore(t,document.getElementsByTagName("head")[0].lastChild);
 		}
 		var o,
 		    i=document,
 		    u=document.getElementsByTagName("head")[0],
-		    c=!1,
-		    a="push",
-		    f="readyState",
-		    s="onreadystatechange",
 		    d={},
 		    l={},
 		    m={},
@@ -152,20 +152,25 @@
 		e.get = t;
 		e.order=function(n,r,t){
 			!function o(i){
-				i=n.shift(),n.length?e(i,o):e(i,r,t)
+				i=n.shift();
+				n.length ? e(i,o) : e(i,r,t)
 			}()
 		};
 		e.path=function(n){
 			o=n;
 		};
 		e.ready=function(t,o,i){
-			t= t[a] ? t : [t];
+			t = t.push ? t : [t];
 			var u=[];
 			!r(t,function(n){
-				d[n]||u[a](n)
-			}) && n(t,function(n){return d[n]}) ? o() : !function(n){
-				m[n]=m[n] || [];
-				m[n][a](o);
+				if(!d[n]){
+					u.push(n);
+				}
+			}) && n(t,function(n){
+				return d[n];
+			}) ? o() : !function(n){
+				if(!m[n]) m[n] = [];
+				m[n].push(o);
 				i&&i(u);
 			}(t.join("|"));
 			return e;
