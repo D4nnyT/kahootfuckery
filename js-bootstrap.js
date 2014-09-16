@@ -14,7 +14,7 @@
 			    e=arguments[0],
 			    e="["+(n?n+":":"")+e+"] http://errors.angularjs.org/1.2.16/"+(n?n+"/":"")+e,
 			    enc;
-			for(r=1;r<arguments.length;r++){
+			for(r = 1; r < arguments.length; r++){
 				if(typeof arguments[r] == "function")       enc = arguments[r].toString().replace(/ \{[\s\S]*$/,"");
 				else if(typeof arguments[r] == "undefined") enc = "undefined";
 				else if(typeof arguments[r] != "string")    enc = JSON.stringify(arguments[r]);
@@ -28,7 +28,7 @@
 			}
 			return Error(e);
 		}
-	}
+	};
 	!function(r){
 		var e=n("$injector"),t=n("ng");
 		r = r.angular || (r.angular={});
@@ -74,18 +74,18 @@
 			}()
 		}
 		return r.module;
-	}(window)
+	}(window);
 }(window);
 !function(){
 	r = function(){
 		function n(n,r){
-			for(var e=0,t=n.length;t>e;++e){
+			for(var e = 0, t = n.length; t > e; ++e){
 				if(!r(n[e])) return c;
 			}
 			return 1;
 		}
 		function r(r,e){
-			n(r,function(n){return!e(n)})
+			n(r,function(n){return !e(n)})
 		}
 		function e(i,u,c){
 			function f(n){
@@ -140,7 +140,7 @@
 		}
 		var o,
 		    i=document,
-		    u=i.getElementsByTagName("head")[0],
+		    u=document.getElementsByTagName("head")[0],
 		    c=!1,
 		    a="push",
 		    f="readyState",
@@ -183,5 +183,14 @@
 		this.$script = r()
 	}
 }();
-"undefined"!=typeof dojo ? dojo.provide("org.cometd") : (this.org=this.org||{},org.cometd={});
-$script(["js/controller.min.js?v"+kahoot.version],function(){angular.bootstrap(document,["app"])});
+if(typeof dojo != "undefined"){
+	dojo.provide("org.cometd");
+} else {
+	this.org = this.org || {};
+	org.cometd = {};
+}
+
+$script(
+		["js/controller.min.js?v"+kahoot.version],
+		function(){angular.bootstrap(document,["app"])}
+       );
