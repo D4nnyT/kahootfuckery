@@ -979,15 +979,21 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					l = 1,
 					u = arguments.length,
 					f = false;
-				"boolean" == typeof c && (f = c, c = arguments[1] || {}, l = 2);
+				if ("boolean" == typeof c) {
+					(f = c, c = arguments[1] || {}, l = 2);
+				}
 				"object" == typeof c || s.isFunction(c) || (c = {});
-				u === l && (c = this, --l);
+				if (u === l) {
+					(c = this, --l);
+				}
 				for (; u > l; l++)
 					if (null != (e = arguments[l]))
 						for (n in e) {
 							r = c[n];
 							i = e[n];
-							c !== i && (f && i && (s.isPlainObject(i) || (o = s.isArray(i))) ? (o ? (o = false, a = r && s.isArray(r) ? r : []) : a = r && s.isPlainObject(r) ? r : {}, c[n] = s.extend(f, a, i)) : i !== t && (c[n] = i));
+							if (c !== i) {
+								(f && i && (s.isPlainObject(i) || (o = s.isArray(i))) ? (o ? (o = false, a = r && s.isArray(r) ? r : []) : a = r && s.isPlainObject(r) ? r : {}, c[n] = s.extend(f, a, i)) : i !== t && (c[n] = i));
+							}
 						}
 				return c
 			};
