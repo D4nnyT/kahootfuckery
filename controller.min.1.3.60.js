@@ -795,7 +795,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		if ("undefined" != typeof e.getElementsByTagName) {
 			return e.getElementsByTagName("*");
 		} else {
-			return "undefined" != typeof e.querySelectorAll ? e.querySelectorAll("*") : [];
+			if ("undefined" != typeof e.querySelectorAll) {
+				return e.querySelectorAll("*");
+			} else {
+				return [];
+			}
 		}
 	}
 
@@ -1065,7 +1069,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		if (I.isWindow(e)) {
 			return e;
 		} else {
-			return 9 === e.nodeType ? e.defaultView || e.parentWindow : false;
+			if (9 === e.nodeType) {
+				return e.defaultView || e.parentWindow;
+			} else {
+				return false;
+			}
 		}
 	}
 	var q = e.document,
@@ -1193,7 +1201,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					if (e == null) {
 						return this.toArray();
 					} else {
-						return 0 > e ? this[this.length + e] : this[e];
+						if (0 > e) {
+							return this[this.length + e];
+						} else {
+							return this[e];
+						}
 					}
 				},
 				pushStack: function(e, t, n) {
@@ -1549,7 +1561,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					if (o) {
 						return e;
 					} else {
-						return u ? n.call(e) : d ? n(e[0], r) : a;
+						if (u) {
+							return n.call(e);
+						} else {
+							if (d) {
+								return n(e[0], r);
+							} else {
+								return a;
+							}
+						}
 					}
 				},
 				now: function() {
@@ -2014,10 +2034,14 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				});
 			} else {
 				return (i = e.split(".", 2), i[1] = i[1] ? "." + i[1] : "", o = i[1] + "!", I.access(this, function(n) {
-					return n === t ? (f = this.triggerHandler("getData" + o, [i[0]]), f === t && l && (f = I.data(l, e), f = r(l, e, f)), f === t && i[1] ? this.data(i[0]) : f) : (i[1] = n, void this.each(function() {
-						var t = I(this);
-						t.triggerHandler("setData" + o, i), I.data(this, e, n), t.triggerHandler("changeData" + o, i)
-					}))
+					if (n === t) {
+						return (f = this.triggerHandler("getData" + o, [i[0]]), f === t && l && (f = I.data(l, e), f = r(l, e, f)), f === t && i[1] ? this.data(i[0]) : f);
+					} else {
+						return (i[1] = n, void this.each(function() {
+							var t = I(this);
+							t.triggerHandler("setData" + o, i), I.data(this, e, n), t.triggerHandler("changeData" + o, i)
+						}));
+					}
 				}, null, n, arguments.length > 1, null, false));
 			}
 		},
@@ -2074,12 +2098,16 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (arguments.length < r) {
 				return I.queue(this[0], e);
 			} else {
-				return n === t ? this : this.each(function() {
-					var t = I.queue(this, e, n);
-					if ("fx" === e && "inprogress" !== t[0]) {
-						I.dequeue(this, e);
-					}
-				});
+				if (n === t) {
+					return this;
+				} else {
+					return this.each(function() {
+						var t = I.queue(this, e, n);
+						if ("fx" === e && "inprogress" !== t[0]) {
+							I.dequeue(this, e);
+						}
+					});
+				}
 			}
 		},
 		dequeue: function(e) {
@@ -2325,7 +2353,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				if (i && n in I.attrFn) {
 					return I(e)[n](r);
 				} else {
-					return "undefined" == typeof e.getAttribute ? I.prop(e, n, r) : (s = 1 !== c || !I.isXMLDoc(e), s && (n = n.toLowerCase(), a = I.attrHooks[n] || (G.test(n) ? R : z)), r !== t ? null === r ? void I.removeAttr(e, n) : a && "set" in a && s && (o = a.set(e, r, n)) !== t ? o : (e.setAttribute(n, "" + r), r) : a && "get" in a && s && null !== (o = a.get(e, n)) ? o : (o = e.getAttribute(n), null === o ? t : o));
+					if ("undefined" == typeof e.getAttribute) {
+						return I.prop(e, n, r);
+					} else {
+						return (s = 1 !== c || !I.isXMLDoc(e), s && (n = n.toLowerCase(), a = I.attrHooks[n] || (G.test(n) ? R : z)), r !== t ? null === r ? void I.removeAttr(e, n) : a && "set" in a && s && (o = a.set(e, r, n)) !== t ? o : (e.setAttribute(n, "" + r), r) : a && "get" in a && s && null !== (o = a.get(e, n)) ? o : (o = e.getAttribute(n), null === o ? t : o));
+					}
 				}
 			}
 		},
@@ -2358,7 +2390,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					if (z && I.nodeName(e, "button")) {
 						return z.get(e, t);
 					} else {
-						return t in e ? e.value : null;
+						if (t in e) {
+							return e.value;
+						} else {
+							return null;
+						}
 					}
 				},
 				set: function(e, t, n) {
@@ -2392,9 +2428,17 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					(n = I.propFix[n] || n, o = I.propHooks[n])
 				}
 				if (r !== t) {
-					return o && "set" in o && (i = o.set(e, r, n)) !== t ? i : e[n] = r;
+					if (o && "set" in o && (i = o.set(e, r, n)) !== t) {
+						return i;
+					} else {
+						return e[n] = r;
+					}
 				} else {
-					return o && "get" in o && null !== (i = o.get(e, n)) ? i : e[n];
+					if (o && "get" in o && null !== (i = o.get(e, n))) {
+						return i;
+					} else {
+						return e[n];
+					}
 				}
 			}
 		},
@@ -2405,7 +2449,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					if (n && n.specified) {
 						return parseInt(n.value, 10);
 					} else {
-						return J.test(e.nodeName) || X.test(e.nodeName) && e.href ? 0 : t;
+						if (J.test(e.nodeName) || X.test(e.nodeName) && e.href) {
+							return 0;
+						} else {
+							return t;
+						}
 					}
 				}
 			}
@@ -3628,7 +3676,23 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						if (r == null) {
 							return "!=" === o;
 						} else {
-							return !o && d.attr ? null != r : "=" === o ? i === a : "*=" === o ? i.indexOf(a) >= 0 : "~=" === o ? (" " + i + " ").indexOf(a) >= 0 : a ? "!=" === o ? i !== a : "^=" === o ? 0 === i.indexOf(a) : "$=" === o ? i.substr(i.length - a.length) === a : "|=" === o ? i === a || i.substr(0, a.length + 1) === a + "-" : false : i && r !== false;
+							if (!o && d.attr) {
+								return null != r;
+							} else {
+								if ("=" === o) {
+									return i === a;
+								} else {
+									if ("*=" === o) {
+										return i.indexOf(a) >= 0;
+									} else {
+										if ("~=" === o) {
+											return (" " + i + " ").indexOf(a) >= 0;
+										} else {
+											return a ? "!=" === o ? i !== a : "^=" === o ? 0 === i.indexOf(a) : "$=" === o ? i.substr(i.length - a.length) === a : "|=" === o ? i === a || i.substr(0, a.length + 1) === a + "-" : false : i && r !== false;
+										}
+									}
+								}
+							}
 						}
 					},
 					POS: function(e, t, n, r) {
@@ -3679,7 +3743,19 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (e === t) {
 				return (s = true, 0);
 			} else {
-				return e.compareDocumentPosition && t.compareDocumentPosition ? 4 & e.compareDocumentPosition(t) ? -1 : 1 : e.compareDocumentPosition ? -1 : 1;
+				if (e.compareDocumentPosition && t.compareDocumentPosition) {
+					if (4 & e.compareDocumentPosition(t)) {
+						return -1;
+					} else {
+						return 1;
+					}
+				} else {
+					if (e.compareDocumentPosition) {
+						return -1;
+					} else {
+						return 1;
+					}
+				}
 			}
 		} : ($ = function(e, t) {
 			if (e === t) {
@@ -3737,7 +3813,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				if ("undefined" != typeof n.getElementById && !r) {
 					var i = n.getElementById(e[1]);
 					if (i) {
-						return i.id === e[1] || "undefined" != typeof i.getAttributeNode && i.getAttributeNode("id").nodeValue === e[1] ? [i] : t;
+						if (i.id === e[1] || "undefined" != typeof i.getAttributeNode && i.getAttributeNode("id").nodeValue === e[1]) {
+							return [i];
+						} else {
+							return t;
+						}
 					} else {
 						return [];
 					}
@@ -3972,9 +4052,17 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		},
 		index: function(e) {
 			if (e) {
-				return "string" == typeof e ? I.inArray(this[0], I(e)) : I.inArray(e.jquery ? e[0] : e, this);
+				if ("string" == typeof e) {
+					return I.inArray(this[0], I(e));
+				} else {
+					return I.inArray(e.jquery ? e[0] : e, this);
+				}
 			} else {
-				return this[0] && this[0].parentNode ? this.prevAll().length : -1;
+				if (this[0] && this[0].parentNode) {
+					return this.prevAll().length;
+				} else {
+					return -1;
+				}
 			}
 		},
 		add: function(e, t) {
@@ -4056,7 +4144,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				(e = ":not(" + e + ")")
 			}
 			if (1 === t.length) {
-				return I.find.matchesSelector(t[0], e) ? [t[0]] : [];
+				if (I.find.matchesSelector(t[0], e)) {
+					return [t[0]];
+				} else {
+					return [];
+				}
 			} else {
 				return I.find.matches(e, t);
 			}
@@ -4249,17 +4341,25 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		},
 		replaceWith: function(e) {
 			if (this[0] && this[0].parentNode) {
-				return I.isFunction(e) ? this.each(function(t) {
-					var n = I(this),
-						r = n.html();
-					n.replaceWith(e.call(this, t, r))
-				}) : ("string" != typeof e && (e = I(e).detach()), this.each(function() {
-					var t = this.nextSibling,
-						n = this.parentNode;
-					I(this).remove(), t ? I(t).before(e) : I(n).append(e)
-				}));
+				if (I.isFunction(e)) {
+					return this.each(function(t) {
+						var n = I(this),
+							r = n.html();
+						n.replaceWith(e.call(this, t, r))
+					});
+				} else {
+					return ("string" != typeof e && (e = I(e).detach()), this.each(function() {
+						var t = this.nextSibling,
+							n = this.parentNode;
+						I(this).remove(), t ? I(t).before(e) : I(n).append(e)
+					}));
+				}
 			} else {
-				return this.length ? this.pushStack(I(I.isFunction(e) ? e() : e), "replaceWith", e) : this;
+				if (this.length) {
+					return this.pushStack(I(I.isFunction(e) ? e() : e), "replaceWith", e);
+				} else {
+					return this;
+				}
 			}
 		},
 		detach: function(e) {
@@ -4523,7 +4623,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (o && "get" in o && (i = o.get(e, true, r)) !== t) {
 				return i;
 			} else {
-				return Nt ? Nt(e, n) : void 0;
+				if (Nt) {
+					return Nt(e, n);
+				} else {
+					return void 0;
+				}
 			}
 		},
 		swap: function(e, t, n) {
@@ -4564,9 +4668,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		I.cssHooks[t] = {
 			get: function(e, n, r) {
 				if (n) {
-					return 0 !== e.offsetWidth ? y(e, t, r) : I.swap(e, Ft, function() {
-						return y(e, t, r)
-					});
+					if (0 !== e.offsetWidth) {
+						return y(e, t, r);
+					} else {
+						return I.swap(e, Ft, function() {
+							return y(e, t, r)
+						});
+					}
 				} else {
 					return void 0;
 				}
@@ -4584,7 +4692,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (Mt.test((t && e.currentStyle ? e.currentStyle.filter : e.style.filter) || "")) {
 				return parseFloat(RegExp.$1) / 100 + "";
 			} else {
-				return t ? "1" : "";
+				if (t) {
+					return "1";
+				} else {
+					return "";
+				}
 			}
 		},
 		set: function(e, t) {
@@ -4713,15 +4825,19 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				if (n == null) {
 					return null;
 				} else {
-					return I.isArray(n) ? I.map(n, function(e) {
+					if (I.isArray(n)) {
+						return I.map(n, function(e) {
+							return {
+								name: t.name,
+								value: e.replace(Wt, "\r\n")
+							}
+						});
+					} else {
 						return {
 							name: t.name,
-							value: e.replace(Wt, "\r\n")
-						}
-					}) : {
-						name: t.name,
-						value: n.replace(Wt, "\r\n")
-					};
+							value: n.replace(Wt, "\r\n")
+						};
+					}
 				}
 			}).get()
 		}
@@ -5370,7 +5486,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 			var e, t = I.css(this.elem, this.prop);
 			if (isNaN(e = parseFloat(t))) {
-				return t && "auto" !== t ? t : 0;
+				if (t && "auto" !== t) {
+					return t;
+				} else {
+					return 0;
+				}
 			} else {
 				return e;
 			}
@@ -5537,7 +5657,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		var n = this[0],
 			r = n && n.ownerDocument;
 		if (r) {
-			return n === r.body ? I.offset.bodyOffset(n) : xn(n, r, r.documentElement);
+			if (n === r.body) {
+				return I.offset.bodyOffset(n);
+			} else {
+				return xn(n, r, r.documentElement);
+			}
 		} else {
 			return null;
 		}
@@ -5603,7 +5727,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			return I.access(this, function(e, i, o) {
 				var a = _(e);
 				if (o === t) {
-					return a ? n in a ? a[n] : I.support.boxModel && a.document.documentElement[i] || a.document.body[i] : e[i];
+					if (a) {
+						if (n in a) {
+							return a[n];
+						} else {
+							return I.support.boxModel && a.document.documentElement[i] || a.document.body[i];
+						}
+					} else {
+						return e[i];
+					}
 				} else {
 					return void(a ? a.scrollTo(r ? I(a).scrollLeft() : o, r ? o : I(a).scrollTop()) : e[i] = o);
 				}
@@ -5619,14 +5751,22 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		I.fn["inner" + e] = function() {
 			var e = this[0];
 			if (e) {
-				return e.style ? parseFloat(I.css(e, n, "padding")) : this[n]();
+				if (e.style) {
+					return parseFloat(I.css(e, n, "padding"));
+				} else {
+					return this[n]();
+				}
 			} else {
 				return null;
 			}
 		}, I.fn["outer" + e] = function(e) {
 			var t = this[0];
 			if (t) {
-				return t.style ? parseFloat(I.css(t, n, e ? "margin" : "border")) : this[n]();
+				if (t.style) {
+					return parseFloat(I.css(t, n, e ? "margin" : "border"));
+				} else {
+					return this[n]();
+				}
 			} else {
 				return null;
 			}
@@ -5636,7 +5776,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				if (I.isWindow(e)) {
 					return (s = e.document, c = s.documentElement[r], I.support.boxModel && c || s.body && s.body[r] || c);
 				} else {
-					return 9 === e.nodeType ? (s = e.documentElement, s[r] >= s[i] ? s[r] : Math.max(e.body[i], s[i], e.body[o], s[o])) : a === t ? (l = I.css(e, n), u = parseFloat(l), I.isNumeric(u) ? u : l) : void I(e).css(n, a);
+					if (9 === e.nodeType) {
+						return (s = e.documentElement, s[r] >= s[i] ? s[r] : Math.max(e.body[i], s[i], e.body[o], s[o]));
+					} else {
+						if (a === t) {
+							return (l = I.css(e, n), u = parseFloat(l), I.isNumeric(u) ? u : l);
+						} else {
+							return void I(e).css(n, a);
+						}
+					}
 				}
 			}, n, e, arguments.length, null)
 		}
@@ -5657,7 +5805,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					if ("function" == typeof e) {
 						return e.toString().replace(/ \{[\s\S]*$/, "");
 					} else {
-						return "undefined" == typeof e ? "undefined" : "string" != typeof e ? JSON.stringify(e) : e;
+						if ("undefined" == typeof e) {
+							return "undefined";
+						} else {
+							if ("string" != typeof e) {
+								return JSON.stringify(e);
+							} else {
+								return e;
+							}
+						}
 					}
 				};
 			for (t = i + o.replace(/\{\d+\}/g, function(e) {
@@ -5980,11 +6136,23 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		if (!T(t) || t instanceof RegExp) {
 			return t;
 		} else {
-			return n.length ? function() {
-				return arguments.length ? t.apply(e, n.concat(xr.call(arguments, 0))) : t.apply(e, n)
-			} : function() {
-				return arguments.length ? t.apply(e, arguments) : t.call(e)
-			};
+			if (n.length) {
+				return function() {
+					if (arguments.length) {
+						return t.apply(e, n.concat(xr.call(arguments, 0)));
+					} else {
+						return t.apply(e, n);
+					}
+				};
+			} else {
+				return function() {
+					if (arguments.length) {
+						return t.apply(e, arguments);
+					} else {
+						return t.call(e);
+					}
+				};
+			}
 		}
 	}
 
@@ -7674,7 +7842,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					if (0 !== n) {
 						return n;
 					} else {
-						return e.name !== t.name ? e.name < t.name ? -1 : 1 : e.index - t.index;
+						if (e.name !== t.name) {
+							if (e.name < t.name) {
+								return -1;
+							} else {
+								return 1;
+							}
+						} else {
+							return e.index - t.index;
+						}
 					}
 				}
 
@@ -8557,7 +8733,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if ((o = cn(e, i)) !== n) {
 				return (a = o, (o = cn(t, o)) !== n ? r + (cn("/", o) || o) : e + a);
 			} else {
-				return (o = cn(r, i)) !== n ? r + o : r == i + "/" ? r : void 0;
+				if ((o = cn(r, i)) !== n) {
+					return r + o;
+				} else {
+					if (r == i + "/") {
+						return r;
+					} else {
+						return void 0;
+					}
+				}
 			}
 		}
 	}
@@ -8603,7 +8787,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (e == ln(r)) {
 				return r;
 			} else {
-				return (i = cn(n, r)) ? e + t + i : n === r + "/" ? n : void 0;
+				if ((i = cn(n, r))) {
+					return e + t + i;
+				} else {
+					if (n === r + "/") {
+						return n;
+					} else {
+						return void 0;
+					}
+				}
 			}
 		}
 	}
@@ -8809,22 +9001,30 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		if (s.unwrapPromises) {
 			return function(s, c) {
 				var l, u = c && c.hasOwnProperty(e) ? c : s;
-				return u == null ? u : (u = u[e], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
-					l.$$v = e
-				})), u = u.$$v), t ? u == null ? n : (u = u[t], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
-					l.$$v = e
-				})), u = u.$$v), r ? u == null ? n : (u = u[r], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
-					l.$$v = e
-				})), u = u.$$v), i ? u == null ? n : (u = u[i], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
-					l.$$v = e
-				})), u = u.$$v), o ? u == null ? n : (u = u[o], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
-					l.$$v = e
-				})), u = u.$$v), u) : u) : u) : u) : u)
+				if (u == null) {
+					return u;
+				} else {
+					return (u = u[e], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
+						l.$$v = e
+					})), u = u.$$v), t ? u == null ? n : (u = u[t], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
+						l.$$v = e
+					})), u = u.$$v), r ? u == null ? n : (u = u[r], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
+						l.$$v = e
+					})), u = u.$$v), i ? u == null ? n : (u = u[i], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
+						l.$$v = e
+					})), u = u.$$v), o ? u == null ? n : (u = u[o], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
+						l.$$v = e
+					})), u = u.$$v), u) : u) : u) : u) : u);
+				}
 			};
 		} else {
 			return function(a, s) {
 				var c = s && s.hasOwnProperty(e) ? s : a;
-				return c == null ? c : (c = c[e], t ? c == null ? n : (c = c[t], r ? c == null ? n : (c = c[r], i ? c == null ? n : (c = c[i], o ? c == null ? n : c = c[o] : c) : c) : c) : c)
+				if (c == null) {
+					return c;
+				} else {
+					return (c = c[e], t ? c == null ? n : (c = c[t], r ? c == null ? n : (c = c[r], i ? c == null ? n : (c = c[i], o ? c == null ? n : c = c[o] : c) : c) : c) : c);
+				}
 			};
 		}
 	}
@@ -10216,7 +10416,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 			if (t = d(t), $(e)) {
 				if (t) {
-					return t >= 0 ? e.slice(0, t) : e.slice(t, e.length);
+					if (t >= 0) {
+						return e.slice(0, t);
+					} else {
+						return e.slice(t, e.length);
+					}
 				} else {
 					return "";
 				}
@@ -10262,7 +10466,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				if (r == n) {
 					return (n == "string" && (e = e.toLowerCase(), t = t.toLowerCase()), e === t ? 0 : t > e ? -1 : 1);
 				} else {
-					return r > n ? -1 : 1;
+					if (r > n) {
+						return -1;
+					} else {
+						return 1;
+					}
 				}
 			}
 			if (!x(t)) {
@@ -10706,11 +10914,19 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	var Nr = function() {
 		if (String.prototype.trim) {
 			return function(e) {
-				return $(e) ? e.trim() : e
+				if ($(e)) {
+					return e.trim();
+				} else {
+					return e;
+				}
 			};
 		} else {
 			return function(e) {
-				return $(e) ? e.replace(/^\s\s*/, "").replace(/\s\s*$/, "") : e
+				if ($(e)) {
+					return e.replace(/^\s\s*/, "").replace(/\s\s*$/, "");
+				} else {
+					return e;
+				}
 			};
 		}
 	}();
@@ -10882,7 +11098,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			function e(e, n) {
 				var r = t[e.nodeType];
 				if (v(n)) {
-					return r ? e[r] : "";
+					if (r) {
+						return e[r];
+					} else {
+						return "";
+					}
 				} else {
 					return void(e[r] = n);
 				}
@@ -11271,9 +11491,17 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				r = r(e, t);
 				i = i(e, t);
 				if (y(r)) {
-					return y(i) ? r + i : r;
+					if (y(i)) {
+						return r + i;
+					} else {
+						return r;
+					}
 				} else {
-					return y(i) ? i : n;
+					if (y(i)) {
+						return i;
+					} else {
+						return n;
+					}
 				}
 			},
 			"-": function(e, t, n, r) {
@@ -11747,7 +11975,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (this.expect("+")) {
 				return this.primary();
 			} else {
-				return (e = this.expect("-")) ? this.binaryFn(pi.ZERO, e.fn, this.unary()) : (e = this.expect("!")) ? this.unaryFn(e.fn, this.unary()) : this.primary();
+				if ((e = this.expect("-"))) {
+					return this.binaryFn(pi.ZERO, e.fn, this.unary());
+				} else {
+					if ((e = this.expect("!"))) {
+						return this.unaryFn(e.fn, this.unary());
+					} else {
+						return this.primary();
+					}
+				}
 			}
 		},
 		fieldAccess: function(e) {
@@ -15371,7 +15607,11 @@ window.Modernizr = function(e, t, n) {
 				if (r === false) {
 					return e[i];
 				} else {
-					return o(a, "function") ? a.bind(r || t) : a;
+					if (o(a, "function")) {
+						return a.bind(r || t);
+					} else {
+						return a;
+					}
 				}
 			}
 		}
@@ -16682,7 +16922,11 @@ angular.module("app.services.network", ["underscore", "app.services.comet"]).fac
 					if (t > e.latencyThreshold.unplayable) {
 						return e.latencyThreshold.unplayable;
 					} else {
-						return t > e.latencyThreshold.playableWithDifficulty ? e.latencyThreshold.playableWithDifficulty : e.latencyThreshold.playable;
+						if (t > e.latencyThreshold.playableWithDifficulty) {
+							return e.latencyThreshold.playableWithDifficulty;
+						} else {
+							return e.latencyThreshold.playable;
+						}
 					}
 				},
 				getLag: function() {
@@ -18005,7 +18249,11 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 
 	function v(e, n, r) {
 		if (e) {
-			return t == n || r ? e[0] : en.call(e, 0, n);
+			if (t == n || r) {
+				return e[0];
+			} else {
+				return en.call(e, 0, n);
+			}
 		} else {
 			return void 0;
 		}
@@ -18197,7 +18445,19 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 			if (r === t) {
 				return 1;
 			} else {
-				return i === t ? -1 : i > r ? -1 : r > i ? 1 : 0;
+				if (i === t) {
+					return -1;
+				} else {
+					if (i > r) {
+						return -1;
+					} else {
+						if (r > i) {
+							return 1;
+						} else {
+							return 0;
+						}
+					}
+				}
 			}
 		}); a--;) s[a] = s[a].value;
 		return s
@@ -18261,7 +18521,11 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 			return t();
 		} else {
 			return function() {
-				return --e < 1 ? t.apply(this, arguments) : void 0
+				if (--e < 1) {
+					return t.apply(this, arguments);
+				} else {
+					return void 0;
+				}
 			};
 		}
 	}
@@ -18426,7 +18690,11 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 
 	function K(e) {
 		if (zt[typeof e] && null !== e) {
-			return qn(e) ? e.slice() : An({}, e);
+			if (qn(e)) {
+				return e.slice();
+			} else {
+				return An({}, e);
+			}
 		} else {
 			return e;
 		}
@@ -18478,7 +18746,11 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 				if (e != +e) {
 					return n != +n;
 				} else {
-					return e == 0 ? 1 / e == 1 / n : e == +n;
+					if (e == 0) {
+						return 1 / e == 1 / n;
+					} else {
+						return e == +n;
+					}
 				}
 			case Bt:
 			case Ut:
@@ -19292,7 +19564,15 @@ var easings = {
 		if (1 / 2.75 > e) {
 			return 7.5625 * e * e;
 		} else {
-			return 2 / 2.75 > e ? 7.5625 * (e -= 1.5 / 2.75) * e + .75 : 2.5 / 2.75 > e ? 7.5625 * (e -= 2.25 / 2.75) * e + .9375 : 7.5625 * (e -= 2.625 / 2.75) * e + .984375;
+			if (2 / 2.75 > e) {
+				return 7.5625 * (e -= 1.5 / 2.75) * e + .75;
+			} else {
+				if (2.5 / 2.75 > e) {
+					return 7.5625 * (e -= 2.25 / 2.75) * e + .9375;
+				} else {
+					return 7.5625 * (e -= 2.625 / 2.75) * e + .984375;
+				}
+			}
 		}
 	},
 	easeInBack: function(e) {
@@ -19307,14 +19587,30 @@ var easings = {
 		if (1 / 2.75 > e) {
 			return 7.5625 * e * e;
 		} else {
-			return 2 / 2.75 > e ? 7.5625 * (e -= 1.5 / 2.75) * e + .75 : 2.5 / 2.75 > e ? 7.5625 * (e -= 2.25 / 2.75) * e + .9375 : 7.5625 * (e -= 2.625 / 2.75) * e + .984375;
+			if (2 / 2.75 > e) {
+				return 7.5625 * (e -= 1.5 / 2.75) * e + .75;
+			} else {
+				if (2.5 / 2.75 > e) {
+					return 7.5625 * (e -= 2.25 / 2.75) * e + .9375;
+				} else {
+					return 7.5625 * (e -= 2.625 / 2.75) * e + .984375;
+				}
+			}
 		}
 	},
 	bouncePast: function(e) {
 		if (1 / 2.75 > e) {
 			return 7.5625 * e * e;
 		} else {
-			return 2 / 2.75 > e ? 2 - (7.5625 * (e -= 1.5 / 2.75) * e + .75) : 2.5 / 2.75 > e ? 2 - (7.5625 * (e -= 2.25 / 2.75) * e + .9375) : 2 - (7.5625 * (e -= 2.625 / 2.75) * e + .984375);
+			if (2 / 2.75 > e) {
+				return 2 - (7.5625 * (e -= 1.5 / 2.75) * e + .75);
+			} else {
+				if (2.5 / 2.75 > e) {
+					return 2 - (7.5625 * (e -= 2.25 / 2.75) * e + .9375);
+				} else {
+					return 2 - (7.5625 * (e -= 2.625 / 2.75) * e + .984375);
+				}
+			}
 		}
 	},
 	swingTo: function(e) {
