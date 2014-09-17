@@ -1660,7 +1660,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					d = u ? e[c] : e[c] && c,
 					p = "events" === n;
 				if (d && f[d] && (p || i || f[d].data) || !l || r !== t) {
-					return d || (u ? e[c] = d = ++I.uuid : d = c), f[d] || (f[d] = {}, u || (f[d].toJSON = I.noop)), ("object" == typeof n || "function" == typeof n) && (i ? f[d] = I.extend(f[d], n) : f[d].data = I.extend(f[d].data, n)), o = a = f[d], i || (a.data || (a.data = {}), a = a.data), r !== t && (a[I.camelCase(n)] = r), p && !a[n] ? o.events : (l ? (s = a[n], s == null && (s = a[I.camelCase(n)])) : s = a, s);
+					d || (u ? e[c] = d = ++I.uuid : d = c);
+					f[d] || (f[d] = {}, u || (f[d].toJSON = I.noop));
+					("object" == typeof n || "function" == typeof n) && (i ? f[d] = I.extend(f[d], n) : f[d].data = I.extend(f[d].data, n));
+					o = a = f[d];
+					i || (a.data || (a.data = {}), a = a.data);
+					r !== t && (a[I.camelCase(n)] = r);
+					return p && !a[n] ? o.events : (l ? (s = a[n], s == null && (s = a[I.camelCase(n)])) : s = a, s);
 				}
 			}
 		},
@@ -4210,14 +4216,21 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				c = t.url,
 				l = t.data,
 				u = "$1" + a + "$2";
-			return t.jsonp !== false && (c = c.replace(fn, u), t.url === c && (i && (l = l.replace(fn, u)), t.data === l && (c += (/\?/.test(c) ? "&" : "?") + t.jsonp + "=" + a))), t.url = c, t.data = l, e[a] = function(e) {
+			t.jsonp !== false && (c = c.replace(fn, u), t.url === c && (i && (l = l.replace(fn, u)), t.data === l && (c += (/\?/.test(c) ? "&" : "?") + t.jsonp + "=" + a)));
+			t.url = c;
+			t.data = l;
+			e[a] = function(e) {
 				o = [e]
-			}, r.always(function() {
+			};
+			r.always(function() {
 				e[a] = s, o && I.isFunction(s) && e[a](o[0])
-			}), t.converters["script json"] = function() {
+			});
+			t.converters["script json"] = function() {
 				o || I.error(a + " was not called");
 				return o[0];
-			}, t.dataTypes[0] = "json", "script"
+			};
+			t.dataTypes[0] = "json";
+			return "script";
 		}
 	}), I.ajaxSetup({
 		accepts: {
@@ -6906,9 +6919,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 				var k = r("$http"),
 					C = [];
-				return o(c, function(e) {
+				o(c, function(e) {
 					C.unshift($(e) ? d.get(e) : d.invoke(e))
-				}), o(l, function(e, t) {
+				});
+				o(l, function(e, t) {
 					var n = $(e) ? d.get(e) : d.invoke(e);
 					C.splice(t, 0, {
 						response: function(e) {
@@ -6918,7 +6932,12 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							return n(u.reject(e))
 						}
 					})
-				}), p.pendingRequests = [], h("get", "delete", "head", "jsonp"), g("post", "put"), p.defaults = a, p
+				});
+				p.pendingRequests = [];
+				h("get", "delete", "head", "jsonp");
+				g("post", "put");
+				p.defaults = a;
+				return p;
 			}
 		]
 	}
@@ -11288,7 +11307,7 @@ org.cometd.WebSocketTransport = function() {
 		f = null,
 		d = false,
 		p = false;
-	return a.onOpen = function() {
+	a.onOpen = function() {
 		this._debug("Transport", this.getType(), "opened", f), d = true, c = true, this._debug("Sending pending messages", l);
 		for (var e in l) {
 			var n = l[e],
@@ -11296,7 +11315,8 @@ org.cometd.WebSocketTransport = function() {
 				o = n[1];
 			i = r.onSuccess, t.call(this, r, o)
 		}
-	}, a.onMessage = function(e) {
+	};
+	a.onMessage = function(e) {
 		this._debug("Transport", this.getType(), "received websocket message", e, f);
 		for (var t = false, n = this.convertToMessages(e.data), r = [], o = 0; o < n.length; ++o) {
 			var a = n[o];
@@ -11326,7 +11346,8 @@ org.cometd.WebSocketTransport = function() {
 			}
 		}
 		c && this._debug("Transport", this.getType(), "removed envelope, envelopes", l), i.call(this, n), t && f.close(1e3, "Disconnect")
-	}, a.onClose = function(e, t) {
+	};
+	a.onClose = function(e, t) {
 		this._debug("Transport", this.getType(), "closed", e, t, f), s = c;
 		for (var n in u) this.clearTimeout(u[n]);
 		u = {};
@@ -11336,11 +11357,14 @@ org.cometd.WebSocketTransport = function() {
 			o && (p = false), i.onFailure(f, i.messages, "closed " + e + "/" + t)
 		}
 		l = {}, null !== f && d && f.close(1e3, "Close"), d = false, f = null
-	}, a.registered = function(e, t) {
+	};
+	a.registered = function(e, t) {
 		o.registered(e, t), r = t
-	}, a.accept = function() {
+	};
+	a.accept = function() {
 		return s && !!org.cometd.WebSocket && r.websocketEnabled !== false
-	}, a.send = function(e, t) {
+	};
+	a.send = function(e, t) {
 		this._debug("Transport", this.getType(), "sending", e, "metaConnect =", t);
 		for (var r = [], i = 0; i < e.messages.length; ++i) {
 			var o = e.messages[i];
@@ -11349,16 +11373,19 @@ org.cometd.WebSocketTransport = function() {
 			}
 		}
 		l[r.join(",")] = [e, t], this._debug("Transport", this.getType(), "stored envelope, envelopes", l), n.call(this, e, t)
-	}, a.abort = function() {
+	};
+	a.abort = function() {
 		if (o.abort(), null !== f) try {
 			f.close(1001)
 		} catch (e) {
 			this._debug(e)
 		}
 		this.reset()
-	}, a.reset = function() {
+	};
+	a.reset = function() {
 		o.reset(), null !== f && d && f.close(1e3, "Reset"), s = true, c = false, u = {}, l = {}, f = null, d = false, i = null
-	}, a
+	};
+	return a;
 };
 org.cometd.CallbackPollingTransport = function() {
 	var e = new org.cometd.RequestTransport,
@@ -11511,34 +11538,41 @@ org.cometd.RequestTransport = function() {
 		l = null,
 		u = [],
 		f = [];
-	return s.complete = function(e, t, n) {
+	s.complete = function(e, t, n) {
 		if (n) {
 			r.call(this, e);
 		} else {
 			i.call(this, e, t);
 		}
-	}, s.transportSend = function() {
+	};
+	s.transportSend = function() {
 		throw "Abstract"
-	}, s.transportSuccess = function(e, t, n) {
+	};
+	s.transportSuccess = function(e, t, n) {
 		t.expired || (this.clearTimeout(t.timeout), this.complete(t, true, t.metaConnect), n && n.length > 0 ? e.onSuccess(n) : e.onFailure(t.xhr, e.messages, "Empty HTTP response"))
-	}, s.transportFailure = function(e, t, n, r) {
+	};
+	s.transportFailure = function(e, t, n, r) {
 		t.expired || (this.clearTimeout(t.timeout), this.complete(t, false, t.metaConnect), e.onFailure(t.xhr, e.messages, n, r))
-	}, s.send = function(e, t) {
+	};
+	s.send = function(e, t) {
 		if (t) {
 			o.call(this, e);
 		} else {
 			n.call(this, e);
 		}
-	}, s.abort = function() {
+	};
+	s.abort = function() {
 		a.abort();
 		for (var e = 0; e < u.length; ++e) {
 			var t = u[e];
 			this._debug("Aborting request", t), t.xhr && t.xhr.abort()
 		}
 		l && (this._debug("Aborting metaConnect request", l), l.xhr && l.xhr.abort()), this.reset()
-	}, s.reset = function() {
+	};
+	s.reset = function() {
 		a.reset(), l = null, u = [], f = []
-	}, s
+	};
+	return s;
 };
 org.cometd.TransportRegistry = function() {
 	var e = [],
@@ -13361,7 +13395,14 @@ window.Modernizr = function(e, t, n) {
 				f = u || t.createElement("body");
 			if (parseInt(r, 10))
 				for (; r--;) s = t.createElement("div"), s.id = i ? i[r] : v + (r + 1), l.appendChild(s);
-			return o = ["&#173;", '<style id="s', v, '">', e, "</style>"].join(""), l.id = v, (u ? l : f).innerHTML += o, f.appendChild(l), u || (f.style.background = "", f.style.overflow = "hidden", c = m.style.overflow, m.style.overflow = "hidden", m.appendChild(f)), a = n(l, e), u ? l.parentNode.removeChild(l) : (f.parentNode.removeChild(f), m.style.overflow = c), !!a
+			o = ["&#173;", '<style id="s', v, '">', e, "</style>"].join("");
+			l.id = v;
+			(u ? l : f).innerHTML += o;
+			f.appendChild(l);
+			u || (f.style.background = "", f.style.overflow = "hidden", c = m.style.overflow, m.style.overflow = "hidden", m.appendChild(f));
+			a = n(l, e);
+			u ? l.parentNode.removeChild(l) : (f.parentNode.removeChild(f), m.style.overflow = c);
+			return !!a;
 		},
 		O = function(t) {
 			var n = e.matchMedia || e.msMatchMedia;
@@ -14378,13 +14419,19 @@ angular.module("app.services.comet", ["app.services.config"]).factory("$comet", 
 		}
 		org.cometd.JSON = {}, org.cometd.JSON.toJSON = angular.toJson, org.cometd.JSON.fromJSON = angular.fromJson;
 		var o = new org.cometd.Cometd("comet-service");
-		return org.cometd.WebSocket && o.registerTransport("websocket", new org.cometd.WebSocketTransport), o.registerTransport("long-polling", new i), navigator.userAgent.match(/android(?!.*(chrome|firefox))/i) && o.unregisterTransport("websocket"), t.onbeforeunload = function() {
+		org.cometd.WebSocket && o.registerTransport("websocket", new org.cometd.WebSocketTransport);
+		o.registerTransport("long-polling", new i);
+		navigator.userAgent.match(/android(?!.*(chrome|firefox))/i) && o.unregisterTransport("websocket");
+		t.onbeforeunload = function() {
 			o.isDisconnected() || o.disconnect(true)
-		}, t.opera && (t.onunload = t.onbeforeunload), o.configure({
+		};
+		t.opera && (t.onunload = t.onbeforeunload);
+		o.configure({
 			url: e.comet.protocol + e.comet.server + e.comet.contextPath + "/cometd",
 			logLevel: e.comet.logLevel,
 			maxNetworkDelay: 4e4
-		}), o
+		});
+		return o;
 	}
 ]);
 angular.module("app.services.comet-ack", ["app.services.config", "app.services.comet"]).factory("$comet-ack", ["$config", "$log", "$comet",
@@ -16194,7 +16241,19 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 			l = r.evaluate,
 			p = r.interpolate,
 			h = r.variable;
-		return c == null && (c = s.escape), l == null && (l = s.evaluate), p == null && (p = s.interpolate), c && (e = e.replace(c, u)), p && (e = e.replace(p, f)), l && (e = e.replace(l, d)), e = "__p='" + e.replace(qt, a).replace(jt, o) + "';\n", Dt.length = 0, h || (h = s.variable, e = "with (" + h + " || {}) {\n" + e + "\n}\n"), e = "function(" + h + ") {\nvar __p, __t, __j = Array.prototype.join;\nfunction print() { __p += __j.call(arguments, '') }\n" + e + "return __p\n}", Lt && (e += "\n//@ sourceURL=/lodash/template/source[" + Ot+++"]"), i = Function("_", "return " + e)(n), t ? i(t) : (i.source = e, i)
+		c == null && (c = s.escape);
+		l == null && (l = s.evaluate);
+		p == null && (p = s.interpolate);
+		c && (e = e.replace(c, u));
+		p && (e = e.replace(p, f));
+		l && (e = e.replace(l, d));
+		e = "__p='" + e.replace(qt, a).replace(jt, o) + "';\n";
+		Dt.length = 0;
+		h || (h = s.variable, e = "with (" + h + " || {}) {\n" + e + "\n}\n");
+		e = "function(" + h + ") {\nvar __p, __t, __j = Array.prototype.join;\nfunction print() { __p += __j.call(arguments, '') }\n" + e + "return __p\n}";
+		Lt && (e += "\n//@ sourceURL=/lodash/template/source[" + Ot+++"]");
+		i = Function("_", "return " + e)(n);
+		return t ? i(t) : (i.source = e, i);
 	}
 
 	function $t(e, t, n) {
@@ -16723,7 +16782,14 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 		k = e > 1e12 != w() > 1e12
 	});
 	var L = [];
-	return m.tween = f, m.getStyle = I, m.bezier = d, m.transform = M, m.parseTransform = i, m.formatTransform = o, m.easings = {}, m
+	m.tween = f;
+	m.getStyle = I;
+	m.bezier = d;
+	m.transform = M;
+	m.parseTransform = i;
+	m.formatTransform = o;
+	m.easings = {};
+	return m;
 });
 var easings = {
 	easeOut: function(e) {
