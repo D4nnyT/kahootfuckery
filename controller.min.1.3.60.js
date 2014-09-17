@@ -15000,13 +15000,11 @@ angular.module("app.services.config", ["ng"]).factory("$config", ["$location", "
 				s = t.stage;
 			} else {
 				if (o.test(e.host())) {
-					s = t.prod;
+					s = t.prod;;
+				} else if (n.test(e.host())) {
+					s = t.advdev;;
 				} else {
-					if (n.test(e.host())) {
-						s = t.advdev;
-					} else {
-						a.test(e.host()) && (s = t.devnoproxy || t.dev);
-					}
+					a.test(e.host()) && (s = t.devnoproxy || t.dev);;
 				};
 			}
 			return "string" == typeof s || s instanceof String ? s.replace(/^proto:/, e.protocol() + ":") : s;
