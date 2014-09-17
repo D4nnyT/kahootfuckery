@@ -46,7 +46,7 @@ function GameCtrl(e, t, n, r, i, o, a) {
 				userDismissable: true
 			});
 		}
-		e.handshakeWitnessed = !1;
+		e.handshakeWitnessed = false;
 		e.$broadcast("dismissAlert", {
 			key: "blankGameId"
 		});
@@ -58,8 +58,8 @@ function GameCtrl(e, t, n, r, i, o, a) {
 				key: "handshakeFailure",
 				message: e.siteAppContent.errors["quiz-connection"],
 				alertType: "error",
-				autoDismiss: !1,
-				userDismissable: !1
+				autoDismiss: false,
+				userDismissable: false
 			})
 		});
 		e.$on("handshakeSuccess", function() {
@@ -220,12 +220,12 @@ function AnswerCtrl(e, t, n, r, i, o, a, s) {
 		};
 		e.quizQuestionAnswers = t.quizQuestionAnswers[t.qIdx];
 		e.showAnswer = function(t) {
-			return t + 1 > e.quizQuestionAnswers ? !1 : true
+			return t + 1 > e.quizQuestionAnswers ? false : true
 		};
 		e.selectAnswer = function(i) {
 			if (e.uiEnabled) {
 				n.log("Selected answer: " + i);
-				e.uiEnabled = !1;
+				e.uiEnabled = false;
 				e.selectedAnswer = i;
 				e.statusMessage = t.siteAppContent.info["waiting-other-answers"];
 				e.$$phase || e.$apply();
@@ -266,7 +266,7 @@ function AnswerCtrl(e, t, n, r, i, o, a, s) {
 			return e.correct ? "correct" : "incorrect"
 		};
 		e.$on("timeUp", function() {
-			null === e.selectedAnswer && (e.timeUp = true, e.uiEnabled = !1, e.$$phase || e.$apply())
+			null === e.selectedAnswer && (e.timeUp = true, e.uiEnabled = false, e.$$phase || e.$apply())
 		});
 		e.$on("revealAnswer", function(n, a) {
 			var c = "";
@@ -277,7 +277,7 @@ function AnswerCtrl(e, t, n, r, i, o, a, s) {
 				e.resultMessage = "Correct!";
 				c = a.points + " Kahoots for you.";
 			} else {
-				e.correct = !1;
+				e.correct = false;
 				e.resultMessage = e.timeUp ? "Time Up!" : "Wrong!";
 				i.each(a.correctAnswers, function(e, t) {
 					if (t > 0)
@@ -314,7 +314,7 @@ function FeedbackCtrl(e, t, n, r, i, o, a) {
 		e.statusBarTitle = e.siteAppContent.info["game-pin"] + e.gameId;
 		e.feedback = {};
 		e.feedback.totalScore = t.totalScore;
-		e.submitted = !1;
+		e.submitted = false;
 		e.feedbackResponse = function() {
 			var t = {};
 			switch (e.feedback.overall) {
@@ -383,7 +383,7 @@ function FeedbackCtrl(e, t, n, r, i, o, a) {
 function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	function c() {
 		var t = {};
-		1 == e.result.rank ? (t.winner = true, t.position = "I won") : (t.winner = !1, t.position = "I finished " + e.result.rank + n.ordinal(e.result.rank));
+		1 == e.result.rank ? (t.winner = true, t.position = "I won") : (t.winner = false, t.position = "I finished " + e.result.rank + n.ordinal(e.result.rank));
 		t.score = e.result.totalScore + " Kahoots";
 		t.kahoots = e.result.totalScore;
 		t.quiz = e.quizName;
@@ -466,7 +466,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					dataType: "json",
 					contentType: "application/json",
 					crossDomain: true,
-					async: !1,
+					async: false,
 					data: angular.toJson({
 						longUrl: t.quizurl
 					})
@@ -501,7 +501,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			var i = "data-" + n.replace(F, "-$1").toLowerCase();
 			if (r = e.getAttribute(i), "string" == typeof r) {
 				try {
-					r = "true" === r ? true : "false" === r ? !1 : "null" === r ? null : I.isNumeric(r) ? +r : P.test(r) ? I.parseJSON(r) : r
+					r = "true" === r ? true : "false" === r ? false : "null" === r ? null : I.isNumeric(r) ? +r : P.test(r) ? I.parseJSON(r) : r
 				} catch (o) {}
 				I.data(e, n, r)
 			} else r = t
@@ -511,7 +511,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
 	function i(e) {
 		for (var t in e)
-			if (("data" !== t || !I.isEmptyObject(e[t])) && "toJSON" !== t) return !1;
+			if (("data" !== t || !I.isEmptyObject(e[t])) && "toJSON" !== t) return false;
 		return true;
 	}
 
@@ -526,7 +526,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}
 
 	function a() {
-		return !1
+		return false
 	}
 
 	function s() {
@@ -739,7 +739,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}
 
 	function _(e) {
-		return I.isWindow(e) ? e : 9 === e.nodeType ? e.defaultView || e.parentWindow : !1
+		return I.isWindow(e) ? e : 9 === e.nodeType ? e.defaultView || e.parentWindow : false
 	}
 	var q = e.document,
 		M = e.navigator,
@@ -853,16 +853,16 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				var e, n, r, i, o, a, c = arguments[0] || {},
 					l = 1,
 					u = arguments.length,
-					f = !1;
+					f = false;
 				for ("boolean" == typeof c && (f = c, c = arguments[1] || {}, l = 2), "object" == typeof c || s.isFunction(c) || (c = {}), u === l && (c = this, --l); u > l; l++)
 					if (null != (e = arguments[l]))
-						for (n in e) r = c[n], i = e[n], c !== i && (f && i && (s.isPlainObject(i) || (o = s.isArray(i))) ? (o ? (o = !1, a = r && s.isArray(r) ? r : []) : a = r && s.isPlainObject(r) ? r : {}, c[n] = s.extend(f, a, i)) : i !== t && (c[n] = i));
+						for (n in e) r = c[n], i = e[n], c !== i && (f && i && (s.isPlainObject(i) || (o = s.isArray(i))) ? (o ? (o = false, a = r && s.isArray(r) ? r : []) : a = r && s.isPlainObject(r) ? r : {}, c[n] = s.extend(f, a, i)) : i !== t && (c[n] = i));
 				return c
 			}, s.extend({
 				noConflict: function(t) {
 					return e.$ === s && (e.$ = l), t && e.jQuery === s && (e.jQuery = c), s
 				},
-				isReady: !1,
+				isReady: false,
 				readyWait: 1,
 				holdReady: function(e) {
 					e ? s.readyWait++ : s.ready(true)
@@ -877,10 +877,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				bindReady: function() {
 					if (!o) {
 						if (o = s.Callbacks("once memory"), "complete" === q.readyState) return setTimeout(s.ready, 1);
-						if (q.addEventListener) q.addEventListener("DOMContentLoaded", a, !1), e.addEventListener("load", s.ready, !1);
+						if (q.addEventListener) q.addEventListener("DOMContentLoaded", a, false), e.addEventListener("load", s.ready, false);
 						else if (q.attachEvent) {
 							q.attachEvent("onreadystatechange", a), e.attachEvent("onload", s.ready);
-							var t = !1;
+							var t = false;
 							try {
 								t = null == e.frameElement
 							} catch (r) {}
@@ -904,18 +904,18 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					return null == e ? String(e) : I[A.call(e)] || "object"
 				},
 				isPlainObject: function(e) {
-					if (!e || "object" !== s.type(e) || e.nodeType || s.isWindow(e)) return !1;
+					if (!e || "object" !== s.type(e) || e.nodeType || s.isWindow(e)) return false;
 					try {
-						if (e.constructor && !E.call(e, "constructor") && !E.call(e.constructor.prototype, "isPrototypeOf")) return !1
+						if (e.constructor && !E.call(e, "constructor") && !E.call(e.constructor.prototype, "isPrototypeOf")) return false;
 					} catch (n) {
-						return !1
+						return false;
 					}
 					var r;
 					for (r in e);
 					return r === t || E.call(e, r)
 				},
 				isEmptyObject: function(e) {
-					for (var t in e) return !1;
+					for (var t in e) return false;
 					return true
 				},
 				error: function(e) {
@@ -953,14 +953,14 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					if (r)
 						if (c) {
 							for (i in e)
-								if (n.apply(e[i], r) === !1) break
+								if (n.apply(e[i], r) === false) break
 						} else
-							for (; a > o && n.apply(e[o++], r) !== !1;);
+							for (; a > o && n.apply(e[o++], r) !== false;);
 					else if (c) {
 						for (i in e)
-							if (n.call(e[i], i, e[i]) === !1) break
+							if (n.call(e[i], i, e[i]) === false) break
 					} else
-						for (; a > o && n.call(e[o], o, e[o++]) !== !1;);
+						for (; a > o && n.call(e[o], o, e[o++]) !== false;);
 					return e
 				},
 				trim: _ ? function(e) {
@@ -1065,7 +1065,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}), s.each("Boolean Number String Function Array Date RegExp Object".split(" "), function(e, t) {
 				I["[object " + t + "]"] = t.toLowerCase()
 			}), i = s.uaMatch(S), i.browser && (s.browser[i.browser] = true, s.browser.version = i.version), s.browser.webkit && (s.browser.safari = true), f.test(" ") && (d = /^[\s\xA0]+/, p = /[\s\xA0]+$/), r = s(q), q.addEventListener ? a = function() {
-				q.removeEventListener("DOMContentLoaded", a, !1), s.ready()
+				q.removeEventListener("DOMContentLoaded", a, false), s.ready()
 			} : q.attachEvent && (a = function() {
 				"complete" === q.readyState && (q.detachEvent("onreadystatechange", a), s.ready())
 			}), s
@@ -1081,11 +1081,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			},
 			d = function(t, n) {
 				for (n = n || [], r = !e.memory || [t, n], i = true, o = true, c = a || 0, a = 0, s = l.length; l && s > c; c++)
-					if (l[c].apply(t, n) === !1 && e.stopOnFalse) {
+					if (l[c].apply(t, n) === false && e.stopOnFalse) {
 						r = true;
 						break
 					}
-				o = !1, l && (e.once ? r === true ? p.disable() : l = [] : u && u.length && (r = u.shift(), p.fireWith(r[0], r[1])))
+				o = false, l && (e.once ? r === true ? p.disable() : l = [] : u && u.length && (r = u.shift(), p.fireWith(r[0], r[1])))
 			},
 			p = {
 				add: function() {
@@ -1105,7 +1105,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					if (l)
 						for (var t = 0, n = l.length; n > t; t++)
 							if (e === l[t]) return true;
-					return !1
+					return false
 				},
 				empty: function() {
 					return l = [], this
@@ -1237,21 +1237,21 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			html5Clone: "<:nav></:nav>" !== q.createElement("nav").cloneNode(true).outerHTML,
 			submitBubbles: true,
 			changeBubbles: true,
-			focusinBubbles: !1,
+			focusinBubbles: false,
 			deleteExpando: true,
 			noCloneEvent: true,
-			inlineBlockNeedsLayout: !1,
-			shrinkWrapBlocks: !1,
+			inlineBlockNeedsLayout: false,
+			shrinkWrapBlocks: false,
 			reliableMarginRight: true,
 			pixelMargin: true
 		}, I.boxModel = t.boxModel = "CSS1Compat" === q.compatMode, a.checked = true, t.noCloneChecked = a.cloneNode(true).checked, i.disabled = true, t.optDisabled = !o.disabled;
 		try {
 			delete d.test
 		} catch (p) {
-			t.deleteExpando = !1
+			t.deleteExpando = false
 		}
 		if (!d.addEventListener && d.attachEvent && d.fireEvent && (d.attachEvent("onclick", function() {
-			t.noCloneEvent = !1
+			t.noCloneEvent = false
 		}), d.cloneNode(true).fireEvent("onclick")), a = q.createElement("input"), a.value = "t", a.setAttribute("type", "radio"), t.radioValue = "t" === a.value, a.setAttribute("checked", "checked"), a.setAttribute("name", "t"), d.appendChild(a), s = q.createDocumentFragment(), s.appendChild(d.lastChild), t.checkClone = s.cloneNode(true).cloneNode(true).lastChild.checked, t.appendChecked = a.checked, s.removeChild(a), s.appendChild(d), d.attachEvent)
 			for (u in {
 				submit: 1,
@@ -1467,13 +1467,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			} : function() {
 				if ("string" === n)
 					for (var i, o = 0, a = I(this), s = t, c = e.split(U); i = c[o++];) s = r ? s : !a.hasClass(i), a[s ? "addClass" : "removeClass"](i);
-				else("undefined" === n || "boolean" === n) && (this.className && I._data(this, "__className__", this.className), this.className = this.className || e === !1 ? "" : I._data(this, "__className__") || "")
+				else("undefined" === n || "boolean" === n) && (this.className && I._data(this, "__className__", this.className), this.className = this.className || e === false ? "" : I._data(this, "__className__") || "")
 			})
 		},
 		hasClass: function(e) {
 			for (var t = " " + e + " ", n = 0, r = this.length; r > n; n++)
 				if (1 === this[n].nodeType && (" " + this[n].className + " ").replace(B, " ").indexOf(t) > -1) return true;
-			return !1
+			return false
 		},
 		val: function(e) {
 			var n, r, i, o = this[0]; {
@@ -1583,11 +1583,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}), I.attrHooks.tabindex = I.propHooks.tabIndex, R = {
 		get: function(e, n) {
 			var r, i = I.prop(e, n);
-			return i === true || "boolean" != typeof i && (r = e.getAttributeNode(n)) && r.nodeValue !== !1 ? n.toLowerCase() : t
+			return i === true || "boolean" != typeof i && (r = e.getAttributeNode(n)) && r.nodeValue !== false ? n.toLowerCase() : t
 		},
 		set: function(e, t, n) {
 			var r;
-			return t === !1 ? I.removeAttr(e, n) : (r = I.propFix[n] || n, r in e && (e[r] = true), e.setAttribute(n, n.toLowerCase())), n
+			return t === false ? I.removeAttr(e, n) : (r = I.propFix[n] || n, r in e && (e[r] = true), e.setAttribute(n, n.toLowerCase())), n
 		}
 	}, K || (H = {
 		name: true,
@@ -1678,7 +1678,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					selector: o,
 					quick: o && it(o),
 					namespace: d.join(".")
-				}, h), g = c[f], g || (g = c[f] = [], g.delegateCount = 0, m.setup && m.setup.call(e, i, d, s) !== !1 || (e.addEventListener ? e.addEventListener(f, s, !1) : e.attachEvent && e.attachEvent("on" + f, s))), m.add && (m.add.call(e, p), p.handler.guid || (p.handler.guid = r.guid)), o ? g.splice(g.delegateCount++, 0, p) : g.push(p), I.event.global[f] = true;
+				}, h), g = c[f], g || (g = c[f] = [], g.delegateCount = 0, m.setup && m.setup.call(e, i, d, s) !== false || (e.addEventListener ? e.addEventListener(f, s, !1) : e.attachEvent && e.attachEvent("on" + f, s))), m.add && (m.add.call(e, p), p.handler.guid || (p.handler.guid = r.guid)), o ? g.splice(g.delegateCount++, 0, p) : g.push(p), I.event.global[f] = true;
 				e = null
 			}
 		},
@@ -1689,7 +1689,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				for (t = I.trim(at(t || "")).split(" "), o = 0; o < t.length; o++)
 					if (a = Y.exec(t[o]) || [], s = c = a[1], l = a[2], s) {
 						for (p = I.event.special[s] || {}, s = (r ? p.delegateType : p.bindType) || s, g = d[s] || [], u = g.length, l = l ? new RegExp("(^|\\.)" + l.split(".").sort().join("\\.(?:.*\\.)?") + "(\\.|$)") : null, f = 0; f < g.length; f++) m = g[f], !i && c !== m.origType || n && n.guid !== m.guid || l && !l.test(m.namespace) || r && r !== m.selector && ("**" !== r || !m.selector) || (g.splice(f--, 1), m.selector && g.delegateCount--, p.remove && p.remove.call(e, m));
-						0 === g.length && u !== g.length && (p.teardown && p.teardown.call(e, l) !== !1 || I.removeEvent(e, s, v.handle), delete d[s])
+						0 === g.length && u !== g.length && (p.teardown && p.teardown.call(e, l) !== false || I.removeEvent(e, s, v.handle), delete d[s])
 					} else
 						for (s in d) I.event.remove(e, s + t[o], n, r, true);
 				I.isEmptyObject(d) && (h = v.handle, h && (h.elem = null), I.removeData(e, ["events", "handle"], true))
@@ -1713,8 +1713,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								for (g = d.delegateType || m, l = nt.test(g + m) ? i : i.parentNode, u = null; l; l = l.parentNode) h.push([l, g]), u = l;
 								u && u === i.ownerDocument && h.push([u.defaultView || u.parentWindow || e, g])
 							}
-							for (c = 0; c < h.length && !n.isPropagationStopped(); c++) l = h[c][0], n.type = h[c][1], p = (I._data(l, "events") || {})[n.type] && I._data(l, "handle"), p && p.apply(l, r), p = f && l[f], p && I.acceptData(l) && p.apply(l, r) === !1 && n.preventDefault();
-							return n.type = m, o || n.isDefaultPrevented() || d._default && d._default.apply(i.ownerDocument, r) !== !1 || "click" === m && I.nodeName(i, "a") || !I.acceptData(i) || f && i[m] && ("focus" !== m && "blur" !== m || 0 !== n.target.offsetWidth) && !I.isWindow(i) && (u = i[f], u && (i[f] = null), I.event.triggered = m, i[m](), I.event.triggered = t, u && (i[f] = u)), n.result
+							for (c = 0; c < h.length && !n.isPropagationStopped(); c++) l = h[c][0], n.type = h[c][1], p = (I._data(l, "events") || {})[n.type] && I._data(l, "handle"), p && p.apply(l, r), p = f && l[f], p && I.acceptData(l) && p.apply(l, r) === false && n.preventDefault();
+							return n.type = m, o || n.isDefaultPrevented() || d._default && d._default.apply(i.ownerDocument, r) !== false || "click" === m && I.nodeName(i, "a") || !I.acceptData(i) || f && i[m] && ("focus" !== m && "blur" !== m || 0 !== n.target.offsetWidth) && !I.isWindow(i) && (u = i[f], u && (i[f] = null), I.event.triggered = m, i[m](), I.event.triggered = t, u && (i[f] = u)), n.result
 						}
 					} else {
 						a = I.cache;
@@ -1744,7 +1744,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					elem: this,
 					matches: p.slice(h)
 				}), r = 0; r < y.length && !n.isPropagationStopped(); r++)
-					for (l = y[r], n.currentTarget = l.elem, i = 0; i < l.matches.length && !n.isImmediatePropagationStopped(); i++) f = l.matches[i], (m || !n.namespace && !f.namespace || n.namespace_re && n.namespace_re.test(f.namespace)) && (n.data = f.data, n.handleObj = f, s = ((I.event.special[f.origType] || {}).handle || f.handler).apply(l.elem, g), s !== t && (n.result = s, s === !1 && (n.preventDefault(), n.stopPropagation())));
+					for (l = y[r], n.currentTarget = l.elem, i = 0; i < l.matches.length && !n.isImmediatePropagationStopped(); i++) f = l.matches[i], (m || !n.namespace && !f.namespace || n.namespace_re && n.namespace_re.test(f.namespace)) && (n.data = f.data, n.handleObj = f, s = ((I.event.special[f.origType] || {}).handle || f.handler).apply(l.elem, g), s !== t && (n.result = s, s === false && (n.preventDefault(), n.stopPropagation())));
 				return v.postDispatch && v.postDispatch.call(this, n), n.result
 			}
 		},
@@ -1807,7 +1807,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	} : function(e, t, n) {
 		e.detachEvent && e.detachEvent("on" + t, n)
 	}, I.Event = function(e, t) {
-		return this instanceof I.Event ? (e && e.type ? (this.originalEvent = e, this.type = e.type, this.isDefaultPrevented = e.defaultPrevented || e.returnValue === !1 || e.getPreventDefault && e.getPreventDefault() ? s : a) : this.type = e, t && I.extend(this, t), this.timeStamp = e && e.timeStamp || I.now(), void(this[I.expando] = true)) : new I.Event(e, t)
+		return this instanceof I.Event ? (e && e.type ? (this.originalEvent = e, this.type = e.type, this.isDefaultPrevented = e.defaultPrevented || e.returnValue === false || e.getPreventDefault && e.getPreventDefault() ? s : a) : this.type = e, t && I.extend(this, t), this.timeStamp = e && e.timeStamp || I.now(), void(this[I.expando] = true)) : new I.Event(e, t)
 	}, I.Event.prototype = {
 		preventDefault: function() {
 			this.isDefaultPrevented = s;
@@ -1844,7 +1844,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		}
 	}), I.support.submitBubbles || (I.event.special.submit = {
 		setup: function() {
-			return I.nodeName(this, "form") ? !1 : void I.event.add(this, "click._submit keypress._submit", function(e) {
+			return I.nodeName(this, "form") ? false : void I.event.add(this, "click._submit keypress._submit", function(e) {
 				var n = e.target,
 					r = I.nodeName(n, "input") || I.nodeName(n, "button") ? n.form : t;
 				r && !r._submit_attached && (I.event.add(r, "submit._submit", function(e) {
@@ -1856,14 +1856,14 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			e._submit_bubble && (delete e._submit_bubble, this.parentNode && !e.isTrigger && I.event.simulate("submit", this.parentNode, e, true))
 		},
 		teardown: function() {
-			return I.nodeName(this, "form") ? !1 : void I.event.remove(this, "._submit")
+			return I.nodeName(this, "form") ? false : void I.event.remove(this, "._submit")
 		}
 	}), I.support.changeBubbles || (I.event.special.change = {
 		setup: function() {
 			return Q.test(this.nodeName) ? (("checkbox" === this.type || "radio" === this.type) && (I.event.add(this, "propertychange._change", function(e) {
 				"checked" === e.originalEvent.propertyName && (this._just_changed = true)
 			}), I.event.add(this, "click._change", function(e) {
-				this._just_changed && !e.isTrigger && (this._just_changed = !1, I.event.simulate("change", this, e, true))
+				this._just_changed && !e.isTrigger && (this._just_changed = false, I.event.simulate("change", this, e, true))
 			})), !1) : void I.event.add(this, "beforeactivate._change", function(e) {
 				var t = e.target;
 				Q.test(t.nodeName) && !t._change_attached && (I.event.add(t, "change._change", function(e) {
@@ -1922,7 +1922,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				for (var o in e) this.off(o, n, e[o]);
 				return this
 			}
-			return (n === !1 || "function" == typeof n) && (r = n, n = t), r === !1 && (r = a), this.each(function() {
+			return (n === false || "function" == typeof n) && (r = n, n = t), r === false && (r = a), this.each(function() {
 				I.event.remove(this, e, r, n)
 			})
 		},
@@ -1958,7 +1958,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				r = 0,
 				i = function(n) {
 					var i = (I._data(this, "lastToggle" + e.guid) || 0) % r;
-					return I._data(this, "lastToggle" + e.guid, i + 1), n.preventDefault(), t[i].apply(this, arguments) || !1
+					return I._data(this, "lastToggle" + e.guid, i + 1), n.preventDefault(), t[i].apply(this, arguments) || false
 				};
 			for (i.guid = n; r < t.length;) t[r++].guid = n;
 			return this.click(i)
@@ -1976,7 +1976,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			for (var s = 0, c = r.length; c > s; s++) {
 				var l = r[s];
 				if (l) {
-					var u = !1;
+					var u = false;
 					for (l = l[e]; l;) {
 						if (l[i] === n) {
 							u = r[l.sizset];
@@ -1997,7 +1997,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			for (var s = 0, c = r.length; c > s; s++) {
 				var l = r[s];
 				if (l) {
-					var u = !1;
+					var u = false;
 					for (l = l[e]; l;) {
 						if (l[i] === n) {
 							u = r[l.sizset];
@@ -2023,13 +2023,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			i = "sizcache" + (Math.random() + "").replace(".", ""),
 			o = 0,
 			a = Object.prototype.toString,
-			s = !1,
+			s = false,
 			c = true,
 			l = /\\/g,
 			u = /\r\n/g,
 			f = /\W/;
 		[0, 0].sort(function() {
-			return c = !1, 0
+			return c = false, 0
 		});
 		var d = function(e, t, n, i) {
 			n = n || [], t = t || q;
@@ -2089,13 +2089,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			for (var o, a, s, c, l, u, f, p, g, m = e, v = [], y = n, b = n && n[0] && d.isXML(n[0]); e && n.length;) {
 				for (s in h.filter)
 					if (null != (o = h.leftMatch[s].exec(e)) && o[2]) {
-						if (u = h.filter[s], f = o[1], a = !1, o.splice(1, 1), "\\" === f.substr(f.length - 1)) continue;
+						if (u = h.filter[s], f = o[1], a = false, o.splice(1, 1), "\\" === f.substr(f.length - 1)) continue;
 						if (y === v && (v = []), h.preFilter[s])
 							if (o = h.preFilter[s](o, y, r, v, i, b)) {
 								if (o === true) continue
 							} else a = c = true;
 						if (o)
-							for (p = 0; null != (l = y[p]); p++) l && (c = u(l, o, p, y), g = i ^ c, r && null != c ? g ? a = true : y[p] = !1 : g && (v.push(l), a = true));
+							for (p = 0; null != (l = y[p]); p++) l && (c = u(l, o, p, y), g = i ^ c, r && null != c ? g ? a = true : y[p] = false : g && (v.push(l), a = true));
 						if (c !== t) {
 							if (r || (y = v), e = e.replace(h.match[s], ""), !a) return [];
 							break
@@ -2159,7 +2159,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							if (o = e[a]) {
 								for (;
 									(o = o.previousSibling) && 1 !== o.nodeType;);
-								e[a] = i || o && o.nodeName.toLowerCase() === t ? o || !1 : o === t
+								e[a] = i || o && o.nodeName.toLowerCase() === t ? o || false : o === t
 							}
 						i && d.filter(t, e, true)
 					},
@@ -2171,7 +2171,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							for (t = t.toLowerCase(); o > i; i++)
 								if (n = e[i]) {
 									var a = n.parentNode;
-									e[i] = a.nodeName.toLowerCase() === t ? a : !1
+									e[i] = a.nodeName.toLowerCase() === t ? a : false
 								}
 						} else {
 							for (; o > i; i++) n = e[i], n && (e[i] = r ? n.parentNode : n.parentNode === t);
@@ -2210,7 +2210,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					CLASS: function(e, t, n, r, i, o) {
 						if (e = " " + e[1].replace(l, "") + " ", o) return e;
 						for (var a, s = 0; null != (a = t[s]); s++) a && (i ^ (a.className && (" " + a.className + " ").replace(/[\t\n\r]/g, " ").indexOf(e) >= 0) ? n || r.push(a) : n && (t[s] = !1));
-						return !1
+						return false
 					},
 					ID: function(e) {
 						return e[1].replace(l, "")
@@ -2234,7 +2234,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						if ("not" === e[1]) {
 							if (!((r.exec(e[3]) || "").length > 1 || /^\w/.test(e[3]))) {
 								var a = d.filter(e[3], t, n, true ^ o);
-								return n || i.push.apply(i, a), !1
+								return n || i.push.apply(i, a), false
 							}
 							e[3] = d(e[3], null, null, t)
 						} else if (h.match.POS.test(e[0]) || h.match.CHILD.test(e[0])) return true;
@@ -2246,7 +2246,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				},
 				filters: {
 					enabled: function(e) {
-						return e.disabled === !1 && "hidden" !== e.type
+						return e.disabled === false && "hidden" !== e.type
 					},
 					disabled: function(e) {
 						return e.disabled === true
@@ -2342,7 +2342,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						if ("contains" === i) return (e.textContent || e.innerText || p([e]) || "").indexOf(t[3]) >= 0;
 						if ("not" === i) {
 							for (var a = t[3], s = 0, c = a.length; c > s; s++)
-								if (a[s] === e) return !1;
+								if (a[s] === e) return false;
 							return true
 						}
 						d.error(i)
@@ -2354,12 +2354,12 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							case "only":
 							case "first":
 								for (; u = u.previousSibling;)
-									if (1 === u.nodeType) return !1;
+									if (1 === u.nodeType) return false;
 								if ("first" === l) return true;
 								u = e;
 							case "last":
 								for (; u = u.nextSibling;)
-									if (1 === u.nodeType) return !1;
+									if (1 === u.nodeType) return false;
 								return true;
 							case "nth":
 								if (n = t[2], r = t[3], 1 === n && 0 === r) return true;
@@ -2385,7 +2385,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							i = r + "",
 							o = t[2],
 							a = t[4];
-						return null == r ? "!=" === o : !o && d.attr ? null != r : "=" === o ? i === a : "*=" === o ? i.indexOf(a) >= 0 : "~=" === o ? (" " + i + " ").indexOf(a) >= 0 : a ? "!=" === o ? i !== a : "^=" === o ? 0 === i.indexOf(a) : "$=" === o ? i.substr(i.length - a.length) === a : "|=" === o ? i === a || i.substr(0, a.length + 1) === a + "-" : !1 : i && r !== !1
+						return null == r ? "!=" === o : !o && d.attr ? null != r : "=" === o ? i === a : "*=" === o ? i.indexOf(a) >= 0 : "~=" === o ? (" " + i + " ").indexOf(a) >= 0 : a ? "!=" === o ? i !== a : "^=" === o ? 0 === i.indexOf(a) : "$=" === o ? i.substr(i.length - a.length) === a : "|=" === o ? i === a || i.substr(0, a.length + 1) === a + "-" : false : i && r !== false
 					},
 					POS: function(e, t, n, r) {
 						var i = t[2],
@@ -2518,7 +2518,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				t = e.matchesSelector || e.mozMatchesSelector || e.webkitMatchesSelector || e.msMatchesSelector;
 			if (t) {
 				var n = !t.call(q.createElement("div"), "div"),
-					r = !1;
+					r = false;
 				try {
 					t.call(q.documentElement, "[test!='']:sizzle")
 				} catch (i) {
@@ -2545,10 +2545,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		} : q.documentElement.compareDocumentPosition ? function(e, t) {
 			return !!(16 & e.compareDocumentPosition(t))
 		} : function() {
-			return !1
+			return false
 		}, d.isXML = function(e) {
 			var t = (e ? e.ownerDocument || e : 0).documentElement;
-			return t ? "HTML" !== t.nodeName : !1
+			return t ? "HTML" !== t.nodeName : false
 		};
 		var k = function(e, t, n) {
 			for (var r, i = [], o = "", a = t.nodeType ? [t] : t; r = h.match.PSEUDO.exec(e);) o += r[0], e = e.replace(h.match.PSEUDO, "");
@@ -2775,7 +2775,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			})
 		},
 		before: function() {
-			if (this[0] && this[0].parentNode) return this.domManip(arguments, !1, function(e) {
+			if (this[0] && this[0].parentNode) return this.domManip(arguments, false, function(e) {
 				this.parentNode.insertBefore(e, this)
 			});
 			if (arguments.length) {
@@ -2784,7 +2784,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 		},
 		after: function() {
-			if (this[0] && this[0].parentNode) return this.domManip(arguments, !1, function(e) {
+			if (this[0] && this[0].parentNode) return this.domManip(arguments, false, function(e) {
 				this.parentNode.insertBefore(e, this.nextSibling)
 			});
 			if (arguments.length) {
@@ -2802,7 +2802,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			return this
 		},
 		clone: function(e, t) {
-			return e = null == e ? !1 : e, t = null == t ? e : t, this.map(function() {
+			return e = null == e ? false : e, t = null == t ? e : t, this.map(function() {
 				return I.clone(this, e, t)
 			})
 		},
@@ -2856,9 +2856,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				l.length && I.each(l, function(e, t) {
 					t.src ? I.ajax({
 						type: "GET",
-						global: !1,
+						global: false,
 						url: t.src,
-						async: !1,
+						async: false,
 						dataType: "script"
 					}) : I.globalEval((t.text || t.textContent || t.innerHTML || "").replace(St, "/*$0*/")), t.parentNode && t.parentNode.removeChild(t)
 				})
@@ -2997,7 +2997,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				var o, a, s = I.camelCase(n),
 					c = e.style,
 					l = I.cssHooks[s];
-				if (n = I.cssProps[s] || s, r === t) return l && "get" in l && (o = l.get(e, !1, i)) !== t ? o : c[n];
+				if (n = I.cssProps[s] || s, r === t) return l && "get" in l && (o = l.get(e, false, i)) !== t ? o : c[n];
 				if (a = typeof r, "string" === a && (o = Lt.exec(r)) && (r = +(o[1] + 1) * +o[2] + parseFloat(I.css(e, n)), a = "number"), !(null == r || "number" === a && isNaN(r) || ("number" !== a || I.cssNumber[s] || (r += "px"), l && "set" in l && (r = l.set(e, r)) === t))) try {
 					c[n] = r
 				} catch (u) {}
@@ -3297,7 +3297,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			d.data && d.processData && "string" != typeof d.data && (d.data = I.param(d.data, d.traditional));
 			$(an, d, n, k);
 
-			if (2 === w) return !1;
+			if (2 === w) return false;
 
 			u = d.global;
 			d.type = d.type.toUpperCase();
@@ -3308,7 +3308,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					S = d.url.replace(nn, "$1_=" + C);
 				d.url = S + (S === d.url ? (Yt.test(d.url) ? "&" : "?") + "_=" + C : "");
 			}
-			if (d.data && d.hasContent && d.contentType !== !1 || n.contentType)
+			if (d.data && d.hasContent && d.contentType !== false || n.contentType)
 				k.setRequestHeader("Content-Type", d.contentType);
 
 			if (d.ifModified) {
@@ -3319,7 +3319,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			k.setRequestHeader("Accept", d.dataTypes[0] && d.accepts[d.dataTypes[0]] ? d.accepts[d.dataTypes[0]] + ("*" !== d.dataTypes[0] ? ", " + cn + "; q=0.01" : "") : d.accepts["*"]);
 
 			for (f in d.headers) k.setRequestHeader(f, d.headers[f]);
-			if (d.beforeSend && (d.beforeSend.call(p, k, d) === !1 || 2 === w)) return k.abort(), !1;
+			if (d.beforeSend && (d.beforeSend.call(p, k, d) === false || 2 === w)) return k.abort(), false;
 			for (f in {
 				success: 1,
 				error: 1,
@@ -3364,13 +3364,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		}
 	}), I.ajaxPrefilter("json jsonp", function(t, n, r) {
 		var i = "string" == typeof t.data && /^application\/x\-www\-form\-urlencoded/.test(t.contentType);
-		if ("jsonp" === t.dataTypes[0] || t.jsonp !== !1 && (fn.test(t.url) || i && fn.test(t.data))) {
+		if ("jsonp" === t.dataTypes[0] || t.jsonp !== false && (fn.test(t.url) || i && fn.test(t.data))) {
 			var o, a = t.jsonpCallback = I.isFunction(t.jsonpCallback) ? t.jsonpCallback() : t.jsonpCallback,
 				s = e[a],
 				c = t.url,
 				l = t.data,
 				u = "$1" + a + "$2";
-			return t.jsonp !== !1 && (c = c.replace(fn, u), t.url === c && (i && (l = l.replace(fn, u)), t.data === l && (c += (/\?/.test(c) ? "&" : "?") + t.jsonp + "=" + a))), t.url = c, t.data = l, e[a] = function(e) {
+			return t.jsonp !== false && (c = c.replace(fn, u), t.url === c && (i && (l = l.replace(fn, u)), t.data === l && (c += (/\?/.test(c) ? "&" : "?") + t.jsonp + "=" + a))), t.url = c, t.data = l, e[a] = function(e) {
 				o = [e]
 			}, r.always(function() {
 				e[a] = s, o && I.isFunction(s) && e[a](o[0])
@@ -3409,7 +3409,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	});
 	var dn, pn = e.ActiveXObject ? function() {
 			for (var e in dn) dn[e](0, 1)
-		} : !1,
+		} : false,
 		hn = 0;
 	I.ajaxSettings.xhr = e.ActiveXObject ? function() {
 		return !this.isLocal && C() || S()
@@ -3497,7 +3497,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		},
 		animate: function(e, t, n, r) {
 			function i() {
-				o.queue === !1 && I._mark(this);
+				o.queue === false && I._mark(this);
 				var t, n, r, i, a, s, c, l, u, f, d, p = I.extend({}, o),
 					h = 1 === this.nodeType,
 					g = h && I(this).is(":hidden");
@@ -3516,15 +3516,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				return true
 			}
 			var o = I.speed(t, n, r);
-			return I.isEmptyObject(e) ? this.each(o.complete, [!1]) : (e = I.extend({}, e), o.queue === !1 ? this.each(i) : this.queue(o.queue, i))
+			return I.isEmptyObject(e) ? this.each(o.complete, [!1]) : (e = I.extend({}, e), o.queue === false ? this.each(i) : this.queue(o.queue, i))
 		},
 		stop: function(e, n, r) {
-			return "string" != typeof e && (r = n, n = e, e = t), n && e !== !1 && this.queue(e || "fx", []), this.each(function() {
+			return "string" != typeof e && (r = n, n = e, e = t), n && e !== false && this.queue(e || "fx", []), this.each(function() {
 				function t(e, t, n) {
 					var i = t[n];
 					I.removeData(e, n, true), i.stop(r)
 				}
-				var n, i = !1,
+				var n, i = false,
 					o = I.timers,
 					a = I._data(this);
 				if (r || I._unmark(true, this), null == e)
@@ -3559,7 +3559,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				easing: n && t || t && !I.isFunction(t) && t
 			};
 			return r.duration = I.fx.off ? 0 : "number" == typeof r.duration ? r.duration : r.duration in I.fx.speeds ? I.fx.speeds[r.duration] : I.fx.speeds._default, (null == r.queue || r.queue === true) && (r.queue = "fx"), r.old = r.complete, r.complete = function(e) {
-				I.isFunction(r.old) && r.old.call(this), r.queue ? I.dequeue(this, r.queue) : e !== !1 && I._unmark(this)
+				I.isFunction(r.old) && r.old.call(this), r.queue ? I.dequeue(this, r.queue) : e !== false && I._unmark(this)
 			}, r
 		},
 		easing: {
@@ -3613,9 +3613,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						a.style["overflow" + t] = s.overflow[e]
 					}), s.hide && I(a).hide(), s.hide || s.show)
 						for (t in s.animatedProperties) I.style(a, t, s.orig[t]), I.removeData(a, "fxshow" + t, true), I.removeData(a, "toggle" + t, true);
-					r = s.complete, r && (s.complete = !1, r.call(a))
+					r = s.complete, r && (s.complete = false, r.call(a))
 				}
-				return !1
+				return false
 			}
 			return 1 / 0 == s.duration ? this.now = i : (n = i - this.startTime, this.state = n / s.duration, this.pos = I.easing[s.animatedProperties[this.prop]](this.state, n, 0, 1, s.duration), this.now = this.start + (this.end - this.start) * this.pos), this.update(), true
 		}
@@ -3786,7 +3786,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}
 
 	function i(e) {
-		if (null == e || S(e)) return !1;
+		if (null == e || S(e)) return false;
 		var t = e.length;
 		return 1 === e.nodeType && t ? true : $(e) || x(e) || 0 === t || "number" == typeof t && t > 0 && t - 1 in e
 	}
@@ -3971,7 +3971,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
 	function L(e, t) {
 		if (e === t) return true;
-		if (null === e || null === t) return !1;
+		if (null === e || null === t) return false;
 		if (e !== e && t !== t) return true;
 		var r, i, o, a = typeof e,
 			s = typeof t;
@@ -3979,25 +3979,25 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (!x(e)) {
 				if (k(e)) return k(t) && e.getTime() == t.getTime();
 				if (C(e) && C(t)) return e.toString() == t.toString();
-				if (A(e) || A(t) || S(e) || S(t) || x(t)) return !1;
+				if (A(e) || A(t) || S(e) || S(t) || x(t)) return false;
 				o = {};
 				for (i in e)
 					if ("$" !== i.charAt(0) && !T(e[i])) {
-						if (!L(e[i], t[i])) return !1;
+						if (!L(e[i], t[i])) return false;
 						o[i] = true
 					}
 				for (i in t)
-					if (!o.hasOwnProperty(i) && "$" !== i.charAt(0) && t[i] !== n && !T(t[i])) return !1;
+					if (!o.hasOwnProperty(i) && "$" !== i.charAt(0) && t[i] !== n && !T(t[i])) return false;
 				return true
 			}
-			if (!x(t)) return !1;
+			if (!x(t)) return false;
 			if ((r = e.length) == t.length) {
 				for (i = 0; r > i; i++)
-					if (!L(e[i], t[i])) return !1;
+					if (!L(e[i], t[i])) return false;
 				return true
 			}
 		}
-		return !1
+		return false
 	}
 
 	function P() {
@@ -4039,7 +4039,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		else if (e && 0 !== e.length) {
 			var t = pr("" + e);
 			e = !("f" == t || "0" == t || "false" == t || "no" == t || "n" == t || "[]" == t)
-		} else e = !1;
+		} else e = false;
 		return e
 	}
 
@@ -4155,7 +4155,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			controller: Wr.controller,
 			injector: Wr.injector,
 			inheritedData: Wr.inheritedData
-		}), ft("remove", true, true, !1), ft("empty", !1, !1, !1), ft("html", !1, !1, true)) : br = gt, Ar.element = br
+		}), ft("remove", true, true, !1), ft("empty", false, !1, !1), ft("html", false, !1, true)) : br = gt, Ar.element = br
 	}
 
 	function nt(e, t, n) {
@@ -4458,7 +4458,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}
 
 	function kt(e, t) {
-		return e.getAttribute ? (" " + (e.getAttribute("class") || "") + " ").replace(/[\n\t]/g, " ").indexOf(" " + t + " ") > -1 : !1
+		return e.getAttribute ? (" " + (e.getAttribute("class") || "") + " ").replace(/[\n\t]/g, " ").indexOf(" " + t + " ") > -1 : false
 	}
 
 	function xt(e, t) {
@@ -4509,17 +4509,17 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	function jt(e, n) {
 		var r = function(r, i) {
 			if (r.preventDefault || (r.preventDefault = function() {
-				r.returnValue = !1
+				r.returnValue = false
 			}), r.stopPropagation || (r.stopPropagation = function() {
 				r.cancelBubble = true
 			}), r.target || (r.target = r.srcElement || t), v(r.defaultPrevented)) {
 				var a = r.preventDefault;
 				r.preventDefault = function() {
 					r.defaultPrevented = true, a.call(r)
-				}, r.defaultPrevented = !1
+				}, r.defaultPrevented = false
 			}
 			r.isDefaultPrevented = function() {
-				return r.defaultPrevented || r.returnValue === !1
+				return r.defaultPrevented || r.returnValue === false
 			};
 			var s = D(n[i || r.type] || []);
 			o(s, function(t) {
@@ -4680,7 +4680,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	function It() {
 		var e = true;
 		this.disableAutoScrolling = function() {
-			e = !1
+			e = false
 		}, this.$get = ["$window", "$location", "$rootScope",
 			function(t, n, r) {
 				function i(e) {
@@ -4750,7 +4750,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			p = e.setTimeout,
 			g = e.clearTimeout,
 			m = {};
-		l.isMock = !1;
+		l.isMock = false;
 		var y = 0,
 			b = [];
 		l.$$completeOutstandingRequest = a, l.$$incOutstandingRequestCount = function() {
@@ -4775,7 +4775,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			return C || f.href.replace(/%27/g, "'")
 		};
 		var S = [],
-			A = !1;
+			A = false;
 		l.onUrlChange = function(t) {
 			return A || (i.history && br(e).on("popstate", c), i.hashchange ? br(e).on("hashchange", c) : l.addPollFn(c), A = true), S.push(t), t
 		}, l.baseHref = function() {
@@ -4799,7 +4799,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				delete m[n], a(e)
 			}, t || 0), m[n] = true, n
 		}, l.defer.cancel = function(e) {
-			return m[e] ? (delete m[e], g(e), a(h), true) : !1
+			return m[e] ? (delete m[e], g(e), a(h), true) : false
 		}
 	}
 
@@ -4958,7 +4958,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
 				function _(e, t) {
 					return function(n, r, i) {
-						var o = !1;
+						var o = false;
 						n || (n = e.$new(), n.$$transcluded = true, o = true);
 						var a = t(n, r, i);
 						return o && a.on("$destroy", R(n, n.$destroy)), a
@@ -4972,8 +4972,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						case 1:
 							F(t, Ht(kr(e).toLowerCase()), "E", r, i);
 							for (var f, d, p, h, g, m = e.attributes, v = 0, y = m && m.length; y > v; v++) {
-								var b = !1,
-									w = !1;
+								var b = false,
+									w = false;
 								if (f = m[v], !yr || yr >= 8 || f.specified) {
 									d = f.name, h = Ht(d), it.test(h) && (d = et(h.substr(6), "-"));
 									var k = h.replace(/(Start|End)$/, "");
@@ -5023,7 +5023,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
 					function g(e, t, n) {
 						var r, i = "data",
-							a = !1;
+							a = false;
 						if ($(e)) {
 							for (;
 								"^" == (r = e.charAt(0)) || "?" == r;) e = e.substr(1), "^" == r && (i = "inheritedData"), a = a || "?" == r;
@@ -5103,7 +5103,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						F = p.newIsolateScopeDirective,
 						R = p.templateDirective,
 						U = p.nonTlbTranscludeDirective,
-						J = !1,
+						J = false,
 						X = p.hasElementTranscludeDirective,
 						G = a.$$element = br(i),
 						Z = u,
@@ -5362,7 +5362,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						if ("A" === a && "href" === e || "IMG" === a && "src" === e)
 							this[e] = t = A(t, "src" === e);
 
-						r !== !1 && (null === t || t === n ? this.$$element.removeAttr(i) : this.$$element.attr(i, t));
+						r !== false && (null === t || t === n ? this.$$element.removeAttr(i) : this.$$element.attr(i, t));
 						var l = this.$$observers;
 						l && o(l[e], function(e) {
 							try {
@@ -5619,7 +5619,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					var l, f, d = u.defer(),
 						h = d.promise,
 						g = w(t.url, t.params);
-					if (p.pendingRequests.push(t), h.then(c, c), (t.cache || a.cache) && t.cache !== !1 && "GET" == t.method && (l = b(t.cache) ? t.cache : b(a.cache) ? a.cache : k), l)
+					if (p.pendingRequests.push(t), h.then(c, c), (t.cache || a.cache) && t.cache !== false && "GET" == t.method && (l = b(t.cache) ? t.cache : b(a.cache) ? a.cache : k), l)
 						if (f = l.get(g), y(f)) {
 							if (f.then) return f.then(c, c), f;
 							x(f) ? s(f[1], f[0], I(f[2]), f[3]) : s(f, 200, {}, "OK")
@@ -5733,7 +5733,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					var u, f, d, p, h = 0,
 						g = [],
 						m = o.length,
-						y = !1;
+						y = false;
 					for (var b = []; m > h;) {
 						if (-1 != (u = o.indexOf(e, h)) && -1 != (f = o.indexOf(t, u + a))) {
 							h != u && g.push(o.substring(h, u));
@@ -5804,7 +5804,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 				var i = {};
 				return r.cancel = function(e) {
-					return e && e.$$intervalId in i ? (i[e.$$intervalId].reject("canceled"), clearInterval(e.$$intervalId), delete i[e.$$intervalId], true) : !1
+					return e && e.$$intervalId in i ? (i[e.$$intervalId].reject("canceled"), clearInterval(e.$$intervalId), delete i[e.$$intervalId], true) : false
 				}, r
 			}
 		]
@@ -5956,7 +5956,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
 	function vn() {
 		var t = "",
-			n = !1;
+			n = false;
 		this.hashPrefix = function(e) {
 			return y(e) ? (t = e, this) : t
 		}, this.html5Mode = function(e) {
@@ -5990,7 +5990,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						t = c.$$replace;
 					return p && e == c.absUrl() || (p++, r.$evalAsync(function() {
 						r.$broadcast("$locationChangeStart", c.absUrl(), e).defaultPrevented ? c.$$parse(e) : (i.url(c.absUrl(), t), s(e))
-					})), c.$$replace = !1, p
+					})), c.$$replace = false, p
 				}), c
 			}
 		]
@@ -6010,7 +6010,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				function i(e) {
 					var t = n.console || {},
 						i = t[e] || t.log || h,
-						a = !1;
+						a = false;
 					try {
 						a = !!i.apply
 					} catch (s) {}
@@ -6136,8 +6136,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	function Sn() {
 		var e = {},
 			t = {
-				csp: !1,
-				unwrapPromises: !1,
+				csp: false,
+				unwrapPromises: false,
 				logPromiseWarnings: true
 			};
 		this.unwrapPromises = function(e) {
@@ -6380,7 +6380,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					this.$id = l();
 					this.$$phase = this.$parent = this.$$watchers = this.$$nextSibling = this.$$prevSibling = this.$$childHead = this.$$childTail = null;
 					this["this"] = this.$root = this;
-					this.$$destroyed = !1;
+					this.$$destroyed = false;
 					this.$$asyncQueue = [];
 					this.$$postDigestQueue = [];
 					this.$$listeners = {};
@@ -6501,7 +6501,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						}
 
 						function r() {
-							if (g ? (g = !1, t(o, o, l)) : t(o, c, l), u)
+							if (g ? (g = false, t(o, o, l)) : t(o, c, l), u)
 								if (b(o))
 									if (i(o)) {
 										c = new Array(o.length);
@@ -6529,7 +6529,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							k = [];
 						f("$digest"), n = null;
 						do {
-							for (l = !1, p = w; y.length;) {
+							for (l = false, p = w; y.length;) {
 								try {
 									v = y.shift(), v.scope.$eval(v.expression)
 								} catch (x) {
@@ -6543,7 +6543,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 										if (r = s[c])
 											if ((i = r.get(p)) === (o = r.last) || (r.eq ? L(i, o) : "number" == typeof i && "number" == typeof o && isNaN(i) && isNaN(o))) {
 												if (r === n) {
-													l = !1;
+													l = false;
 													break e
 												}
 											} else {
@@ -6635,7 +6635,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					$emit: function(e) {
 						var t, n, r, i = [],
 							o = this,
-							s = !1,
+							s = false,
 							c = {
 								name: e,
 								targetScope: o,
@@ -6645,7 +6645,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								preventDefault: function() {
 									c.defaultPrevented = true
 								},
-								defaultPrevented: !1
+								defaultPrevented: false
 							},
 							l = F([c], arguments, 1);
 						do {
@@ -6667,7 +6667,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							preventDefault: function() {
 								c.defaultPrevented = true
 							},
-							defaultPrevented: !1
+							defaultPrevented: false
 						}, l = F([c], arguments, 1); o = s;) {
 							for (c.currentScope = o, t = o.$$listeners[e] || [], n = 0, r = t.length; r > n; n++)
 								if (t[n]) try {
@@ -6739,7 +6739,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
 				function o(n) {
 					var r, o, a = Fn(n.toString()),
-						s = !1;
+						s = false;
 					for (r = 0, o = e.length; o > r; r++)
 						if (i(e[r], a)) {
 							s = true;
@@ -6748,7 +6748,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					if (s)
 						for (r = 0, o = t.length; o > r; r++)
 							if (i(t[r], a)) {
-								s = !1;
+								s = false;
 								break
 							}
 					return s
@@ -6856,8 +6856,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					c = s.documentMode,
 					l = /^(Moz|webkit|O|ms)(?=[A-Z])/,
 					u = s.body && s.body.style,
-					f = !1,
-					p = !1;
+					f = false,
+					p = false;
 				if (u) {
 					for (var h in u)
 						if (r = l.exec(h)) {
@@ -6873,7 +6873,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					history: !(!e.history || !e.history.pushState || 4 > o || a),
 					hashchange: "onhashchange" in e && (!c || c > 7),
 					hasEvent: function(e) {
-						if ("input" == e && 9 == yr) return !1;
+						if ("input" == e && 9 == yr) return false;
 						if (v(i[e])) {
 							var t = s.createElement("div");
 							i[e] = "on" + e in t
@@ -6912,7 +6912,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 				var o = {};
 				return i.cancel = function(e) {
-					return e && e.$$timeoutId in o ? (o[e.$$timeoutId].reject("canceled"), delete o[e.$$timeoutId], t.defer.cancel(e.$$timeoutId)) : !1
+					return e && e.$$timeoutId in o ? (o[e.$$timeoutId].reject("canceled"), delete o[e.$$timeoutId], t.defer.cancel(e.$$timeoutId)) : false
 				}, i
 			}
 		]
@@ -6968,7 +6968,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				i = [];
 			i.check = function(e) {
 				for (var t = 0; t < i.length; t++)
-					if (!i[t](e)) return !1;
+					if (!i[t](e)) return false;
 				return true
 			}, "function" !== r && (n = "boolean" === r && n ? function(e, t) {
 				return Ar.equals(e, t)
@@ -6976,7 +6976,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				if (e && t && "object" == typeof e && "object" == typeof t) {
 					for (var r in e)
 						if ("$" !== r.charAt(0) && hr.call(e, r) && n(e[r], t[r])) return true;
-					return !1
+					return false
 				}
 				return t = ("" + t).toLowerCase(), ("" + e).toLowerCase().indexOf(t) > -1
 			});
@@ -6995,13 +6995,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								for (var r in e)
 									if ("$" !== r.charAt(0) && o(e[r], t)) return true
 						}
-						return !1;
+						return false;
 					case "array":
 						for (var i = 0; i < e.length; i++)
 							if (o(e[i], t)) return true;
-						return !1;
+						return false;
 					default:
-						return !1
+						return false
 				}
 			};
 			switch (typeof t) {
@@ -7053,7 +7053,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		var a = e + "",
 			s = "",
 			c = [],
-			l = !1;
+			l = false;
 		if (-1 !== a.indexOf("e")) {
 			var u = a.match(/([\d\.]+)e(-?)(\d+)/);
 			u && "-" == u[2] && u[3] > i + 1 ? a = "0" : (s = a, l = true)
@@ -7199,7 +7199,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (!x(t)) return t;
 			if (!n) return t;
 			n = x(n) ? n : [n], n = _(n, function(t) {
-				var n = !1,
+				var n = false,
 					r = t || g;
 				if ($(t) && (("+" == t.charAt(0) || "-" == t.charAt(0)) && (n = "-" == t.charAt(0), t = t.substring(1)), r = e(t), r.constant)) {
 					var i = r();
@@ -7232,10 +7232,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			l = a.$error = {},
 			u = [];
 		a.$name = t.name || t.ngForm;
-		a.$dirty = !1;
+		a.$dirty = false;
 		a.$pristine = true;
 		a.$valid = true;
-		a.$invalid = !1;
+		a.$invalid = false;
 		s.$addControl(a);
 		e.addClass(Pi);
 		i(true);
@@ -7254,7 +7254,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				if (!r.length) {
 					c--;
 					c || (i(t), a.$valid = true, a.$invalid = !1);
-					l[e] = !1;
+					l[e] = false;
 					i(true, e);
 					s.$setValidity(e, true, a);
 				}
@@ -7265,10 +7265,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					l[e] = r = [];
 					c++;
 					i(!1, e);
-					s.$setValidity(e, !1, a);
+					s.$setValidity(e, false, a);
 				}
 				r.push(n);
-				a.$valid = !1;
+				a.$valid = false;
 				a.$invalid = true;
 			}
 		};
@@ -7276,13 +7276,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			r.removeClass(e, Pi);
 			r.addClass(e, Fi);
 			a.$dirty = true;
-			a.$pristine = !1;
+			a.$pristine = false;
 			s.$setDirty();
 		};
 		a.$setPristine = function() {
 			r.removeClass(e, Fi);
 			r.addClass(e, Pi);
-			a.$dirty = !1;
+			a.$dirty = false;
 			a.$pristine = true;
 			o(u, function(e) {
 				e.$setPristine()
@@ -7308,12 +7308,12 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	function ar(e, t, n, i, o, a) {
 		var s = t.prop("validity");
 		if (!o.android) {
-			var c = !1;
+			var c = false;
 			t.on("compositionstart", function() {
 				c = true;
 			});
 			t.on("compositionend", function() {
-				c = !1;
+				c = false;
 				l();
 			})
 		}
@@ -7602,7 +7602,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				function r() {
 					i || (i = true, n())
 				}
-				var i = !1;
+				var i = false;
 				"complete" === t.readyState ? setTimeout(r) : (this.on("DOMContentLoaded", r), gt(e).on("load", r))
 			},
 			toString: function() {
@@ -7654,7 +7654,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			var i = pr(t);
 			if (Vr[i]) {
 				if (!y(r)) return e[t] || (e.attributes.getNamedItem(t) || h).specified ? i : n;
-				r ? (e[t] = true, e.setAttribute(t, i)) : (e[t] = !1, e.removeAttribute(i))
+				r ? (e[t] = true, e.setAttribute(t, i)) : (e[t] = false, e.removeAttribute(i))
 			} else if (y(r)) e.setAttribute(t, r);
 			else if (e.getAttribute) {
 				var o = e.getAttribute(t, 2);
@@ -7729,7 +7729,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							if (t)
 								for (; t = t.parentNode;)
 									if (t === e) return true;
-							return !1
+							return false
 						};
 						a[n] = [];
 						var c = {
@@ -7909,8 +7909,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		},
 		ai = r("$location");
 	hn.prototype = pn.prototype = dn.prototype = {
-		$$html5: !1,
-		$$replace: !1,
+		$$html5: false,
+		$$replace: false,
 		absUrl: gn("$$absUrl"),
 		url: function(e, t) {
 			if (v(e)) return this.$$url;
@@ -7954,7 +7954,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				return true
 			},
 			"false": function() {
-				return !1
+				return false
 			},
 			undefined: h,
 			"+": function(e, t, r, i) {
@@ -8078,7 +8078,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		},
 		peek: function(e) {
 			var t = e || 1;
-			return this.index + t < this.text.length ? this.text.charAt(this.index + t) : !1
+			return this.index + t < this.text.length ? this.text.charAt(this.index + t) : false
 		},
 		isNumber: function(e) {
 			return e >= "0" && "9" >= e
@@ -8160,11 +8160,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			this.tokens.push(s), n && (this.tokens.push({
 				index: e,
 				text: ".",
-				json: !1
+				json: false
 			}), this.tokens.push({
 				index: e + 1,
 				text: n,
-				json: !1
+				json: false
 			}))
 		},
 		readString: function(e) {
@@ -8180,7 +8180,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						var s = fi[o];
 						n += s ? s : o
 					}
-					i = !1
+					i = false
 				} else if ("\\" === o) i = true;
 				else {
 					if (o === e) return this.index++, void this.tokens.push({
@@ -8256,11 +8256,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					o = i.text;
 				if (o === e || o === t || o === n || o === r || !e && !t && !n && !r) return i
 			}
-			return !1;
+			return false;
 		},
 		expect: function(e, t, n, r) {
 			var i = this.peek(e, t, n, r);
-			return i ? (this.json && !i.json && this.throwError("is not valid json", i), this.tokens.shift(), i) : !1
+			return i ? (this.json && !i.json && this.throwError("is not valid json", i), this.tokens.shift(), i) : false
 		},
 		consume: function(e) {
 			this.expect(e) || this.throwError("is unexpected, expecting [" + e + "]", this.peek())
@@ -8551,7 +8551,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								pre: function(e, r, i, o) {
 									if (!i.action) {
 										var a = function(e) {
-											e.preventDefault ? e.preventDefault() : e.returnValue = !1
+											e.preventDefault ? e.preventDefault() : e.returnValue = false
 										};
 										Ir(r[0], "submit", a), r.on("$destroy", function() {
 											t(function() {
@@ -8618,9 +8618,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				this.$formatters = [];
 				this.$viewChangeListeners = [];
 				this.$pristine = true;
-				this.$dirty = !1;
+				this.$dirty = false;
 				this.$valid = true;
-				this.$invalid = !1;
+				this.$invalid = false;
 				this.$name = n.name;
 				var l = a(n.ngModel),
 					u = l.assign;
@@ -8641,7 +8641,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						} else {
 							c(!1);
 							this.$invalid = true;
-							this.$valid = !1;
+							this.$valid = false;
 							d++;
 						}
 						p[e] = !t;
@@ -8650,14 +8650,14 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					}
 				};
 				this.$setPristine = function() {
-					this.$dirty = !1;
+					this.$dirty = false;
 					this.$pristine = true;
 					s.removeClass(i, Fi);
 					s.addClass(i, Pi);
 				};
 				this.$setViewValue = function(n) {
 					this.$viewValue = n;
-					this.$pristine && (this.$dirty = true, this.$pristine = !1, s.removeClass(i, Pi), s.addClass(i, Fi), f.$setDirty());
+					this.$pristine && (this.$dirty = true, this.$pristine = false, s.removeClass(i, Pi), s.addClass(i, Fi), f.$setDirty());
 					o(this.$parsers, function(e) {
 						n = e(n)
 					});
@@ -9013,7 +9013,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 									}), l("dupes", "Duplicates in a repeater are not allowed. Use 'track by' expression to specify unique keys. Repeater: {0}, Duplicate key: {1}", x, C);
 									M[f] = {
 										id: C
-									}, q[C] = !1
+									}, q[C] = false
 								}
 							for ($ in S) S.hasOwnProperty($) && (N = S[$], j = at(N.clone), n.leave(j), o(j, function(e) {
 								e[c] = true
@@ -9225,7 +9225,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 									D = g(t) || [],
 									L = d ? a(D) : D,
 									P = {},
-									F = !1;
+									F = false;
 								if (b)
 									if (v && x(I)) {
 										F = new qt([]);
@@ -9350,7 +9350,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								m = u[1],
 								b = l.multiple,
 								$ = l.ngOptions,
-								w = !1,
+								w = false,
 								k = br(t.createElement("option")),
 								T = br(t.createElement("optgroup")),
 								C = k.clone(),
@@ -9414,10 +9414,10 @@ window.onload = function() {
 };
 org.cometd.Utils = {};
 org.cometd.Utils.isString = function(e) {
-	return void 0 === e || null === e ? !1 : "string" == typeof e || e instanceof String
+	return void 0 === e || null === e ? false : "string" == typeof e || e instanceof String
 };
 org.cometd.Utils.isArray = function(e) {
-	return void 0 === e || null === e ? !1 : e instanceof Array
+	return void 0 === e || null === e ? false : e instanceof Array
 };
 org.cometd.Utils.inArray = function(e, t) {
 	for (var n = 0; n < t.length; ++n)
@@ -9457,22 +9457,22 @@ org.cometd.LongPollingTransport = function() {
 				body: org.cometd.JSON.toJSON(e.messages),
 				onSuccess: function(i) {
 					r._debug("Transport", r.getType(), "received response", i);
-					var o = !1;
+					var o = false;
 					try {
 						var a = r.convertToMessages(i);
-						0 === a.length ? (n = !1, r.transportFailure(e, t, "no response", null)) : (o = true, r.transportSuccess(e, t, a))
+						0 === a.length ? (n = false, r.transportFailure(e, t, "no response", null)) : (o = true, r.transportSuccess(e, t, a))
 					} catch (s) {
-						r._debug(s), o || (n = !1, r.transportFailure(e, t, "bad response", s))
+						r._debug(s), o || (n = false, r.transportFailure(e, t, "bad response", s))
 					}
 				},
 				onError: function(o, a) {
-					n = !1, i ? r.setTimeout(function() {
+					n = false, i ? r.setTimeout(function() {
 						r.transportFailure(e, t, o, a)
 					}, 0) : r.transportFailure(e, t, o, a)
 				}
-			}), i = !1
+			}), i = false
 		} catch (o) {
-			n = !1, this.setTimeout(function() {
+			n = false, this.setTimeout(function() {
 				r.transportFailure(e, t, "error", o)
 			}, 0)
 		}
@@ -9541,12 +9541,12 @@ org.cometd.WebSocketTransport = function() {
 	var r, i, o = new org.cometd.Transport,
 		a = org.cometd.Transport.derive(o),
 		s = true,
-		c = !1,
+		c = false,
 		l = {},
 		u = {},
 		f = null,
-		d = !1,
-		p = !1;
+		d = false,
+		p = false;
 	return a.onOpen = function() {
 		this._debug("Transport", this.getType(), "opened", f), d = true, c = true, this._debug("Sending pending messages", l);
 		for (var e in l) {
@@ -9557,7 +9557,7 @@ org.cometd.WebSocketTransport = function() {
 		}
 	}, a.onMessage = function(e) {
 		this._debug("Transport", this.getType(), "received websocket message", e, f);
-		for (var t = !1, n = this.convertToMessages(e.data), r = [], o = 0; o < n.length; ++o) {
+		for (var t = false, n = this.convertToMessages(e.data), r = [], o = 0; o < n.length; ++o) {
 			var a = n[o];
 			if ((/^\/meta\//.test(a.channel) || void 0 === a.data) && a.id) {
 				r.push(a.id);
@@ -9566,7 +9566,7 @@ org.cometd.WebSocketTransport = function() {
 			}
 			"/meta/connect" === a.channel && (p = !1), "/meta/disconnect" !== a.channel || p || (t = true)
 		}
-		for (var c = !1, d = 0; d < r.length; ++d) {
+		for (var c = false, d = 0; d < r.length; ++d) {
 			var h = r[d];
 			for (var g in l) {
 				var m = g.split(","),
@@ -9590,11 +9590,11 @@ org.cometd.WebSocketTransport = function() {
 				o = l[r][1];
 			o && (p = !1), i.onFailure(f, i.messages, "closed " + e + "/" + t)
 		}
-		l = {}, null !== f && d && f.close(1e3, "Close"), d = !1, f = null
+		l = {}, null !== f && d && f.close(1e3, "Close"), d = false, f = null
 	}, a.registered = function(e, t) {
 		o.registered(e, t), r = t
 	}, a.accept = function() {
-		return s && !!org.cometd.WebSocket && r.websocketEnabled !== !1
+		return s && !!org.cometd.WebSocket && r.websocketEnabled !== false
 	}, a.send = function(e, t) {
 		this._debug("Transport", this.getType(), "sending", e, "metaConnect =", t);
 		for (var r = [], i = 0; i < e.messages.length; ++i) {
@@ -9610,7 +9610,7 @@ org.cometd.WebSocketTransport = function() {
 		}
 		this.reset()
 	}, a.reset = function() {
-		o.reset(), null !== f && d && f.close(1e3, "Reset"), s = true, c = !1, u = {}, l = {}, f = null, d = !1, i = null
+		o.reset(), null !== f && d && f.close(1e3, "Reset"), s = true, c = false, u = {}, l = {}, f = null, d = false, i = null
 	}, a
 };
 org.cometd.CallbackPollingTransport = function() {
@@ -9654,7 +9654,7 @@ org.cometd.CallbackPollingTransport = function() {
 				headers: this.getConfiguration().requestHeaders,
 				body: org.cometd.JSON.toJSON(u.messages),
 				onSuccess: function(e) {
-					var n = !1;
+					var n = false;
 					try {
 						var i = r.convertToMessages(e);
 						0 === i.length ? r.transportFailure(u, t, "no response") : (n = true, r.transportSuccess(u, t, i))
@@ -9667,7 +9667,7 @@ org.cometd.CallbackPollingTransport = function() {
 						r.transportFailure(u, t, e, n)
 					}, 0) : r.transportFailure(u, t, e, n)
 				}
-			}), g = !1
+			}), g = false
 		} catch (m) {
 			this.setTimeout(function() {
 				r.transportFailure(u, t, "error", m)
@@ -9687,7 +9687,7 @@ org.cometd.RequestTransport = function() {
 	}
 
 	function t(e, t) {
-		if (this.transportSend(e, t), t.expired = !1, !e.sync) {
+		if (this.transportSend(e, t), t.expired = false, !e.sync) {
 			var n = this.getConfiguration().maxNetworkDelay,
 				r = n;
 			t.metaConnect === true && (r += this.getAdvice().timeout), this._debug("Transport", this.getType(), "waiting at most", r, "ms for the response, maxNetworkDelay", n);
@@ -9695,7 +9695,7 @@ org.cometd.RequestTransport = function() {
 			t.timeout = this.setTimeout(function() {
 				t.expired = true, t.xhr && t.xhr.abort();
 				var n = "Request " + t.id + " of transport " + i.getType() + " exceeded " + r + " ms max network delay";
-				i._debug(n), i.complete(t, !1, t.metaConnect), e.onFailure(t.xhr, e.messages, "timeout", n)
+				i._debug(n), i.complete(t, false, t.metaConnect), e.onFailure(t.xhr, e.messages, "timeout", n)
 			}, r)
 		}
 	}
@@ -9704,7 +9704,7 @@ org.cometd.RequestTransport = function() {
 		var n = ++c,
 			r = {
 				id: n,
-				metaConnect: !1
+				metaConnect: false
 			};
 		u.length < this.getConfiguration().maxConnections - 1 ? (u.push(r), t.call(this, e, r)) : (this._debug("Transport", this.getType(), "queueing request", n, "envelope", e), f.push([e, r]))
 	}
@@ -9725,7 +9725,7 @@ org.cometd.RequestTransport = function() {
 			else {
 				var c = this;
 				this.setTimeout(function() {
-					c.complete(s, !1, s.metaConnect), a.onFailure(s.xhr, a.messages, "error", "Previous request failed")
+					c.complete(s, false, s.metaConnect), a.onFailure(s.xhr, a.messages, "error", "Previous request failed")
 				}, 0)
 			}
 		}
@@ -9754,7 +9754,7 @@ org.cometd.RequestTransport = function() {
 	}, s.transportSuccess = function(e, t, n) {
 		t.expired || (this.clearTimeout(t.timeout), this.complete(t, true, t.metaConnect), n && n.length > 0 ? e.onSuccess(n) : e.onFailure(t.xhr, e.messages, "Empty HTTP response"))
 	}, s.transportFailure = function(e, t, n, r) {
-		t.expired || (this.clearTimeout(t.timeout), this.complete(t, !1, t.metaConnect), e.onFailure(t.xhr, e.messages, n, r))
+		t.expired || (this.clearTimeout(t.timeout), this.complete(t, false, t.metaConnect), e.onFailure(t.xhr, e.messages, n, r))
 	}, s.send = function(e, t) {
 		t ? o.call(this, e) : n.call(this, e)
 	}, s.abort = function() {
@@ -9788,7 +9788,7 @@ org.cometd.TransportRegistry = function() {
 				}
 		return null
 	}, this.add = function(n, r, i) {
-		for (var o = !1, a = 0; a < e.length; ++a)
+		for (var o = false, a = 0; a < e.length; ++a)
 			if (e[a] === n) {
 				o = true;
 				break
@@ -9864,7 +9864,7 @@ org.cometd.Cometd = function(e) {
 	}
 
 	function n(e) {
-		return void 0 === e || null === e ? !1 : "function" == typeof e
+		return void 0 === e || null === e ? false : "function" == typeof e
 	}
 
 	function r(e, t) {
@@ -9883,7 +9883,7 @@ org.cometd.Cometd = function(e) {
 			i = n[8],
 			o = n[9];
 		if (rt = tt._isCrossDomain(r), bt.appendMessageTypeToURL)
-			if (void 0 !== o && o.length > 0) tt._info("Appending message type to URI " + i + o + " is not supported, disabling 'appendMessageTypeToURL' configuration"), bt.appendMessageTypeToURL = !1;
+			if (void 0 !== o && o.length > 0) tt._info("Appending message type to URI " + i + o + " is not supported, disabling 'appendMessageTypeToURL' configuration"), bt.appendMessageTypeToURL = false;
 			else {
 				var a = i.split("/"),
 					s = a.length - 1;
@@ -10096,7 +10096,7 @@ org.cometd.Cometd = function(e) {
 				}
 			},
 			i = tt._mixin(!1, {}, et, r);
-		Z = it.negotiateTransport(n, t, rt, bt.url), tt._debug("Initial transport is", Z.getType()), a("handshaking"), tt._debug("Handshake sent", i), m(!1, [i], !1, "handshake")
+		Z = it.negotiateTransport(n, t, rt, bt.url), tt._debug("Initial transport is", Z.getType()), a("handshaking"), tt._debug("Handshake sent", i), m(!1, [i], false, "handshake")
 	}
 
 	function E() {
@@ -10116,7 +10116,7 @@ org.cometd.Cometd = function(e) {
 			st = e.clientId;
 			var t = it.negotiateTransport(e.supportedConnectionTypes, e.version, rt, bt.url);
 			if (null === t) throw "Could not negotiate transport with server; client " + it.findTransportTypes(e.version, rt, bt.url) + ", server " + e.supportedConnectionTypes;
-			Z !== t && (tt._debug("Transport", Z, "->", t), Z = t), ut = !1, w(), e.reestablish = vt, vt = true, p("/meta/handshake", e);
+			Z !== t && (tt._debug("Transport", Z, "->", t), Z = t), ut = false, w(), e.reestablish = vt, vt = true, p("/meta/handshake", e);
 			var n = s() ? "none" : gt.reconnect;
 			switch (n) {
 				case "retry":
@@ -10133,7 +10133,7 @@ org.cometd.Cometd = function(e) {
 
 	function _(e, t) {
 		N({
-			successful: !1,
+			successful: false,
 			failure: true,
 			channel: "/meta/handshake",
 			request: t,
@@ -10181,8 +10181,8 @@ org.cometd.Cometd = function(e) {
 	}
 
 	function O(e, t) {
-		yt = !1, q({
-			successful: !1,
+		yt = false, q({
+			successful: false,
 			failure: true,
 			channel: "/meta/connect",
 			request: t,
@@ -10204,7 +10204,7 @@ org.cometd.Cometd = function(e) {
 
 	function L(e, t) {
 		I({
-			successful: !1,
+			successful: false,
 			failure: true,
 			channel: "/meta/disconnect",
 			request: t,
@@ -10226,7 +10226,7 @@ org.cometd.Cometd = function(e) {
 
 	function z(e, t) {
 		P({
-			successful: !1,
+			successful: false,
 			failure: true,
 			channel: "/meta/subscribe",
 			request: t,
@@ -10248,7 +10248,7 @@ org.cometd.Cometd = function(e) {
 
 	function B(e, t) {
 		R({
-			successful: !1,
+			successful: false,
 			failure: true,
 			channel: "/meta/unsubscribe",
 			request: t,
@@ -10275,7 +10275,7 @@ org.cometd.Cometd = function(e) {
 
 	function J(e, t) {
 		W({
-			successful: !1,
+			successful: false,
 			failure: true,
 			channel: t.channel,
 			request: t,
@@ -10318,7 +10318,7 @@ org.cometd.Cometd = function(e) {
 		if (t)
 			for (var n = 0; n < t.length; ++n)
 				if (t[n]) return true;
-		return !1
+		return false
 	}
 
 	function K(e, r) {
@@ -10355,22 +10355,22 @@ org.cometd.Cometd = function(e) {
 	}
 	var Z, et, tt = this,
 		nt = e || "default",
-		rt = !1,
+		rt = false,
 		it = new org.cometd.TransportRegistry,
 		ot = "disconnected",
 		at = 0,
 		st = null,
 		ct = 0,
 		lt = [],
-		ut = !1,
+		ut = false,
 		ft = {},
 		dt = 0,
 		pt = null,
 		ht = [],
 		gt = {},
 		mt = {},
-		vt = !1,
-		yt = !1,
+		vt = false,
+		yt = false,
 		bt = {
 			connectTimeout: 0,
 			maxConnections: 2,
@@ -10381,7 +10381,7 @@ org.cometd.Cometd = function(e) {
 			maxNetworkDelay: 1e4,
 			requestHeaders: {},
 			appendMessageTypeToURL: true,
-			autoBatch: !1,
+			autoBatch: false,
 			advice: {
 				timeout: 6e4,
 				interval: 0,
@@ -10463,7 +10463,7 @@ org.cometd.Cometd = function(e) {
 	}, this.init = function(e, t) {
 		this.configure(e), this.handshake(t)
 	}, this.handshake = function(e) {
-		a("disconnected"), vt = !1, A(e)
+		a("disconnected"), vt = false, A(e)
 	}, this.disconnect = function(e, t) {
 		if (!s()) {
 			void 0 === t && "boolean" != typeof e && (t = e, e = !1);
@@ -10471,7 +10471,7 @@ org.cometd.Cometd = function(e) {
 					channel: "/meta/disconnect"
 				},
 				r = this._mixin(!1, {}, t, n);
-			a("disconnecting"), m(e === true, [r], !1, "disconnect")
+			a("disconnecting"), m(e === true, [r], false, "disconnect")
 		}
 	}, this.startBatch = function() {
 		$()
@@ -10550,7 +10550,7 @@ org.cometd.Cometd = function(e) {
 	}, this.registerExtension = function(e, r) {
 		if (arguments.length < 2) throw "Illegal arguments number: required 2, got " + arguments.length;
 		if (!t(e)) throw "Illegal argument type: extension name must be a string";
-		for (var i = !1, o = 0; o < ht.length; ++o) {
+		for (var i = false, o = 0; o < ht.length; ++o) {
 			var a = ht[o];
 			if (a.name === e) {
 				i = true;
@@ -10563,7 +10563,7 @@ org.cometd.Cometd = function(e) {
 		}), this._debug("Registered extension", e), n(r.registered) && r.registered(e, this), true)
 	}, this.unregisterExtension = function(e) {
 		if (!t(e)) throw "Illegal argument type: extension name must be a string";
-		for (var r = !1, i = 0; i < ht.length; ++i) {
+		for (var r = false, i = 0; i < ht.length; ++i) {
 			var o = ht[i];
 			if (o.name === e) {
 				ht.splice(i, 1), r = true, this._debug("Unregistered extension", e);
@@ -10600,7 +10600,7 @@ function() {
 			function e(e, n) {
 				t._debug(e, n)
 			}
-			var t, n = !1,
+			var t, n = false,
 				r = -1;
 			this.registered = function(n, r) {
 				t = r, e("AckExtension: executing registration callback")
@@ -10616,7 +10616,7 @@ function() {
 				return t
 			}, this.outgoing = function(i) {
 				var o = i.channel;
-				return "/meta/handshake" == o ? (i.ext || (i.ext = {}), i.ext.ack = t && t.ackEnabled !== !1, r = -1) : n && "/meta/connect" == o && (i.ext || (i.ext = {}), i.ext.ack = r, e("AckExtension: client sending ack id", r)), i
+				return "/meta/handshake" == o ? (i.ext || (i.ext = {}), i.ext.ack = t && t.ackEnabled !== false, r = -1) : n && "/meta/connect" == o && (i.ext || (i.ext = {}), i.ext.ack = r, e("AckExtension: client sending ack id", r)), i
 			}
 		}
 	}
@@ -10688,13 +10688,13 @@ function(e, t, n) {
 				for (e in s) u(a[e]) && r.cookies(e, n);
 				for (e in a) i = a[e], t.isString(i) || (i = "" + i, a[e] = i), i !== s[e] && (r.cookies(e, i), c = true);
 				if (c) {
-					c = !1, o = r.cookies();
+					c = false, o = r.cookies();
 					for (e in a) a[e] !== o[e] && (u(o[e]) ? delete a[e] : a[e] = o[e], c = true)
 				}
 			}
 			var o, a = {},
 				s = {},
-				c = !1,
+				c = false,
 				l = t.copy,
 				u = t.isUndefined;
 			return r.addPollFn(function() {
@@ -10825,7 +10825,7 @@ function(e, t, n) {
 						return j = j.then(function(e) {
 							var t = E(e);
 							return (k || d)(t, e.headers), t
-						}, N), C ? j : (S.$promise = j, S.$resolved = !1, S)
+						}, N), C ? j : (S.$promise = j, S.$resolved = false, S)
 					}, $.prototype["$" + s] = function(e, t, n) {
 						m(e) && (n = t, t = e, e = {});
 						var r = $[s].call(this, e, this, t, n);
@@ -10939,7 +10939,7 @@ function(e, t) {
 				function d() {
 					var e = p(),
 						r = m.current;
-					e && r && e.$$route === r.$$route && t.equals(e.pathParams, r.pathParams) && !e.reloadOnSearch && !g ? (r.params = e.params, t.copy(r.params, o), n.$broadcast("$routeUpdate", r)) : (e || r) && (g = !1, n.$broadcast("$routeChangeStart", e, r), m.current = e, e && e.redirectTo && (t.isString(e.redirectTo) ? i.path(h(e.redirectTo, e.params)).search(e.params).replace() : i.url(e.redirectTo(e.pathParams, i.path(), i.search())).replace()), a.when(e).then(function() {
+					e && r && e.$$route === r.$$route && t.equals(e.pathParams, r.pathParams) && !e.reloadOnSearch && !g ? (r.params = e.params, t.copy(r.params, o), n.$broadcast("$routeUpdate", r)) : (e || r) && (g = false, n.$broadcast("$routeChangeStart", e, r), m.current = e, e && e.redirectTo && (t.isString(e.redirectTo) ? i.path(h(e.redirectTo, e.params)).search(e.params).replace() : i.url(e.redirectTo(e.pathParams, i.path(), i.search())).replace()), a.when(e).then(function() {
 						if (e) {
 							var n, r, i = t.extend({}, e.resolve);
 							return t.forEach(i, function(e, n) {
@@ -10981,7 +10981,7 @@ function(e, t) {
 						}
 					}), r.join("")
 				}
-				var g = !1,
+				var g = false,
 					m = {
 						routes: r,
 						reload: function() {
@@ -11140,7 +11140,7 @@ function(e, t) {
 	}
 
 	function c(e, n) {
-		var r = !1,
+		var r = false,
 			i = t.bind(e, e.push);
 		return {
 			start: function(e, o, a) {
@@ -11304,15 +11304,15 @@ window.Modernizr = function(e, t, n) {
 			var i = e[r];
 			if (!a(i, "-") && b[i] !== n) return "pfx" == t ? i : true
 		}
-		return !1
+		return false
 	}
 
 	function c(e, t, r) {
 		for (var i in e) {
 			var a = t[e[i]];
-			if (a !== n) return r === !1 ? e[i] : o(a, "function") ? a.bind(r || t) : a
+			if (a !== n) return r === false ? e[i] : o(a, "function") ? a.bind(r || t) : a
 		}
-		return !1
+		return false
 	}
 
 	function l(e, t, n) {
@@ -11326,7 +11326,7 @@ window.Modernizr = function(e, t, n) {
 			for (var r = 0, i = n.length; i > r; r++) j[n[r]] = n[r] in $;
 			return j.list && (j.list = !!t.createElement("datalist") && !!e.HTMLDataListElement), j
 		}("autocomplete autofocus list placeholder max min multiple pattern required step".split(" ")), h.inputtypes = function(e) {
-			for (var r, i, o, a = 0, s = e.length; s > a; a++) $.setAttribute("type", i = e[a]), r = "text" !== $.type, r && ($.value = w, $.style.cssText = "position:absolute;visibility:hidden;", /^range$/.test(i) && $.style.WebkitAppearance !== n ? (m.appendChild($), o = t.defaultView, r = o.getComputedStyle && "textfield" !== o.getComputedStyle($, null).WebkitAppearance && 0 !== $.offsetHeight, m.removeChild($)) : /^(search|tel)$/.test(i) || (r = /^(url|email)$/.test(i) ? $.checkValidity && $.checkValidity() === !1 : $.value != w)), N[e[a]] = !!r;
+			for (var r, i, o, a = 0, s = e.length; s > a; a++) $.setAttribute("type", i = e[a]), r = "text" !== $.type, r && ($.value = w, $.style.cssText = "position:absolute;visibility:hidden;", /^range$/.test(i) && $.style.WebkitAppearance !== n ? (m.appendChild($), o = t.defaultView, r = o.getComputedStyle && "textfield" !== o.getComputedStyle($, null).WebkitAppearance && 0 !== $.offsetHeight, m.removeChild($)) : /^(search|tel)$/.test(i) || (r = /^(url|email)$/.test(i) ? $.checkValidity && $.checkValidity() === false : $.value != w)), N[e[a]] = !!r;
 			return N
 		}("search tel url email datetime date month week time datetime-local number range color".split(" "))
 	}
@@ -11489,14 +11489,14 @@ window.Modernizr = function(e, t, n) {
 		}), e
 	}, E.video = function() {
 		var e = t.createElement("video"),
-			n = !1;
+			n = false;
 		try {
 			(n = !!e.canPlayType) && (n = new Boolean(n), n.ogg = e.canPlayType('video/ogg; codecs="theora"').replace(/^no$/, ""), n.h264 = e.canPlayType('video/mp4; codecs="avc1.42E01E"').replace(/^no$/, ""), n.webm = e.canPlayType('video/webm; codecs="vp8, vorbis"').replace(/^no$/, ""))
 		} catch (r) {}
 		return n
 	}, E.audio = function() {
 		var e = t.createElement("audio"),
-			n = !1;
+			n = false;
 		try {
 			(n = !!e.canPlayType) && (n = new Boolean(n), n.ogg = e.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/, ""), n.mp3 = e.canPlayType("audio/mpeg;").replace(/^no$/, ""), n.wav = e.canPlayType('audio/wav; codecs="1"').replace(/^no$/, ""), n.m4a = (e.canPlayType("audio/x-m4a;") || e.canPlayType("audio/aac;")).replace(/^no$/, ""))
 		} catch (r) {}
@@ -11505,13 +11505,13 @@ window.Modernizr = function(e, t, n) {
 		try {
 			return localStorage.setItem(v, v), localStorage.removeItem(v), true
 		} catch (e) {
-			return !1
+			return false
 		}
 	}, E.sessionstorage = function() {
 		try {
 			return sessionStorage.setItem(v, v), sessionStorage.removeItem(v), true
 		} catch (e) {
-			return !1
+			return false
 		}
 	}, E.webworkers = function() {
 		return !!e.Worker
@@ -11601,9 +11601,9 @@ window.Modernizr = function(e, t, n) {
 			}();
 			var v = {
 				elements: f.elements || "abbr article aside audio bdi canvas data datalist details figcaption figure footer header hgroup mark meter nav output progress section summary time video",
-				shivCSS: f.shivCSS !== !1,
+				shivCSS: f.shivCSS !== false,
 				supportsUnknownElements: u,
-				shivMethods: f.shivMethods !== !1,
+				shivMethods: f.shivMethods !== false,
 				type: "default",
 				shivDocument: c,
 				createElement: o,
@@ -11879,7 +11879,7 @@ var addToHome = function(e) {
 		A = 0,
 		E = {
 			autostart: true,
-			returningVisitor: !1,
+			returningVisitor: false,
 			animationIn: "drop",
 			animationOut: "fade",
 			startDelay: 2e3,
@@ -11887,7 +11887,7 @@ var addToHome = function(e) {
 			bottomOffset: 14,
 			expire: 0,
 			message: "",
-			touchIcon: !1,
+			touchIcon: false,
 			arrow: true,
 			hookOnLoad: true,
 			closeButton: true,
@@ -12020,10 +12020,10 @@ angular.module("app.services.config", ["ng"]).factory("$config", ["$location", "
 				}),
 				debug: n({
 					dev: true,
-					advdev: !1,
+					advdev: false,
 					test: true,
-					stage: !1,
-					prod: !1
+					stage: false,
+					prod: false
 				})
 			},
 			cdn: {
@@ -12090,8 +12090,8 @@ angular.module("app.services.config", ["ng"]).factory("$config", ["$location", "
 					prod: "d3a5d794"
 				}),
 				enabled: n({
-					dev: !1,
-					advdev: !1,
+					dev: false,
+					advdev: false,
 					test: true,
 					stage: true,
 					prod: true
@@ -12160,16 +12160,16 @@ angular.module("app.services.config", ["ng"]).factory("$config", ["$location", "
 					token: "6M]485077K9w7Vk"
 				}
 			}),
-			optMinInstructions: !1,
-			optShowGamePin: !1,
-			optResetPlayers: !1,
+			optMinInstructions: false,
+			optShowGamePin: false,
+			optResetPlayers: false,
 			kioskmode: {
 				enabled: n({
-					dev: !1,
-					advdev: !1,
-					test: !1,
-					stage: !1,
-					prod: !1
+					dev: false,
+					advdev: false,
+					test: false,
+					stage: false,
+					prod: false
 				}),
 				waitForJoin: 15,
 				waitForResults: 5,
@@ -12216,7 +12216,7 @@ angular.module("app.services.config", ["ng"]).factory("$config", ["$location", "
 				general: 1
 			},
 			isClickerKeycode: function(e) {
-				return 32 == e || 34 == e ? true : !1
+				return 32 == e || 34 == e ? true : false
 			},
 			sessionTimeout: 36e5,
 			mapImageUrl: function(e) {
@@ -12310,8 +12310,8 @@ angular.module("app.services.network", ["underscore", "app.services.comet"]).fac
 				assessment: n
 			})
 		}
-		var l = !1,
-			u = !1,
+		var l = false,
+			u = false,
 			f = null,
 			d = null,
 			p = {
@@ -12341,7 +12341,7 @@ angular.module("app.services.network", ["underscore", "app.services.comet"]).fac
 					u || (f && (f(), d(), f = null, d = null, u = !1), s(), u = true)
 				},
 				unwatchNetworkMessages: function() {
-					u && (u = !1, f && (f(), d(), f = null, d = null))
+					u && (u = false, f && (f(), d(), f = null, d = null))
 				}
 			};
 		return p
@@ -12366,13 +12366,13 @@ angular.module("app.services.mobitroll", ["app.services.comet", "app.services.co
 		}
 
 		function d(t) {
-			if (r.$broadcast("connectionHeartbeat", t), e.isDisconnected()) return p.connected = !1, void r.$broadcast("connectionClosed", t);
+			if (r.$broadcast("connectionHeartbeat", t), e.isDisconnected()) return p.connected = false, void r.$broadcast("connectionClosed", t);
 			var n = p.connected;
 			p.connected = t.successful === true, !n && p.connected ? r.$broadcast("connectionEstablished", t) : n && !p.connected && r.$broadcast("connectionBroken", t)
 		}
 		var p = {
-			handshaked: !1,
-			connected: !1,
+			handshaked: false,
+			connected: false,
 			connect: function(t) {
 				o.put("no.mobitroll.session", t), s(function() {
 					var t = p;
@@ -12380,7 +12380,7 @@ angular.module("app.services.mobitroll", ["app.services.comet", "app.services.co
 				}, 50)
 			},
 			disconnect: function() {
-				e.disconnect(true), p.handshaked = !1
+				e.disconnect(true), p.handshaked = false
 			},
 			withComet: function(t) {
 				return t(e)
@@ -12399,11 +12399,11 @@ angular.module("app.services.mobitroll", ["app.services.comet", "app.services.co
 				return e.unsubscribe(t)
 			},
 			usingWebsockets: function() {
-				return e.getTransport() ? "websocket" === e.getTransport().getType().toLowerCase() : !1
+				return e.getTransport() ? "websocket" === e.getTransport().getType().toLowerCase() : false
 			},
 			ensureConnection: function() {
 				var e = p;
-				return e.handshaked ? !1 : (e.redirect("/"), true)
+				return e.handshaked ? false : (e.redirect("/"), true)
 			},
 			clientId: function() {
 				return e.getClientId()
@@ -12462,16 +12462,16 @@ angular.module("app.services.utils", ["underscore"]).factory("$utils", ["$window
 			},
 			isMobile: {
 				Android: function() {
-					return e.navigator.userAgent.match(/Android/i) ? true : !1
+					return e.navigator.userAgent.match(/Android/i) ? true : false
 				},
 				BlackBerry: function() {
-					return e.navigator.userAgent.match(/BlackBerry/i) ? true : !1
+					return e.navigator.userAgent.match(/BlackBerry/i) ? true : false
 				},
 				iOS: function() {
-					return e.navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : !1
+					return e.navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false
 				},
 				Windows: function() {
-					return e.navigator.userAgent.match(/IEMobile/i) ? true : !1
+					return e.navigator.userAgent.match(/IEMobile/i) ? true : false
 				},
 				any: function() {
 					return r.isMobile.Android() || r.isMobile.BlackBerry() || r.isMobile.iOS() || r.isMobile.Windows()
@@ -12872,19 +12872,19 @@ angular.module("app.services.quiz", ["underscore"]).factory("$quiz", ["$config",
 				survey: {
 					showTitle: true,
 					showQuestionNumbers: true,
-					showScore: !1,
-					showRandomise: !1,
-					showSocial: !1,
-					pointQuestions: !1,
+					showScore: false,
+					showRandomise: false,
+					showSocial: false,
+					pointQuestions: false,
 					pointlessQuestions: true
 				},
 				poll: {
-					showTitle: !1,
-					showQuestionNumbers: !1,
-					showScore: !1,
-					showRandomise: !1,
+					showTitle: false,
+					showQuestionNumbers: false,
+					showScore: false,
+					showRandomise: false,
 					showSocial: true,
-					pointQuestions: !1,
+					pointQuestions: false,
 					pointlessQuestions: true
 				}
 			}
@@ -12962,7 +12962,7 @@ angular.module("app.directives.debug", ["app.services.network", "app.services.co
 					return o
 				}
 				var l = [],
-					u = "string" == typeof o.debugTimestamp || !1,
+					u = "string" == typeof o.debugTimestamp || false,
 					f = parseInt(o.maxRows);
 				isNaN(f) && (f = 3), "string" == typeof o.debugInfo && o.debugInfo.length > 0 && (l = o.debugInfo.split(","));
 				var d = l.length > 0 && n.some(l, function(t) {
@@ -13342,7 +13342,7 @@ function(e, t) {
 			u = /^[^,]+/.exec(a)[0],
 			f = l.loopExp,
 			d = /\S+$/.exec(f || u)[0];
-		o.firstArg = u, o.hasDontEnumBug = St, o.hasExp = "hasOwnProperty.call(" + d + ", index)", o.iteratedObject = d, o.shadowed = Mt, o.useHas = o.useHas !== !1, o.exit || (o.exit = "if (!" + u + ") return result"), "object" != u && s.inLoop || (o.arrayBranch = null), f || (l.loopExp = "index in " + d);
+		o.firstArg = u, o.hasDontEnumBug = St, o.hasExp = "hasOwnProperty.call(" + d + ", index)", o.iteratedObject = d, o.shadowed = Mt, o.useHas = o.useHas !== false, o.exit || (o.exit = "if (!" + u + ") return result"), "object" != u && s.inLoop || (o.arrayBranch = null), f || (l.loopExp = "index in " + d);
 		var p = Function("arrayClass, funcClass, hasOwnProperty, identity, iteratorBind, objectTypes, stringClass, toString, undefined", '"use strict"; return function(' + a + ") {\n" + ln(o) + "\n}");
 		return p(Ht, Wt, Yt, gt, c, zt, Xt, tn)
 	}
@@ -13669,7 +13669,7 @@ function(e, t) {
 	}
 
 	function V(e) {
-		var t, n = !1;
+		var t, n = false;
 		return function() {
 			return n ? t : (n = true, t = e.apply(this, arguments))
 		}
@@ -13712,7 +13712,7 @@ function(e, t) {
 	}
 
 	function Y(e) {
-		return e === true || e === !1 || tn.call(e) == Bt
+		return e === true || e === false || tn.call(e) == Bt
 	}
 
 	function Z(e) {
@@ -13729,7 +13729,7 @@ function(e, t) {
 		if (e._chain && (e = e._wrapped), n._chain && (n = n._wrapped), e.isEqual && tn.call(e.isEqual) == Wt) return e.isEqual(n);
 		if (n.isEqual && tn.call(n.isEqual) == Wt) return n.isEqual(e);
 		var i = tn.call(e);
-		if (i != tn.call(n)) return !1;
+		if (i != tn.call(n)) return false;
 		switch (i) {
 			case Xt:
 				return e == String(n);
@@ -13741,7 +13741,7 @@ function(e, t) {
 			case Jt:
 				return e.source == n.source && e.global == n.global && e.multiline == n.multiline && e.ignoreCase == n.ignoreCase
 		}
-		if ("object" != typeof e || "object" != typeof n) return !1;
+		if ("object" != typeof e || "object" != typeof n) return false;
 		for (var o = r.length; o--;)
 			if (r[o] == e) return true;
 		var a = -1,
@@ -13751,7 +13751,7 @@ function(e, t) {
 			if (c = e.length, s = c == n.length)
 				for (; c-- && (s = tt(e[c], n[c], r)););
 		} else {
-			if ("constructor" in e != "constructor" in n || e.constructor != n.constructor) return !1;
+			if ("constructor" in e != "constructor" in n || e.constructor != n.constructor) return false;
 			for (var l in e)
 				if (Yt.call(e, l) && (c++, !(s = Yt.call(n, l) && tt(e[l], n[l], r)))) break;
 			if (s) {
@@ -13903,12 +13903,12 @@ function(e, t) {
 			"'": "&#x27;"
 		},
 		zt = {
-			"boolean": !1,
+			"boolean": false,
 			"function": true,
 			object: true,
-			number: !1,
-			string: !1,
-			undefined: !1
+			number: false,
+			string: false,
+			undefined: false
 		},
 		Rt = {
 			"\\": "\\",
@@ -13961,7 +13961,7 @@ function(e, t) {
 			init: "object",
 			top: "for (var source, sourceIndex = 1, length = arguments.length; sourceIndex < length; sourceIndex++) {\n  source = arguments[sourceIndex];\n" + (St ? "  if (source) {" : ""),
 			loopExp: "index in source",
-			useHas: !1,
+			useHas: false,
 			inLoop: "object[index] = source[index]",
 			bottom: (St ? "  }\n" : "") + "}"
 		},
@@ -14031,13 +14031,13 @@ function(e, t) {
 		}),
 		An = i(dn),
 		En = i(un, hn, gn, {
-			useHas: !1
+			useHas: false
 		}),
 		Nn = i(un, hn, gn),
 		jn = i({
 			args: "object",
 			init: "[]",
-			useHas: !1,
+			useHas: false,
 			inLoop: "if (toString.call(object[index]) == funcClass) result.push(index)",
 			bottom: "result.sort()"
 		}),
@@ -14255,7 +14255,7 @@ function(e) {
 		} : function() {
 			return +new Date
 		},
-		k = !1,
+		k = false,
 		x = v.documentElement,
 		T = 1e3,
 		C = /^rgb\(|#/,
@@ -14471,8 +14471,8 @@ angular.module("app.services.moderation", []).factory("$moderation", ["$rootScop
 					key: "kicked-general",
 					message: e.siteAppContent.errors["kicked-general"],
 					alertType: "error",
-					autoDismiss: !1,
-					userDismissable: !1
+					autoDismiss: false,
+					userDismissable: false
 				})
 			},
 			kickController: function(r) {
@@ -14502,9 +14502,9 @@ angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.ser
 		}
 		var g, m, v, y = r.comet.events,
 			b = "",
-			$ = !1,
-			w = !1,
-			k = !1;
+			$ = false,
+			w = false,
+			k = false;
 		n.$on(u.events.lagUpdate, function(t, r) {
 			if (e.isConnected()) switch (n.$broadcast("dismissAlert", {
 				key: "reconnecting"
@@ -14600,7 +14600,7 @@ angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.ser
 							key: "duplicatenickname",
 							message: n.siteAppContent.errors["quiz-nickname-taken"],
 							alertType: "error",
-							autoDismiss: !1,
+							autoDismiss: false,
 							userDismissable: true
 						});
 						break;
@@ -14608,7 +14608,7 @@ angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.ser
 						h(), T.trackConnection("restart");
 						break;
 					case "NONEXISTING_SESSION":
-						k = !1, n.$broadcast("wait", {
+						k = false, n.$broadcast("wait", {
 							message: n.siteAppContent.info["attempt-reconnection"]
 						}), n.$broadcast("alert", {
 							key: "nonexisting-session",
@@ -14620,7 +14620,7 @@ angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.ser
 					key: "nonexisting-session"
 				}), n.$broadcast("dismissAlert", {
 					key: "duplicatenickname"
-				}), T.playerId = r.data.cid, w || e.redirect("/instructions"), w = !1, k = true;
+				}), T.playerId = r.data.cid, w || e.redirect("/instructions"), w = false, k = true;
 				else if ("status" === r.data.type) switch (String(r.data.status)) {
 				case "MISSING":
 					T.state != T.states.gameOver && n.$broadcast("wait", {
@@ -14629,7 +14629,7 @@ angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.ser
 					}), $ = true, T.trackConnection("playerMissing");
 					break;
 				case "ACTIVE":
-					$ && ($ = !1, w = true, n.$broadcast("clearWait", {
+					$ && ($ = false, w = true, n.$broadcast("clearWait", {
 						level: 5
 					}), T.trackConnection("playerActive"))
 			} else if ("message" === r.data.type) switch (parseInt(r.data.id, 10)) {
@@ -14834,7 +14834,7 @@ angular.module("app.directives.mobile", []).directive("tap", ["$rootScope",
 				var e = function() {
 					t.document.body.style.height = t.innerHeight + "px", 0 !== t.document.body.scrollTop && t.scrollTo(0, 0)
 				};
-				t.addEventListener("orientationchange", e, !1), e(), t.document.body.style.webkitTransform = "translate3d(0,0,0)"
+				t.addEventListener("orientationchange", e, false), e(), t.document.body.style.webkitTransform = "translate3d(0,0,0)"
 			}
 		}
 	}
