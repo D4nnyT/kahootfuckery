@@ -4621,7 +4621,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				try {
 					w = 1, s.send(y, r)
 				} catch (A) {
-					if (!(2 > w)) throw A;
+					if (!(2 > w)) {
+						throw A;
+					}
 					r(-1, A)
 				}
 			} else r(-1, "No Transport");
@@ -5469,9 +5471,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}
 
 	function I(e, t) {
-		if (S(e) || A(e)) throw Sr("cpws", "Can't copy! Making copies of Window or Scope instances is not supported.");
+		if (S(e) || A(e)) {
+			throw Sr("cpws", "Can't copy! Making copies of Window or Scope instances is not supported.");
+		}
 		if (t) {
-			if (e === t) throw Sr("cpi", "Can't copy! Source and destination are identical.");
+			if (e === t) {
+				throw Sr("cpi", "Can't copy! Source and destination are identical.");
+			}
 			if (x(e)) {
 				t.length = 0;
 				for (var n = 0; n < e.length; n++) {
@@ -5742,7 +5748,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}
 
 	function nt(e, t, n) {
-		if (!e) throw Sr("areq", "Argument '{0}' is {1}", t || "?", n || "required");
+		if (!e) {
+			throw Sr("areq", "Argument '{0}' is {1}", t || "?", n || "required");
+		}
 		return e
 	}
 
@@ -5755,7 +5763,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}
 
 	function it(e, t) {
-		if ("hasOwnProperty" === e) throw Sr("badname", "hasOwnProperty is not a valid {0} name", t)
+		if ("hasOwnProperty" === e) {
+			throw Sr("badname", "hasOwnProperty is not a valid {0} name", t);
+		}
 	}
 
 	function ot(e, t, n) {
@@ -5796,7 +5806,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			var e = {};
 			return function(r, o, a) {
 				var s = function(e, t) {
-					if ("hasOwnProperty" === e) throw i("badname", "hasOwnProperty is not a valid {0} name", t)
+					if ("hasOwnProperty" === e) {
+						throw i("badname", "hasOwnProperty is not a valid {0} name", t);
+					}
 				};
 				s(r, "module");
 				if (o && e.hasOwnProperty(r)) {
@@ -5809,7 +5821,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							return c;
 						}
 					}
-					if (!o) throw n("nomod", "Module '{0}' is not available! You either misspelled the module name or forgot to load it. If registering a module ensure that you specify the dependencies as the second argument.", r);
+					if (!o) {
+						throw n("nomod", "Module '{0}' is not available! You either misspelled the module name or forgot to load it. If registering a module ensure that you specify the dependencies as the second argument.", r);
+					}
 					var t = [],
 						i = [],
 						s = e("$injector", "invoke"),
@@ -6012,7 +6026,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			return e;
 		}
 		if ($(e) && (e = Nr(e)), !(this instanceof gt)) {
-			if ($(e) && "<" != e.charAt(0)) throw Fr("nosel", "Looking up elements via selectors is not supported by jqLite! See: http://docs.angularjs.org/api/angular.element");
+			if ($(e) && "<" != e.charAt(0)) {
+				throw Fr("nosel", "Looking up elements via selectors is not supported by jqLite! See: http://docs.angularjs.org/api/angular.element");
+			}
 			return new gt(e)
 		}
 		if ($(e)) {
@@ -6034,7 +6050,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}
 
 	function yt(e, t, n, r) {
-		if (y(r)) throw Fr("offargs", "jqLite#off() does not support the `selector` argument");
+		if (y(r)) {
+			throw Fr("offargs", "jqLite#off() does not support the `selector` argument");
+		}
 		var i = $t(e, "events"),
 			a = $t(e, "handle");
 		if (a) {
@@ -6228,7 +6246,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if ((T(t) || x(t))) {
 				(t = w.instantiate(t))
 			}
-			if (!t.$get) throw Yr("pget", "Provider '{0}' must define $get factory method.", e);
+			if (!t.$get) {
+				throw Yr("pget", "Provider '{0}' must define $get factory method.", e);
+			}
 			return y[e + p] = t
 		}
 
@@ -6294,7 +6314,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		function f(e, t) {
 			function n(n) {
 				if (e.hasOwnProperty(n)) {
-					if (e[n] === d) throw Yr("cdep", "Circular dependency found: {0}", g.join(" <- "));
+					if (e[n] === d) {
+						throw Yr("cdep", "Circular dependency found: {0}", g.join(" <- "));
+					}
 					return e[n]
 				}
 				try {
@@ -6313,7 +6335,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					c = Mt(e);
 				o = 0;
 				for (i = c.length; i > o; o++) {
-					if (a = c[o], "string" != typeof a) throw Yr("itkn", "Incorrect injection token! Expected service name as string, got {0}", a);
+					if (a = c[o], "string" != typeof a) {
+						throw Yr("itkn", "Incorrect injection token! Expected service name as string, got {0}", a);
+					}
 					s.push(r && r.hasOwnProperty(a) ? r[a] : n(a))
 				}
 				if (!(e.$inject)) {
@@ -6589,7 +6613,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						}
 					}
 				}
-				if (e in t) throw r("$cacheFactory")("iid", "CacheId '{0}' is already taken!", e);
+				if (e in t) {
+					throw r("$cacheFactory")("iid", "CacheId '{0}' is already taken!", e);
+				}
 				var a = 0,
 					s = f({}, n, {
 						id: e
@@ -6818,7 +6844,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						i = 0;
 					if (t && e.hasAttribute && e.hasAttribute(t)) {
 						do {
-							if (!e) throw ti("uterdir", "Unterminated attribute, found '{0}' but no matching '{1}' found.", t, n);
+							if (!e) {
+								throw ti("uterdir", "Unterminated attribute, found '{0}' but no matching '{1}' found.", t, n);
+							}
 							1 == e.nodeType && (e.hasAttribute(t) && i++, e.hasAttribute(n) && i--), r.push(e), e = e.nextSibling
 						} while (i > 0)
 					} else r.push(e);
@@ -6852,7 +6880,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								(r = n[e])
 							}
 							r = r || t[i]("$" + e + "Controller");
-							if (!r && !a) throw ti("ctreq", "Controller '{0}', required by directive '{1}', can't be found!", e, C);
+							if (!r && !a) {
+								throw ti("ctreq", "Controller '{0}', required by directive '{1}', can't be found!", e, C);
+							}
 							return r
 						}
 						if (x(e)) {
@@ -7011,7 +7041,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 									S = br(j);
 								}
 								i = S[0];
-								if (1 != S.length || 1 !== i.nodeType) throw ti("tplrt", "Template for directive '{0}' must have exactly one root element. {1}", C, "");
+								if (1 != S.length || 1 !== i.nodeType) {
+									throw ti("tplrt", "Template for directive '{0}' must have exactly one root element. {1}", C, "");
+								}
 								K(l, G, i);
 								var at = {
 										$attr: {}
@@ -7115,7 +7147,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								$ = br(f);
 							}
 							d = $[0];
-							if (1 != $.length || 1 !== d.nodeType) throw ti("tplrt", "Template for directive '{0}' must have exactly one root element. {1}", m.name, y);
+							if (1 != $.length || 1 !== d.nodeType) {
+								throw ti("tplrt", "Template for directive '{0}' must have exactly one root element. {1}", m.name, y);
+							}
 							h = {
 								$attr: {}
 							}, K(r, t, d);
@@ -7157,7 +7191,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 
 				function W(e, t, n, r) {
-					if (t) throw ti("multidir", "Multiple directives [{0}, {1}] asking for {2} on: {3}", t.name, n.name, e, V(r))
+					if (t) {
+						throw ti("multidir", "Multiple directives [{0}, {1}] asking for {2} on: {3}", t.name, n.name, e, V(r));
+					}
 				}
 
 				function J(e, t) {
@@ -7187,14 +7223,18 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				function G(e, t, n, i) {
 					var o = r(n, true);
 					if (o) {
-						if ("multiple" === i && "SELECT" === kr(e)) throw ti("selmulti", "Binding to the 'multiple' attribute is not supported. Element: {0}", V(e));
+						if ("multiple" === i && "SELECT" === kr(e)) {
+							throw ti("selmulti", "Binding to the 'multiple' attribute is not supported. Element: {0}", V(e));
+						}
 						t.push({
 							priority: 100,
 							compile: function() {
 								return {
 									pre: function(t, n, a) {
 										var s = a.$$observers || (a.$$observers = {});
-										if (u.test(i)) throw ti("nodomevents", "Interpolations for HTML DOM event attributes are disallowed.  Please use the ng- versions (such as ng-click instead of onclick) instead.");
+										if (u.test(i)) {
+											throw ti("nodomevents", "Interpolations for HTML DOM event attributes are disallowed.  Please use the ng- versions (such as ng-click instead of onclick) instead.");
+										}
 										o = r(a[i], true, X(e, i));
 										if (o) {
 											a[i] = o(t);
@@ -7376,8 +7416,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					}
 					s = n.instantiate(o, a);
 					if (u) {
-						if (!a || "object" != typeof a.$scope)
+						if (!a || "object" != typeof a.$scope) {
 							throw r("$controller")("noscp", "Cannot export controller '{0}' as '{1}'! No $scope object provided via `locals`.", l || o.name, u);
+						}
 						a.$scope[u] = s
 					}
 					return s;
@@ -7749,7 +7790,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				if (g) try {
 					k.responseType = g
 				} catch (x) {
-					if ("json" !== g) throw x
+					if ("json" !== g) {
+						throw x;
+					}
 				}
 				k.send(l || null)
 			} if (d > 0) var T = n(m, d);
@@ -7965,7 +8008,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		var r = un(e);
 		an(e, this, e), this.$$parse = function(t) {
 			var n = cn(r, t);
-			if (!$(n)) throw ai("ipthprfx", 'Invalid url "{0}", missing path prefix "{1}".', t, r);
+			if (!$(n)) {
+				throw ai("ipthprfx", 'Invalid url "{0}", missing path prefix "{1}".', t, r);
+			}
 			sn(n, this, e), this.$$path || (this.$$path = "/"), this.$$compose()
 		}, this.$$compose = function() {
 			var e = G(this.$$search),
@@ -7989,7 +8034,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 			var o = cn(e, r) || cn(n, r),
 				a = "#" == o.charAt(0) ? cn(t, o) : this.$$html5 ? o : "";
-			if (!$(a)) throw ai("ihshprfx", 'Invalid url "{0}", missing hash prefix "{1}".', r, t);
+			if (!$(a)) {
+				throw ai("ihshprfx", 'Invalid url "{0}", missing hash prefix "{1}".', r, t);
+			}
 			sn(a, this, e), this.$$path = i(this.$$path, a, e), this.$$compose()
 		}, this.$$compose = function() {
 			var n = G(this.$$search),
@@ -8144,18 +8191,23 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}
 
 	function bn(e, t) {
-		if ("constructor" === e) throw ci("isecfld", 'Referencing "constructor" field in Angular expressions is disallowed! Expression: {0}', t);
+		if ("constructor" === e) {
+			throw ci("isecfld", 'Referencing "constructor" field in Angular expressions is disallowed! Expression: {0}', t);
+		}
 		return e;
 	}
 
 	function $n(e, t) {
 		if (e) {
-			if (e.constructor === e)
+			if (e.constructor === e) {
 				throw ci("isecfn", "Referencing Function in Angular expressions is disallowed! Expression: {0}", t);
-			if (e.document && e.location && e.alert && e.setInterval)
+			}
+			if (e.document && e.location && e.alert && e.setInterval) {
 				throw ci("isecwindow", "Referencing the Window in Angular expressions is disallowed! Expression: {0}", t);
-			if (e.children && (e.nodeName || e.prop && e.attr && e.find))
+			}
+			if (e.children && (e.nodeName || e.prop && e.attr && e.find)) {
 				throw ci("isecdom", "Referencing DOM nodes in Angular expressions is disallowed! Expression: {0}", t);
+			}
 		}
 		return e;
 	}
@@ -8568,7 +8620,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 
 				function f(e) {
-					if (v.$$phase) throw t("inprog", "{0} already in progress", v.$$phase);
+					if (v.$$phase) {
+						throw t("inprog", "{0} already in progress", v.$$phase);
+					}
 					v.$$phase = e
 				}
 
@@ -8787,7 +8841,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								if (!(u = p.$$childHead || p !== w && p.$$nextSibling))
 									for (; p !== w && !(u = p.$$nextSibling);) p = p.$parent
 							} while (p = u);
-							if ((l || y.length) && !$--) throw d(), t("infdig", "{0} $digest() iterations reached. Aborting!\nWatchers fired in the last 5 iterations: {1}", e, B(k))
+							if ((l || y.length) && !$--) {
+								throw d(), t("infdig", "{0} $digest() iterations reached. Aborting!\nWatchers fired in the last 5 iterations: {1}", e, B(k));
+							}
 						} while (l || y.length);
 						for (d(); b.length;) try {
 							b.shift()()
@@ -8946,7 +9002,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			return e;
 		}
 		if ($(e)) {
-			if (e.indexOf("***") > -1) throw gi("iwcard", "Illegal sequence *** in string matcher.  String: {0}", e);
+			if (e.indexOf("***") > -1) {
+				throw gi("iwcard", "Illegal sequence *** in string matcher.  String: {0}", e);
+			}
 			e = qn(e).replace("\\*\\*", ".*").replace("\\*", "[^:/.?&;]*");
 			return new RegExp("^" + e + "$");
 		}
@@ -9026,11 +9084,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
 				function s(e, t) {
 					var r = d.hasOwnProperty(e) ? d[e] : null;
-					if (!r) throw gi("icontext", "Attempted to trust a value in invalid context. Context: {0}; Value: {1}", e, t);
+					if (!r) {
+						throw gi("icontext", "Attempted to trust a value in invalid context. Context: {0}; Value: {1}", e, t);
+					}
 					if (null === t || t === n || "" === t) {
 						return t;
 					}
-					if ("string" != typeof t) throw gi("itype", "Attempted to trust a non-string value in a content requiring a string: Context: {0}", e);
+					if ("string" != typeof t) {
+						throw gi("itype", "Attempted to trust a non-string value in a content requiring a string: Context: {0}", e);
+					}
 					return new r(t)
 				}
 
@@ -9088,8 +9150,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			return e;
 		}, this.$get = ["$parse", "$sniffer", "$sceDelegate",
 			function(t, n, r) {
-				if (e && n.msie && n.msieDocumentMode < 8)
+				if (e && n.msie && n.msieDocumentMode < 8) {
 					throw gi("iequirks", "Strict Contextual Escaping does not support Internet Explorer version < 9 in quirks mode.  You can fix this by adding the text <!doctype html> to the top of your HTML document.  See http://docs.angularjs.org/api/ng.$sce for more information.");
+				}
 				var i = I(mi);
 				i.isEnabled = function() {
 					return e
@@ -9733,7 +9796,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			} else {
 				p = function(n) {
 					var i = e.$eval(g);
-					if (!i || !i.test) throw r("ngPattern")("noregexp", "Expected {0} to be a RegExp but was {1}. Element: {2}", g, i, V(t));
+					if (!i || !i.test) {
+						throw r("ngPattern")("noregexp", "Expected {0} to be a RegExp but was {1}. Element: {2}", g, i, V(t));
+					}
 					return m(i, n)
 				};
 			}
@@ -10180,7 +10245,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		removeData: bt,
 		dealoc: vt,
 		on: function xo(e, n, r, i) {
-			if (y(i)) throw Fr("onargs", "jqLite#on() does not support the `selector` or `eventData` parameters");
+			if (y(i)) {
+				throw Fr("onargs", "jqLite#on() does not support the `selector` or `eventData` parameters");
+			}
 			var a = $t(e, "events"),
 				s = $t(e, "handle");
 			a || $t(e, "events", a = {}), s || $t(e, "handle", s = jt(e, a)), o(n.split(" "), function(n) {
@@ -10344,7 +10411,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			function(e) {
 				this.$$selectors = {}, this.register = function(t, n) {
 					var r = t + "-animation";
-					if (t && "." != t.charAt(0)) throw Zr("notcsel", "Expecting class selector starting with '.' got '{0}'.", t);
+					if (t && "." != t.charAt(0)) {
+						throw Zr("notcsel", "Expecting class selector starting with '.' got '{0}'.", t);
+					}
 					this.$$selectors[t.substr(1)] = r, e.factory(r, n)
 				}, this.classNameFilter = function(e) {
 					if (1 === arguments.length) {
@@ -10435,7 +10504,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				case 1:
 					if ($(e)) this.$$search = X(e);
 					else {
-						if (!b(e)) throw ai("isrcharg", "The first argument of the `$location#search()` call must be a string or an object.");
+						if (!b(e)) {
+							throw ai("isrcharg", "The first argument of the `$location#search()` call must be a string or an object.");
+						}
 						this.$$search = e
 					}
 					break;
@@ -10782,7 +10853,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			throw ci("syntax", "Syntax Error: Token '{0}' {1} at column {2} of the expression [{3}] starting at [{4}].", t.text, e, t.index + 1, this.text, this.text.substring(t.index))
 		},
 		peekToken: function() {
-			if (0 === this.tokens.length) throw ci("ueoe", "Unexpected end of expression: {0}", this.text);
+			if (0 === this.tokens.length) {
+				throw ci("ueoe", "Unexpected end of expression: {0}", this.text);
+			}
 			return this.tokens[0]
 		},
 		peek: function(e, t, n, r) {
@@ -11209,7 +11282,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				this.$name = n.name;
 				var l = a(n.ngModel),
 					u = l.assign;
-				if (!u) throw r("ngModel")("nonassign", "Expression '{0}' is non-assignable. Element: {1}", n.ngModel, V(i));
+				if (!u) {
+					throw r("ngModel")("nonassign", "Expression '{0}' is non-assignable. Element: {1}", n.ngModel, V(i));
+				}
 				this.$render = h, this.$isEmpty = function(e) {
 					return v(e) || "" === e || null === e || e !== e
 				};
@@ -11591,8 +11666,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							C = {
 								$id: _t
 							};
-						if (!T)
+						if (!T) {
 							throw l("iexp", "Expected expression in form of '_item_ in _collection_[ track by _id_]' but got '{0}'.", x);
+						}
 						b = T[1];
 						$ = T[2];
 						h = T[3];
@@ -11615,8 +11691,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							};
 						}
 						T = b.match(/^(?:([\$\w]+)|\(([\$\w]+)\s*,\s*([\$\w]+)\))$/);
-						if (!T)
+						if (!T) {
 							throw l("iidexp", "'_item_' in '_item_ in _collection_' should be an identifier or '(_key_, _value_)' expression, but got '{0}'.", b);
+						}
 						w = T[3] || T[1];
 						k = T[2];
 						var S = {};
@@ -11636,11 +11713,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							for (g = E.length, d = M.length = E.length, f = 0; d > f; f++)
 								if ($ = e === E ? f : E[f], T = e[$], C = A($, T, f), it(C, "`track by` id"), S.hasOwnProperty(C)) N = S[C], delete S[C], q[C] = N, M[f] = N;
 								else {
-									if (q.hasOwnProperty(C)) throw o(M, function(e) {
-										if (e && e.scope) {
-											(S[e.id] = e);
-										}
-									}), l("dupes", "Duplicates in a repeater are not allowed. Use 'track by' expression to specify unique keys. Repeater: {0}, Duplicate key: {1}", x, C);
+									if (q.hasOwnProperty(C)) {
+										throw o(M, function(e) {
+											if (e && e.scope) {
+												(S[e.id] = e);
+											}
+										}), l("dupes", "Duplicates in a repeater are not allowed. Use 'track by' expression to specify unique keys. Repeater: {0}, Duplicate key: {1}", x, C);
+									}
 									M[f] = {
 										id: C
 									}, q[C] = false
@@ -11772,7 +11851,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		}),
 		mo = nr({
 			link: function(e, t, n, i, o) {
-				if (!o) throw r("ngTransclude")("orphan", "Illegal use of ngTransclude directive in the template! No parent directive that requires a transclusion found. Element: {0}", V(t));
+				if (!o) {
+					throw r("ngTransclude")("orphan", "Illegal use of ngTransclude directive in the template! No parent directive that requires a transclusion found. Element: {0}", V(t));
+				}
 				o(function(e) {
 					t.empty(), t.append(e)
 				})
@@ -11978,7 +12059,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								for (; C.length > A;) C.pop()[0].element.remove()
 							}
 							var l;
-							if (!(l = $.match(i))) throw yo("iexp", "Expected expression in form of '_select_ (as _label_)? for (_key_,)?_value_ in _collection_' but got '{0}'. Element: {1}", $, V(o));
+							if (!(l = $.match(i))) {
+								throw yo("iexp", "Expected expression in form of '_select_ (as _label_)? for (_key_,)?_value_ in _collection_' but got '{0}'. Element: {1}", $, V(o));
+							}
 							var u = r(l[2] || l[1]),
 								f = l[4] || l[6],
 								d = l[5],
@@ -12467,7 +12550,9 @@ org.cometd.RequestTransport = function() {
 
 	function r(e) {
 		var t = e.id;
-		if (this._debug("Transport", this.getType(), "metaConnect complete, request", t), null !== l && l.id !== t) throw "Longpoll request mismatch, completing request " + t;
+		if (this._debug("Transport", this.getType(), "metaConnect complete, request", t), null !== l && l.id !== t) {
+			throw "Longpoll request mismatch, completing request " + t;
+		}
 		l = null
 	}
 
@@ -12488,7 +12573,9 @@ org.cometd.RequestTransport = function() {
 	}
 
 	function o(e) {
-		if (null !== l) throw "Concurrent metaConnect requests not allowed, request id=" + l.id + " not yet completed";
+		if (null !== l) {
+			throw "Concurrent metaConnect requests not allowed, request id=" + l.id + " not yet completed";
+		}
 		var n = ++c;
 		this._debug("Transport", this.getType(), "metaConnect send, request", n, "envelope", e);
 		var r = {
@@ -12679,7 +12766,9 @@ org.cometd.Cometd = function(e) {
 			(e = {})
 		}
 		bt = tt._mixin(false, bt, e);
-		if (!bt.url) throw "Missing required configuration parameter 'url' specifying the Bayeux server URL";
+		if (!bt.url) {
+			throw "Missing required configuration parameter 'url' specifying the Bayeux server URL";
+		}
 		var n = /(^https?:\/\/)?(((\[[^\]]+\])|([^:\/\?#]+))(:(\d+))?)?([^\?#]*)(.*)?/.exec(bt.url),
 			r = n[2],
 			i = n[8],
@@ -12880,7 +12969,9 @@ org.cometd.Cometd = function(e) {
 	}
 
 	function k() {
-		if (--ct, 0 > ct) throw "Calls to startBatch() and endBatch() are not paired";
+		if (--ct, 0 > ct) {
+			throw "Calls to startBatch() and endBatch() are not paired";
+		}
 		if (!(0 !== ct || s() || ut)) {
 			w()
 		}
@@ -12955,7 +13046,9 @@ org.cometd.Cometd = function(e) {
 		if (e.successful) {
 			st = e.clientId;
 			var t = it.negotiateTransport(e.supportedConnectionTypes, e.version, rt, bt.url);
-			if (null === t) throw "Could not negotiate transport with server; client " + it.findTransportTypes(e.version, rt, bt.url) + ", server " + e.supportedConnectionTypes;
+			if (null === t) {
+				throw "Could not negotiate transport with server; client " + it.findTransportTypes(e.version, rt, bt.url) + ", server " + e.supportedConnectionTypes;
+			}
 			Z !== t && (tt._debug("Transport", Z, "->", t), Z = t), ut = false, w(), e.reestablish = vt, vt = true, p("/meta/handshake", e);
 			var n = s() ? "none" : gt.reconnect;
 			switch (n) {
@@ -13198,9 +13291,15 @@ org.cometd.Cometd = function(e) {
 		if (n(e)) {
 			i.scope = void 0, i.method = e;
 		} else if (t(r)) {
-			if (!e) throw "Invalid scope " + e;
-			if (i.method = e[r], !n(i.method)) throw "Invalid callback " + r + " for scope " + e
-		} else if (!n(r)) throw "Invalid callback " + r;
+			if (!e) {
+				throw "Invalid scope " + e;
+			}
+			if (i.method = e[r], !n(i.method)) {
+				throw "Invalid callback " + r + " for scope " + e;
+			}
+		} else if (!n(r)) {
+			throw "Invalid callback " + r;
+		}
 		return i
 	}
 
@@ -13377,18 +13476,30 @@ org.cometd.Cometd = function(e) {
 			throw this._debug("Exception during execution of batch", r), this.endBatch(), r
 		}
 	}, this.addListener = function(e, n, r) {
-		if (arguments.length < 2) throw "Illegal arguments number: required 2, got " + arguments.length;
-		if (!t(e)) throw "Illegal argument type: channel must be a string";
+		if (arguments.length < 2) {
+			throw "Illegal arguments number: required 2, got " + arguments.length;
+		}
+		if (!t(e)) {
+			throw "Illegal argument type: channel must be a string";
+		}
 		return Q(e, n, r, true)
 	}, this.removeListener = function(e) {
-		if (!org.cometd.Utils.isArray(e)) throw "Invalid argument: expected subscription, not " + e;
+		if (!org.cometd.Utils.isArray(e)) {
+			throw "Invalid argument: expected subscription, not " + e;
+		}
 		Y(e)
 	}, this.clearListeners = function() {
 		ft = {}
 	}, this.subscribe = function(e, r, i, o) {
-		if (arguments.length < 2) throw "Illegal arguments number: required 2, got " + arguments.length;
-		if (!t(e)) throw "Illegal argument type: channel must be a string";
-		if (s()) throw "Illegal state: already disconnected";
+		if (arguments.length < 2) {
+			throw "Illegal arguments number: required 2, got " + arguments.length;
+		}
+		if (!t(e)) {
+			throw "Illegal argument type: channel must be a string";
+		}
+		if (s()) {
+			throw "Illegal state: already disconnected";
+		}
 		if (n(r)) {
 			o = i;
 			i = r;
@@ -13406,8 +13517,12 @@ org.cometd.Cometd = function(e) {
 		}
 		return c
 	}, this.unsubscribe = function(e, t) {
-		if (arguments.length < 1) throw "Illegal arguments number: required 1, got " + arguments.length;
-		if (s()) throw "Illegal state: already disconnected";
+		if (arguments.length < 1) {
+			throw "Illegal arguments number: required 1, got " + arguments.length;
+		}
+		if (s()) {
+			throw "Illegal state: already disconnected";
+		}
 		this.removeListener(e);
 		var n = e[0];
 		if (!G(n)) {
@@ -13421,9 +13536,15 @@ org.cometd.Cometd = function(e) {
 	}, this.clearSubscriptions = function() {
 		o()
 	}, this.publish = function(e, r, i, o) {
-		if (arguments.length < 1) throw "Illegal arguments number: required 1, got " + arguments.length;
-		if (!t(e)) throw "Illegal argument type: channel must be a string";
-		if (s()) throw "Illegal state: already disconnected";
+		if (arguments.length < 1) {
+			throw "Illegal arguments number: required 1, got " + arguments.length;
+		}
+		if (!t(e)) {
+			throw "Illegal argument type: channel must be a string";
+		}
+		if (s()) {
+			throw "Illegal state: already disconnected";
+		}
 		if (n(r)) {
 			(o = r, r = i = {});
 		} else {
@@ -13449,8 +13570,12 @@ org.cometd.Cometd = function(e) {
 	}, this.setLogLevel = function(e) {
 		bt.logLevel = e
 	}, this.registerExtension = function(e, r) {
-		if (arguments.length < 2) throw "Illegal arguments number: required 2, got " + arguments.length;
-		if (!t(e)) throw "Illegal argument type: extension name must be a string";
+		if (arguments.length < 2) {
+			throw "Illegal arguments number: required 2, got " + arguments.length;
+		}
+		if (!t(e)) {
+			throw "Illegal argument type: extension name must be a string";
+		}
 		for (var i = false, o = 0; o < ht.length; ++o) {
 			var a = ht[o];
 			if (a.name === e) {
@@ -13463,7 +13588,9 @@ org.cometd.Cometd = function(e) {
 			extension: r
 		}), this._debug("Registered extension", e), n(r.registered) && r.registered(e, this), true)
 	}, this.unregisterExtension = function(e) {
-		if (!t(e)) throw "Illegal argument type: extension name must be a string";
+		if (!t(e)) {
+			throw "Illegal argument type: extension name must be a string";
+		}
 		for (var r = false, i = 0; i < ht.length; ++i) {
 			var o = ht[i];
 			if (o.name === e) {
@@ -13688,7 +13815,9 @@ org.cometd.Cometd = function(e) {
 	}
 
 	function i(e, t) {
-		if (!r(t)) throw a("badmember", 'Dotted member path "@{0}" is invalid.', t);
+		if (!r(t)) {
+			throw a("badmember", 'Dotted member path "@{0}" is invalid.', t);
+		}
 		for (var i = t.split("."), o = 0, s = i.length; s > o && e !== n; o++) {
 			var c = i[o];
 			if (null !== e) {
@@ -13791,7 +13920,9 @@ org.cometd.Cometd = function(e) {
 							var n = e.data,
 								r = S.$promise;
 							if (n) {
-								if (t.isArray(n) !== !!i.isArray) throw a("badcfg", "Error in resource configuration. Expected response to contain an {0} but got an {1}", i.isArray ? "array" : "object", t.isArray(n) ? "array" : "object");
+								if (t.isArray(n) !== !!i.isArray) {
+									throw a("badcfg", "Error in resource configuration. Expected response to contain an {0} but got an {1}", i.isArray ? "array" : "object", t.isArray(n) ? "array" : "object");
+								}
 								if (i.isArray) {
 									(S.length = 0, p(n, function(e) {
 										S.push(new $(e))
@@ -13858,7 +13989,9 @@ org.cometd.Cometd = function(e) {
 						l = r || c.template,
 						u = c.urlParams = {};
 					p(l.split(/\W/), function(e) {
-						if ("hasOwnProperty" === e) throw a("badname", "hasOwnProperty is not a valid parameter name.");
+						if ("hasOwnProperty" === e) {
+							throw a("badname", "hasOwnProperty is not a valid parameter name.");
+						}
 						if (!new RegExp("^\\d+$").test(e) && e && new RegExp("(^|[^\\\\]):" + e + "(\\W|$)").test(l)) {
 							(u[e] = true);
 						}
@@ -14174,7 +14307,9 @@ org.cometd.Cometd = function(e) {
 				var w = 0 > o ? e : e.substring(0, o);
 				e = 0 > o ? "" : e.substring(o), n.chars && n.chars(a(w))
 			}
-			if ($ == e) throw l("badparse", "The sanitizer was unable to parse the following block of html: {0}", e);
+			if ($ == e) {
+				throw l("badparse", "The sanitizer was unable to parse the following block of html: {0}", e);
+			}
 			$ = e
 		}
 		i()
@@ -14506,7 +14641,9 @@ window.Modernizr = function(e, t, n) {
 		return D.call(e, t)
 	}, Function.prototype.bind || (Function.prototype.bind = function(e) {
 		var t = this;
-		if ("function" != typeof t) throw new TypeError;
+		if ("function" != typeof t) {
+			throw new TypeError;
+		}
 		var n = q.call(arguments, 1),
 			r = function() {
 				if (this instanceof r) {
