@@ -75,7 +75,7 @@ function GameCtrl(e, t, n, r, i, o, a) {
                     message: e.siteAppContent.info["connecting-to-server"]
                 });
                 a.exists(n, function(t, r) {
-                    t ? s(n) : (200 == r ? c() : (e.$broadcast("badGameId"), e.$broadcast("alert", {
+                    t ? s(n) : (r == 200 ? c() : (e.$broadcast("badGameId"), e.$broadcast("alert", {
                         key: "invalidGameId",
                         message: e.siteAppContent.errors["quiz-pin-general"],
                         alertType: "error",
@@ -289,7 +289,7 @@ function AnswerCtrl(e, t, n, r, i, o, a, s) {
             c += "<br>You&rsquo;re now in <span class='correctAnswer'>" + e.playerRank + "</span> position.";
             if (a.nemesis) {
                 var l = a.nemesis.totalScore - a.totalScore;
-                if (0 == l) {
+                if (l == 0) {
                     c += "<br>You're tied with <span class='correctAnswer'>" + s.removeDangerousTags(a.nemesis.name) + "</span>!";
                 } else {
                     c += "<br>Only <span class='correctAnswer'>" + l + "</span> behind <span class='correctAnswer'>" + s.removeDangerousTags(a.nemesis.name) + "</span>!";
@@ -648,7 +648,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
             return r + "px";
         }
         r = Nt(e, t);
-        (0 > r || null == r) && (r = e.style[t]);
+        (0 > r || r == null) && (r = e.style[t]);
         if (Dt.test(r))
             return r;
         if (r = parseFloat(r) || 0, n)
@@ -896,7 +896,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                     return j.call(this, 0)
                 },
                 get: function(e) {
-                    return null == e ? this.toArray() : 0 > e ? this[this.length + e] : this[e]
+                    return e == null ? this.toArray() : 0 > e ? this[this.length + e] : this[e]
                 },
                 pushStack: function(e, t, n) {
                     var r = this.constructor();
@@ -986,7 +986,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                     return !isNaN(parseFloat(e)) && isFinite(e)
                 },
                 type: function(e) {
-                    return null == e ? String(e) : I[A.call(e)] || "object"
+                    return e == null ? String(e) : I[A.call(e)] || "object"
                 },
                 isPlainObject: function(e) {
                     if (!e || "object" !== s.type(e) || e.nodeType || s.isWindow(e)) return false;
@@ -1049,9 +1049,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                     return e
                 },
                 trim: _ ? function(e) {
-                    return null == e ? "" : _.call(e)
+                    return e == null ? "" : _.call(e)
                 } : function(e) {
-                    return null == e ? "" : e.toString().replace(d, "").replace(p, "")
+                    return e == null ? "" : e.toString().replace(d, "").replace(p, "")
                 },
                 makeArray: function(e, t) {
                     var n = t || [];
@@ -1110,7 +1110,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                     return o.guid = e.guid = e.guid || o.guid || s.guid++, o
                 },
                 access: function(e, n, r, i, o, a, c) {
-                    var l, u = null == r,
+                    var l, u = r == null,
                         f = 0,
                         d = e.length;
                     if (r && "object" == typeof r) {
@@ -1286,7 +1286,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                         }).promise()
                     },
                     promise: function(e) {
-                        if (null == e) e = s;
+                        if (e == null) e = s;
                         else
                             for (var t in s) e[t] = s[t];
                         return e
@@ -1415,7 +1415,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                     f = u ? I.cache : e,
                     d = u ? e[c] : e[c] && c,
                     p = "events" === n;
-                if (d && f[d] && (p || i || f[d].data) || !l || r !== t) return d || (u ? e[c] = d = ++I.uuid : d = c), f[d] || (f[d] = {}, u || (f[d].toJSON = I.noop)), ("object" == typeof n || "function" == typeof n) && (i ? f[d] = I.extend(f[d], n) : f[d].data = I.extend(f[d].data, n)), o = a = f[d], i || (a.data || (a.data = {}), a = a.data), r !== t && (a[I.camelCase(n)] = r), p && !a[n] ? o.events : (l ? (s = a[n], null == s && (s = a[I.camelCase(n)])) : s = a, s)
+                if (d && f[d] && (p || i || f[d].data) || !l || r !== t) return d || (u ? e[c] = d = ++I.uuid : d = c), f[d] || (f[d] = {}, u || (f[d].toJSON = I.noop)), ("object" == typeof n || "function" == typeof n) && (i ? f[d] = I.extend(f[d], n) : f[d].data = I.extend(f[d].data, n)), o = a = f[d], i || (a.data || (a.data = {}), a = a.data), r !== t && (a[I.camelCase(n)] = r), p && !a[n] ? o.events : (l ? (s = a[n], s == null && (s = a[I.camelCase(n)])) : s = a, s)
             }
         },
         removeData: function(e, t, n) {
@@ -1602,11 +1602,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
             var n, r, i, o = this[0]; {
                 if (arguments.length) return i = I.isFunction(e), this.each(function(r) {
                     var o, a = I(this);
-                    1 === this.nodeType && (o = i ? e.call(this, r, a.val()) : e, null == o ? o = "" : "number" == typeof o ? o += "" : I.isArray(o) && (o = I.map(o, function(e) {
-                        return null == e ? "" : e + ""
+                    1 === this.nodeType && (o = i ? e.call(this, r, a.val()) : e, o == null ? o = "" : "number" == typeof o ? o += "" : I.isArray(o) && (o = I.map(o, function(e) {
+                        return e == null ? "" : e + ""
                     })), n = I.valHooks[this.type] || I.valHooks[this.nodeName.toLowerCase()], n && "set" in n && n.set(this, o, "value") !== t || (this.value = o))
                 });
-                if (o) return n = I.valHooks[o.type] || I.valHooks[o.nodeName.toLowerCase()], n && "get" in n && (r = n.get(o, "value")) !== t ? r : (r = o.value, "string" == typeof r ? r.replace(W, "") : null == r ? "" : r)
+                if (o) return n = I.valHooks[o.type] || I.valHooks[o.nodeName.toLowerCase()], n && "get" in n && (r = n.get(o, "value")) !== t ? r : (r = o.value, "string" == typeof r ? r.replace(W, "") : r == null ? "" : r)
             }
         }
     }), I.extend({
@@ -2025,7 +2025,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                 for (c in e) this.on(c, n, r, e[c], o);
                 return this
             }
-            if (null == r && null == i ? (i = n, r = n = t) : null == i && ("string" == typeof n ? (i = r, r = t) : (i = r, r = n, n = t)), i === !1) i = a;
+            if (r == null && i == null ? (i = n, r = n = t) : i == null && ("string" == typeof n ? (i = r, r = t) : (i = r, r = n, n = t)), i === !1) i = a;
             else if (!i) return this;
             return 1 === o && (s = i, i = function(e) {
                 return I().off(e), s.apply(this, arguments)
@@ -2091,7 +2091,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
         }
     }), I.each("blur focus focusin focusout load resize scroll unload click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup error contextmenu".split(" "), function(e, t) {
         I.fn[t] = function(e, n) {
-            return null == n && (n = e, e = null), arguments.length > 0 ? this.on(t, null, e, n) : this.trigger(t)
+            return n == null && (n = e, e = null), arguments.length > 0 ? this.on(t, null, e, n) : this.trigger(t)
         }, I.attrFn && (I.attrFn[t] = true), et.test(t) && (I.event.fixHooks[t] = I.event.keyHooks), tt.test(t) && (I.event.fixHooks[t] = I.event.mouseHooks)
     }),
     function() {
@@ -2177,7 +2177,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                 for (f = i ? {
                     expr: w.pop(),
                     set: y(i)
-                } : d.find(w.pop(), 1 !== w.length || "~" !== w[0] && "+" !== w[0] || !t.parentNode ? t : t.parentNode, $), c = f.expr ? d.filter(f.expr, f.set) : f.set, w.length > 0 ? l = y(c) : b = !1; w.length;) p = w.pop(), m = p, h.relative[p] ? m = w.pop() : p = "", null == m && (m = t), h.relative[p](l, m, $);
+                } : d.find(w.pop(), 1 !== w.length || "~" !== w[0] && "+" !== w[0] || !t.parentNode ? t : t.parentNode, $), c = f.expr ? d.filter(f.expr, f.set) : f.set, w.length > 0 ? l = y(c) : b = !1; w.length;) p = w.pop(), m = p, h.relative[p] ? m = w.pop() : p = "", m == null && (m = t), h.relative[p](l, m, $);
             else l = w = []; if (l || (l = c), l || d.error(p || e), "[object Array]" === a.call(l))
                 if (b)
                     if (t && 1 === t.nodeType)
@@ -2508,7 +2508,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                             i = r + "",
                             o = t[2],
                             a = t[4];
-                        return null == r ? "!=" === o : !o && d.attr ? null != r : "=" === o ? i === a : "*=" === o ? i.indexOf(a) >= 0 : "~=" === o ? (" " + i + " ").indexOf(a) >= 0 : a ? "!=" === o ? i !== a : "^=" === o ? 0 === i.indexOf(a) : "$=" === o ? i.substr(i.length - a.length) === a : "|=" === o ? i === a || i.substr(0, a.length + 1) === a + "-" : false : i && r !== false
+                        return r == null ? "!=" === o : !o && d.attr ? null != r : "=" === o ? i === a : "*=" === o ? i.indexOf(a) >= 0 : "~=" === o ? (" " + i + " ").indexOf(a) >= 0 : a ? "!=" === o ? i !== a : "^=" === o ? 0 === i.indexOf(a) : "$=" === o ? i.substr(i.length - a.length) === a : "|=" === o ? i === a || i.substr(0, a.length + 1) === a + "-" : false : i && r !== false
                     },
                     POS: function(e, t, n, r) {
                         var i = t[2],
@@ -2925,7 +2925,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
             return this
         },
         clone: function(e, t) {
-            return e = null == e ? false : e, t = null == t ? e : t, this.map(function() {
+            return e = e == null ? false : e, t = t == null ? e : t, this.map(function() {
                 return I.clone(this, e, t)
             })
         },
@@ -3121,7 +3121,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                     c = e.style,
                     l = I.cssHooks[s];
                 if (n = I.cssProps[s] || s, r === t) return l && "get" in l && (o = l.get(e, false, i)) !== t ? o : c[n];
-                if (a = typeof r, "string" === a && (o = Lt.exec(r)) && (r = +(o[1] + 1) * +o[2] + parseFloat(I.css(e, n)), a = "number"), !(null == r || "number" === a && isNaN(r) || ("number" !== a || I.cssNumber[s] || (r += "px"), l && "set" in l && (r = l.set(e, r)) === t))) try {
+                if (a = typeof r, "string" === a && (o = Lt.exec(r)) && (r = +(o[1] + 1) * +o[2] + parseFloat(I.css(e, n)), a = "number"), !(r == null || "number" === a && isNaN(r) || ("number" !== a || I.cssNumber[s] || (r += "px"), l && "set" in l && (r = l.set(e, r)) === t))) try {
                     c[n] = r
                 } catch (u) {}
             }
@@ -3143,7 +3143,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
     }), q.documentElement.currentStyle && (_t = function(e, t) {
         var n, r, i, o = e.currentStyle && e.currentStyle[t],
             a = e.style;
-        return null == o && a && (i = a[t]) && (o = i), Dt.test(o) && (n = a.left, r = e.runtimeStyle && e.runtimeStyle.left, r && (e.runtimeStyle.left = e.currentStyle.left), a.left = "fontSize" === t ? "1em" : o, o = a.pixelLeft + "px", a.left = n, r && (e.runtimeStyle.left = r)), "" === o ? "auto" : o
+        return o == null && a && (i = a[t]) && (o = i), Dt.test(o) && (n = a.left, r = e.runtimeStyle && e.runtimeStyle.left, r && (e.runtimeStyle.left = e.currentStyle.left), a.left = "fontSize" === t ? "1em" : o, o = a.pixelLeft + "px", a.left = n, r && (e.runtimeStyle.left = r)), "" === o ? "auto" : o
     }), Nt = jt || _t, I.each(["height", "width"], function(e, t) {
         I.cssHooks[t] = {
             get: function(e, n, r) {
@@ -3257,7 +3257,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                 return this.name && !this.disabled && (this.checked || en.test(this.nodeName) || Xt.test(this.type))
             }).map(function(e, t) {
                 var n = I(this).val();
-                return null == n ? null : I.isArray(n) ? I.map(n, function(e) {
+                return n == null ? null : I.isArray(n) ? I.map(n, function(e) {
                     return {
                         name: t.name,
                         value: e.replace(Wt, "\r\n")
@@ -3608,7 +3608,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
         _toggle: I.fn.toggle,
         toggle: function(e, t, n) {
             var r = "boolean" == typeof e;
-            return I.isFunction(e) && I.isFunction(t) ? this._toggle.apply(this, arguments) : null == e || r ? this.each(function() {
+            return I.isFunction(e) && I.isFunction(t) ? this._toggle.apply(this, arguments) : e == null || r ? this.each(function() {
                 var t = r ? e : I(this).is(":hidden");
                 I(this)[t ? "show" : "hide"]()
             }) : this.animate(N("toggle", 3), e, t, n), this
@@ -3650,7 +3650,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                 var n, i = false,
                     o = I.timers,
                     a = I._data(this);
-                if (r || I._unmark(true, this), null == e)
+                if (r || I._unmark(true, this), e == null)
                     for (n in a) a[n] && a[n].stop && n.indexOf(".run") === n.length - 4 && t(this, a, n);
                 else a[n = e + ".run"] && a[n].stop && t(this, a, n);
                 for (n = o.length; n--;) o[n].elem !== this || null != e && o[n].queue !== e || (r ? o[n](true) : o[n].saveState(), i = true, o.splice(n, 1));
@@ -3903,13 +3903,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
             for (t = i + o.replace(/\{\d+\}/g, function(e) {
                 var t, n = +e.slice(1, -1);
                 return n + 2 < a.length ? (t = a[n + 2], "function" == typeof t ? t.toString().replace(/ ?\{[\s\S]*$/, "") : "undefined" == typeof t ? "undefined" : "string" != typeof t ? B(t) : t) : e
-            }), t = t + "\nhttp://errors.angularjs.org/1.2.16/" + (e ? e + "/" : "") + r, n = 2; n < arguments.length; n++) t = t + (2 == n ? "?" : "&") + "p" + (n - 2) + "=" + encodeURIComponent(s(arguments[n]));
+            }), t = t + "\nhttp://errors.angularjs.org/1.2.16/" + (e ? e + "/" : "") + r, n = 2; n < arguments.length; n++) t = t + (n == 2 ? "?" : "&") + "p" + (n - 2) + "=" + encodeURIComponent(s(arguments[n]));
             return new Error(t)
         }
     }
 
     function i(e) {
-        if (null == e || S(e)) return false;
+        if (e == null || S(e)) return false;
         var t = e.length;
         return 1 === e.nodeType && t ? true : $(e) || x(e) || 0 === t || "number" == typeof t && t > 0 && t - 1 in e
     }
@@ -3918,7 +3918,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
         var r;
         if (e)
             if (T(e))
-                for (r in e) "prototype" == r || "length" == r || "name" == r || e.hasOwnProperty && !e.hasOwnProperty(r) || t.call(n, e[r], r);
+                for (r in e) r == "prototype" || r == "length" || r == "name" || e.hasOwnProperty && !e.hasOwnProperty(r) || t.call(n, e[r], r);
             else if (e.forEach && e.forEach !== o) e.forEach(t, n);
         else if (i(e))
             for (r = 0; r < e.length; r++) t.call(n, e[r], r);
@@ -3946,7 +3946,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
     function l() {
         for (var e, t = Er.length; t;) {
-            if (t--, e = Er[t].charCodeAt(0), 57 == e) return Er[t] = "A", Er.join("");
+            if (t--, e = Er[t].charCodeAt(0), e == 57) return Er[t] = "A", Er.join("");
             if (90 != e) return Er[t] = String.fromCharCode(e + 1), Er.join("");
             Er[t] = "0"
         }
@@ -4098,7 +4098,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
         if (e !== e && t !== t) return true;
         var r, i, o, a = typeof e,
             s = typeof t;
-        if (a == s && "object" == a) {
+        if (s == a && a == "object") {
             if (!x(e)) {
                 if (k(e)) return k(t) && e.getTime() == t.getTime();
                 if (C(e) && C(t)) return e.toString() == t.toString();
@@ -4161,7 +4161,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
         if ("function" == typeof e) e = true;
         else if (e && 0 !== e.length) {
             var t = pr("" + e);
-            e = !("f" == t || "0" == t || "false" == t || "no" == t || "n" == t || "[]" == t)
+            e = !(t == "f" || t == "0" || t == "false" || t == "no" || t == "n" || t == "[]")
         } else e = false;
         return e
     }
@@ -4654,7 +4654,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
     function _t(e) {
         var t, r = typeof e;
-        return "object" == r && null !== e ? "function" == typeof(t = e.$$hashKey) ? t = e.$$hashKey() : t === n && (t = e.$$hashKey = l()) : t = e, r + ":" + t
+        return r == "object" && null !== e ? "function" == typeof(t = e.$$hashKey) ? t = e.$$hashKey() : t === n && (t = e.$$hashKey = l()) : t = e, r + ":" + t
     }
 
     function qt(e) {
@@ -4892,7 +4892,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
             C = null;
         l.url = function(t, n) {
             if (f !== e.location && (f = e.location), d !== e.history && (d = e.history), t) {
-                if (x == t) return;
+                if (t == x) return;
                 return x = t, i.history ? n ? d.replaceState(null, "", t) : (d.pushState(null, "", t), T.attr("href", T.attr("href"))) : (C = t, n ? f.replace(t) : f.href = t), l
             }
             return C || f.href.replace(/%27/g, "'")
@@ -4938,7 +4938,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
         this.$get = function() {
             function e(e, n) {
                 function i(e) {
-                    e != d && (p ? p == e && (p = e.n) : p = e, o(e.n, e.p), o(e, d), d = e, d.n = null)
+                    e != d && (p ? e == p && (p = e.n) : p = e, o(e.n, e.p), o(e, d), d = e, d.n = null)
                 }
 
                 function o(e, t) {
@@ -4976,7 +4976,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                         if (l < Number.MAX_VALUE) {
                             var t = u[e];
                             if (!t) return;
-                            t == d && (d = t.p), t == p && (p = t.n), o(t.n, t.p), delete u[e]
+                            d == t && (d = t.p), p == t && (p = t.n), o(t.n, t.p), delete u[e]
                         }
                         delete c[e], a--
                     },
@@ -5149,7 +5149,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                             a = false;
                         if ($(e)) {
                             for (;
-                                "^" == (r = e.charAt(0)) || "?" == r;) e = e.substr(1), "^" == r && (i = "inheritedData"), a = a || "?" == r;
+                                "^" == (r = e.charAt(0)) || r == "?";) e = e.substr(1), r == "^" && (i = "inheritedData"), a = a || r == "?";
                             if (r = null, n && "data" === i && (r = n[e]), r = r || t[i]("$" + e + "Controller"), !r && !a) throw ti("ctreq", "Controller '{0}', required by directive '{1}', can't be found!", e, C);
                             return r
                         }
@@ -5206,7 +5206,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                                 $attrs: h,
                                 $transclude: T
                             };
-                            k = e.controller, "@" == k && (k = h[e.name]), n = y(k, r), C[e.name] = n, X || m.data("$" + e.name + "Controller", n), e.controllerAs && (r.$scope[e.controllerAs] = n)
+                            k = e.controller, k == "@" && (k = h[e.name]), n = y(k, r), C[e.name] = n, X || m.data("$" + e.name + "Controller", n), e.controllerAs && (r.$scope[e.controllerAs] = n)
                         }), b = 0, $ = f.length; $ > b; b++) try {
                             w = f[b], w(w.isolateScope ? x : t, m, h, w.require && g(w.require, m, C), T)
                         } catch (E) {
@@ -5251,7 +5251,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                         if (j = k.transclude) {
                             J = true;
                             k.$$tlb || (W("transclusion", U, k, G), U = k);
-                            if ("element" == j) {
+                            if (j == "element") {
                                 X = true;
                                 _ = k.priority;
                                 S = M(i, it, ot);
@@ -5323,7 +5323,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                     o(e, function(r, i) {
                         "$" != i.charAt(0) && (t[i] && (r += ("style" === i ? ";" : " ") + t[i]), e.$set(i, r, true, n[i]))
                     }), o(t, function(t, o) {
-                        "class" == o ? (N(i, t), e["class"] = (e["class"] ? e["class"] + " " : "") + t) : "style" == o ? (i.attr("style", i.attr("style") + ";" + t), e.style = (e.style ? e.style + ";" : "") + t) : "$" == o.charAt(0) || e.hasOwnProperty(o) || (e[o] = t, r[o] = n[o])
+                        o == "class" ? (N(i, t), e["class"] = (e["class"] ? e["class"] + " " : "") + t) : o == "style" ? (i.attr("style", i.attr("style") + ";" + t), e.style = (e.style ? e.style + ";" : "") + t) : "$" == o.charAt(0) || e.hasOwnProperty(o) || (e[o] = t, r[o] = n[o])
                     })
                 }
 
@@ -5351,7 +5351,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                                 b(m.scope) && P(k), e = k.concat(e), H(n, h)
                             } else d = g, t.html(f);
                             for (e.unshift(v), l = I(e, d, n, i, t, m, a, s, c), o(r, function(e, n) {
-                                e == d && (r[n] = t[0])
+                                d == e && (r[n] = t[0])
                             }), u = j(t[0].childNodes, i); p.length;) {
                                 var x = p.shift(),
                                     T = p.shift(),
@@ -5397,9 +5397,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                 }
 
                 function X(e, t) {
-                    if ("srcdoc" == t) return C.HTML;
+                    if (t == "srcdoc") return C.HTML;
                     var n = kr(e);
-                    return "xlinkHref" == t || "FORM" == n && "action" == t || "IMG" != n && ("src" == t || "ngSrc" == t) ? C.RESOURCE_URL : void 0
+                    return t == "xlinkHref" || n == "FORM" && t == "action" || "IMG" != n && (t == "src" || t == "ngSrc") ? C.RESOURCE_URL : void 0
                 }
 
                 function G(e, t, n, i) {
@@ -5434,7 +5434,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                         c = a.parentNode;
                     if (e)
                         for (i = 0, o = e.length; o > i; i++)
-                            if (e[i] == a) {
+                            if (a == e[i]) {
                                 e[i++] = r;
                                 for (var l = i, u = l + s - 1, f = e.length; f > l; l++, u++) f > u ? e[l] = e[u] : delete e[l];
                                 e.length -= s - 1;
@@ -5506,7 +5506,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                 };
                 var Z = r.startSymbol(),
                     tt = r.endSymbol(),
-                    rt = "{{" == Z || "}}" == tt ? g : function(e) {
+                    rt = Z == "{{" || tt == "}}" ? g : function(e) {
                         return e.replace(/\{\{/g, Z).replace(/}}/g, tt)
                     },
                     it = /^ngAttr[A-Z]/;
@@ -6008,7 +6008,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
     function ln(e) {
         var t = e.indexOf("#");
-        return -1 == t ? e : e.substr(0, t)
+        return t == -1 ? e : e.substr(0, t)
     }
 
     function un(e) {
@@ -6143,7 +6143,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                             e.push(r(t))
                         }), i.apply(t, e)
                     } : function(e, t) {
-                        i(e, null == t ? "" : t)
+                        i(e, t == null ? "" : t)
                     }
                 }
                 return {
@@ -6196,34 +6196,34 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
     function kn(e, t, r, i, o, a, s) {
         return bn(e, a), bn(t, a), bn(r, a), bn(i, a), bn(o, a), s.unwrapPromises ? function(s, c) {
             var l, u = c && c.hasOwnProperty(e) ? c : s;
-            return null == u ? u : (u = u[e], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
+            return u == null ? u : (u = u[e], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
                 l.$$v = e
-            })), u = u.$$v), t ? null == u ? n : (u = u[t], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
+            })), u = u.$$v), t ? u == null ? n : (u = u[t], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
                 l.$$v = e
-            })), u = u.$$v), r ? null == u ? n : (u = u[r], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
+            })), u = u.$$v), r ? u == null ? n : (u = u[r], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
                 l.$$v = e
-            })), u = u.$$v), i ? null == u ? n : (u = u[i], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
+            })), u = u.$$v), i ? u == null ? n : (u = u[i], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
                 l.$$v = e
-            })), u = u.$$v), o ? null == u ? n : (u = u[o], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
+            })), u = u.$$v), o ? u == null ? n : (u = u[o], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
                 l.$$v = e
             })), u = u.$$v), u) : u) : u) : u) : u)
         } : function(a, s) {
             var c = s && s.hasOwnProperty(e) ? s : a;
-            return null == c ? c : (c = c[e], t ? null == c ? n : (c = c[t], r ? null == c ? n : (c = c[r], i ? null == c ? n : (c = c[i], o ? null == c ? n : c = c[o] : c) : c) : c) : c)
+            return c == null ? c : (c = c[e], t ? c == null ? n : (c = c[t], r ? c == null ? n : (c = c[r], i ? c == null ? n : (c = c[i], o ? c == null ? n : c = c[o] : c) : c) : c) : c)
         }
     }
 
     function xn(e, t) {
         return bn(e, t),
             function(t, r) {
-                return null == t ? n : (r && r.hasOwnProperty(e) ? r : t)[e]
+                return t == null ? n : (r && r.hasOwnProperty(e) ? r : t)[e]
             }
     }
 
     function Tn(e, t, r) {
         return bn(e, r), bn(t, r),
             function(r, i) {
-                return null == r ? n : (r = (i && i.hasOwnProperty(e) ? i : r)[e], null == r ? n : r[t])
+                return r == null ? n : (r = (i && i.hasOwnProperty(e) ? i : r)[e], r == null ? n : r[t])
             }
     }
 
@@ -6996,7 +6996,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                     history: !(!e.history || !e.history.pushState || 4 > o || a),
                     hashchange: "onhashchange" in e && (!c || c > 7),
                     hasEvent: function(e) {
-                        if ("input" == e && 9 == yr) return false;
+                        if (e == "input" && yr == 9) return false;
                         if (v(i[e])) {
                             var t = s.createElement("div");
                             i[e] = "on" + e in t
@@ -7137,7 +7137,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                 case "object":
                     for (var a in t)! function(e) {
                         "undefined" != typeof t[e] && i.push(function(n) {
-                            return o("$" == e ? n : n && n[e], t[e])
+                            return o(e == "$" ? n : n && n[e], t[e])
                         })
                     }(a);
                     break;
@@ -7170,7 +7170,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
     }
 
     function Vn(e, t, n, r, i) {
-        if (null == e || !isFinite(e) || b(e)) return "";
+        if (e == null || !isFinite(e) || b(e)) return "";
         var o = 0 > e;
         e = Math.abs(e);
         var a = e + "",
@@ -7228,7 +7228,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                 var o = i["get" + e]();
                 if (n > 0 || o > -n)
                     o += n;
-                if (0 === o && -12 == n)
+                if (0 === o && n == -12)
                     o = 12;
                 return Jn(o, t, r)
             }
@@ -7317,7 +7317,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
             function a(e, t) {
                 var n = typeof e,
                     r = typeof t;
-                return n == r ? ("string" == n && (e = e.toLowerCase(), t = t.toLowerCase()), e === t ? 0 : t > e ? -1 : 1) : r > n ? -1 : 1
+                return r == n ? (n == "string" && (e = e.toLowerCase(), t = t.toLowerCase()), e === t ? 0 : t > e ? -1 : 1) : r > n ? -1 : 1
             }
             if (!x(t)) return t;
             if (!n) return t;
@@ -7843,7 +7843,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
             a || $t(e, "events", a = {}), s || $t(e, "handle", s = jt(e, a)), o(n.split(" "), function(n) {
                 var i = a[n];
                 if (!i) {
-                    if ("mouseenter" == n || "mouseleave" == n) {
+                    if (n == "mouseenter" || n == "mouseleave") {
                         var o = t.body.contains || t.body.compareDocumentPosition ? function(e, t) {
                             var n = 9 === e.nodeType ? e.documentElement : e,
                                 r = t && t.parentNode;
@@ -8223,10 +8223,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
         readNumber: function() {
             for (var e = "", t = this.index; this.index < this.text.length;) {
                 var n = pr(this.text.charAt(this.index));
-                if ("." == n || this.isNumber(n)) e += n;
+                if (n == "." || this.isNumber(n)) e += n;
                 else {
                     var r = this.peek();
-                    if ("e" == n && this.isExpOperator(r)) e += n;
+                    if (n == "e" && this.isExpOperator(r)) e += n;
                     else if (this.isExpOperator(n) && r && this.isNumber(r) && "e" == e.charAt(e.length - 1)) e += n;
                     else {
                         if (!this.isExpOperator(n) || r && this.isNumber(r) || "e" != e.charAt(e.length - 1)) break;
@@ -8881,7 +8881,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
         },
         Ji = nr(function(e, t, r) {
             t.addClass("ng-binding").data("$binding", r.ngBind), e.$watch(r.ngBind, function(e) {
-                t.text(e == n ? "" : e)
+                t.text(n == e ? "" : e)
             })
         }),
         Xi = ["$interpolate",
@@ -9294,9 +9294,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                             o.databound = n.ngModel, o.init = function(e, t, n) {
                                 c = e, r = t, i = n
                             }, o.addOption = function(t) {
-                                it(t, '"option value"'), a[t] = true, c.$viewValue == t && (e.val(t), i.parent() && i.remove())
+                                it(t, '"option value"'), a[t] = true, t == c.$viewValue && (e.val(t), i.parent() && i.remove())
                             }, o.removeOption = function(e) {
-                                this.hasOption(e) && (delete a[e], c.$viewValue == e && this.renderUnknownOption(e))
+                                this.hasOption(e) && (delete a[e], e == c.$viewValue && this.renderUnknownOption(e))
                             }, o.renderUnknownOption = function(t) {
                                 var n = "? " + _t(t) + " ?";
                                 i.val(n), e.prepend(i), e.val(n), i.prop("selected", true)
@@ -9453,11 +9453,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
                                                     i.push(h(t, $))
                                                 }
                                     } else {
-                                        if (r = o.val(), "?" == r) i = n;
+                                        if (r = o.val(), r == "?") i = n;
                                         else if ("" === r) i = null;
                                         else if (v) {
                                             for (m = 0; m < y.length; m++)
-                                                if ($[f] = y[m], v(t, $) == r) {
+                                                if ($[f] = y[m], r == v(t, $)) {
                                                     i = h(t, $);
                                                     break
                                                 }
@@ -10731,15 +10731,15 @@ org.cometd.Cometd = function(e) {
                 e("AckExtension: executing unregistration callback"), t = null
             }, this.incoming = function(t) {
                 var i = t.channel;
-                if ("/meta/handshake" == i) n = t.ext && t.ext.ack, e("AckExtension: server supports acks", n);
-                else if (n && "/meta/connect" == i && t.successful) {
+                if (i == "/meta/handshake") n = t.ext && t.ext.ack, e("AckExtension: server supports acks", n);
+                else if (n && i == "/meta/connect" && t.successful) {
                     var o = t.ext;
                     o && "number" == typeof o.ack && (r = o.ack, e("AckExtension: server sent ack id", r))
                 }
                 return t
             }, this.outgoing = function(i) {
                 var o = i.channel;
-                return "/meta/handshake" == o ? (i.ext || (i.ext = {}), i.ext.ack = t && t.ackEnabled !== false, r = -1) : n && "/meta/connect" == o && (i.ext || (i.ext = {}), i.ext.ack = r, e("AckExtension: client sending ack id", r)), i
+                return o == "/meta/handshake" ? (i.ext || (i.ext = {}), i.ext.ack = t && t.ackEnabled !== false, r = -1) : n && o == "/meta/connect" && (i.ext || (i.ext = {}), i.ext.ack = r, e("AckExtension: client sending ack id", r)), i
             }
         }
     }
@@ -11211,7 +11211,7 @@ org.cometd.Cometd = function(e) {
         function r(e, r, o, s) {
             if (r = t.lowercase(r), x[r])
                 for (; y.last() && T[y.last()];) i("", y.last());
-            k[r] && y.last() == r && i("", r), s = b[r] || !!s, s || y.push(r);
+            k[r] && r == y.last() && i("", r), s = b[r] || !!s, s || y.push(r);
             var c = {};
             o.replace(d, function(e, t, n, r, i) {
                 var o = n || r || i || "";
@@ -11241,7 +11241,7 @@ org.cometd.Cometd = function(e) {
                 var w = 0 > o ? e : e.substring(0, o);
                 e = 0 > o ? "" : e.substring(o), n.chars && n.chars(a(w))
             }
-            if (e == $) throw l("badparse", "The sanitizer was unable to parse the following block of html: {0}", e);
+            if ($ == e) throw l("badparse", "The sanitizer was unable to parse the following block of html: {0}", e);
             $ = e
         }
         i()
@@ -11274,7 +11274,7 @@ org.cometd.Cometd = function(e) {
                 }), i(a ? "/>" : ">"))
             },
             end: function(e) {
-                e = t.lowercase(e), r || S[e] !== true || (i("</"), i(e), i(">")), e == r && (r = !1)
+                e = t.lowercase(e), r || S[e] !== true || (i("</"), i(e), i(">")), r == e && (r = !1)
             },
             chars: function(e) {
                 r || i(s(e))
@@ -11390,7 +11390,7 @@ org.cometd.Cometd = function(e) {
         },
         set: function(e, r) {
             var a = n(e);
-            return a.data("placeholder-enabled") ? ("" == r ? (e.value = r, e != t.activeElement && o.call(e)) : a.hasClass("placeholder") ? i.call(e, true, r) || (e.value = r) : e.value = r, a) : e.value = r
+            return a.data("placeholder-enabled") ? (r == "" ? (e.value = r, e != t.activeElement && o.call(e)) : a.hasClass("placeholder") ? i.call(e, true, r) || (e.value = r) : e.value = r, a) : e.value = r
         }
     }, c || (f.input = a), l || (f.textarea = a), n(function() {
         n(t).delegate("form", "submit.placeholder", function() {
@@ -11425,7 +11425,7 @@ window.Modernizr = function(e, t, n) {
     function s(e, t) {
         for (var r in e) {
             var i = e[r];
-            if (!a(i, "-") && b[i] !== n) return "pfx" == t ? i : true
+            if (!a(i, "-") && b[i] !== n) return t == "pfx" ? i : true
         }
         return false
     }
@@ -11752,7 +11752,7 @@ window.Modernizr = function(e, t, n) {
     function o() {}
 
     function a(e) {
-        return !e || "loaded" == e || "complete" == e || "uninitialized" == e
+        return !e || e == "loaded" || e == "complete" || e == "uninitialized"
     }
 
     function s() {
@@ -11782,13 +11782,13 @@ window.Modernizr = function(e, t, n) {
                 a: c,
                 x: l
             };
-        1 === S[n] && (m = 1, S[n] = []), "object" == e ? f.data = n : (f.src = n, f.type = e), f.width = f.height = "0", f.onerror = f.onload = f.onreadystatechange = function() {
+        1 === S[n] && (m = 1, S[n] = []), e == "object" ? f.data = n : (f.src = n, f.type = e), f.width = f.height = "0", f.onerror = f.onload = f.onreadystatechange = function() {
             u.call(this, m)
         }, v.splice(i, 0, b), "img" != e && (m || 2 === S[n] ? (w.insertBefore(f, $ ? null : g), h(u, l)) : S[n].push(f))
     }
 
     function l(e, t, n, r, o) {
-        return y = 0, t = t || "j", i(e) ? c("c" == t ? x : k, e, t, this.i++, n, r, o) : (v.splice(this.i++, 0, e), 1 == v.length && s()), this
+        return y = 0, t = t || "j", i(e) ? c(t == "c" ? x : k, e, t, this.i++, n, r, o) : (v.splice(this.i++, 0, e), 1 == v.length && s()), this
     }
 
     function u() {
@@ -12339,7 +12339,7 @@ angular.module("app.services.config", ["ng"]).factory("$config", ["$location", "
                 general: 1
             },
             isClickerKeycode: function(e) {
-                return 32 == e || 34 == e ? true : false
+                return e == 32 || e == 34 ? true : false
             },
             sessionTimeout: 36e5,
             mapImageUrl: function(e) {
@@ -12567,7 +12567,7 @@ angular.module("app.services.utils", ["underscore"]).factory("$utils", ["$window
         var r = {
             findElemById: function(e, r) {
                 return n.map(n.filter(t.find(e), function(e) {
-                    return e.id == r
+                    return r == e.id
                 }), function(e) {
                     return angular.element(e)
                 })
@@ -12874,7 +12874,7 @@ angular.module("app.services.random", []).factory("$random", [
         }
 
         function r(e, t, n, i, o) {
-            if (n = [], o = typeof e, t && "object" == o)
+            if (n = [], o = typeof e, t && o == "object")
                 for (i in e)
                     if (i.indexOf("S") < 5) try {
                         n.push(r(e[i], t - 1))
@@ -13520,7 +13520,7 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 
     function h(e) {
         if (!e) return [];
-        if (tn.call(e.toArray) == Wt) return e.toArray();
+        if (Wt == tn.call(e.toArray)) return e.toArray();
         var t = e.length;
         return t === t >>> 0 ? en.call(e) : In(e)
     }
@@ -13540,7 +13540,7 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
     }
 
     function v(e, n, r) {
-        return e ? n == t || r ? e[0] : en.call(e, 0, n) : void 0
+        return e ? t == n || r ? e[0] : en.call(e, 0, n) : void 0
     }
 
     function y(e, t) {
@@ -13574,7 +13574,7 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
     }
 
     function w(e, n, r) {
-        return e ? en.call(e, 0, -(n == t || r ? 1 : n)) : []
+        return e ? en.call(e, 0, -(t == n || r ? 1 : n)) : []
     }
 
     function k(e) {
@@ -13596,7 +13596,7 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
     function T(e, n, r) {
         if (e) {
             var i = e.length;
-            return n == t || r ? e[i - 1] : en.call(e, -n || i)
+            return t == n || r ? e[i - 1] : en.call(e, -n || i)
         }
     }
 
@@ -13649,7 +13649,7 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
     }
 
     function j(e, n, r) {
-        return e ? en.call(e, n == t || r ? 1 : n) : []
+        return e ? en.call(e, t == n || r ? 1 : n) : []
     }
 
     function _(e) {
@@ -13734,7 +13734,7 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
             }
             return e.apply(s, a)
         }
-        var r, i = tn.call(e) == Wt;
+        var r, i = Wt == tn.call(e);
         if (i) {
             if (nn) return nn.call.apply(nn, arguments)
         } else r = t, t = e;
@@ -13835,11 +13835,11 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
     }
 
     function Y(e) {
-        return e === true || e === false || tn.call(e) == Bt
+        return e === true || e === false || Bt == tn.call(e)
     }
 
     function Z(e) {
-        return tn.call(e) == Ut
+        return Ut == tn.call(e)
     }
 
     function et(e) {
@@ -13848,16 +13848,16 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 
     function tt(e, n, r) {
         if (r || (r = []), e === n) return 0 !== e || 1 / e == 1 / n;
-        if (e == t || n == t) return e === n;
-        if (e._chain && (e = e._wrapped), n._chain && (n = n._wrapped), e.isEqual && tn.call(e.isEqual) == Wt) return e.isEqual(n);
-        if (n.isEqual && tn.call(n.isEqual) == Wt) return n.isEqual(e);
+        if (t == e || t == n) return e === n;
+        if (e._chain && (e = e._wrapped), n._chain && (n = n._wrapped), e.isEqual && Wt == tn.call(e.isEqual)) return e.isEqual(n);
+        if (n.isEqual && Wt == tn.call(n.isEqual)) return n.isEqual(e);
         var i = tn.call(e);
         if (i != tn.call(n)) return false;
         switch (i) {
             case Xt:
                 return e == String(n);
             case Vt:
-                return e != +e ? n != +n : 0 == e ? 1 / e == 1 / n : e == +n;
+                return e != +e ? n != +n : e == 0 ? 1 / e == 1 / n : e == +n;
             case Bt:
             case Ut:
                 return +e == +n;
@@ -13866,11 +13866,11 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
         }
         if ("object" != typeof e || "object" != typeof n) return false;
         for (var o = r.length; o--;)
-            if (r[o] == e) return true;
+            if (e == r[o]) return true;
         var a = -1,
             s = true,
             c = 0;
-        if (r.push(e), i == Ht) {
+        if (r.push(e), Ht == i) {
             if (c = e.length, s = c == n.length)
                 for (; c-- && (s = tt(e[c], n[c], r)););
         } else {
@@ -13889,11 +13889,11 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
     }
 
     function nt(e) {
-        return on(e) && tn.call(e) == Vt
+        return on(e) && Vt == tn.call(e)
     }
 
     function rt(e) {
-        return tn.call(e) == Wt
+        return Wt == tn.call(e)
     }
 
     function it(e) {
@@ -13901,7 +13901,7 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
     }
 
     function ot(e) {
-        return tn.call(e) == Vt && e != +e
+        return Vt == tn.call(e) && e != +e
     }
 
     function at(e) {
@@ -13909,15 +13909,15 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
     }
 
     function st(e) {
-        return tn.call(e) == Vt
+        return Vt == tn.call(e)
     }
 
     function ct(e) {
-        return tn.call(e) == Jt
+        return Jt == tn.call(e)
     }
 
     function lt(e) {
-        return tn.call(e) == Xt
+        return Xt == tn.call(e)
     }
 
     function ut(e) {
@@ -13931,7 +13931,7 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 
     function dt(e) {
         var t = tn.call(e);
-        return t == Ht || t == Xt ? e.length : On(e).length
+        return Ht == t || Xt == t ? e.length : On(e).length
     }
 
     function pt(e, t) {
@@ -13939,7 +13939,7 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
     }
 
     function ht(e) {
-        return null == e ? "" : (e + "").replace(_t, s)
+        return e == null ? "" : (e + "").replace(_t, s)
     }
 
     function gt(e) {
@@ -13965,7 +13965,7 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
     function yt(e, t) {
         if (!e) return null;
         var n = e[t];
-        return tn.call(n) == Wt ? e[t]() : n
+        return Wt == tn.call(n) ? e[t]() : n
     }
 
     function bt(e, t, r) {
@@ -13975,7 +13975,7 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
             l = r.evaluate,
             p = r.interpolate,
             h = r.variable;
-        return null == c && (c = s.escape), null == l && (l = s.evaluate), null == p && (p = s.interpolate), c && (e = e.replace(c, u)), p && (e = e.replace(p, f)), l && (e = e.replace(l, d)), e = "__p='" + e.replace(qt, a).replace(jt, o) + "';\n", Dt.length = 0, h || (h = s.variable, e = "with (" + h + " || {}) {\n" + e + "\n}\n"), e = "function(" + h + ") {\nvar __p, __t, __j = Array.prototype.join;\nfunction print() { __p += __j.call(arguments, '') }\n" + e + "return __p\n}", Lt && (e += "\n//@ sourceURL=/lodash/template/source[" + Ot+++"]"), i = Function("_", "return " + e)(n), t ? i(t) : (i.source = e, i)
+        return c == null && (c = s.escape), l == null && (l = s.evaluate), p == null && (p = s.interpolate), c && (e = e.replace(c, u)), p && (e = e.replace(p, f)), l && (e = e.replace(l, d)), e = "__p='" + e.replace(qt, a).replace(jt, o) + "';\n", Dt.length = 0, h || (h = s.variable, e = "with (" + h + " || {}) {\n" + e + "\n}\n"), e = "function(" + h + ") {\nvar __p, __t, __j = Array.prototype.join;\nfunction print() { __p += __j.call(arguments, '') }\n" + e + "return __p\n}", Lt && (e += "\n//@ sourceURL=/lodash/template/source[" + Ot+++"]"), i = Function("_", "return " + e)(n), t ? i(t) : (i.source = e, i)
     }
 
     function $t(e, t, n) {
@@ -14171,7 +14171,7 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
         return !(!e || !Yt.call(e, "callee"))
     });
     var qn = rn || function(e) {
-            return tn.call(e) == Ht
+            return Ht == tn.call(e)
         },
         Mn = i({
             args: "value",
@@ -14204,7 +14204,7 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
         }
     }), "function" == typeof define && "object" == typeof define.amd && define.amd ? (e._ = n, define(function() {
         return n
-    })) : Ct ? "object" == typeof module && module && module.exports == Ct ? (module.exports = n)._ = n : Ct._ = n : e._ = n
+    })) : Ct ? "object" == typeof module && module && Ct == module.exports ? (module.exports = n)._ = n : Ct._ = n : e._ = n
 }(this);
 
 ! function(e) {
@@ -14317,7 +14317,7 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
     }
 
     function h(e, t, n, r, i, o, a) {
-        if ("transform" == i) {
+        if (i == "transform") {
             a = {};
             for (var s in n[o][i]) a[s] = s in r[o][i] ? Math.round(((r[o][i][s] - n[o][i][s]) * e + n[o][i][s]) * T) / T : n[o][i][s];
             return a
@@ -14356,14 +14356,14 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
                 }
                 var N, j = I(u[n], E),
                     _ = l(t[E]) ? t[E](u[n]) : t[E];
-                "string" != typeof _ || !C.test(_) || C.test(j) ? (b[n][E] = "transform" == E ? i(j) : "string" == typeof _ && C.test(_) ? s(j).slice(1) : parseFloat(j), $[n][E] = "transform" == E ? i(_, b[n][E]) : "string" == typeof _ && "#" == _.charAt(0) ? s(_).slice(1) : g(_, parseFloat(j)), "string" == typeof _ && (N = _.match(A)) && (w[n][E] = N[1])) : delete t[E]
+                "string" != typeof _ || !C.test(_) || C.test(j) ? (b[n][E] = E == "transform" ? i(j) : "string" == typeof _ && C.test(_) ? s(j).slice(1) : parseFloat(j), $[n][E] = E == "transform" ? i(_, b[n][E]) : "string" == typeof _ && "#" == _.charAt(0) ? s(_).slice(1) : g(_, parseFloat(j)), "string" == typeof _ && (N = _.match(A)) && (w[n][E] = N[1])) : delete t[E]
             }
         }
         return f.apply(u, [m,
             function(e, r, i) {
                 for (n = u.length; n--;) {
                     y && (i = d(k[n], e), u[n].style.left = i[0] + "px", u[n].style.top = i[1] + "px");
-                    for (var a in t) r = h(e, w, b, $, a, n), "transform" == a ? u[n].style[M] = o(r) : "opacity" != a || O ? u[n].style[c(a)] = r : u[n].style.filter = "alpha(opacity=" + 100 * r + ")"
+                    for (var a in t) r = h(e, w, b, $, a, n), a == "transform" ? u[n].style[M] = o(r) : "opacity" != a || O ? u[n].style[c(a)] = r : u[n].style.filter = "alpha(opacity=" + 100 * r + ")"
                 }
             },
             p, v
@@ -14405,12 +14405,12 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
             return "undefined" != typeof v.createElement("a").style.opacity
         }(),
         I = v.defaultView && v.defaultView.getComputedStyle ? function(e, t) {
-            t = "transform" == t ? M : t, t = c(t);
+            t = t == "transform" ? M : t, t = c(t);
             var n = null,
                 r = v.defaultView.getComputedStyle(e, "");
             return r && (n = r[t]), e.style[t] || n
         } : x.currentStyle ? function(e, t) {
-            if (t = c(t), "opacity" == t) {
+            if (t = c(t), t == "opacity") {
                 var n = 100;
                 try {
                     n = e.filters["DXImageTransform.Microsoft.Alpha"].opacity
@@ -14444,13 +14444,13 @@ var easings = {
         return Math.sin(e * Math.PI / 2)
     },
     easeOutStrong: function(e) {
-        return 1 == e ? 1 : 1 - Math.pow(2, -10 * e)
+        return e == 1 ? 1 : 1 - Math.pow(2, -10 * e)
     },
     easeIn: function(e) {
         return e * e
     },
     easeInStrong: function(e) {
-        return 0 == e ? 0 : Math.pow(2, 10 * (e - 1))
+        return e == 0 ? 0 : Math.pow(2, 10 * (e - 1))
     },
     easeOutBounce: function(e) {
         return 1 / 2.75 > e ? 7.5625 * e * e : 2 / 2.75 > e ? 7.5625 * (e -= 1.5 / 2.75) * e + .75 : 2.5 / 2.75 > e ? 7.5625 * (e -= 2.25 / 2.75) * e + .9375 : 7.5625 * (e -= 2.625 / 2.75) * e + .984375
@@ -15002,7 +15002,7 @@ angular.module("app.directives.effects", []).directive("fadeoutOnClick", functio
                             duration: 100,
                             easing: easings.easeOut,
                             complete: function() {
-                                n > 0 ? r(-e, n - 1) : 0 == n && r(0, n - 1)
+                                n > 0 ? r(-e, n - 1) : n == 0 && r(0, n - 1)
                             }
                         })
                     }(n, e)
@@ -15017,3 +15017,4 @@ angular.module("app").run(["$templateCache",
     }
 ]);
 //# sourceMappingURL=controller.min.js.map
+
