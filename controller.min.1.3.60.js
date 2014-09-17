@@ -158,8 +158,16 @@ function JoinCtrl(e, t, n, r) {
 
 function InstructionsCtrl(e, t, n, r) {
 	if (!r.ensureConnection()) {
-		t.totalScore = "undefined" != typeof t.totalScore ? t.totalScore : 0;
-		t.qIdx = "undefined" != typeof t.qIdx ? t.qIdx : 0;
+		if ("undefined" != typeof t.totalScore) {
+			t.totalScore = t.totalScore;
+		} else {
+			t.totalScore = 0;
+		}
+		if ("undefined" != typeof t.qIdx) {
+			t.qIdx = t.qIdx;
+		} else {
+			t.qIdx = 0;
+		}
 		e.statusBarTitle = e.siteAppContent.info["game-pin"] + e.gameId;
 		e.scoreClass = function() {
 			return "hide";
@@ -312,7 +320,11 @@ function AnswerCtrl(e, t, n, r, i, o, a, s) {
 				c = a.points + " Kahoots for you.";
 			} else {
 				e.correct = false;
-				e.resultMessage = e.timeUp ? "Time Up!" : "Wrong!";
+				if (e.timeUp) {
+					e.resultMessage = "Time Up!";
+				} else {
+					e.resultMessage = "Wrong!";
+				}
 				i.each(a.correctAnswers, function(e, t) {
 					if (t > 0) {
 						c += ", ";
@@ -330,10 +342,18 @@ function AnswerCtrl(e, t, n, r, i, o, a, s) {
 					c += "<br>Only <span class='correctAnswer'>" + l + "</span> behind <span class='correctAnswer'>" + s.removeDangerousTags(a.nemesis.name) + "</span>!";
 				}
 			}
-			e.statusMessage = o.quizTypes[t.quizType].showScore ? c : "";
+			if (o.quizTypes[t.quizType].showScore) {
+				e.statusMessage = c;
+			} else {
+				e.statusMessage = "";
+			}
 			if (!o.quizTypes[t.quizType].showScore) {
 				var c = '<span class="correctAnswer richText">You selected \'' + (s.removeDangerousTags(a.text) || "") + "'</span>";
-				e.resultMessage = e.timeUp ? "Time Up!" : c;
+				if (e.timeUp) {
+					e.resultMessage = "Time Up!";
+				} else {
+					e.resultMessage = c;
+				}
 				t.lastAnswer = s.removeDangerousTags(a.text) || "";
 			}
 			e.points = a.points;
@@ -450,7 +470,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		if (!e.quizType) {
 			return void a.path("/instructions");
 		}
-		t.shareWhat = o.quizTypes[e.quizType].showTitle ? "score" : "opinion";
+		if (o.quizTypes[e.quizType].showTitle) {
+			t.shareWhat = "score";
+		} else {
+			t.shareWhat = "opinion";
+		}
 		t.statusBarTitle = t.siteAppContent.info["game-pin"] + t.gameId;
 		t.resultMessage = function() {
 			return o.quizTypes[e.quizType].showScore ? "<span class='correctAnswer game-over-small'>Game Over!</span> You finished <span class='correctAnswer'>" + e.result.rank + n.ordinal(e.result.rank) + "</span> with <span class='correctAnswer'>" + e.result.totalScore + "</span> Kahoots" : "";
@@ -555,7 +579,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			var i = "data-" + n.replace(F, "-$1").toLowerCase();
 			if (r = e.getAttribute(i), "string" == typeof r) {
 				try {
-					r = "true" === r ? true : "false" === r ? false : "null" === r ? null : I.isNumeric(r) ? +r : P.test(r) ? I.parseJSON(r) : r
+					if ("true" === r) {
+						r = true;
+					} else {
+						r = "false" === r ? false : "null" === r ? null : I.isNumeric(r) ? +r : P.test(r) ? I.parseJSON(r) : r;
+					}
 				} catch (o) {}
 				I.data(e, n, r)
 			} else {
@@ -791,7 +819,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				if (!f || a[s]) {
 					s = t;
 				} else {
-					(n.dataTypes.unshift(s), s = $(e, n, r, i, s, a));
+					n.dataTypes.unshift(s);
+					s = $(e, n, r, i, s, a);
 				}
 			}
 		}
@@ -835,7 +864,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 		for (;
 			"*" === l[0];) {
-			l.shift(), i === t && (i = e.mimeType || n.getResponseHeader("content-type"));
+			l.shift();
+			i === t && (i = e.mimeType || n.getResponseHeader("content-type"));
 		}
 		if (i) {
 			for (o in c) {
@@ -1026,8 +1056,16 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						}
 
 						if (i[1]) {
-							n = n instanceof s ? n[0] : n;
-							c = n ? n.ownerDocument || n : q;
+							if (n instanceof s) {
+								n = n[0];
+							} else {
+								n = n;
+							}
+							if (n) {
+								c = n.ownerDocument || n;
+							} else {
+								c = q;
+							}
 							a = h.exec(e);
 							if (a) {
 								if (s.isPlainObject(n)) {
@@ -1131,8 +1169,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					c = this;
 					--l;
 				}
-				for (; u > l; l++)
-					if (null != (e = arguments[l]))
+				for (; u > l; l++) {
+					if (null != (e = arguments[l])) {
 						for (n in e) {
 							r = c[n];
 							i = e[n];
@@ -1146,6 +1184,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								}
 							}
 						}
+					}
+				}
 				return c
 			};
 			s.extend({
@@ -1172,7 +1212,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						if (!q.body) {
 							return setTimeout(s.ready, 1);
 						}
-						if (s.isReady = true, e !== true && --s.readyWait > 0) return;
+						if (s.isReady = true, e !== true && --s.readyWait > 0) {
+							return;
+						}
 						o.fireWith(q, [s]), s.fn.trigger && s(q).trigger("ready").off("ready")
 					}
 				},
@@ -1181,8 +1223,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						if (o = s.Callbacks("once memory"), "complete" === q.readyState) {
 							return setTimeout(s.ready, 1);
 						}
-						if (q.addEventListener) q.addEventListener("DOMContentLoaded", a, false), e.addEventListener("load", s.ready, false);
-						else if (q.attachEvent) {
+						if (q.addEventListener) {
+							q.addEventListener("DOMContentLoaded", a, false), e.addEventListener("load", s.ready, false);
+						} else if (q.attachEvent) {
 							q.attachEvent("onreadystatechange", a), e.attachEvent("onload", s.ready);
 							var t = false;
 							try {
@@ -1450,7 +1493,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		}(),
 		D = {};
 	I.Callbacks = function(e) {
-		e = e ? D[e] || n(e) : {};
+		if (e) {
+			e = D[e] || n(e);
+		} else {
+			e = {};
+		}
 		var r, i, o, a, s, c, l = [],
 			u = [],
 			f = function(t) {
@@ -1727,7 +1774,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			applet: true
 		},
 		hasData: function(e) {
-			e = e.nodeType ? I.cache[e[I.expando]] : e[I.expando];
+			if (e.nodeType) {
+				e = I.cache[e[I.expando]];
+			} else {
+				e = e[I.expando];
+			}
 			return !!e && !i(e);
 		},
 		data: function(e, n, r, i) {
@@ -1784,7 +1835,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						}
 						o = 0;
 						for (a = t.length; a > o; o++) delete r[t[o]];
-						if (!(n ? i : I.isEmptyObject)(r)) return
+						if (!(n ? i : I.isEmptyObject)(r)) {
+							return;
+						}
 					}
 					if ((n || (delete l[u].data, i(l[u])))) {
 						if (I.support.deleteExpando || !l.setInterval) {
@@ -1901,7 +1954,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			})
 		},
 		delay: function(e, t) {
-			e = I.fx ? I.fx.speeds[e] || e : e;
+			if (I.fx) {
+				e = I.fx.speeds[e] || e;
+			} else {
+				e = e;
+			}
 			t = t || "fx";
 			return this.queue(t, function(t, n) {
 				var r = setTimeout(t, e);
@@ -2008,7 +2065,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					if (this.className) {
 						I._data(this, "__className__", this.className)
 					}
-					this.className = this.className || e === false ? "" : I._data(this, "__className__") || "";
+					if (this.className || e === false) {
+						this.className = "";
+					} else {
+						this.className = I._data(this, "__className__") || "";
+					}
 				}
 			})
 		},
@@ -2026,7 +2087,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					return this.each(function(r) {
 						var o, a = I(this);
 						if (1 === this.nodeType) {
-							o = i ? e.call(this, r, a.val()) : e;
+							if (i) {
+								o = e.call(this, r, a.val());
+							} else {
+								o = e;
+							}
 							if (o == null) {
 								o = "";
 							} else if ("number" == typeof o) {
@@ -2068,7 +2133,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					if (0 > o) {
 						return null;
 					}
-					n = c ? o : 0;
+					if (c) {
+						n = o;
+					} else {
+						n = 0;
+					}
 					for (r = c ? o + 1 : s.length; r > n; n++)
 						if (i = s[n], !(!i.selected || (I.support.optDisabled ? i.disabled : null !== i.getAttribute("disabled")) || i.parentNode.disabled && I.nodeName(i.parentNode, "optgroup"))) {
 							if (t = I(i).val(), c) {
@@ -2331,7 +2400,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						if (!(n.target)) {
 							(n.target = i)
 						}
-						r = null != r ? I.makeArray(r) : [];
+						if (null != r) {
+							r = I.makeArray(r);
+						} else {
+							r = [];
+						}
 						r.unshift(n);
 						d = I.event.special[m] || {};
 						if (!d.trigger || d.trigger.apply(i, r) !== false) {
@@ -2415,7 +2488,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			props: "char charCode key keyCode".split(" "),
 			filter: function(e, t) {
 				if (null == e.which) {
-					(e.which = null != t.charCode ? t.charCode : t.keyCode)
+					if (null != t.charCode) {
+						e.which = t.charCode;
+					} else {
+						e.which = t.keyCode;
+					}
 				}
 				return e;
 			}
@@ -2429,10 +2506,18 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					(r = e.target.ownerDocument || q, i = r.documentElement, o = r.body, e.pageX = n.clientX + (i && i.scrollLeft || o && o.scrollLeft || 0) - (i && i.clientLeft || o && o.clientLeft || 0), e.pageY = n.clientY + (i && i.scrollTop || o && o.scrollTop || 0) - (i && i.clientTop || o && o.clientTop || 0))
 				}
 				if (!e.relatedTarget && s) {
-					(e.relatedTarget = s === e.target ? n.toElement : s)
+					if (s === e.target) {
+						e.relatedTarget = n.toElement;
+					} else {
+						e.relatedTarget = s;
+					}
 				}
 				if (!(e.which || a === t)) {
-					(e.which = 1 & a ? 1 : 2 & a ? 3 : 4 & a ? 2 : 0)
+					if (1 & a) {
+						e.which = 1;
+					} else {
+						e.which = 2 & a ? 3 : 4 & a ? 2 : 0;
+					}
 				}
 				return e;
 			}
@@ -2865,7 +2950,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					break
 				}
 			if (!(r)) {
-				(r = "undefined" != typeof t.getElementsByTagName ? t.getElementsByTagName("*") : [])
+				if ("undefined" != typeof t.getElementsByTagName) {
+					r = t.getElementsByTagName("*");
+				} else {
+					r = [];
+				}
 			}
 			return {
 				set: r,
@@ -2982,7 +3071,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							if (o = e[a]) {
 								for (;
 									(o = o.previousSibling) && 1 !== o.nodeType;);
-								e[a] = i || o && o.nodeName.toLowerCase() === t ? o || false : o === t
+								if (i || o && o.nodeName.toLowerCase() === t) {
+									e[a] = o || false;
+								} else {
+									e[a] = o === t;
+								}
 							}
 						if (i) {
 							d.filter(t, e, true);
@@ -2996,7 +3089,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							for (t = t.toLowerCase(); o > i; i++)
 								if (n = e[i]) {
 									var a = n.parentNode;
-									e[i] = a.nodeName.toLowerCase() === t ? a : false
+									if (a.nodeName.toLowerCase() === t) {
+										e[i] = a;
+									} else {
+										e[i] = false;
+									}
 								}
 						} else {
 							for (; o > i; i++) n = e[i], n && (e[i] = r ? n.parentNode : n.parentNode === t);
@@ -3332,7 +3429,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (!c) {
 				return 1;
 			}
-			for (; l;) i.unshift(l), l = l.parentNode;
+			for (; l;) {
+				i.unshift(l), l = l.parentNode;
+			}
 			for (l = c; l;) o.unshift(l), l = l.parentNode;
 			n = i.length, r = o.length;
 			for (var u = 0; n > u && r > u; u++)
@@ -3478,7 +3577,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		};
 		var k = function(e, t, n) {
 			for (var r, i = [], o = "", a = t.nodeType ? [t] : t; r = h.match.PSEUDO.exec(e);) o += r[0], e = e.replace(h.match.PSEUDO, "");
-			e = h.relative[e] ? e + "*" : e;
+			if (h.relative[e]) {
+				e = e + "*";
+			} else {
+				e = e;
+			}
 			for (var s = 0, c = a.length; c > s; s++) d(e, a[s], i, n);
 			return d.filter(o, i)
 		};
@@ -3570,7 +3673,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					}
 					if (o = o.parentNode, !o || !o.ownerDocument || o === t || 11 === o.nodeType) break
 				}
-			i = i.length > 1 ? I.unique(i) : i;
+			if (i.length > 1) {
+				i = I.unique(i);
+			} else {
+				i = i;
+			}
 			return this.pushStack(i, "closest", e);
 		},
 		index: function(e) {
@@ -3631,7 +3738,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (r && "string" == typeof r) {
 				(i = I.filter(r, i))
 			}
-			i = this.length > 1 && !pt[e] ? I.unique(i) : i;
+			if (this.length > 1 && !pt[e]) {
+				i = I.unique(i);
+			} else {
+				i = i;
+			}
 			if ((this.length > 1 || lt.test(r)) && ct.test(e)) {
 				(i = i.reverse())
 			}
@@ -3788,8 +3899,16 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			return this
 		},
 		clone: function(e, t) {
-			e = e == null ? false : e;
-			t = t == null ? e : t;
+			if (e == null) {
+				e = false;
+			} else {
+				e = e;
+			}
+			if (t == null) {
+				t = e;
+			} else {
+				t = t;
+			}
 			return this.map(function() {
 				return I.clone(this, e, t)
 			});
@@ -3844,9 +3963,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 			if (this[0]) {
 				s = c && c.parentNode;
-				i = I.support.parentNode && s && 11 === s.nodeType && s.childNodes.length === this.length ? {
-					fragment: s
-				} : I.buildFragment(e, this, l);
+				if (I.support.parentNode && s && 11 === s.nodeType && s.childNodes.length === this.length) {
+					i = {
+						fragment: s
+					};
+				} else {
+					i = I.buildFragment(e, this, l);
+				}
 				a = i.fragment;
 				if (o = 1 === a.childNodes.length ? a = a.firstChild : a.firstChild) {
 					n = n && I.nodeName(o, "tr");
@@ -3883,7 +4006,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			(r = a.createDocumentFragment(), I.clean(e, a, r, n))
 		}
 		if (i) {
-			(I.fragments[s] = o ? r : 1)
+			if (o) {
+				I.fragments[s] = r;
+			} else {
+				I.fragments[s] = 1;
+			}
 		}
 		return {
 			fragment: r,
@@ -4315,27 +4442,33 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					}
 					s = t;
 					o = a || "";
-					k.readyState = e > 0 ? 4 : 0;
+					if (e > 0) {
+						k.readyState = 4;
+					} else {
+						k.readyState = 0;
+					}
 					var l, f, y, b, $, C = n,
 						S = r ? x(d, k, r) : t;
-					if (e >= 200 && 300 > e || 304 === e)
-						if (d.ifModified && ((b = k.getResponseHeader("Last-Modified")) && (I.lastModified[i] = b), ($ = k.getResponseHeader("Etag")) && (I.etag[i] = $)), 304 === e) C = "notmodified", l = true;
-						else try {
+					if (e >= 200 && 300 > e || 304 === e) {
+						if (d.ifModified && ((b = k.getResponseHeader("Last-Modified")) && (I.lastModified[i] = b), ($ = k.getResponseHeader("Etag")) && (I.etag[i] = $)), 304 === e) {
+							C = "notmodified", l = true;
+						} else try {
 							f = T(d, S);
 							C = "success";
 							l = true;
 						} catch (A) {
 							C = "parsererror";
 							y = A;
-						} else {
-							y = C;
-							if ((!C || e)) {
-								C = "error";
-								if (0 > e) {
-									(e = 0)
-								}
+						}
+					} else {
+						y = C;
+						if ((!C || e)) {
+							C = "error";
+							if (0 > e) {
+								(e = 0)
 							}
 						}
+					}
 					k.status = e;
 					k.statusText = "" + (n || C);
 					if (l) {
@@ -4631,7 +4764,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 												(s = 204)
 											}
 										} else {
-											s = f.text ? 200 : 404;
+											if (f.text) {
+												s = 200;
+											} else {
+												s = 404;
+											}
 										}
 									}
 							}
@@ -4819,7 +4956,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				duration: e,
 				easing: n && t || t && !I.isFunction(t) && t
 			};
-			r.duration = I.fx.off ? 0 : "number" == typeof r.duration ? r.duration : r.duration in I.fx.speeds ? I.fx.speeds[r.duration] : I.fx.speeds._default;
+			if (I.fx.off) {
+				r.duration = 0;
+			} else {
+				r.duration = "number" == typeof r.duration ? r.duration : r.duration in I.fx.speeds ? I.fx.speeds[r.duration] : I.fx.speeds._default;
+			}
 			if ((null == r.queue || r.queue === true)) {
 				(r.queue = "fx")
 			}
@@ -5958,7 +6099,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
 	function Ct(e, t) {
 		if (t) {
-			t = t.nodeName || !y(t.length) || S(t) ? [t] : t;
+			if (t.nodeName || !y(t.length) || S(t)) {
+				t = [t];
+			} else {
+				t = t;
+			}
 			for (var n = 0; n < t.length; n++) {
 				e.push(t[n]);
 			}
@@ -6331,7 +6476,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				(d = e.history)
 			}
 			if (t) {
-				if (t == x) return;
+				if (t == x) {
+					return;
+				}
 				x = t;
 				if (i.history) {
 					if (n) {
@@ -6462,7 +6609,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					get: function(e) {
 						if (l < Number.MAX_VALUE) {
 							var t = u[e];
-							if (!t) return;
+							if (!t) {
+								return;
+							}
 							i(t)
 						}
 						return c[e]
@@ -6470,7 +6619,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					remove: function(e) {
 						if (l < Number.MAX_VALUE) {
 							var t = u[e];
-							if (!t) return;
+							if (!t) {
+								return;
+							}
 							d == t && (d = t.p), p == t && (p = t.n), o(t.n, t.p), delete u[e]
 						}
 						delete c[e], a--
@@ -6712,7 +6863,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							return u(e, t, r);
 						}
 						var h, m, b, $, w, k, x, T, C = {};
-						h = i === s ? a : D(a, new Y(br(s), a.$attr));
+						if (i === s) {
+							h = a;
+						} else {
+							h = D(a, new Y(br(s), a.$attr));
+						}
 						m = h.$$element;
 						if (F) {
 							var S = /^\s*([@=&])(\??)\s*(\w*)\s*$/,
@@ -6729,7 +6884,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 										}), h.$$observers[l].$$scope = t, h[l] && (x[n] = r(h[l])(t));
 										break;
 									case "=":
-										if (u && !h[l]) return;
+										if (u && !h[l]) {
+											return;
+										}
 										o = v(h[l]), s = o.literal ? L : function(e, t) {
 											return e === t
 										}, a = o.assign || function() {
@@ -6836,7 +6993,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						if (k.template)
 							if (W("template", R, k, G), R = k, j = T(k.template) ? k.template(G, a) : k.template, j = rt(j), k.replace) {
 								Z = k;
-								S = dt(j) ? [] : br(j);
+								if (dt(j)) {
+									S = [];
+								} else {
+									S = br(j);
+								}
 								i = S[0];
 								if (1 != S.length || 1 !== i.nodeType) throw ti("tplrt", "Template for directive '{0}' must have exactly one root element. {1}", C, "");
 								K(l, G, i);
@@ -6936,7 +7097,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					}).success(function(f) {
 						var d, h, $, w;
 						if (f = rt(f), m.replace) {
-							$ = dt(f) ? [] : br(f);
+							if (dt(f)) {
+								$ = [];
+							} else {
+								$ = br(f);
+							}
 							d = $[0];
 							if (1 != $.length || 1 !== d.nodeType) throw ti("tplrt", "Template for directive '{0}' must have exactly one root element. {1}", m.name, y);
 							h = {
@@ -7190,7 +7355,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						c = o.match(t);
 						l = c[1];
 						u = c[3];
-						o = e.hasOwnProperty(l) ? e[l] : ot(a.$scope, l, true) || ot(i, l, true);
+						if (e.hasOwnProperty(l)) {
+							o = e[l];
+						} else {
+							o = ot(a.$scope, l, true) || ot(i, l, true);
+						}
 						rt(o, l, true);
 					}
 					s = n.instantiate(o, a);
@@ -7421,7 +7590,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					p.pendingRequests.push(t);
 					h.then(c, c);
 					if ((t.cache || a.cache) && t.cache !== false && "GET" == t.method) {
-						(l = b(t.cache) ? t.cache : b(a.cache) ? a.cache : k)
+						if (b(t.cache)) {
+							l = t.cache;
+						} else {
+							l = b(a.cache) ? a.cache : k;
+						}
 					}
 					if (l)
 						if (f = l.get(g), y(f)) {
@@ -7613,7 +7786,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								for (var n = 0; a > n; n++) {
 									if ("function" == typeof(t = g[n])) {
 										t = t(e);
-										t = l ? i.getTrusted(l, t) : i.valueOf(t);
+										if (l) {
+											t = i.getTrusted(l, t);
+										} else {
+											t = i.valueOf(t);
+										}
 										if (null === t || v(t)) {
 											t = "";
 										} else {
@@ -7660,7 +7837,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						f = u.promise,
 						d = 0,
 						p = y(s) && !s;
-					a = y(a) ? a : 0;
+					if (y(a)) {
+						a = a;
+					} else {
+						a = 0;
+					}
 					f.then(null, null, r);
 					f.$$intervalId = c(function() {
 						u.notify(d++), a > 0 && d >= a && (u.resolve(d), l(f.$$intervalId), delete i[f.$$intervalId]), p || e.$apply()
@@ -7844,7 +8025,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					if (!t.ctrlKey && !t.metaKey && 2 != t.which) {
 						for (var n = br(t.target);
 							"a" !== pr(n[0].nodeName);)
-							if (n[0] === a[0] || !(n = n.parent())[0]) return;
+							if (n[0] === a[0] || !(n = n.parent())[0]) {
+								return;
+							}
 						var o = n.prop("href");
 						if (b(o) && "[object SVGAnimatedString]" === o.toString()) {
 							(o = Fn(o.animVal).href);
@@ -7899,7 +8082,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				function r(e) {
 					if (e instanceof Error) {
 						if (e.stack) {
-							e = e.message && -1 === e.stack.indexOf(e.message) ? "Error: " + e.message + "\n" + e.stack : e.stack;
+							if (e.message && -1 === e.stack.indexOf(e.message)) {
+								e = "Error: " + e.message + "\n" + e.stack;
+							} else {
+								e = e.stack;
+							}
 						} else {
 							e.sourceURL && (e = e.message + "\n" + e.sourceURL + ":" + e.line);
 						}
@@ -8021,14 +8208,19 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		}
 		var i, a = e.split("."),
 			s = a.length;
-		if (t.unwrapPromises || 1 !== s)
-			if (t.unwrapPromises || 2 !== s)
-				if (t.csp) i = 6 > s ? kn(a[0], a[1], a[2], a[3], a[4], r, t) : function(e, i) {
-					var o, c = 0;
-					do o = kn(a[c++], a[c++], a[c++], a[c++], a[c++], r, t)(e, i), i = n, e = o; while (s > c);
-					return o
-				};
-				else {
+		if (t.unwrapPromises || 1 !== s) {
+			if (t.unwrapPromises || 2 !== s) {
+				if (t.csp) {
+					if (6 > s) {
+						i = kn(a[0], a[1], a[2], a[3], a[4], r, t);
+					} else {
+						i = function(e, i) {
+							var o, c = 0;
+							do o = kn(a[c++], a[c++], a[c++], a[c++], a[c++], r, t)(e, i), i = n, e = o; while (s > c);
+							return o
+						};
+					}
+				} else {
 					var c = "var p;\n";
 					o(a, function(e, n) {
 						bn(e, r);
@@ -8041,8 +8233,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					l.toString = m(c), i = t.unwrapPromises ? function(e, t) {
 						return l(e, t, si)
 					} : l
-				} else i = Tn(a[0], a[1], r);
-		else i = xn(a[0], r);
+				}
+			} else {
+				i = Tn(a[0], a[1], r);
+			}
+		} else {
+			i = xn(a[0], r);
+		}
 		if ("hasOwnProperty" !== e) {
 			(hi[e] = i)
 		}
@@ -8550,14 +8747,22 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 											} else {
 												l = true;
 												n = r;
-												r.last = r.eq ? I(i) : i;
+												if (r.eq) {
+													r.last = I(i);
+												} else {
+													r.last = i;
+												}
 												r.fn(i, o === m ? i : o, p);
 												if (5 > $) {
 													h = 4 - $;
 													if (!(k[h])) {
 														(k[h] = [])
 													}
-													g = T(r.exp) ? "fn: " + (r.exp.name || r.exp.toString()) : r.exp;
+													if (T(r.exp)) {
+														g = "fn: " + (r.exp.name || r.exp.toString());
+													} else {
+														g = r.exp;
+													}
 													g += "; newVal: " + B(i) + "; oldVal: " + B(o);
 													k[h].push(g);
 												}
@@ -9269,7 +9474,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			r = r || "mediumDate";
 			r = e.DATETIME_FORMATS[r] || r;
 			if ($(n)) {
-				(n = ki.test(n) ? d(n) : t(n))
+				if (ki.test(n)) {
+					n = d(n);
+				} else {
+					n = t(n);
+				}
 			}
 			if (w(n)) {
 				(n = new Date(n))
@@ -9411,7 +9620,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 			} else {
 				if (c || i(t), r) {
-					if (q(r, n)) return;
+					if (q(r, n)) {
+						return;
+					}
 				} else {
 					l[e] = r = [];
 					c++;
@@ -9740,12 +9951,16 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			return $(e) ? e.replace(/^\s\s*/, "").replace(/\s\s*$/, "") : e
 		}
 	}();
-	kr = 9 > yr ? function(e) {
-		e = e.nodeName ? e : e[0];
-		return e.scopeName && "HTML" != e.scopeName ? gr(e.scopeName + ":" + e.nodeName) : e.nodeName;
-	} : function(e) {
-		return e.nodeName ? e.nodeName : e[0].nodeName
-	};
+	if (9 > yr) {
+		kr = function(e) {
+			e = e.nodeName ? e : e[0];
+			return e.scopeName && "HTML" != e.scopeName ? gr(e.scopeName + ":" + e.nodeName) : e.nodeName;
+		};
+	} else {
+		kr = function(e) {
+			return e.nodeName ? e.nodeName : e[0].nodeName
+		};
+	}
 	var jr = /[A-Z]/g,
 		_r = {
 			full: "1.2.16",
@@ -9846,7 +10061,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 				i = i || e.style[t];
 				if (8 >= yr) {
-					(i = "" === i ? n : i)
+					if ("" === i) {
+						i = n;
+					} else {
+						i = i;
+					}
 				}
 				return i;
 			}
@@ -9926,7 +10145,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 				for (var a = e.$dv, s = a === n ? Math.min(this.length, 1) : this.length, c = 0; s > c; c++) {
 					var l = e(this[c], t, r);
-					a = a ? a + l : l
+					if (a) {
+						a = a + l;
+					} else {
+						a = l;
+					}
 				}
 				return a
 			}
@@ -10107,7 +10330,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					this.$$selectors[t.substr(1)] = r, e.factory(r, n)
 				}, this.classNameFilter = function(e) {
 					if (1 === arguments.length) {
-						(this.$$classNameFilter = e instanceof RegExp ? e : null)
+						if (e instanceof RegExp) {
+							this.$$classNameFilter = e;
+						} else {
+							this.$$classNameFilter = null;
+						}
 					}
 					return this.$$classNameFilter;
 				}, this.$get = ["$timeout", "$$asyncCallback",
@@ -10944,7 +11171,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		zi = ["$scope", "$exceptionHandler", "$attrs", "$element", "$parse", "$animate",
 			function(e, t, n, i, a, s) {
 				function c(e, t) {
-					t = t ? "-" + et(t, "-") : "";
+					if (t) {
+						t = "-" + et(t, "-");
+					} else {
+						t = "";
+					}
 					s.removeClass(i, (e ? Li : Di) + t);
 					s.addClass(i, (e ? Di : Li) + t);
 				};
@@ -12436,8 +12667,9 @@ org.cometd.Cometd = function(e) {
 			i = n[8],
 			o = n[9];
 		if (rt = tt._isCrossDomain(r), bt.appendMessageTypeToURL)
-			if (void 0 !== o && o.length > 0) tt._info("Appending message type to URI " + i + o + " is not supported, disabling 'appendMessageTypeToURL' configuration"), bt.appendMessageTypeToURL = false;
-			else {
+			if (void 0 !== o && o.length > 0) {
+				tt._info("Appending message type to URI " + i + o + " is not supported, disabling 'appendMessageTypeToURL' configuration"), bt.appendMessageTypeToURL = false;
+			} else {
 				var a = i.split("/"),
 					s = a.length - 1;
 				i.match(/\/$/) && (s -= 1), a[s].indexOf(".") >= 0 && (tt._info("Appending message type to URI " + i + " is not supported, disabling 'appendMessageTypeToURL' configuration"), bt.appendMessageTypeToURL = false)
@@ -12495,7 +12727,11 @@ org.cometd.Cometd = function(e) {
 				o = i.extension.incoming;
 			if (n(o)) {
 				var a = l(i.extension, o, i.name, e, false);
-				e = void 0 === a ? e : a
+				if (void 0 === a) {
+					e = e;
+				} else {
+					e = a;
+				}
 			}
 		}
 		return e
@@ -12507,7 +12743,11 @@ org.cometd.Cometd = function(e) {
 				i = r.extension.outgoing;
 			if (n(i)) {
 				var o = l(r.extension, i, r.name, e, true);
-				e = void 0 === o ? e : o
+				if (void 0 === o) {
+					e = e;
+				} else {
+					e = o;
+				}
 			}
 		}
 		return e
@@ -12937,8 +13177,9 @@ org.cometd.Cometd = function(e) {
 			scope: e,
 			method: r
 		};
-		if (n(e)) i.scope = void 0, i.method = e;
-		else if (t(r)) {
+		if (n(e)) {
+			i.scope = void 0, i.method = e;
+		} else if (t(r)) {
 			if (!e) throw "Invalid scope " + e;
 			if (i.method = e[r], !n(i.method)) throw "Invalid callback " + r + " for scope " + e
 		} else if (!n(r)) throw "Invalid callback " + r;
@@ -13254,8 +13495,9 @@ org.cometd.Cometd = function(e) {
 				e("AckExtension: executing unregistration callback"), t = null
 			}, this.incoming = function(t) {
 				var i = t.channel;
-				if (i == "/meta/handshake") n = t.ext && t.ext.ack, e("AckExtension: server supports acks", n);
-				else if (n && i == "/meta/connect" && t.successful) {
+				if (i == "/meta/handshake") {
+					n = t.ext && t.ext.ack, e("AckExtension: server supports acks", n);
+				} else if (n && i == "/meta/connect" && t.successful) {
 					var o = t.ext;
 					if (o && "number" == typeof o.ack) {
 						r = o.ack;
@@ -13431,7 +13673,11 @@ org.cometd.Cometd = function(e) {
 		if (!r(t)) throw a("badmember", 'Dotted member path "@{0}" is invalid.', t);
 		for (var i = t.split("."), o = 0, s = i.length; s > o && e !== n; o++) {
 			var c = i[o];
-			e = null !== e ? e[c] : n
+			if (null !== e) {
+				e = e[c];
+			} else {
+				e = n;
+			}
 		}
 		return e
 	}
@@ -13693,7 +13939,11 @@ org.cometd.Cometd = function(e) {
 								if (e) {
 									var n, r, i = t.extend({}, e.resolve);
 									t.forEach(i, function(e, n) {
-										i[n] = t.isString(e) ? s.get(e) : s.invoke(e)
+										if (t.isString(e)) {
+											i[n] = s.get(e);
+										} else {
+											i[n] = s.invoke(e);
+										}
 									});
 									if (t.isDefined(n = e.template)) {
 										t.isFunction(n) && (n = n(e.params));
@@ -14452,7 +14702,11 @@ window.Modernizr = function(e, t, n) {
 					(r = i(n))
 				}
 				var o;
-				o = r.cache[e] ? r.cache[e].cloneNode() : p.test(e) ? (r.cache[e] = r.createElem(e)).cloneNode() : r.createElem(e);
+				if (r.cache[e]) {
+					o = r.cache[e].cloneNode();
+				} else {
+					o = p.test(e) ? (r.cache[e] = r.createElem(e)).cloneNode() : r.createElem(e);
+				}
 				return o.canHaveChildren && !d.test(e) ? r.frag.appendChild(o) : o;
 			}
 
@@ -15665,7 +15919,11 @@ angular.module("app.services.countdown", ["underscore"]).factory("$countdown", [
 							}
 						},
 						stop: function(t) {
-							t = "undefined" != typeof t ? t : true;
+							if ("undefined" != typeof t) {
+								t = t;
+							} else {
+								t = true;
+							}
 							var r = a;
 							if (r.timeoutId) {
 								n.cancel(r.timeoutId);
@@ -16518,7 +16776,11 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 		}; ++r < i;) {
 			e = arguments[r];
 			for (t in e) {
-				n = null == (n = e[t]) ? "" : n;
+				if (null == (n = e[t])) {
+					n = "";
+				} else {
+					n = n;
+				}
 				if (/beforeLoop|loopExp|inLoop/.test(t)) {
 					("string" == typeof n && (n = {
 						array: n,
@@ -16871,7 +17133,11 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 				(e = t[r])
 			}
 			if (o.length) {
-				(a = a.length ? Qt.apply(o, a) : o)
+				if (a.length) {
+					a = Qt.apply(o, a);
+				} else {
+					a = o;
+				}
 			}
 			if (this instanceof n) {
 				l.prototype = e.prototype, s = new l;
@@ -16966,7 +17232,11 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 			if (i.length) {
 				(t.length = n, Zt.apply(t, i))
 			}
-			r = 1 == t.length ? e.call(this, t[0]) : e.apply(this, t);
+			if (1 == t.length) {
+				r = e.call(this, t[0]);
+			} else {
+				r = e.apply(this, t);
+			}
 			t.length = n;
 			return r;
 		}
@@ -17588,7 +17858,11 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 			var n = e - h;
 			return n > f || g ? (s = isFinite(s) ? s : 1, g ? v && t(s) : t(s), r(c), i && i.apply(d)) : void t(isFinite(s) ? p * o(n / f) + a : o(n / f))
 		}
-		o = l(o) ? o : m.easings[o] || u;
+		if (l(o)) {
+			o = o;
+		} else {
+			o = m.easings[o] || u;
+		}
 		var f = e || T,
 			d = this,
 			p = s - a,
@@ -17623,7 +17897,11 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 			o = Math.min(15, parseInt(t.charAt(r), 16));
 			a = Math.min(15, parseInt(n.charAt(r), 16));
 			i = Math.floor((a - o) * e + o);
-			i = i > 15 ? 15 : 0 > i ? 0 : i;
+			if (i > 15) {
+				i = 15;
+			} else {
+				i = 0 > i ? 0 : i;
+			}
 			s[r] = i.toString(16);
 		}
 		return "#" + s.join("")
@@ -17632,7 +17910,13 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 	function h(e, t, n, r, i, o, a) {
 		if (i == "transform") {
 			a = {};
-			for (var s in n[o][i]) a[s] = s in r[o][i] ? Math.round(((r[o][i][s] - n[o][i][s]) * e + n[o][i][s]) * T) / T : n[o][i][s];
+			for (var s in n[o][i]) {
+				if (s in r[o][i]) {
+					a[s] = Math.round(((r[o][i][s] - n[o][i][s]) * e + n[o][i][s]) * T) / T;
+				} else {
+					a[s] = n[o][i][s];
+				}
+			}
 			return a
 		}
 		return "string" == typeof n[o][i] ? p(e, n[o][i], r[o][i]) : (a = Math.round(((r[o][i] - n[o][i]) * e + n[o][i]) * T) / T, i in q || (a += t[o][i] || "px"), a)
