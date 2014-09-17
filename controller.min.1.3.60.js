@@ -1033,7 +1033,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				},
 				pushStack: function(e, t, n) {
 					var r = this.constructor();
-					return s.isArray(e) ? N.apply(r, e) : s.merge(r, e), r.prevObject = this, r.context = this.context, "find" === t ? r.selector = this.selector + (this.selector ? " " : "") + n : t && (r.selector = this.selector + "." + t + "(" + n + ")"), r
+					s.isArray(e) ? N.apply(r, e) : s.merge(r, e);
+					r.prevObject = this;
+					r.context = this.context;
+					"find" === t ? r.selector = this.selector + (this.selector ? " " : "") + n : t && (r.selector = this.selector + "." + t + "(" + n + ")");
+					return r;
 				},
 				each: function(e, t) {
 					return s.each(this, e, t)
@@ -3380,7 +3384,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}, function(e, t) {
 		I.fn[e] = function(n, r) {
 			var i = I.map(this, t, n);
-			return st.test(e) || (r = n), r && "string" == typeof r && (i = I.filter(r, i)), i = this.length > 1 && !pt[e] ? I.unique(i) : i, (this.length > 1 || lt.test(r)) && ct.test(e) && (i = i.reverse()), this.pushStack(i, e, ft.call(arguments).join(","))
+			st.test(e) || (r = n);
+			r && "string" == typeof r && (i = I.filter(r, i));
+			i = this.length > 1 && !pt[e] ? I.unique(i) : i;
+			(this.length > 1 || lt.test(r)) && ct.test(e) && (i = i.reverse());
+			return this.pushStack(i, e, ft.call(arguments).join(","));
 		}
 	}), I.extend({
 		filter: function(e, t, n) {
@@ -3772,7 +3780,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		},
 		css: function(e, n, r) {
 			var i, o;
-			return n = I.camelCase(n), o = I.cssHooks[n], n = I.cssProps[n] || n, "cssFloat" === n && (n = "float"), o && "get" in o && (i = o.get(e, true, r)) !== t ? i : Nt ? Nt(e, n) : void 0
+			n = I.camelCase(n);
+			o = I.cssHooks[n];
+			n = I.cssProps[n] || n;
+			"cssFloat" === n && (n = "float");
+			return o && "get" in o && (i = o.get(e, true, r)) !== t ? i : Nt ? Nt(e, n) : void 0;
 		},
 		swap: function(e, t, n) {
 			var r, i, o = {};
@@ -4439,9 +4451,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				duration: e,
 				easing: n && t || t && !I.isFunction(t) && t
 			};
-			return r.duration = I.fx.off ? 0 : "number" == typeof r.duration ? r.duration : r.duration in I.fx.speeds ? I.fx.speeds[r.duration] : I.fx.speeds._default, (null == r.queue || r.queue === true) && (r.queue = "fx"), r.old = r.complete, r.complete = function(e) {
+			r.duration = I.fx.off ? 0 : "number" == typeof r.duration ? r.duration : r.duration in I.fx.speeds ? I.fx.speeds[r.duration] : I.fx.speeds._default;
+			(null == r.queue || r.queue === true) && (r.queue = "fx");
+			r.old = r.complete;
+			r.complete = function(e) {
 				I.isFunction(r.old) && r.old.call(this), r.queue ? I.dequeue(this, r.queue) : e !== false && I._unmark(this)
-			}, r
+			};
+			return r;
 		},
 		easing: {
 			linear: function(e) {
@@ -4637,10 +4653,14 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					top: 0,
 					left: 0
 				} : t.offset();
-			return n.top -= parseFloat(I.css(e, "marginTop")) || 0, n.left -= parseFloat(I.css(e, "marginLeft")) || 0, r.top += parseFloat(I.css(t[0], "borderTopWidth")) || 0, r.left += parseFloat(I.css(t[0], "borderLeftWidth")) || 0, {
+			n.top -= parseFloat(I.css(e, "marginTop")) || 0;
+			n.left -= parseFloat(I.css(e, "marginLeft")) || 0;
+			r.top += parseFloat(I.css(t[0], "borderTopWidth")) || 0;
+			r.left += parseFloat(I.css(t[0], "borderLeftWidth")) || 0;
+			return {
 				top: n.top - r.top,
 				left: n.left - r.left
-			}
+			};
 		},
 		offsetParent: function() {
 			return this.map(function() {
@@ -6922,13 +6942,17 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				r = function() {
 					n.onreadystatechange = n.onload = n.onerror = null, i.body.removeChild(n), t && t()
 				};
-			return n.type = "text/javascript", n.src = e, yr && 8 >= yr ? n.onreadystatechange = function() {
+			n.type = "text/javascript";
+			n.src = e;
+			yr && 8 >= yr ? n.onreadystatechange = function() {
 				if (/loaded|complete/.test(n.readyState)) {
 					r();
 				}
 			} : n.onload = n.onerror = function() {
 				r()
-			}, i.body.appendChild(n), r
+			};
+			i.body.appendChild(n);
+			return r;
 		}
 		var s = -1;
 		return function(i, c, l, u, f, d, p, g) {
@@ -7063,9 +7087,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						f = u.promise,
 						d = 0,
 						p = y(s) && !s;
-					return a = y(a) ? a : 0, f.then(null, null, r), f.$$intervalId = c(function() {
+					a = y(a) ? a : 0;
+					f.then(null, null, r);
+					f.$$intervalId = c(function() {
 						u.notify(d++), a > 0 && d >= a && (u.resolve(d), l(f.$$intervalId), delete i[f.$$intervalId]), p || e.$apply()
-					}, o), i[f.$$intervalId] = u, f
+					}, o);
+					i[f.$$intervalId] = u;
+					return f;
 				}
 				var i = {};
 				r.cancel = function(e) {
@@ -11114,11 +11142,13 @@ org.cometd.LongPollingTransport = function() {
 	var e = new org.cometd.RequestTransport,
 		t = org.cometd.Transport.derive(e),
 		n = true;
-	return t.accept = function(e, t) {
+	t.accept = function(e, t) {
 		return n || !t
-	}, t.xhrSend = function() {
+	};
+	t.xhrSend = function() {
 		throw "Abstract"
-	}, t.transportSend = function(e, t) {
+	};
+	t.transportSend = function(e, t) {
 		this._debug("Transport", this.getType(), "sending request", t.id, "envelope", e);
 		var r = this;
 		try {
@@ -11154,9 +11184,11 @@ org.cometd.LongPollingTransport = function() {
 				r.transportFailure(e, t, "error", o)
 			}, 0)
 		}
-	}, t.reset = function() {
+	};
+	t.reset = function() {
 		e.reset(), n = true
-	}, t
+	};
+	return t;
 };
 org.cometd.WebSocketTransport = function() {
 	function e() {
@@ -16451,12 +16483,20 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 
 	function i(e, t) {
 		var n, r = {};
-		return (n = e.match(E)) && (r.rotate = g(n[1], t ? t.rotate : null)), (n = e.match(N)) && (r.scale = g(n[1], t ? t.scale : null)), (n = e.match(j)) && (r.skewx = g(n[1], t ? t.skewx : null), r.skewy = g(n[3], t ? t.skewy : null)), (n = e.match(_)) && (r.translatex = g(n[1], t ? t.translatex : null), r.translatey = g(n[3], t ? t.translatey : null)), r
+		(n = e.match(E)) && (r.rotate = g(n[1], t ? t.rotate : null));
+		(n = e.match(N)) && (r.scale = g(n[1], t ? t.scale : null));
+		(n = e.match(j)) && (r.skewx = g(n[1], t ? t.skewx : null), r.skewy = g(n[3], t ? t.skewy : null));
+		(n = e.match(_)) && (r.translatex = g(n[1], t ? t.translatex : null), r.translatey = g(n[3], t ? t.translatey : null));
+		return r;
 	}
 
 	function o(e) {
 		var t = "";
-		return "rotate" in e && (t += "rotate(" + e.rotate + "deg) "), "scale" in e && (t += "scale(" + e.scale + ") "), "translatex" in e && (t += "translate(" + e.translatex + "px," + e.translatey + "px) "), "skewx" in e && (t += "skew(" + e.skewx + "deg," + e.skewy + "deg)"), t
+		"rotate" in e && (t += "rotate(" + e.rotate + "deg) ");
+		"scale" in e && (t += "scale(" + e.scale + ") ");
+		"translatex" in e && (t += "translate(" + e.translatex + "px," + e.translatey + "px) ");
+		"skewx" in e && (t += "skew(" + e.skewx + "deg," + e.skewy + "deg)");
+		return t;
 	}
 
 	function a(e, t, n) {
