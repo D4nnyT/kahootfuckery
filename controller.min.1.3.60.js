@@ -527,8 +527,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	function n(e) {
 		var t, n, r = D[e] = {};
 		e = e.split(/\s+/);
-		for (t = 0, n = e.length; n > t; t++)
-			r[e[t]] = true;
+		t = 0;
+		for (n = e.length; n > t; t++) r[e[t]] = true;
 		return r;
 	}
 
@@ -624,8 +624,12 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				s = o.events;
 			if (s) {
 				delete a.handle, a.events = {};
-				for (n in s)
-					for (r = 0, i = s[n].length; i > r; r++) I.event.add(t, n, s[n][r])
+				for (n in s){
+					r = 0;
+					for (i = s[n].length; i > r; r++){
+						I.event.add(t, n, s[n][r]);
+					}
+				}
 			}
 			if (a.data) {
 				(a.data = I.extend({}, a.data));
@@ -1234,7 +1238,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						if (O) {
 							return O.call(t, e, n);
 						}
-						for (r = t.length, n = n ? 0 > n ? Math.max(0, r + n) : n : 0; r > n; n++)
+						r = t.length;
+						for (n = n ? 0 > n ? Math.max(0, r + n) : n : 0; r > n; n++)
 							if (n in t && t[n] === e) {
 								return n;
 							}
@@ -1364,7 +1369,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			u = [],
 			f = function(t) {
 				var n, r, i, o;
-				for (n = 0, r = t.length; r > n; n++) {
+				n = 0;
+				for (r = t.length; r > n; n++) {
 					i = t[n];
 					o = I.type(i);
 					if ("array" === o) {
@@ -1632,7 +1638,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				if (l[u]) {
 					if (t && (r = n ? l[u] : l[u].data)) {
 						I.isArray(t) || (t in r ? t = [t] : (t = I.camelCase(t), t = t in r ? [t] : t.split(" ")));
-						for (o = 0, a = t.length; a > o; o++) delete r[t[o]];
+						o = 0;
+						for (a = t.length; a > o; o++) delete r[t[o]];
 						if (!(n ? i : I.isEmptyObject)(r)) return
 					}
 					if ((n || (delete l[u].data, i(l[u])))) {
@@ -1665,7 +1672,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				f = null;
 			if (e === t) {
 				if (this.length && (f = I.data(l), 1 === l.nodeType && !I._data(l, "parsedAttrs"))) {
-					for (a = l.attributes, c = a.length; c > u; u++) s = a[u].name, 0 === s.indexOf("data-") && (s = I.camelCase(s.substring(5)), r(l, s, f[s]));
+					a = l.attributes;
+					for (c = a.length; c > u; u++) s = a[u].name, 0 === s.indexOf("data-") && (s = I.camelCase(s.substring(5)), r(l, s, f[s]));
 					I._data(l, "parsedAttrs", true)
 				}
 				return f
@@ -1677,7 +1685,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					var t = I(this);
 					t.triggerHandler("setData" + o, i), I.data(this, e, n), t.triggerHandler("changeData" + o, i)
 				}))
-			}, null, n, arguments.length > 1, null, !1))
+			}, null, n, arguments.length > 1, null, false))
 		},
 		removeData: function(e) {
 			return this.each(function() {
@@ -1692,7 +1700,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 		},
 		_unmark: function(e, t, n) {
-			e !== true && (n = t, t = e, e = !1);
+			e !== true && (n = t, t = e, e = false);
 			if (t) {
 				n = n || "fx";
 				var r = n + "mark",
@@ -1883,7 +1891,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					if (0 > o) {
 						return null;
 					}
-					for (n = c ? o : 0, r = c ? o + 1 : s.length; r > n; n++)
+					n = c ? o : 0;
+					for (r = c ? o + 1 : s.length; r > n; n++)
 						if (i = s[n], !(!i.selected || (I.support.optDisabled ? i.disabled : null !== i.getAttribute("disabled")) || i.parentNode.disabled && I.nodeName(i.parentNode, "optgroup"))) {
 							if (t = I(i).val(), c) {
 								return t;
@@ -1919,7 +1928,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		removeAttr: function(e, t) {
 			var n, r, i, o, a, s = 0;
 			if (t && 1 === e.nodeType) {
-				for (r = t.toLowerCase().split(U), o = r.length; o > s; s++) i = r[s], i && (n = I.propFix[i] || i, a = G.test(i), a || I.attr(e, i, ""), e.removeAttribute(K ? i : n), a && n in e && (e[n] = !1))
+				r = t.toLowerCase().split(U);
+				for (o = r.length; o > s; s++) i = r[s], i && (n = I.propFix[i] || i, a = G.test(i), a || I.attr(e, i, ""), e.removeAttribute(K ? i : n), a && n in e && (e[n] = false))
 			}
 		},
 		attrHooks: {
@@ -2067,7 +2077,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					selector: o,
 					quick: o && it(o),
 					namespace: d.join(".")
-				}, h), g = c[f], g || (g = c[f] = [], g.delegateCount = 0, m.setup && m.setup.call(e, i, d, s) !== false || (e.addEventListener ? e.addEventListener(f, s, !1) : e.attachEvent && e.attachEvent("on" + f, s))), m.add && (m.add.call(e, p), p.handler.guid || (p.handler.guid = r.guid)), o ? g.splice(g.delegateCount++, 0, p) : g.push(p), I.event.global[f] = true;
+				}, h), g = c[f], g || (g = c[f] = [], g.delegateCount = 0, m.setup && m.setup.call(e, i, d, s) !== false || (e.addEventListener ? e.addEventListener(f, s, false) : e.attachEvent && e.attachEvent("on" + f, s))), m.add && (m.add.call(e, p), p.handler.guid || (p.handler.guid = r.guid)), o ? g.splice(g.delegateCount++, 0, p) : g.push(p), I.event.global[f] = true;
 				e = null
 			}
 		},
@@ -2075,7 +2085,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		remove: function(e, t, n, r, i) {
 			var o, a, s, c, l, u, f, d, p, h, g, m, v = I.hasData(e) && I._data(e);
 			if (v && (d = v.events)) {
-				for (t = I.trim(at(t || "")).split(" "), o = 0; o < t.length; o++)
+				t = I.trim(at(t || "")).split(" ");
+				for (o = 0; o < t.length; o++)
 					if (a = Y.exec(t[o]) || [], s = c = a[1], l = a[2], s) {
 						for (p = I.event.special[s] || {}, s = (r ? p.delegateType : p.bindType) || s, g = d[s] || [], u = g.length, l = l ? new RegExp("(^|\\.)" + l.split(".").sort().join("\\.(?:.*\\.)?") + "(\\.|$)") : null, f = 0; f < g.length; f++) m = g[f], !i && c !== m.origType || n && n.guid !== m.guid || l && !l.test(m.namespace) || r && r !== m.selector && ("**" !== r || !m.selector) || (g.splice(f--, 1), m.selector && g.delegateCount--, p.remove && p.remove.call(e, m));
 						if (0 === g.length && u !== g.length) {
@@ -2107,7 +2118,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						r = null != r ? I.makeArray(r) : [];
 						r.unshift(n);
 						d = I.event.special[m] || {};
-						if (!d.trigger || d.trigger.apply(i, r) !== !1) {
+						if (!d.trigger || d.trigger.apply(i, r) !== false) {
 							if (h = [
 								[i, d.bindType || m]
 							], !o && !d.noBubble && !I.isWindow(i)) {
@@ -2138,7 +2149,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				y = [];
 			g[0] = n;
 			n.delegateTarget = this;
-			if (!v.preDispatch || v.preDispatch.call(this, n) !== !1) {
+			if (!v.preDispatch || v.preDispatch.call(this, n) !== false) {
 				if (h && (!n.button || "click" !== n.type)) {
 					for (a = I(this), a.context = this.ownerDocument || this, o = n.target; o != this; o = o.parentNode || this)
 						if (o.disabled !== true) {
@@ -2151,10 +2162,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							}
 						}
 				}
-				for (p.length > h && y.push({
+				p.length > h && y.push({
 					elem: this,
 					matches: p.slice(h)
-				}), r = 0; r < y.length && !n.isPropagationStopped(); r++)
+				});
+				for (r = 0; r < y.length && !n.isPropagationStopped(); r++)
 					for (l = y[r], n.currentTarget = l.elem, i = 0; i < l.matches.length && !n.isImmediatePropagationStopped(); i++) f = l.matches[i], (m || !n.namespace && !f.namespace || n.namespace_re && n.namespace_re.test(f.namespace)) && (n.data = f.data, n.handleObj = f, s = ((I.event.special[f.origType] || {}).handle || f.handler).apply(l.elem, g), s !== t && (n.result = s, s === false && (n.preventDefault(), n.stopPropagation())));
 				return v.postDispatch && v.postDispatch.call(this, n), n.result
 			}
@@ -2221,7 +2233,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		}
 	}, I.event.handle = I.event.dispatch, I.removeEvent = q.removeEventListener ? function(e, t, n) {
 		if (e.removeEventListener) {
-			e.removeEventListener(t, n, !1);
+			e.removeEventListener(t, n, false);
 		}
 	} : function(e, t, n) {
 		if (e.detachEvent) {
@@ -2237,7 +2249,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				if (e.preventDefault) {
 					e.preventDefault();
 				} else {
-					e.returnValue = !1;
+					e.returnValue = false;
 				}
 			}
 		},
@@ -2305,7 +2317,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					this._just_changed = false;
 					I.event.simulate("change", this, e, true);
 				}
-			})), !1) : void I.event.add(this, "beforeactivate._change", function(e) {
+			})), false) : void I.event.add(this, "beforeactivate._change", function(e) {
 				var t = e.target;
 				if (Q.test(t.nodeName) && !t._change_attached) {
 					I.event.add(t, "change._change", function(e) {
@@ -2353,7 +2365,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				for (c in e) this.on(c, n, r, e[c], o);
 				return this
 			}
-			if (r == null && i == null ? (i = n, r = n = t) : i == null && ("string" == typeof n ? (i = r, r = t) : (i = r, r = n, n = t)), i === !1) i = a;
+			if (r == null && i == null ? (i = n, r = n = t) : i == null && ("string" == typeof n ? (i = r, r = t) : (i = r, r = n, n = t)), i === false) i = a;
 			else if (!i) {
 				return this;
 			}
@@ -2514,7 +2526,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				for (f = i ? {
 					expr: w.pop(),
 					set: y(i)
-				} : d.find(w.pop(), 1 !== w.length || "~" !== w[0] && "+" !== w[0] || !t.parentNode ? t : t.parentNode, $), c = f.expr ? d.filter(f.expr, f.set) : f.set, w.length > 0 ? l = y(c) : b = !1; w.length;) p = w.pop(), m = p, h.relative[p] ? m = w.pop() : p = "", m == null && (m = t), h.relative[p](l, m, $);
+				} : d.find(w.pop(), 1 !== w.length || "~" !== w[0] && "+" !== w[0] || !t.parentNode ? t : t.parentNode, $), c = f.expr ? d.filter(f.expr, f.set) : f.set, w.length > 0 ? l = y(c) : b = false; w.length;) p = w.pop(), m = p, h.relative[p] ? m = w.pop() : p = "", m == null && (m = t), h.relative[p](l, m, $);
 			else l = w = [];
 			l || (l = c);
 			l || d.error(p || e);
@@ -2549,7 +2561,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (!e) {
 				return [];
 			}
-			for (i = 0, o = h.order.length; o > i; i++)
+			i = 0;
+			for (o = h.order.length; o > i; i++)
 				if (s = h.order[i], (a = h.leftMatch[s].exec(e)) && (c = a[1], a.splice(1, 1), "\\" !== c.substr(c.length - 1) && (a[1] = (a[1] || "").replace(l, ""), r = h.find[s](a, t, n), null != r))) {
 					e = e.replace(h.match[s], "");
 					break
@@ -2729,7 +2742,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								if (i ^ (a.className && (" " + a.className + " ").replace(/[\t\n\r]/g, " ").indexOf(e) >= 0)) {
 									n || r.push(a);
 								} else {
-									n && (t[s] = !1);
+									n && (t[s] = false);
 								}
 							}
 						return false
@@ -2908,7 +2921,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								o = t[0];
 								a = e.parentNode;
 								if (a && (a[i] !== o || !e.nodeIndex)) {
-									for (s = 0, u = a.firstChild; u; u = u.nextSibling)
+									s = 0;
+									for (u = a.firstChild; u; u = u.nextSibling)
 										if (1 === u.nodeType) {
 											(u.nodeIndex = ++s);
 										}
@@ -3158,7 +3172,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			var t, n, r = this;
 			if ("string" != typeof e) {
 				return I(e).filter(function() {
-					for (t = 0, n = r.length; n > t; t++) {
+					t = 0;
+					for (n = r.length; n > t; t++) {
 						if (I.contains(r[t], this)) {
 							return true
 						}
@@ -3166,7 +3181,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				});
 			}
 			var i, o, a, s = this.pushStack("", "find", e);
-			for (t = 0, n = this.length; n > t; t++) {
+			t = 0;
+			for (n = this.length; n > t; t++) {
 				i = s.length;
 				I.find(e, this[t], s);
 				if (t > 0) {
@@ -3190,7 +3206,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			})
 		},
 		not: function(e) {
-			return this.pushStack(l(this, e, !1), "not", e)
+			return this.pushStack(l(this, e, false), "not", e)
 		},
 		filter: function(e) {
 			return this.pushStack(l(this, e, true), "filter", e)
@@ -3216,7 +3232,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				return i
 			}
 			var s = dt.test(e) || "string" != typeof e ? I(e, t || this.context) : 0;
-			for (n = 0, r = this.length; r > n; n++)
+			n = 0;
+			for (r = this.length; r > n; n++)
 				for (o = this[n]; o;) {
 					if (s ? s.index(o) > -1 : I.find.matchesSelector(o, e)) {
 						i.push(o);
@@ -3571,9 +3588,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					}
 				}
 			if (n) {
-				for (i = function(e) {
+				i = function(e) {
 					return !e.type || Ct.test(e.type)
-				}, l = 0; s[l]; l++)
+				};
+				for (l = 0; s[l]; l++)
 					if (o = s[l], r && I.nodeName(o, "script") && (!o.type || Ct.test(o.type))) r.push(o.parentNode ? o.parentNode.removeChild(o) : o);
 					else {
 						if (1 === o.nodeType) {
@@ -3996,7 +4014,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (u && 0 === I.active++) {
 				I.event.trigger("ajaxStart");
 			}
-			if (!d.hasContent && (d.data && (d.url += (Yt.test(d.url) ? "&" : "?") + d.data, delete d.data), i = d.url, d.cache === !1)) {
+			if (!d.hasContent && (d.data && (d.url += (Yt.test(d.url) ? "&" : "?") + d.data, delete d.data), i = d.url, d.cache === false)) {
 				var C = I.now(),
 					S = d.url.replace(nn, "$1_=" + C);
 				d.url = S + (S === d.url ? (Yt.test(d.url) ? "&" : "?") + "_=" + C : "");
@@ -4090,7 +4108,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 		}
 	}), I.ajaxPrefilter("script", function(e) {
-		e.cache === t && (e.cache = !1), e.crossDomain && (e.type = "GET", e.global = !1)
+		e.cache === t && (e.cache = false), e.crossDomain && (e.type = "GET", e.global = false)
 	}), I.ajaxTransport("script", function(e) {
 		if (e.crossDomain) {
 			var n, r = q.head || q.getElementsByTagName("head")[0] || q.documentElement;
@@ -4264,7 +4282,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				return true
 			}
 			var o = I.speed(t, n, r);
-			return I.isEmptyObject(e) ? this.each(o.complete, [!1]) : (e = I.extend({}, e), o.queue === false ? this.each(i) : this.queue(o.queue, i))
+			return I.isEmptyObject(e) ? this.each(o.complete, [false]) : (e = I.extend({}, e), o.queue === false ? this.each(i) : this.queue(o.queue, i))
 		},
 		stop: function(e, n, r) {
 			return "string" != typeof e && (r = n, n = e, e = t), n && e !== false && this.queue(e || "fx", []), this.each(function() {
@@ -4369,7 +4387,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				this.now = this.end, this.pos = this.state = 1, this.update(), s.animatedProperties[this.prop] = true;
 				for (t in s.animatedProperties)
 					if (s.animatedProperties[t] !== true) {
-						(o = !1);
+						(o = false);
 					}
 				if (o) {
 					null == s.overflow || I.support.shrinkWrapBlocks || I.each(["", "X", "Y"], function(e, t) {
@@ -5003,7 +5021,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			controller: Wr.controller,
 			injector: Wr.injector,
 			inheritedData: Wr.inheritedData
-		}), ft("remove", true, true, !1), ft("empty", false, !1, !1), ft("html", false, !1, true)) : br = gt, Ar.element = br
+		}), ft("remove", true, true, false), ft("empty", false, false, false), ft("html", false, false, true)) : br = gt, Ar.element = br
 	}
 
 	function nt(e, t, n) {
@@ -5236,7 +5254,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		if (dt(e)) l.push(t.createTextNode(e));
 		else {
 			for (n = c.appendChild(t.createElement("div")), r = (Hr.exec(e) || ["", ""])[1].toLowerCase(), i = Ur[r] || Ur._default, n.innerHTML = "<div>&#160;</div>" + i[1] + e.replace(Br, "<$1></$2>") + i[2], n.removeChild(n.firstChild), o = i[0]; o--;) n = n.lastChild;
-			for (a = 0, s = n.childNodes.length; s > a; ++a) l.push(n.childNodes[a]);
+			a = 0;
+			for (s = n.childNodes.length; s > a; ++a) l.push(n.childNodes[a]);
 			n = c.firstChild, n.textContent = ""
 		}
 		return c.textContent = "", c.innerHTML = "", l
@@ -5516,7 +5535,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			function r(e, t, r) {
 				var i, o, a, s = [],
 					c = Mt(e);
-				for (o = 0, i = c.length; i > o; o++) {
+				o = 0;
+				for (i = c.length; i > o; o++) {
 					if (a = c[o], "string" != typeof a) throw Yr("itkn", "Incorrect injection token! Expected service name as string, got {0}", a);
 					s.push(r && r.hasOwnProperty(a) ? r[a] : n(a))
 				}
@@ -5609,7 +5629,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				return e.supported ? function(t) {
 					return e(t)
 				} : function(e) {
-					return t(e, 0, !1)
+					return t(e, 0, false)
 				}
 			}
 		]
@@ -6279,7 +6299,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						s = n.length,
 						c = a.parentNode;
 					if (e) {
-						for (i = 0, o = e.length; o > i; i++)
+						i = 0;
+						for (o = e.length; o > i; i++)
 							if (a == e[i]) {
 								e[i++] = r;
 								for (var l = i, u = l + s - 1, f = e.length; f > l; l++, u++)
@@ -7229,7 +7250,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								}
 								var o = new di(t),
 									a = new pi(o, n, t);
-								return i = a.parse(r, !1), "hasOwnProperty" !== r && (e[r] = i), i;
+								return i = a.parse(r, false), "hasOwnProperty" !== r && (e[r] = i), i;
 							case "function":
 								return r;
 							default:
@@ -7335,18 +7356,18 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								try {
 									o = (e || r)()
 								} catch (a) {
-									return t(a, !1)
+									return t(a, false)
 								}
 								return o && T(o.then) ? o.then(function() {
 									return t(n, i)
 								}, function(e) {
-									return t(e, !1)
+									return t(e, false)
 								}) : t(n, i)
 							}
 							return this.then(function(e) {
 								return n(e, true)
 							}, function(e) {
-								return n(e, !1)
+								return n(e, false)
 							})
 						}
 					}
@@ -7433,7 +7454,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							r(t)
 						}
 					} : function(e) {
-						var n = t(e, 16.66, !1);
+						var n = t(e, 16.66, false);
 						return function() {
 							t.cancel(n)
 						}
@@ -7854,13 +7875,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				function o(n) {
 					var r, o, a = Fn(n.toString()),
 						s = false;
-					for (r = 0, o = e.length; o > r; r++)
+					r = 0;
+					for (o = e.length; o > r; r++)
 						if (i(e[r], a)) {
 							s = true;
 							break
 						}
 					if (s) {
-						for (r = 0, o = t.length; o > r; r++)
+						r = 0;
+						for (o = t.length; o > r; r++)
 							if (i(t[r], a)) {
 								s = false;
 								break
@@ -8226,7 +8249,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					y = t.lgSize,
 					$ = t.gSize;
 				if (h.length >= y + $) {
-					for (m = h.length - y, g = 0; m > g; g++) {
+					m = h.length - y;
+					for (g = 0; m > g; g++) {
 						if ((m - g) % $ === 0 && 0 !== g)
 							s += n;
 						s += h.charAt(g);
@@ -8337,7 +8361,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				return t ? t >= 0 ? e.slice(0, t) : e.slice(t, e.length) : "";
 			}
 			var n, r, i = [];
-			for (t > e.length ? t = e.length : t < -e.length && (t = -e.length), t > 0 ? (n = 0, r = t) : (n = e.length + t, r = e.length); r > n; n++) i.push(e[n]);
+			t > e.length ? t = e.length : t < -e.length && (t = -e.length);
+			for (t > 0 ? (n = 0, r = t) : (n = e.length + t, r = e.length); r > n; n++) i.push(e[n]);
 			return i
 		}
 	}
@@ -8426,7 +8451,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				O(r, n);
 				if (!r.length) {
 					c--;
-					c || (i(t), a.$valid = true, a.$invalid = !1);
+					c || (i(t), a.$valid = true, a.$invalid = false);
 					l[e] = false;
 					i(true, e);
 					s.$setValidity(e, true, a);
@@ -8437,7 +8462,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				} else {
 					l[e] = r = [];
 					c++;
-					i(!1, e);
+					i(false, e);
 					s.$setValidity(e, false, a);
 				}
 				r.push(n);
@@ -8472,7 +8497,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		var r = n.prop("validity");
 		if (b(r)) {
 			var i = function(n) {
-				return e.$error[t] || !(r.badInput || r.customError || r.typeMismatch) || r.valueMissing ? n : void e.$setValidity(t, !1)
+				return e.$error[t] || !(r.badInput || r.customError || r.typeMismatch) || r.valueMissing ? n : void e.$setValidity(t, false)
 			};
 			e.$parsers.push(i)
 		}
@@ -8554,7 +8579,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		ar(e, t, r, i, o, a);
 		i.$parsers.push(function(e) {
 			var t = i.$isEmpty(e);
-			return t || Mi.test(e) ? (i.$setValidity("number", true), "" === e ? null : t ? e : parseFloat(e)) : (i.$setValidity("number", !1), n)
+			return t || Mi.test(e) ? (i.$setValidity("number", true), "" === e ? null : t ? e : parseFloat(e)) : (i.$setValidity("number", false), n)
 		});
 		or(i, "number", t);
 		i.$formatters.push(function(e) {
@@ -8611,7 +8636,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	function fr(e, t, n, r) {
 		var i = n.ngTrueValue,
 			o = n.ngFalseValue;
-		$(i) || (i = true), $(o) || (o = !1), t.on("click", function() {
+		$(i) || (i = true), $(o) || (o = false), t.on("click", function() {
 			e.$apply(function() {
 				r.$setViewValue(t[0].checked)
 			})
@@ -8769,12 +8794,12 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		Mr = gt.expando = "ng-" + (new Date).getTime(),
 		Or = 1,
 		Ir = e.document.addEventListener ? function(e, t, n) {
-			e.addEventListener(t, n, !1)
+			e.addEventListener(t, n, false)
 		} : function(e, t, n) {
 			e.attachEvent("on" + t, n)
 		},
 		Dr = e.document.removeEventListener ? function(e, t, n) {
-			e.removeEventListener(t, n, !1)
+			e.removeEventListener(t, n, false)
 		} : function(e, t, n) {
 			e.detachEvent("on" + t, n)
 		},
@@ -9424,7 +9449,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		readString: function(e) {
 			var t = this.index;
 			this.index++;
-			for (var n = "", r = e, i = !1; this.index < this.text.length;) {
+			for (var n = "", r = e, i = false; this.index < this.text.length;) {
 				var o = this.text.charAt(this.index);
 				if (r += o, i) {
 					if ("u" === o) {
@@ -9675,7 +9700,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				do {
 					if (this.peek("]")) break;
 					var n = this.expression();
-					e.push(n), n.constant || (t = !1)
+					e.push(n), n.constant || (t = false)
 				} while (this.expect(","));
 			return this.consume("]"), f(function(t, n) {
 				for (var r = [], i = 0; i < e.length; i++) r.push(e[i](t, n));
@@ -9698,7 +9723,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					e.push({
 						key: r,
 						value: i
-					}), i.constant || (t = !1)
+					}), i.constant || (t = false)
 				} while (this.expect(","));
 			return this.consume("}"), f(function(t, n) {
 				for (var r = {}, i = 0; i < e.length; i++) {
@@ -9829,7 +9854,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 										Ir(r[0], "submit", a), r.on("$destroy", function() {
 											t(function() {
 												Dr(r[0], "submit", a)
-											}, 0, !1)
+											}, 0, false)
 										})
 									}
 									var s = r.parent().controller("form"),
@@ -9914,9 +9939,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							if (p[e]) {
 								d--;
 							}
-							d || (c(true), this.$valid = true, this.$invalid = !1);
+							d || (c(true), this.$valid = true, this.$invalid = false);
 						} else {
-							c(!1);
+							c(false);
 							this.$invalid = true;
 							this.$valid = false;
 							d++;
@@ -10000,7 +10025,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					if (r) {
 						n.required = true;
 						var i = function(e) {
-							return n.required && r.$isEmpty(e) ? void r.$setValidity("required", !1) : (r.$setValidity("required", true), e)
+							return n.required && r.$isEmpty(e) ? void r.$setValidity("required", false) : (r.$setValidity("required", true), e)
 						};
 						r.$formatters.push(i), r.$parsers.unshift(i), n.$observe("required", function() {
 							i(r.$viewValue)
@@ -10336,7 +10361,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 									});
 									N.scope.$destroy();
 								}
-							for (f = 0, d = E.length; d > f; f++) {
+							f = 0;
+							for (d = E.length; d > f; f++) {
 								if ($ = e === E ? f : E[f], T = e[$], N = M[f], M[f - 1] && (_ = s(M[f - 1])), N.scope) {
 									b = N.scope, h = _;
 									do h = h.nextSibling; while (h && h[c]);
@@ -10406,7 +10432,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 									for (l = 0; f > l; l++) c[l].remove();
 									c = null
 								}
-								for (c = [], l = 0; f > l; l++) {
+								c = [];
+								for (l = 0; f > l; l++) {
 									var d = s[l];
 									u[l].$destroy(), c[l] = d, e.leave(d, function() {
 										c.splice(l, 1), 0 === c.length && (c = null)
@@ -10689,7 +10716,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 												}
 										} else $[f] = y[r], d && ($[d] = r), i = h(t, $);
 										if (C[0].length > 1 && C[0][1].id !== r) {
-											(C[0][1].selected = !1);
+											(C[0][1].selected = false);
 										}
 									}
 									s.$setViewValue(i)
@@ -10750,7 +10777,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							var o = "$selectController",
 								a = n.parent(),
 								s = a.data(o) || a.parent().data(o);
-							s && s.databound ? n.prop("selected", !1) : s = t, i ? e.$watch(i, function(e, t) {
+							s && s.databound ? n.prop("selected", false) : s = t, i ? e.$watch(i, function(e, t) {
 								r.$set("value", e), e !== t && s.removeOption(t), s.addOption(e)
 							}) : s.addOption(r.value), n.on("$destroy", function() {
 								s.removeOption(r.value)
@@ -10948,7 +10975,7 @@ org.cometd.WebSocketTransport = function() {
 					this._debug("Transport", this.getType(), "removed timeout for message", a.id, ", timeouts", u);
 				}
 			}
-			"/meta/connect" === a.channel && (p = !1), "/meta/disconnect" !== a.channel || p || (t = true)
+			"/meta/connect" === a.channel && (p = false), "/meta/disconnect" !== a.channel || p || (t = true)
 		}
 		for (var c = false, d = 0; d < r.length; ++d) {
 			var h = r[d];
@@ -10972,7 +10999,7 @@ org.cometd.WebSocketTransport = function() {
 		for (var r in l) {
 			var i = l[r][0],
 				o = l[r][1];
-			o && (p = !1), i.onFailure(f, i.messages, "closed " + e + "/" + t)
+			o && (p = false), i.onFailure(f, i.messages, "closed " + e + "/" + t)
 		}
 		l = {}, null !== f && d && f.close(1e3, "Close"), d = false, f = null
 	}, a.registered = function(e, t) {
@@ -11024,9 +11051,9 @@ org.cometd.CallbackPollingTransport = function() {
 		if (a.length > 1) {
 			var f = 0,
 				d = a[0];
-			this._debug("Transport", this.getType(), "split", e.messages.length, "messages into", a.join(" + ")), u = this._mixin(!1, {}, e), u.messages = e.messages.slice(f, d), u.onSuccess = e.onSuccess, u.onFailure = e.onFailure;
+			this._debug("Transport", this.getType(), "split", e.messages.length, "messages into", a.join(" + ")), u = this._mixin(false, {}, e), u.messages = e.messages.slice(f, d), u.onSuccess = e.onSuccess, u.onFailure = e.onFailure;
 			for (var p = 1; p < a.length; ++p) {
-				var h = this._mixin(!1, {}, e);
+				var h = this._mixin(false, {}, e);
 				f = d, d += a[p], h.messages = e.messages.slice(f, d), h.onSuccess = e.onSuccess, h.onFailure = e.onFailure, this.send(h, t.metaConnect)
 			}
 		}
@@ -11302,7 +11329,7 @@ org.cometd.Cometd = function(e) {
 			url: e
 		});
 		e || (e = {});
-		bt = tt._mixin(!1, bt, e);
+		bt = tt._mixin(false, bt, e);
 		if (!bt.url) throw "Missing required configuration parameter 'url' specifying the Bayeux server URL";
 		var n = /(^https?:\/\/)?(((\[[^\]]+\])|([^:\/\?#]+))(:(\d+))?)?([^\?#]*)(.*)?/.exec(bt.url),
 			r = n[2],
@@ -11313,7 +11340,7 @@ org.cometd.Cometd = function(e) {
 			else {
 				var a = i.split("/"),
 					s = a.length - 1;
-				i.match(/\/$/) && (s -= 1), a[s].indexOf(".") >= 0 && (tt._info("Appending message type to URI " + i + " is not supported, disabling 'appendMessageTypeToURL' configuration"), bt.appendMessageTypeToURL = !1)
+				i.match(/\/$/) && (s -= 1), a[s].indexOf(".") >= 0 && (tt._info("Appending message type to URI " + i + " is not supported, disabling 'appendMessageTypeToURL' configuration"), bt.appendMessageTypeToURL = false)
 			}
 	}
 
@@ -11367,7 +11394,7 @@ org.cometd.Cometd = function(e) {
 				i = ht[r],
 				o = i.extension.incoming;
 			if (n(o)) {
-				var a = l(i.extension, o, i.name, e, !1);
+				var a = l(i.extension, o, i.name, e, false);
 				e = void 0 === a ? e : a
 			}
 		}
@@ -11467,7 +11494,7 @@ org.cometd.Cometd = function(e) {
 		if (ct > 0 || ut === true) {
 			lt.push(e);
 		} else {
-			m(!1, [e], !1);
+			m(false, [e], false);
 		}
 	}
 
@@ -11487,7 +11514,7 @@ org.cometd.Cometd = function(e) {
 
 	function w() {
 		var e = lt;
-		lt = [], e.length > 0 && m(!1, e, !1)
+		lt = [], e.length > 0 && m(false, e, false)
 	}
 
 	function k() {
@@ -11503,7 +11530,7 @@ org.cometd.Cometd = function(e) {
 			};
 			yt || (e.advice = {
 				timeout: 0
-			}), a("connecting"), tt._debug("Connect sent", e), m(!1, [e], true, "connect"), a("connected")
+			}), a("connecting"), tt._debug("Connect sent", e), m(false, [e], true, "connect"), a("connected")
 		}
 	}
 
@@ -11515,7 +11542,7 @@ org.cometd.Cometd = function(e) {
 
 	function C(e) {
 		if (e) {
-			gt = tt._mixin(!1, {}, bt.advice, e);
+			gt = tt._mixin(false, {}, bt.advice, e);
 			tt._debug("New advice", gt);
 		}
 	}
@@ -11525,7 +11552,7 @@ org.cometd.Cometd = function(e) {
 	}
 
 	function A(e) {
-		st = null, o(), s() ? (it.reset(), C(bt.advice)) : C(tt._mixin(!1, gt, {
+		st = null, o(), s() ? (it.reset(), C(bt.advice)) : C(tt._mixin(false, gt, {
 			reconnect: "retry"
 		})), ct = 0, ut = true, et = e;
 		var t = "1.0",
@@ -11540,8 +11567,8 @@ org.cometd.Cometd = function(e) {
 					interval: gt.interval
 				}
 			},
-			i = tt._mixin(!1, {}, et, r);
-		Z = it.negotiateTransport(n, t, rt, bt.url), tt._debug("Initial transport is", Z.getType()), a("handshaking"), tt._debug("Handshake sent", i), m(!1, [i], false, "handshake")
+			i = tt._mixin(false, {}, et, r);
+		Z = it.negotiateTransport(n, t, rt, bt.url), tt._debug("Initial transport is", Z.getType()), a("handshaking"), tt._debug("Handshake sent", i), m(false, [i], false, "handshake")
 	}
 
 	function E() {
@@ -11556,7 +11583,7 @@ org.cometd.Cometd = function(e) {
 		if (t) {
 			(b(), E());
 		} else {
-			S(!1);
+			S(false);
 		}
 	}
 
@@ -11572,7 +11599,7 @@ org.cometd.Cometd = function(e) {
 					y(), T();
 					break;
 				case "none":
-					S(!1);
+					S(false);
 					break;
 				default:
 					throw "Unrecognized advice action " + n
@@ -11605,7 +11632,7 @@ org.cometd.Cometd = function(e) {
 				it.reset(), y(), E();
 				break;
 			case "none":
-				S(!1);
+				S(false);
 				break;
 			default:
 				throw "Unrecognized advice action" + t
@@ -11621,7 +11648,7 @@ org.cometd.Cometd = function(e) {
 					y(), T();
 					break;
 				case "none":
-					S(!1);
+					S(false);
 					break;
 				default:
 					throw "Unrecognized advice action " + t
@@ -11649,7 +11676,7 @@ org.cometd.Cometd = function(e) {
 
 	function D(e) {
 		if (e.successful) {
-			(S(!1), p("/meta/disconnect", e));
+			(S(false), p("/meta/disconnect", e));
 		} else {
 			I(e);
 		}
@@ -11955,12 +11982,12 @@ org.cometd.Cometd = function(e) {
 		if (!s()) {
 			if (void 0 === t && "boolean" != typeof e) {
 				t = e;
-				e = !1;
+				e = false;
 			}
 			var n = {
 					channel: "/meta/disconnect"
 				},
-				r = this._mixin(!1, {}, t, n);
+				r = this._mixin(false, {}, t, n);
 			a("disconnecting"), m(e === true, [r], false, "disconnect")
 		}
 	}, this.startBatch = function() {
@@ -11994,13 +12021,13 @@ org.cometd.Cometd = function(e) {
 			r = void 0;
 		}
 		var a = !G(e),
-			c = Q(e, r, i, !1);
+			c = Q(e, r, i, false);
 		if (a) {
 			var l = {
 					channel: "/meta/subscribe",
 					subscription: e
 				},
-				u = this._mixin(!1, {}, o, l);
+				u = this._mixin(false, {}, o, l);
 			v(u)
 		}
 		return c
@@ -12014,7 +12041,7 @@ org.cometd.Cometd = function(e) {
 					channel: "/meta/unsubscribe",
 					subscription: n
 				},
-				i = this._mixin(!1, {}, t, r);
+				i = this._mixin(false, {}, t, r);
 			v(i)
 		}
 	}, this.clearSubscriptions = function() {
@@ -12033,7 +12060,7 @@ org.cometd.Cometd = function(e) {
 				data: r,
 				_callback: o
 			},
-			c = this._mixin(!1, {}, i, a);
+			c = this._mixin(false, {}, i, a);
 		v(c)
 	}, this.getStatus = function() {
 		return ot
@@ -12055,7 +12082,7 @@ org.cometd.Cometd = function(e) {
 				break
 			}
 		}
-		return i ? (this._info("Could not register extension with name", e, "since another extension with the same name already exists"), !1) : (ht.push({
+		return i ? (this._info("Could not register extension with name", e, "since another extension with the same name already exists"), false) : (ht.push({
 			name: e,
 			extension: r
 		}), this._debug("Registered extension", e), n(r.registered) && r.registered(e, this), true)
@@ -12688,7 +12715,7 @@ org.cometd.Cometd = function(e) {
 			if (s = true, y.last() && C[y.last()]) e = e.replace(new RegExp("(.*)<\\s*\\/\\s*" + y.last() + "[^>]*>", "i"), function(e, t) {
 				return t = t.replace(g, "$1").replace(v, "$1"), n.chars && n.chars(a(t)), ""
 			}), i("", y.last());
-			else if (0 === e.indexOf("<!--") ? (o = e.indexOf("--", 4), o >= 0 && e.lastIndexOf("-->", o) === o && (n.comment && n.comment(e.substring(4, o)), e = e.substring(o + 3), s = !1)) : m.test(e) ? (c = e.match(m), c && (e = e.replace(c[0], ""), s = !1)) : h.test(e) ? (c = e.match(f), c && (e = e.substring(c[0].length), c[0].replace(f, i), s = !1)) : p.test(e) && (c = e.match(u), c && (e = e.substring(c[0].length), c[0].replace(u, r), s = !1)), s) {
+			else if (0 === e.indexOf("<!--") ? (o = e.indexOf("--", 4), o >= 0 && e.lastIndexOf("-->", o) === o && (n.comment && n.comment(e.substring(4, o)), e = e.substring(o + 3), s = false)) : m.test(e) ? (c = e.match(m), c && (e = e.replace(c[0], ""), s = false)) : h.test(e) ? (c = e.match(f), c && (e = e.substring(c[0].length), c[0].replace(f, i), s = false)) : p.test(e) && (c = e.match(u), c && (e = e.substring(c[0].length), c[0].replace(u, r), s = false)), s) {
 				o = e.indexOf("<");
 				var w = 0 > o ? e : e.substring(0, o);
 				e = 0 > o ? "" : e.substring(o), n.chars && n.chars(a(w))
@@ -12728,7 +12755,7 @@ org.cometd.Cometd = function(e) {
 				}), i(a ? "/>" : ">"))
 			},
 			end: function(e) {
-				e = t.lowercase(e), r || S[e] !== true || (i("</"), i(e), i(">")), r == e && (r = !1)
+				e = t.lowercase(e), r || S[e] !== true || (i("</"), i(e), i(">")), r == e && (r = false)
 			},
 			chars: function(e) {
 				r || i(s(e))
@@ -13428,12 +13455,12 @@ var addToHome = function(e) {
 			var t, r = Date.now();
 			if (e.addToHomeConfig)
 				for (t in e.addToHomeConfig) E[t] = e.addToHomeConfig[t];
-			E.autostart || (E.hookOnLoad = !1), f = /ipad/gi.test(x.platform), d = e.devicePixelRatio && e.devicePixelRatio > 1, p = /Safari/i.test(x.appVersion) && !/CriOS/i.test(x.appVersion), h = x.standalone, g = x.appVersion.match(/OS (\d+_\d+)/i), g = g[1] ? +g[1].replace("_", ".") : 0, A = +e.localStorage.getItem("addToHome"), v = e.sessionStorage.getItem("addToHomeSession"), y = E.returningVisitor ? A && A + 24192e5 > r : true, A || (A = r), m = y && r >= A, E.hookOnLoad ? e.addEventListener("load", n, !1) : !E.hookOnLoad && E.autostart && n()
+			E.autostart || (E.hookOnLoad = false), f = /ipad/gi.test(x.platform), d = e.devicePixelRatio && e.devicePixelRatio > 1, p = /Safari/i.test(x.appVersion) && !/CriOS/i.test(x.appVersion), h = x.standalone, g = x.appVersion.match(/OS (\d+_\d+)/i), g = g[1] ? +g[1].replace("_", ".") : 0, A = +e.localStorage.getItem("addToHome"), v = e.sessionStorage.getItem("addToHomeSession"), y = E.returningVisitor ? A && A + 24192e5 > r : true, A || (A = r), m = y && r >= A, E.hookOnLoad ? e.addEventListener("load", n, false) : !E.hookOnLoad && E.autostart && n()
 		}
 	}
 
 	function n() {
-		e.removeEventListener("load", n, !1);
+		e.removeEventListener("load", n, false);
 		if (y) {
 			E.expire && m && e.localStorage.setItem("addToHome", Date.now() + 6e4 * E.expire);
 		} else {
@@ -13443,7 +13470,7 @@ var addToHome = function(e) {
 			var t = "",
 				i = x.platform.split(" ")[0],
 				o = x.language.replace("-", "_");
-			b = document.createElement("div"), b.id = "addToHomeScreen", b.style.cssText += "left:-9999px;-webkit-transition-property:-webkit-transform,opacity;-webkit-transition-duration:0;-webkit-transform:translate3d(0,0,0);position:" + (5 > g ? "absolute" : "fixed"), E.message in N && (o = E.message, E.message = ""), "" === E.message && (E.message = o in N ? N[o] : N.en_us), E.touchIcon && (t = document.querySelector(d ? 'head link[rel^=apple-touch-icon][sizes="114x114"],head link[rel^=apple-touch-icon][sizes="144x144"]' : 'head link[rel^=apple-touch-icon][sizes="57x57"],head link[rel^=apple-touch-icon]'), t && (t = '<span style="background-image:url(' + t.href + ')" class="addToHomeTouchIcon"></span>')), b.className = (f ? "addToHomeIpad" : "addToHomeIphone") + (t ? " addToHomeWide" : ""), b.innerHTML = t + E.message.replace("%device", i).replace("%icon", g >= 4.2 ? '<span class="addToHomeShare"></span>' : '<span class="addToHomePlus">+</span>') + (E.arrow ? '<span class="addToHomeArrow"></span>' : "") + (E.closeButton ? '<span class="addToHomeClose">×</span>' : ""), document.body.appendChild(b), E.closeButton && b.addEventListener("click", a, !1), !f && g >= 6 && window.addEventListener("orientationchange", u, !1), setTimeout(r, E.startDelay)
+			b = document.createElement("div"), b.id = "addToHomeScreen", b.style.cssText += "left:-9999px;-webkit-transition-property:-webkit-transform,opacity;-webkit-transition-duration:0;-webkit-transform:translate3d(0,0,0);position:" + (5 > g ? "absolute" : "fixed"), E.message in N && (o = E.message, E.message = ""), "" === E.message && (E.message = o in N ? N[o] : N.en_us), E.touchIcon && (t = document.querySelector(d ? 'head link[rel^=apple-touch-icon][sizes="114x114"],head link[rel^=apple-touch-icon][sizes="144x144"]' : 'head link[rel^=apple-touch-icon][sizes="57x57"],head link[rel^=apple-touch-icon]'), t && (t = '<span style="background-image:url(' + t.href + ')" class="addToHomeTouchIcon"></span>')), b.className = (f ? "addToHomeIpad" : "addToHomeIphone") + (t ? " addToHomeWide" : ""), b.innerHTML = t + E.message.replace("%device", i).replace("%icon", g >= 4.2 ? '<span class="addToHomeShare"></span>' : '<span class="addToHomePlus">+</span>') + (E.arrow ? '<span class="addToHomeArrow"></span>' : "") + (E.closeButton ? '<span class="addToHomeClose">×</span>' : ""), document.body.appendChild(b), E.closeButton && b.addEventListener("click", a, false), !f && g >= 6 && window.addEventListener("orientationchange", u, false), setTimeout(r, E.startDelay)
 		}
 	}
 
@@ -13468,7 +13495,7 @@ var addToHome = function(e) {
 			default:
 				t = "1s", b.style.opacity = "0"
 		}
-		b.offsetHeight, b.style.webkitTransitionDuration = t, b.style.opacity = "1", b.style.webkitTransform = "translate3d(0,0,0)", b.addEventListener("webkitTransitionEnd", s, !1), k = setTimeout(o, E.lifespan)
+		b.offsetHeight, b.style.webkitTransitionDuration = t, b.style.opacity = "1", b.style.webkitTransform = "translate3d(0,0,0)", b.addEventListener("webkitTransitionEnd", s, false), k = setTimeout(o, E.lifespan)
 	}
 
 	function i(e) {
@@ -13487,7 +13514,7 @@ var addToHome = function(e) {
 				n = 0,
 				r = "1",
 				i = "0";
-			switch (E.closeButton && b.removeEventListener("click", a, !1), !f && g >= 6 && window.removeEventListener("orientationchange", u, !1), 5 > g && (t = f ? e.scrollY - S : e.scrollY + e.innerHeight - S, n = f ? e.scrollX - C : e.scrollX + Math.round((e.innerWidth - b.offsetWidth) / 2) - C), b.style.webkitTransitionProperty = "-webkit-transform,opacity", E.animationOut) {
+			switch (E.closeButton && b.removeEventListener("click", a, false), !f && g >= 6 && window.removeEventListener("orientationchange", u, false), 5 > g && (t = f ? e.scrollY - S : e.scrollY + e.innerHeight - S, n = f ? e.scrollX - C : e.scrollX + Math.round((e.innerWidth - b.offsetWidth) / 2) - C), b.style.webkitTransitionProperty = "-webkit-transform,opacity", E.animationOut) {
 				case "drop":
 					if (f) {
 						(i = "0.4s", r = "0", t += 50);
@@ -13505,7 +13532,7 @@ var addToHome = function(e) {
 				default:
 					i = "0.8s", r = "0"
 			}
-			b.addEventListener("webkitTransitionEnd", s, !1), b.style.opacity = r, b.style.webkitTransitionDuration = i, b.style.webkitTransform = "translate3d(" + n + "px," + t + "px,0)"
+			b.addEventListener("webkitTransitionEnd", s, false), b.style.opacity = r, b.style.webkitTransitionDuration = i, b.style.webkitTransform = "translate3d(" + n + "px," + t + "px,0)"
 		}
 	}
 
@@ -13514,7 +13541,7 @@ var addToHome = function(e) {
 	}
 
 	function s() {
-		return b.removeEventListener("webkitTransitionEnd", s, !1), b.style.webkitTransitionProperty = "-webkit-transform", b.style.webkitTransitionDuration = "0.2s", k ? void(5 > g && k && (w = setInterval(c, E.iterations))) : (b.parentNode.removeChild(b), void(b = null))
+		return b.removeEventListener("webkitTransitionEnd", s, false), b.style.webkitTransitionProperty = "-webkit-transform", b.style.webkitTransitionDuration = "0.2s", k ? void(5 > g && k && (w = setInterval(c, E.iterations))) : (b.parentNode.removeChild(b), void(b = null))
 	}
 
 	function c() {
@@ -14007,11 +14034,11 @@ angular.module("app.services.network", ["underscore", "app.services.comet"]).fac
 				},
 				unWatchNetworkWithTimeout: function() {
 					if (l) {
-						(l = !1);
+						(l = false);
 					}
 				},
 				watchNetworkMessages: function() {
-					u || (f && (f(), d(), f = null, d = null, u = !1), s(), u = true)
+					u || (f && (f(), d(), f = null, d = null, u = false), s(), u = true)
 				},
 				unwatchNetworkMessages: function() {
 					if (u) {
@@ -14314,7 +14341,7 @@ angular.module("app.services.countdown", ["underscore"]).factory("$countdown", [
 			killAll: function() {
 				var e = i;
 				r.each(e.countdowns, function(e) {
-					e.stop(!1)
+					e.stop(false)
 				})
 			}
 		};
@@ -14412,12 +14439,12 @@ angular.module("app.services.session", []).factory("$session", ["$config", "$loc
 						if ("true" === e) {
 							n(true, t);
 						} else {
-							n(!1, t);
+							n(false, t);
 						}
 					}
 				}), a.error(function(e, t) {
 					if (n) {
-						n(!1, t);
+						n(false, t);
 					}
 				}), a
 			}
@@ -14804,7 +14831,7 @@ angular.module("app.directives.blocking", []).directive("blocking", function() {
 		e.$on("busy", function() {
 			t.hasClass(r) || (t.addClass(r), t.prop("disabled", true), "" !== n.blocking && (e.prevHtml = t.html(), t.html(n.blocking)))
 		}), e.$on("free", function() {
-			t.removeClass(r), t.prop("disabled", !1), e.prevHtml && t.html(e.prevHtml)
+			t.removeClass(r), t.prop("disabled", false), e.prevHtml && t.html(e.prevHtml)
 		})
 	}
 });
@@ -14859,7 +14886,8 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 		if (o[t] !== n) {
 			return t;
 		}
-		for (t = t.charAt(0).toUpperCase() + t.slice(1), i = 0; i < d.length; i++)
+		t = t.charAt(0).toUpperCase() + t.slice(1);
+		for (i = 0; i < d.length; i++)
 			if (r = d[i] + t, o[r] !== n) {
 				return r;
 			}
@@ -15389,7 +15417,7 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 		var o, a = -1,
 			s = e.length,
 			l = [];
-		for ("function" == typeof t && (r = n, n = t, t = !1), n ? r && (n = c(n, r)) : n = gt; ++a < s;) o = n(e[a], a, e), (t ? !a || l[l.length - 1] !== o : $(l, o) < 0) && (l.push(o), i.push(e[a]));
+		for ("function" == typeof t && (r = n, n = t, t = false), n ? r && (n = c(n, r)) : n = gt; ++a < s;) o = n(e[a], a, e), (t ? !a || l[l.length - 1] !== o : $(l, o) < 0) && (l.push(o), i.push(e[a]));
 		return i
 	}
 
