@@ -1066,10 +1066,18 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				},
 				pushStack: function(e, t, n) {
 					var r = this.constructor();
-					s.isArray(e) ? N.apply(r, e) : s.merge(r, e);
+					if (s.isArray(e)) {
+						N.apply(r, e);
+					} else {
+						s.merge(r, e);
+					}
 					r.prevObject = this;
 					r.context = this.context;
-					"find" === t ? r.selector = this.selector + (this.selector ? " " : "") + n : t && (r.selector = this.selector + "." + t + "(" + n + ")");
+					if ("find" === t) {
+						r.selector = this.selector + (this.selector ? " " : "") + n;
+					} else {
+						t && (r.selector = this.selector + "." + t + "(" + n + ")");
+					}
 					return r;
 				},
 				each: function(e, t) {
@@ -1369,9 +1377,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					} else if (i !== t) {
 						l = c === t && s.isFunction(i);
 						if (u) {
-							(l ? (l = n, n = function(e, t, n) {
-								return l.call(s(e), n)
-							}) : (n.call(e, i), n = null))
+							if (l) {
+								(l = n, n = function(e, t, n) {
+									return l.call(s(e), n)
+								});
+							} else {
+								(n.call(e, i), n = null);
+							}
 						}
 						if (n)
 							for (; d > f; f++) n(e[f], r, l ? i.call(e[f], f, n(e[f], r)) : i, c);
@@ -1511,7 +1523,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				},
 				fireWith: function(t, n) {
 					if (u) {
-						(o ? e.once || u.push([t, n]) : e.once && r || d(t, n))
+						if (o) {
+							e.once || u.push([t, n]);
+						} else {
+							e.once && r || d(t, n);
+						}
 					}
 					return this;
 				},
@@ -1724,13 +1740,21 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					p = "events" === n;
 				if (d && f[d] && (p || i || f[d].data) || !l || r !== t) {
 					if (!(d)) {
-						(u ? e[c] = d = ++I.uuid : d = c)
+						if (u) {
+							e[c] = d = ++I.uuid;
+						} else {
+							d = c;
+						}
 					}
 					if (!(f[d])) {
 						(f[d] = {}, u || (f[d].toJSON = I.noop))
 					}
 					if (("object" == typeof n || "function" == typeof n)) {
-						(i ? f[d] = I.extend(f[d], n) : f[d].data = I.extend(f[d].data, n))
+						if (i) {
+							f[d] = I.extend(f[d], n);
+						} else {
+							f[d].data = I.extend(f[d].data, n);
+						}
 					}
 					o = a = f[d];
 					if (!(i)) {
@@ -1752,7 +1776,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				if (l[u]) {
 					if (t && (r = n ? l[u] : l[u].data)) {
 						if (!(I.isArray(t))) {
-							(t in r ? t = [t] : (t = I.camelCase(t), t = t in r ? [t] : t.split(" ")))
+							if (t in r) {
+								t = [t];
+							} else {
+								(t = I.camelCase(t), t = t in r ? [t] : t.split(" "));
+							}
 						}
 						o = 0;
 						for (a = t.length; a > o; o++) delete r[t[o]];
@@ -1765,7 +1793,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							l[u] = null;
 						}
 						if (c) {
-							(I.support.deleteExpando ? delete e[s] : e.removeAttribute ? e.removeAttribute(s) : e[s] = null)
+							if (I.support.deleteExpando) {
+								delete e[s];
+							} else {
+								if (e.removeAttribute) {
+									e.removeAttribute(s);
+								} else {
+									e[s] = null;
+								}
+							}
 						}
 					}
 				}
@@ -2146,7 +2182,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		},
 		set: function(e, t, n) {
 			var r;
-			t === false ? I.removeAttr(e, n) : (r = I.propFix[n] || n, r in e && (e[r] = true), e.setAttribute(n, n.toLowerCase()));
+			if (t === false) {
+				I.removeAttr(e, n);
+			} else {
+				(r = I.propFix[n] || n, r in e && (e[r] = true), e.setAttribute(n, n.toLowerCase()));
+			}
 			return n;
 		}
 	}, K || (H = {
@@ -4225,7 +4265,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			return I.get(e, t, n, "json")
 		},
 		ajaxSetup: function(e, t) {
-			t ? w(e, I.ajaxSettings) : (t = e, e = I.ajaxSettings);
+			if (t) {
+				w(e, I.ajaxSettings);
+			} else {
+				(t = e, e = I.ajaxSettings);
+			}
 			w(e, t);
 			return e;
 		},
@@ -4654,10 +4698,18 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		_toggle: I.fn.toggle,
 		toggle: function(e, t, n) {
 			var r = "boolean" == typeof e;
-			I.isFunction(e) && I.isFunction(t) ? this._toggle.apply(this, arguments) : e == null || r ? this.each(function() {
-				var t = r ? e : I(this).is(":hidden");
-				I(this)[t ? "show" : "hide"]()
-			}) : this.animate(N("toggle", 3), e, t, n);
+			if (I.isFunction(e) && I.isFunction(t)) {
+				this._toggle.apply(this, arguments);
+			} else {
+				if (e == null || r) {
+					this.each(function() {
+						var t = r ? e : I(this).is(":hidden");
+						I(this)[t ? "show" : "hide"]()
+					});
+				} else {
+					this.animate(N("toggle", 3), e, t, n);
+				}
+			}
 			return this;
 		},
 		fadeTo: function(e, t, n, r) {
@@ -4861,7 +4913,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 				return false
 			}
-			1 / 0 == s.duration ? this.now = i : (n = i - this.startTime, this.state = n / s.duration, this.pos = I.easing[s.animatedProperties[this.prop]](this.state, n, 0, 1, s.duration), this.now = this.start + (this.end - this.start) * this.pos);
+			if (1 / 0 == s.duration) {
+				this.now = i;
+			} else {
+				(n = i - this.startTime, this.state = n / s.duration, this.pos = I.easing[s.animatedProperties[this.prop]](this.state, n, 0, 1, s.duration), this.now = this.start + (this.end - this.start) * this.pos);
+			}
 			this.update();
 			return true;
 		}
@@ -5081,13 +5137,12 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					if (!(r == "prototype" || r == "length" || r == "name" || e.hasOwnProperty && !e.hasOwnProperty(r))) {
 						t.call(n, e[r], r)
 					} else if (e.forEach && e.forEach !== o) e.forEach(t, n);
-		else if (i(e)){
+		else if (i(e)) {
 			for (r = 0; r < e.length; r++) {
 				t.call(n, e[r], r);
 			}
-		}
-		else {
-			for (r in e){
+		} else {
+			for (r in e) {
 				if (e.hasOwnProperty(r)) {
 					t.call(n, e[r], r);
 				}
@@ -5370,7 +5425,19 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
 	function H(e, r) {
 		var i = r;
-		"string" == typeof e && "$" === e.charAt(0) ? i = n : S(r) ? i = "$WINDOW" : r && t === r ? i = "$DOCUMENT" : A(r) && (i = "$SCOPE");
+		if ("string" == typeof e && "$" === e.charAt(0)) {
+			i = n;
+		} else {
+			if (S(r)) {
+				i = "$WINDOW";
+			} else {
+				if (r && t === r) {
+					i = "$DOCUMENT";
+				} else {
+					A(r) && (i = "$SCOPE");
+				}
+			}
+		}
 		return i;
 	}
 
@@ -5968,7 +6035,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
 	function _t(e) {
 		var t, r = typeof e;
-		r == "object" && null !== e ? "function" == typeof(t = e.$$hashKey) ? t = e.$$hashKey() : t === n && (t = e.$$hashKey = l()) : t = e;
+		if (r == "object" && null !== e) {
+			if ("function" == typeof(t = e.$$hashKey)) {
+				t = e.$$hashKey();
+			} else {
+				t === n && (t = e.$$hashKey = l());
+			}
+		} else {
+			t = e;
+		}
 		return r + ":" + t;
 	}
 
@@ -5978,11 +6053,19 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
 	function Mt(e) {
 		var t, n, r, i;
-		"function" == typeof e ? (t = e.$inject) || (t = [], e.length && (n = e.toString().replace(Qr, ""), r = n.match(Xr), o(r[1].split(Gr), function(e) {
-			e.replace(Kr, function(e, n, r) {
-				t.push(r)
-			})
-		})), e.$inject = t) : x(e) ? (i = e.length - 1, rt(e[i], "fn"), t = e.slice(0, i)) : rt(e, "fn", true);
+		if ("function" == typeof e) {
+			(t = e.$inject) || (t = [], e.length && (n = e.toString().replace(Qr, ""), r = n.match(Xr), o(r[1].split(Gr), function(e) {
+				e.replace(Kr, function(e, n, r) {
+					t.push(r)
+				})
+			})), e.$inject = t);
+		} else {
+			if (x(e)) {
+				(i = e.length - 1, rt(e[i], "fn"), t = e.slice(0, i));
+			} else {
+				rt(e, "fn", true);
+			}
+		}
 		return t;
 	}
 
@@ -6264,7 +6347,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (t) {
 				if (t == x) return;
 				x = t;
-				i.history ? n ? d.replaceState(null, "", t) : (d.pushState(null, "", t), T.attr("href", T.attr("href"))) : (C = t, n ? f.replace(t) : f.href = t);
+				if (i.history) {
+					if (n) {
+						d.replaceState(null, "", t);
+					} else {
+						(d.pushState(null, "", t), T.attr("href", T.attr("href")));
+					}
+				} else {
+					(C = t, n ? f.replace(t) : f.href = t);
+				}
 				return l;
 			}
 			return C || f.href.replace(/%27/g, "'")
@@ -6442,22 +6533,26 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			u = /^(on[a-z]+|formaction)$/;
 		this.directive = function d(t, n) {
 			it(t, "directive");
-			$(t) ? (nt(n, "directiveFactory"), i.hasOwnProperty(t) || (i[t] = [], e.factory(t + a, ["$injector", "$exceptionHandler",
-				function(e, n) {
-					var r = [];
-					o(i[t], function(i, o) {
-						try {
-							var a = e.invoke(i);
-							T(a) ? a = {
-								compile: m(a)
-							} : !a.compile && a.link && (a.compile = m(a.link)), a.priority = a.priority || 0, a.index = o, a.name = a.name || t, a.require = a.require || a.controller && a.name, a.restrict = a.restrict || "A", r.push(a)
-						} catch (s) {
-							n(s)
-						}
-					});
-					return r;
-				}
-			])), i[t].push(n)) : o(t, c(d));
+			if ($(t)) {
+				(nt(n, "directiveFactory"), i.hasOwnProperty(t) || (i[t] = [], e.factory(t + a, ["$injector", "$exceptionHandler",
+					function(e, n) {
+						var r = [];
+						o(i[t], function(i, o) {
+							try {
+								var a = e.invoke(i);
+								T(a) ? a = {
+									compile: m(a)
+								} : !a.compile && a.link && (a.compile = m(a.link)), a.priority = a.priority || 0, a.index = o, a.name = a.name || t, a.require = a.require || a.controller && a.name, a.restrict = a.restrict || "A", r.push(a)
+							} catch (s) {
+								n(s)
+							}
+						});
+						return r;
+					}
+				])), i[t].push(n));
+			} else {
+				o(t, c(d));
+			}
 			return this;
 		}, this.aHrefSanitizationWhitelist = function(e) {
 			return y(e) ? (r.aHrefSanitizationWhitelist(e), this) : r.aHrefSanitizationWhitelist()
@@ -6514,7 +6609,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							a = h[d++];
 							s = h[d++];
 							l = br(c);
-							a ? (a.scope ? (u = e.$new(), l.data("$scope", u)) : u = e, f = a.transclude, f || !o && t ? a(s, u, c, i, _(e, f || t)) : a(s, u, c, i, o)) : s && s(e, c.childNodes, n, o);
+							if (a) {
+								(a.scope ? (u = e.$new(), l.data("$scope", u)) : u = e, f = a.transclude, f || !o && t ? a(s, u, c, i, _(e, f || t)) : a(s, u, c, i, o));
+							} else {
+								s && s(e, c.childNodes, n, o);
+							}
 						}
 					}
 					for (var c, l, u, f, d, p, h = [], g = 0; g < e.length; g++) c = new Y, l = q(e[g], [], c, 0 === g ? i : n, o), u = l.length ? I(l, e[g], c, t, r, null, [], [], a) : null, u && u.scope && N(br(e[g]), "ng-scope"), d = u && u.terminal || !(f = e[g].childNodes) || !f.length ? null : j(f, u ? u.transclude : t), h.push(u, d), p = p || u || d, a = null;
@@ -6652,7 +6751,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 										}, i = x[n] = o(t), x.$watch(function() {
 											var e = o(t);
 											if (!(s(e, x[n]))) {
-												(s(e, i) ? a(t, e = x[n]) : x[n] = e)
+												if (s(e, i)) {
+													a(t, e = x[n]);
+												} else {
+													x[n] = e;
+												}
 											}
 											return i = e;
 										}, null, o.literal);
@@ -7424,13 +7527,17 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				};
 			n.type = "text/javascript";
 			n.src = e;
-			yr && 8 >= yr ? n.onreadystatechange = function() {
-				if (/loaded|complete/.test(n.readyState)) {
-					r();
-				}
-			} : n.onload = n.onerror = function() {
-				r()
-			};
+			if (yr && 8 >= yr) {
+				n.onreadystatechange = function() {
+					if (/loaded|complete/.test(n.readyState)) {
+						r();
+					}
+				};
+			} else {
+				n.onload = n.onerror = function() {
+					r()
+				};
+			}
 			i.body.appendChild(n);
 			return r;
 		}
@@ -7809,7 +7916,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			function(n) {
 				function r(e) {
 					if (e instanceof Error) {
-						(e.stack ? e = e.message && -1 === e.stack.indexOf(e.message) ? "Error: " + e.message + "\n" + e.stack : e.stack : e.sourceURL && (e = e.message + "\n" + e.sourceURL + ":" + e.line))
+						if (e.stack) {
+							e = e.message && -1 === e.stack.indexOf(e.message) ? "Error: " + e.message + "\n" + e.stack : e.stack;
+						} else {
+							e.sourceURL && (e = e.message + "\n" + e.sourceURL + ":" + e.line);
+						}
 					}
 					return e;
 				}
@@ -8093,7 +8204,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 										t(n)
 									}
 								};
-							l ? l.push([u, f, d]) : o.then(u, f, d);
+							if (l) {
+								l.push([u, f, d]);
+							} else {
+								o.then(u, f, d);
+							}
 							return c.promise;
 						},
 						"catch": function(e) {
@@ -8102,7 +8217,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						"finally": function(e) {
 							function t(e, t) {
 								var n = s();
-								t ? n.resolve(e) : n.reject(e);
+								if (t) {
+									n.resolve(e);
+								} else {
+									n.reject(e);
+								}
 								return n.promise;
 							}
 
@@ -9199,7 +9318,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				return t ? t >= 0 ? e.slice(0, t) : e.slice(t, e.length) : "";
 			}
 			var n, r, i = [];
-			t > e.length ? t = e.length : t < -e.length && (t = -e.length);
+			if (t > e.length) {
+				t = e.length;
+			} else {
+				t < -e.length && (t = -e.length);
+			}
 			for (t > 0 ? (n = 0, r = t) : (n = e.length + t, r = e.length); r > n; n++) {
 				i.push(e[n]);
 			}
@@ -9773,7 +9896,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				return v(n) ? r ? e[r] : "" : void(e[r] = n)
 			}
 			var t = [];
-			9 > yr ? (t[1] = "innerText", t[3] = "nodeValue") : t[1] = t[3] = "textContent";
+			if (9 > yr) {
+				(t[1] = "innerText", t[3] = "nodeValue");
+			} else {
+				t[1] = t[3] = "textContent";
+			}
 			e.$dv = "";
 			return e;
 		}(),
@@ -13164,7 +13291,11 @@ org.cometd.Cometd = function(e) {
 				return t
 			}, this.outgoing = function(i) {
 				var o = i.channel;
-				o == "/meta/handshake" ? (i.ext || (i.ext = {}), i.ext.ack = t && t.ackEnabled !== false, r = -1) : n && o == "/meta/connect" && (i.ext || (i.ext = {}), i.ext.ack = r, e("AckExtension: client sending ack id", r));
+				if (o == "/meta/handshake") {
+					(i.ext || (i.ext = {}), i.ext.ack = t && t.ackEnabled !== false, r = -1);
+				} else {
+					n && o == "/meta/connect" && (i.ext || (i.ext = {}), i.ext.ack = r, e("AckExtension: client sending ack id", r));
+				}
 				return i;
 			}
 		}
@@ -13592,11 +13723,15 @@ org.cometd.Cometd = function(e) {
 									t.forEach(i, function(e, n) {
 										i[n] = t.isString(e) ? s.get(e) : s.invoke(e)
 									});
-									t.isDefined(n = e.template) ? t.isFunction(n) && (n = n(e.params)) : t.isDefined(r = e.templateUrl) && (t.isFunction(r) && (r = r(e.params)), r = u.getTrustedResourceUrl(r), t.isDefined(r) && (e.loadedTemplateUrl = r, n = c.get(r, {
-										cache: l
-									}).then(function(e) {
-										return e.data
-									})));
+									if (t.isDefined(n = e.template)) {
+										t.isFunction(n) && (n = n(e.params));
+									} else {
+										t.isDefined(r = e.templateUrl) && (t.isFunction(r) && (r = r(e.params)), r = u.getTrustedResourceUrl(r), t.isDefined(r) && (e.loadedTemplateUrl = r, n = c.get(r, {
+											cache: l
+										}).then(function(e) {
+											return e.data
+										})));
+									}
 									if (t.isDefined(n)) {
 										(i.$template = n)
 									}
@@ -14085,7 +14220,11 @@ window.Modernizr = function(e, t, n) {
 				(f.style.background = "", f.style.overflow = "hidden", c = m.style.overflow, m.style.overflow = "hidden", m.appendChild(f))
 			}
 			a = n(l, e);
-			u ? l.parentNode.removeChild(l) : (f.parentNode.removeChild(f), m.style.overflow = c);
+			if (u) {
+				l.parentNode.removeChild(l);
+			} else {
+				(f.parentNode.removeChild(f), m.style.overflow = c);
+			}
 			return !!a;
 		},
 		O = function(t) {
@@ -14151,9 +14290,13 @@ window.Modernizr = function(e, t, n) {
 		return !!e.WebGLRenderingContext
 	}, E.touch = function() {
 		var n;
-		"ontouchstart" in e || e.DocumentTouch && t instanceof DocumentTouch ? n = true : M(["@media (", x.join("touch-enabled),("), v, ")", "{#modernizr{top:9px;position:absolute}}"].join(""), function(e) {
-			n = 9 === e.offsetTop
-		});
+		if ("ontouchstart" in e || e.DocumentTouch && t instanceof DocumentTouch) {
+			n = true;
+		} else {
+			M(["@media (", x.join("touch-enabled),("), v, ")", "{#modernizr{top:9px;position:absolute}}"].join(""), function(e) {
+				n = 9 === e.offsetTop
+			});
+		}
 		return n;
 	}, E.geolocation = function() {
 		return "geolocation" in navigator
@@ -14466,7 +14609,11 @@ window.Modernizr = function(e, t, n) {
 	function l(e, t, n, r, o) {
 		y = 0;
 		t = t || "j";
-		i(e) ? c(t == "c" ? x : k, e, t, this.i++, n, r, o) : (v.splice(this.i++, 0, e), 1 == v.length && s());
+		if (i(e)) {
+			c(t == "c" ? x : k, e, t, this.i++, n, r, o);
+		} else {
+			(v.splice(this.i++, 0, e), 1 == v.length && s());
+		}
 		return this;
 	}
 
@@ -14551,15 +14698,19 @@ window.Modernizr = function(e, t, n) {
 						}(), e)
 							if (e.hasOwnProperty(c)) {
 								if (!n && !--s) {
-									(r(f) ? f = function() {
-										var e = [].slice.call(arguments);
-										d.apply(this, e), p()
-									} : f[c] = function(e) {
-										return function() {
-											var t = [].slice.call(arguments);
-											e && e.apply(this, t), p()
-										}
-									}(d[c]))
+									if (r(f)) {
+										f = function() {
+											var e = [].slice.call(arguments);
+											d.apply(this, e), p()
+										};
+									} else {
+										f[c] = function(e) {
+											return function() {
+												var t = [].slice.call(arguments);
+												e && e.apply(this, t), p()
+											}
+										}(d[c]);
+									}
 								}
 								a(e[c], f, t, c, l);
 							}
@@ -14579,7 +14730,15 @@ window.Modernizr = function(e, t, n) {
 		else if (T(e))
 			for (c = 0; c < e.length; c++) {
 				l = e[c];
-				i(l) ? a(l, 0, f, 0) : T(l) ? d(l) : Object(l) === l && s(l, f);
+				if (i(l)) {
+					a(l, 0, f, 0);
+				} else {
+					if (T(l)) {
+						d(l);
+					} else {
+						Object(l) === l && s(l, f);
+					}
+				}
 			} else if (Object(e) === e) {
 				s(e, f);
 			}
@@ -14865,7 +15024,23 @@ angular.module("app.services.config", ["ng"]).factory("$config", ["$location", "
 				o = /.*kahoot.it/,
 				a = /kahoot.local/,
 				s = t.dev;
-			i.test(e.host()) ? s = t.test : r.test(e.host()) ? s = t.stage : o.test(e.host()) ? s = t.prod : n.test(e.host()) ? s = t.advdev : a.test(e.host()) && (s = t.devnoproxy || t.dev);
+			if (i.test(e.host())) {
+				s = t.test;
+			} else {
+				if (r.test(e.host())) {
+					s = t.stage;
+				} else {
+					if (o.test(e.host())) {
+						s = t.prod;
+					} else {
+						if (n.test(e.host())) {
+							s = t.advdev;
+						} else {
+							a.test(e.host()) && (s = t.devnoproxy || t.dev);
+						}
+					}
+				}
+			}
 			return "string" == typeof s || s instanceof String ? s.replace(/^proto:/, e.protocol() + ":") : s;
 		}
 		var r = {
@@ -16841,7 +17016,11 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 				l = n - (t - c);
 			i = arguments;
 			a = this;
-			0 >= l ? (c = t, o = e.apply(a, i)) : s || (s = cn(r, l));
+			if (0 >= l) {
+				(c = t, o = e.apply(a, i));
+			} else {
+				s || (s = cn(r, l));
+			}
 			return o;
 		}
 	}
@@ -17770,11 +17949,15 @@ appCtrl.loadContent = function(e, t, n, r) {
 		navigator.splashscreen.hide()
 	}
 	n.defer = e.defer();
-	n.siteAppContent ? n.defer.resolve() : (r.getContent(), n.$on("loadContentSuccess", function() {
-		n.defer.resolve()
-	}), n.$on("loadContentFailure", function() {
-		n.defer.reject()
-	}));
+	if (n.siteAppContent) {
+		n.defer.resolve();
+	} else {
+		(r.getContent(), n.$on("loadContentSuccess", function() {
+			n.defer.resolve()
+		}), n.$on("loadContentFailure", function() {
+			n.defer.reject()
+		}));
+	}
 	return n.defer.promise;
 };
 appCtrl.loadContent.$inject = ["$q", "$timeout", "$rootScope", "$lang", "$ios7fixes"];
