@@ -3613,10 +3613,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		}
 	}), I.buildFragment = function(e, t, n) {
 		var r, i, o, a, s = e[0];
-		return t && t[0] && (a = t[0].ownerDocument || t[0]), a.createDocumentFragment || (a = q), !(1 === e.length && "string" == typeof s && s.length < 512 && a === q && "<" === s.charAt(0)) || kt.test(s) || !I.support.checkClone && Tt.test(s) || !I.support.html5Clone && xt.test(s) || (i = true, o = I.fragments[s], o && 1 !== o && (r = o)), r || (r = a.createDocumentFragment(), I.clean(e, a, r, n)), i && (I.fragments[s] = o ? r : 1), {
+		t && t[0] && (a = t[0].ownerDocument || t[0]);
+		a.createDocumentFragment || (a = q);
+		!(1 === e.length && "string" == typeof s && s.length < 512 && a === q && "<" === s.charAt(0)) || kt.test(s) || !I.support.checkClone && Tt.test(s) || !I.support.html5Clone && xt.test(s) || (i = true, o = I.fragments[s], o && 1 !== o && (r = o));
+		r || (r = a.createDocumentFragment(), I.clean(e, a, r, n));
+		i && (I.fragments[s] = o ? r : 1);
+		return {
 			fragment: r,
 			cacheable: i
-		}
+		};
 	}, I.fragments = {}, I.each({
 		appendTo: "append",
 		prependTo: "prepend",
@@ -7389,7 +7394,12 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}
 
 	function kn(e, t, r, i, o, a, s) {
-		return bn(e, a), bn(t, a), bn(r, a), bn(i, a), bn(o, a), s.unwrapPromises ? function(s, c) {
+		bn(e, a);
+		bn(t, a);
+		bn(r, a);
+		bn(i, a);
+		bn(o, a);
+		return s.unwrapPromises ? function(s, c) {
 			var l, u = c && c.hasOwnProperty(e) ? c : s;
 			return u == null ? u : (u = u[e], u && u.then && (si(a), "$$v" in u || (l = u, l.$$v = n, l.then(function(e) {
 				l.$$v = e
@@ -7405,7 +7415,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		} : function(a, s) {
 			var c = s && s.hasOwnProperty(e) ? s : a;
 			return c == null ? c : (c = c[e], t ? c == null ? n : (c = c[t], r ? c == null ? n : (c = c[r], i ? c == null ? n : (c = c[i], o ? c == null ? n : c = c[o] : c) : c) : c) : c)
-		}
+		};
 	}
 
 	function xn(e, t) {
@@ -8204,11 +8214,16 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 				var f = a(),
 					d = {};
-				return d[mi.HTML] = a(f), d[mi.CSS] = a(f), d[mi.URL] = a(f), d[mi.JS] = a(f), d[mi.RESOURCE_URL] = a(d[mi.URL]), {
+				d[mi.HTML] = a(f);
+				d[mi.CSS] = a(f);
+				d[mi.URL] = a(f);
+				d[mi.JS] = a(f);
+				d[mi.RESOURCE_URL] = a(d[mi.URL]);
+				return {
 					trustAs: s,
 					getTrusted: l,
 					valueOf: c
-				}
+				};
 			}
 		]
 	}
@@ -15930,7 +15945,12 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 		var o, a, s, c;
 		return function() {
 			var t = r && !c;
-			return o = arguments, s = this, sn(c), c = cn(i, n), t && (a = e.apply(s, o)), a
+			o = arguments;
+			s = this;
+			sn(c);
+			c = cn(i, n);
+			t && (a = e.apply(s, o));
+			return a;
 		}
 	}
 
