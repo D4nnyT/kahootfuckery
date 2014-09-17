@@ -108,35 +108,63 @@ function GameCtrl(e, t, n, r, i, o, a) {
 }
 
 function JoinCtrl(e, t, n, r) {
-	return void 0 === e.gameId ? void t.path("/") : (e.statusBarTitle = e.siteAppContent.info["game-pin"] + e.gameId, e.user = e.user || {}, e.$on("userNameCleaned", function(t, n) {
-		e.user.cleanName = n, e.$broadcast("free")
-	}), void(e.join = function(t) {
-		t.name && t.name.length > 0 ? (e.$broadcast("busy"), e.$broadcast("wait", {
-			message: e.siteAppContent.info["checking-nickname"]
-		}), e.user = angular.copy(t), r.join(e.user.name), e.$broadcast("dismissAlert", {
-			key: "blanknickname"
-		}), e.$broadcast("dismissAlert", {
-			key: "kicked-general"
-		})) : (e.$broadcast("badUsername"), e.$broadcast("alert", {
-			key: "blanknickname",
-			message: e.siteAppContent.errors["quiz-nickname-non-entry"],
-			alertType: "error",
-			autoDismiss: !0,
-			userDismissable: !0
-		}))
-	}))
+	if (e.gameId === void 0) {
+		t.path("/")
+		return void 0
+	}
+	e.statusBarTitle = e.siteAppContent.info["game-pin"] + e.gameId;
+	e.user = e.user || {};
+	e.$on("userNameCleaned", function(t, n) {
+		e.user.cleanName = n;
+		e.$broadcast("free");
+	});
+	e.join = function(t) {
+		if (t.name && t.name.length > 0) {
+			e.$broadcast("busy");
+			e.$broadcast("wait", {
+				message: e.siteAppContent.info["checking-nickname"]
+			});
+			e.user = angular.copy(t);
+			r.join(e.user.name);
+			e.$broadcast("dismissAlert", {
+				key: "blanknickname"
+			});
+			e.$broadcast("dismissAlert", {
+				key: "kicked-general"
+			});
+		} else {
+			e.$broadcast("badUsername");
+			e.$broadcast("alert", {
+				key: "blanknickname",
+				message: e.siteAppContent.errors["quiz-nickname-non-entry"],
+				alertType: "error",
+				autoDismiss: !0,
+				userDismissable: !0
+			});
+		}
+	};
+	return void 0;
 }
 
 function InstructionsCtrl(e, t, n, r) {
-	r.ensureConnection() || (t.totalScore = "undefined" != typeof t.totalScore ? t.totalScore : 0, t.qIdx = "undefined" != typeof t.qIdx ? t.qIdx : 0, e.statusBarTitle = e.siteAppContent.info["game-pin"] + e.gameId, e.scoreClass = function() {
-		return "hide"
-	})
+	if (!r.ensureConnection()) {
+		t.totalScore = "undefined" != typeof t.totalScore ? t.totalScore : 0;
+		t.qIdx = "undefined" != typeof t.qIdx ? t.qIdx : 0;
+		e.statusBarTitle = e.siteAppContent.info["game-pin"] + e.gameId;
+		e.scoreClass = function() {
+			return "hide";
+		};
+	}
 }
 
 function StartCtrl(e, t, n, r, i) {
 	if (!n.ensureConnection()) {
-		if (e.totalScore = 0, e.qIdx = 0, !e.quizType) return void i.path("/instructions");
-		t.statusBarTitle = t.siteAppContent.info["game-pin"] + t.gameId, t.scoreClass = function() {
+		e.totalScore = 0;
+		e.qIdx = 0;
+		if (!e.quizType)
+			return void i.path("/instructions");
+		t.statusBarTitle = t.siteAppContent.info["game-pin"] + t.gameId;
+		t.scoreClass = function() {
 			return r.quizTypes[e.quizType].showScore ? "score" : "hide"
 		}
 	}
@@ -146,113 +174,210 @@ function GetReadyCtrl(e, t, n, r, i, o) {
 	if (!i.ensureConnection()) {
 		var a = 5,
 			s = 1e3;
-		if (e.introTimer = n.registerCountdown("introTimer", a - 1, s), e.introMessages = ["Go!", "Steady&hellip;", "Ready&hellip;"], e.introMessage = e.introMessages[e.introMessages.length - 1], e.counter = a, !t.quizType) return void r.path("/instructions");
-		e.statusBarTitle = e.siteAppContent.info["game-pin"] + e.gameId, e.introMessage = function() {
+		e.introTimer = n.registerCountdown("introTimer", a - 1, s);
+		e.introMessages = ["Go!", "Steady&hellip;", "Ready&hellip;"];
+		e.introMessage = e.introMessages[e.introMessages.length - 1];
+		e.counter = a;
+		if (!t.quizType)
+			return void r.path("/instructions");
+		e.statusBarTitle = e.siteAppContent.info["game-pin"] + e.gameId;
+		e.introMessage = function() {
 			var t = e.introTimer.counter > e.introMessages.length - 1 ? e.introMessages.length - 1 : e.introTimer.counter;
 			return e.introMessages[t]
-		}, e.questionNumber = function(e) {
+		};
+		e.questionNumber = function(e) {
 			return o.quizTypes[t.quizType].showQuestionNumbers ? e + "" + (t.qIdx + 1) : ""
-		}, e.$on("countdown", function(t, n) {
+		};
+		e.$on("countdown", function(t, n) {
 			"introTimer" === n.id && (e.counter = n.timeLeft + 1)
-		}), e.$on("countdownStopped", function(e, t) {
+		});
+		e.$on("countdownStopped", function(e, t) {
 			"introTimer" === t.id && r.path("/answer")
-		}), e.scoreClass = function() {
+		});
+		e.scoreClass = function() {
 			return o.quizTypes[t.quizType].showScore ? "score" : "hide"
-		}, e.introTimer.start()
+		};
+		e.introTimer.start();
 	}
 }
 
 function AnswerCtrl(e, t, n, r, i, o, a, s) {
 	if (!r.ensureConnection()) {
-		if (e.uiEnabled = !0, e.statusMessage = "", e.selectedAnswer = null, e.choices = ["A", "B", "C", "D"], !t.quizType) return void a.path("/instructions");
-		e.statusBarTitle = e.siteAppContent.info["game-pin"] + e.gameId, e.questionNumber = function(e) {
-			return o.quizTypes[t.quizType].showQuestionNumbers ? e + "" + (t.qIdx + 1) : ""
-		}, e.quizQuestionAnswers = t.quizQuestionAnswers[t.qIdx], e.showAnswer = function(t) {
+		e.uiEnabled = !0;
+		e.statusMessage = "";
+		e.selectedAnswer = null;
+		e.choices = ["A", "B", "C", "D"];
+		if (!t.quizType) {
+			a.path("/instructions");
+			return void 0;
+		}
+		e.statusBarTitle = e.siteAppContent.info["game-pin"] + e.gameId;
+		e.questionNumber = function(e) {
+			if (o.quizTypes[t.quizType].showQuestionNumbers)
+				return e + "" + (t.qIdx + 1);
+			else
+				return "";
+		};
+		e.quizQuestionAnswers = t.quizQuestionAnswers[t.qIdx];
+		e.showAnswer = function(t) {
 			return t + 1 > e.quizQuestionAnswers ? !1 : !0
-		}, e.selectAnswer = function(i) {
-			e.uiEnabled && (n.log("Selected answer: " + i), e.uiEnabled = !1, e.selectedAnswer = i, e.statusMessage = t.siteAppContent.info["waiting-other-answers"], e.$$phase || e.$apply(), r.selectAnswer(i))
-		}, e.scoreClass = function() {
+		};
+		e.selectAnswer = function(i) {
+			if (e.uiEnabled) {
+				n.log("Selected answer: " + i);
+				e.uiEnabled = !1;
+				e.selectedAnswer = i;
+				e.statusMessage = t.siteAppContent.info["waiting-other-answers"];
+				e.$$phase || e.$apply();
+				r.selectAnswer(i);
+			}
+		};
+		e.scoreClass = function() {
 			return o.quizTypes[t.quizType].showScore ? "score" : "hide"
-		}, e.messageClass = function() {
+		};
+		e.messageClass = function() {
 			var t = "";
-			return (null != e.selectedAnswer || e.timeUp) && (t += " show"), t += e.revealAnswer ? e.revealAnswer && e.correct ? " correct" : " incorrect" : " answer" + e.choices[e.selectedAnswer]
-		}, e.statusMessageClass = function() {
-			return e.revealAnswer ? "" : "waiting"
-		}, e.resultClass = function() {
-			return e.revealAnswer ? "" : "hide"
-		}, e.isSelectedAnswer = function(t) {
-			return t == e.selectedAnswer
-		}, e.answerButtonsClass = function() {
+			(null != e.selectedAnswer || e.timeUp) && (t += " show");
+			return t += e.revealAnswer ? e.revealAnswer && e.correct ? " correct" : " incorrect" : " answer" + e.choices[e.selectedAnswer];
+		};
+		e.statusMessageClass = function() {
+			return e.revealAnswer ? "" : "waiting";
+		};
+		e.resultClass = function() {
+			return e.revealAnswer ? "" : "hide";
+		};
+		e.isSelectedAnswer = function(t) {
+			return t == e.selectedAnswer;
+		};
+		e.answerButtonsClass = function() {
 			var t = "";
-			return (e.revealAnswer || null != e.selectedAnswer || e.timeUp) && (t += "hidden"), t
-		}, e.selectedAnswerClass = function() {
+			if (e.revealAnswer || null != e.selectedAnswer || e.timeUp)
+				t += "hidden";
+			return t;
+		};
+		e.selectedAnswerClass = function() {
 			var t = "";
 			return e.selectedAnswer >= 0 && (t = "answer" + e.choices[e.selectedAnswer]), e.revealAnswer && (t += " hidden"), t
-		}, e.selectedAnswerLabel = function() {
+		};
+		e.selectedAnswerLabel = function() {
 			return e.choices[e.selectedAnswer]
-		}, e.resultIcon = function() {
+		};
+		e.resultIcon = function() {
 			return e.correct ? "correct" : "incorrect"
-		}, e.$on("timeUp", function() {
+		};
+		e.$on("timeUp", function() {
 			null === e.selectedAnswer && (e.timeUp = !0, e.uiEnabled = !1, e.$$phase || e.$apply())
-		}), e.$on("revealAnswer", function(n, a) {
+		});
+		e.$on("revealAnswer", function(n, a) {
 			var c = "";
-			if (e.revealAnswer = !0, e.playerRank = a.rank + "<sup>" + r.ordinal(a.rank) + "</sup>", a.isCorrect ? (e.correct = !0, e.resultMessage = "Correct!", c = a.points + " Kahoots for you.") : (e.correct = !1, e.resultMessage = e.timeUp ? "Time Up!" : "Wrong!", i.each(a.correctAnswers, function(e, t) {
-				t > 0 && (c += ", "), c += "<span class='correctAnswer richText'>" + s.removeDangerousTags(e) + "</span>"
-			}), c += (a.correctAnswers.length > 1 ? " were" : " was") + " correct."), c += "<br>You&rsquo;re now in <span class='correctAnswer'>" + e.playerRank + "</span> position.", a.nemesis) {
+			e.revealAnswer = !0;
+			e.playerRank = a.rank + "<sup>" + r.ordinal(a.rank) + "</sup>";
+			if (a.isCorrect) {
+				e.correct = !0;
+				e.resultMessage = "Correct!";
+				c = a.points + " Kahoots for you.";
+			} else {
+				e.correct = !1;
+				e.resultMessage = e.timeUp ? "Time Up!" : "Wrong!";
+				i.each(a.correctAnswers, function(e, t) {
+					if (t > 0)
+						c += ", ";
+					c += "<span class='correctAnswer richText'>" + s.removeDangerousTags(e) + "</span>";
+				});
+				c += (a.correctAnswers.length > 1 ? " were" : " was") + " correct.";
+			}
+			c += "<br>You&rsquo;re now in <span class='correctAnswer'>" + e.playerRank + "</span> position.";
+			if (a.nemesis) {
 				var l = a.nemesis.totalScore - a.totalScore;
-				c += 0 == l ? "<br>You're tied with <span class='correctAnswer'>" + s.removeDangerousTags(a.nemesis.name) + "</span>!" : "<br>Only <span class='correctAnswer'>" + l + "</span> behind <span class='correctAnswer'>" + s.removeDangerousTags(a.nemesis.name) + "</span>!"
+				if (0 == l) {
+					c += "<br>You're tied with <span class='correctAnswer'>" + s.removeDangerousTags(a.nemesis.name) + "</span>!";
+				} else {
+					c += "<br>Only <span class='correctAnswer'>" + l + "</span> behind <span class='correctAnswer'>" + s.removeDangerousTags(a.nemesis.name) + "</span>!";
+				}
 			}
-			if (e.statusMessage = o.quizTypes[t.quizType].showScore ? c : "", !o.quizTypes[t.quizType].showScore) {
+			e.statusMessage = o.quizTypes[t.quizType].showScore ? c : "";
+			if (!o.quizTypes[t.quizType].showScore) {
 				var c = '<span class="correctAnswer richText">You selected \'' + (s.removeDangerousTags(a.text) || "") + "'</span>";
-				e.resultMessage = e.timeUp ? "Time Up!" : c, t.lastAnswer = s.removeDangerousTags(a.text) || ""
+				e.resultMessage = e.timeUp ? "Time Up!" : c;
+				t.lastAnswer = s.removeDangerousTags(a.text) || "";
 			}
-			e.points = a.points, t.totalScore = a.totalScore, e.$$phase || e.$apply()
-		})
+			e.points = a.points;
+			t.totalScore = a.totalScore;
+			e.$$phase || e.$apply();
+		});
 	}
 }
 
 function FeedbackCtrl(e, t, n, r, i, o, a) {
-	r.ensureConnection() || (e.statusBarTitle = "Rate this ", e.statusBarTitle = e.siteAppContent.info["game-pin"] + e.gameId, e.feedback = {}, e.feedback.totalScore = t.totalScore, e.submitted = !1, e.feedbackResponse = function() {
-		var t = {};
-		switch (e.feedback.overall) {
-			case 0:
-				t.title = e.siteAppContent.feedback.meh.title, t.text = e.siteAppContent.feedback.meh.text;
-				break;
-			case -1:
-				t.title = e.siteAppContent.feedback.frown.title, t.text = e.siteAppContent.feedback.frown.text;
-				break;
-			case 1:
-				t.title = e.siteAppContent.feedback.smile.title, t.text = e.siteAppContent.feedback.smile.text
-		}
-		return t
-	}, e.feeling = function() {
-		var t = "";
-		switch (e.feedback.overall) {
-			case 0:
-				t = "indifferent";
-				break;
-			case -1:
-				t = "sad";
-				break;
-			case 1:
-				t = "happy"
-		}
-		return t
-	}, e.scoreClass = function() {
-		return o.quizTypes[t.quizType].showScore ? "score" : "hide"
-	}, e.meh = function() {
-		e.feedback.overall = 0, e.submitFeedback()
-	}, e.frown = function() {
-		e.feedback.overall = -1, e.submitFeedback()
-	}, e.smile = function() {
-		e.feedback.overall = 1, e.submitFeedback()
-	}, e.submitFeedback = function() {
-		e.submitted = !0, e.feedback.nickname = e.user.cleanName, e.feedback.fun && (e.feedback.fun = 1 * e.feedback.fun), e.feedback.learning && (e.feedback.learning = 1 * e.feedback.learning), e.feedback.recommend && (e.feedback.recommend = 1 * e.feedback.recommend), e.feedback.overall && (e.feedback.overall = 1 * e.feedback.overall), r.submitFeedback(e.feedback), a(function() {
-			i.path("/gameover")
-		}, 3e3)
-	}, e.done = function() {
-		return e.submitted
-	})
+	if (!r.ensureConnection()) {
+		e.statusBarTitle = "Rate this ";
+		e.statusBarTitle = e.siteAppContent.info["game-pin"] + e.gameId;
+		e.feedback = {};
+		e.feedback.totalScore = t.totalScore;
+		e.submitted = !1;
+		e.feedbackResponse = function() {
+			var t = {};
+			switch (e.feedback.overall) {
+				case 0:
+					t.title = e.siteAppContent.feedback.meh.title;
+					t.text = e.siteAppContent.feedback.meh.text;
+					break;
+				case -1:
+					t.title = e.siteAppContent.feedback.frown.title;
+					t.text = e.siteAppContent.feedback.frown.text;
+					break;
+				case 1:
+					t.title = e.siteAppContent.feedback.smile.title;
+					t.text = e.siteAppContent.feedback.smile.text
+			}
+			return t;
+		};
+		e.feeling = function() {
+			var t = "";
+			switch (e.feedback.overall) {
+				case 0:
+					t = "indifferent";
+					break;
+				case -1:
+					t = "sad";
+					break;
+				case 1:
+					t = "happy";
+					break;
+			}
+			return t;
+		};
+		e.scoreClass = function() {
+			return o.quizTypes[t.quizType].showScore ? "score" : "hide";
+		};
+		e.meh = function() {
+			e.feedback.overall = 0;
+			e.submitFeedback();
+		};
+		e.frown = function() {
+			e.feedback.overall = -1;
+			e.submitFeedback();
+		};
+		e.smile = function() {
+			e.feedback.overall = 1;
+			e.submitFeedback();
+		};
+		e.submitFeedback = function() {
+			e.submitted = !0;
+			e.feedback.nickname = e.user.cleanName;
+			e.feedback.fun && (e.feedback.fun = 1 * e.feedback.fun);
+			e.feedback.learning && (e.feedback.learning = 1 * e.feedback.learning);
+			e.feedback.recommend && (e.feedback.recommend = 1 * e.feedback.recommend);
+			e.feedback.overall && (e.feedback.overall = 1 * e.feedback.overall);
+			r.submitFeedback(e.feedback);
+			a(function() {
+				i.path("/gameover");
+			}, 3e3);
+		};
+		e.done = function() {
+			return e.submitted
+		};
+	}
 }
 
 function GameOverCtrl(e, t, n, r, i, o, a, s) {
@@ -4940,14 +5065,55 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						}
 					}
 					p = p || {};
-					for (var w, k, C, S, A, j, _ = -Number.MAX_VALUE, I = p.controllerDirectives, F = p.newIsolateScopeDirective, R = p.templateDirective, U = p.nonTlbTranscludeDirective, J = !1, X = p.hasElementTranscludeDirective, G = a.$$element = br(i), Z = u, et = s, tt = 0, nt = e.length; nt > tt; tt++) {
+					var w, k, C, S, A, j,
+						_ = -Number.MAX_VALUE,
+						I = p.controllerDirectives,
+						F = p.newIsolateScopeDirective,
+						R = p.templateDirective,
+						U = p.nonTlbTranscludeDirective,
+						J = !1,
+						X = p.hasElementTranscludeDirective,
+						G = a.$$element = br(i),
+						Z = u,
+						et = s;
+					for (var tt = 0, nt = e.length; nt > tt; tt++) {
 						k = e[tt];
 						var it = k.$$start,
 							ot = k.$$end;
 						if (it && (G = M(i, it, ot)), S = n, _ > k.priority) break;
-						if ((j = k.scope) && (w = w || k, k.templateUrl || (W("new/isolated scope", F, k, G), b(j) && (F = k))), C = k.name, !k.templateUrl && k.controller && (j = k.controller, I = I || {}, W("'" + C + "' controller", I[C], k, G), I[C] = k), (j = k.transclude) && (J = !0, k.$$tlb || (W("transclusion", U, k, G), U = k), "element" == j ? (X = !0, _ = k.priority, S = M(i, it, ot), G = a.$$element = br(t.createComment(" " + C + ": " + a[C] + " ")), i = G[0], K(l, br(z(S)), i), et = E(S, s, _, Z && Z.name, {
-							nonTlbTranscludeDirective: U
-						})) : (S = br(mt(i)).contents(), G.empty(), et = E(S, s))), k.template)
+
+						if (j = k.scope) {
+							w = w || k;
+							k.templateUrl || (W("new/isolated scope", F, k, G), b(j) && (F = k));
+						}
+						C = k.name;
+						if (!k.templateUrl && k.controller) {
+							j = k.controller;
+							I = I || {};
+							W("'" + C + "' controller", I[C], k, G);
+							I[C] = k;
+						}
+						if (j = k.transclude) {
+							J = !0;
+							k.$$tlb || (W("transclusion", U, k, G), U = k);
+							if ("element" == j) {
+								X = !0;
+								_ = k.priority;
+								S = M(i, it, ot);
+								G = a.$$element = br(t.createComment(" " + C + ": " + a[C] + " "));
+								i = G[0];
+								K(l, br(z(S)), i);
+								et = E(S, s, _, Z && Z.name, {
+									nonTlbTranscludeDirective: U
+								});
+							} else {
+								S = br(mt(i)).contents();
+								G.empty();
+								et = E(S, s);
+							}
+						}
+
+						if (k.template)
 							if (W("template", R, k, G), R = k, j = T(k.template) ? k.template(G, a) : k.template, j = rt(j), k.replace) {
 								if (Z = k, S = dt(j) ? [] : br(j), i = S[0], 1 != S.length || 1 !== i.nodeType) throw ti("tplrt", "Template for directive '{0}' must have exactly one root element. {1}", C, "");
 								K(l, G, i);
@@ -5092,13 +5258,18 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 									pre: function(t, n, a) {
 										var s = a.$$observers || (a.$$observers = {});
 										if (u.test(i)) throw ti("nodomevents", "Interpolations for HTML DOM event attributes are disallowed.  Please use the ng- versions (such as ng-click instead of onclick) instead.");
-										o = r(a[i], !0, X(e, i)), o && (a[i] = o(t), (s[i] || (s[i] = [])).$$inter = !0, (a.$$observers && a.$$observers[i].$$scope || t).$watch(o, function(e, t) {
-											"class" === i && e != t ? a.$updateClass(e, t) : a.$set(i, e)
-										}))
+										o = r(a[i], !0, X(e, i));
+										if (o) {
+											a[i] = o(t);
+											(s[i] || (s[i] = [])).$$inter = !0;
+											(a.$$observers && a.$$observers[i].$$scope || t).$watch(o, function(e, t) {
+												"class" === i && e != t ? a.$updateClass(e, t) : a.$set(i, e)
+											});
+										}
 									}
 								}
 							}
-						})
+						});
 					}
 				}
 
@@ -5147,7 +5318,19 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					},
 					$set: function(e, t, r, i) {
 						var a, s = Nt(this.$$element[0], e);
-						s && (this.$$element.prop(e, t), i = s), this[e] = t, i ? this.$attr[e] = i : (i = this.$attr[e], i || (this.$attr[e] = i = et(e, "-"))), a = kr(this.$$element), ("A" === a && "href" === e || "IMG" === a && "src" === e) && (this[e] = t = A(t, "src" === e)), r !== !1 && (null === t || t === n ? this.$$element.removeAttr(i) : this.$$element.attr(i, t));
+						s && (this.$$element.prop(e, t), i = s);
+						this[e] = t;
+						if (i) {
+							this.$attr[e] = i;
+						} else {
+							i = this.$attr[e];
+							if (!i) this.$attr[e] = i = et(e, "-");
+						}
+						a = kr(this.$$element);
+						if ("A" === a && "href" === e || "IMG" === a && "src" === e)
+							this[e] = t = A(t, "src" === e);
+
+						r !== !1 && (null === t || t === n ? this.$$element.removeAttr(i) : this.$$element.attr(i, t));
 						var l = this.$$observers;
 						l && o(l[e], function(e) {
 							try {
@@ -5202,11 +5385,20 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			function(n, i) {
 				return function(o, a) {
 					var s, c, l, u;
-					if ($(o) && (c = o.match(t), l = c[1], u = c[3], o = e.hasOwnProperty(l) ? e[l] : ot(a.$scope, l, !0) || ot(i, l, !0), rt(o, l, !0)), s = n.instantiate(o, a), u) {
-						if (!a || "object" != typeof a.$scope) throw r("$controller")("noscp", "Cannot export controller '{0}' as '{1}'! No $scope object provided via `locals`.", l || o.name, u);
+					if ($(o)) {
+						c = o.match(t);
+						l = c[1];
+						u = c[3];
+						o = e.hasOwnProperty(l) ? e[l] : ot(a.$scope, l, !0) || ot(i, l, !0);
+						rt(o, l, !0);
+					}
+					s = n.instantiate(o, a);
+					if (u) {
+						if (!a || "object" != typeof a.$scope)
+							throw r("$controller")("noscp", "Cannot export controller '{0}' as '{1}'! No $scope object provided via `locals`.", l || o.name, u);
 						a.$scope[u] = s
 					}
-					return s
+					return s;
 				}
 			}
 		]
@@ -5506,25 +5698,60 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		}, this.$get = ["$parse", "$exceptionHandler", "$sce",
 			function(n, r, i) {
 				function o(o, c, l) {
-					for (var u, f, d, p, h = 0, g = [], m = o.length, y = !1, b = []; m > h;) - 1 != (u = o.indexOf(e, h)) && -1 != (f = o.indexOf(t, u + a)) ? (h != u && g.push(o.substring(h, u)), g.push(d = n(p = o.substring(u + a, f))), d.exp = p, h = f + s, y = !0) : (h != m && g.push(o.substring(h)), h = m);
-					if ((m = g.length) || (g.push(""), m = 1), l && g.length > 1) throw ri("noconcat", "Error while interpolating: {0}\nStrict Contextual Escaping disallows interpolations that concatenate multiple expressions when a trusted value is required.  See http://docs.angularjs.org/api/ng.$sce", o);
-					return !c || y ? (b.length = m, d = function(e) {
-						try {
-							for (var t, n = 0, a = m; a > n; n++) "function" == typeof(t = g[n]) && (t = t(e), t = l ? i.getTrusted(l, t) : i.valueOf(t), null === t || v(t) ? t = "" : "string" != typeof t && (t = B(t))), b[n] = t;
-							return b.join("")
-						} catch (s) {
-							var c = ri("interr", "Can't interpolate: {0}\n{1}", o, s.toString());
-							r(c)
+					var u, f, d, p, h = 0,
+						g = [],
+						m = o.length,
+						y = !1;
+					for (var b = []; m > h;) {
+						if (-1 != (u = o.indexOf(e, h)) && -1 != (f = o.indexOf(t, u + a))) {
+							h != u && g.push(o.substring(h, u));
+							g.push(d = n(p = o.substring(u + a, f)));
+							d.exp = p;
+							h = f + s;
+							y = !0;
+						} else {
+							h != m && g.push(o.substring(h));
+							h = m;
 						}
-					}, d.exp = o, d.parts = g, d) : void 0
+					}
+					if ((m = g.length) || (g.push(""), m = 1), l && g.length > 1) {
+						throw ri("noconcat", "Error while interpolating: {0}\nStrict Contextual Escaping disallows interpolations that concatenate multiple expressions when a trusted value is required.  See http://docs.angularjs.org/api/ng.$sce", o);
+					}
+					if (!c || y) {
+						b.length = m;
+						d = function(e) {
+							try {
+								var t, a = m;
+								for (var n = 0; a > n; n++) {
+									if ("function" == typeof(t = g[n])) {
+										t = t(e);
+										t = l ? i.getTrusted(l, t) : i.valueOf(t);
+										null === t || v(t) ? t = "" : "string" != typeof t && (t = B(t));
+									}
+									b[n] = t;
+								}
+								return b.join("");
+							} catch (s) {
+								var c = ri("interr", "Can't interpolate: {0}\n{1}", o, s.toString());
+								r(c)
+							}
+						};
+						d.exp = o;
+						d.parts = g;
+						return d;
+					} else {
+						return void 0;
+					}
 				}
 				var a = e.length,
 					s = t.length;
-				return o.startSymbol = function() {
-					return e
-				}, o.endSymbol = function() {
-					return t
-				}, o
+				o.startSymbol = function() {
+					return e;
+				};
+				o.endSymbol = function() {
+					return t;
+				};
+				return o;
 			}
 		]
 	}
@@ -5782,16 +6009,19 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
 	function bn(e, t) {
 		if ("constructor" === e) throw ci("isecfld", 'Referencing "constructor" field in Angular expressions is disallowed! Expression: {0}', t);
-		return e
+		return e;
 	}
 
 	function $n(e, t) {
 		if (e) {
-			if (e.constructor === e) throw ci("isecfn", "Referencing Function in Angular expressions is disallowed! Expression: {0}", t);
-			if (e.document && e.location && e.alert && e.setInterval) throw ci("isecwindow", "Referencing the Window in Angular expressions is disallowed! Expression: {0}", t);
-			if (e.children && (e.nodeName || e.prop && e.attr && e.find)) throw ci("isecdom", "Referencing DOM nodes in Angular expressions is disallowed! Expression: {0}", t)
+			if (e.constructor === e)
+				throw ci("isecfn", "Referencing Function in Angular expressions is disallowed! Expression: {0}", t);
+			if (e.document && e.location && e.alert && e.setInterval)
+				throw ci("isecwindow", "Referencing the Window in Angular expressions is disallowed! Expression: {0}", t);
+			if (e.children && (e.nodeName || e.prop && e.attr && e.find))
+				throw ci("isecdom", "Referencing DOM nodes in Angular expressions is disallowed! Expression: {0}", t);
 		}
-		return e
+		return e;
 	}
 
 	function wn(e, t, r, i, o) {
@@ -5856,7 +6086,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				else {
 					var c = "var p;\n";
 					o(a, function(e, n) {
-						bn(e, r), c += "if(s == null) return undefined;\ns=" + (n ? "s" : '((k&&k.hasOwnProperty("' + e + '"))?k:s)') + '["' + e + '"];\n' + (t.unwrapPromises ? 'if (s && s.then) {\n pw("' + r.replace(/(["\r\n])/g, "\\$1") + '");\n if (!("$$v" in s)) {\n p=s;\n p.$$v = undefined;\n p.then(function(v) {p.$$v=v;});\n}\n s=s.$$v\n}\n' : "")
+						bn(e, r);
+						c += "if(s == null) return undefined;\ns=" + (n ? "s" : '((k&&k.hasOwnProperty("' + e + '"))?k:s)') + '["' + e + '"];\n' + (
+							t.unwrapPromises ?
+							'if (s && s.then) {\n pw("' + r.replace(/(["\r\n])/g, "\\$1") + '");\n if (!("$$v" in s)) {\n p=s;\n p.$$v = undefined;\n p.then(function(v) {p.$$v=v;});\n}\n s=s.$$v\n}\n' : ""
+						);
 					}), c += "return s;";
 					var l = new Function("s", "k", "pw", c);
 					l.toString = m(c), i = t.unwrapPromises ? function(e, t) {
