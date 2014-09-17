@@ -544,7 +544,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		var t, n, r = D[e] = {};
 		e = e.split(/\s+/);
 		t = 0;
-		for (n = e.length; n > t; t++) r[e[t]] = true;
+		for (n = e.length; n > t; t++) {
+			r[e[t]] = true;
+		}
 		return r;
 	}
 
@@ -1309,9 +1311,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					var r = e.length,
 						i = 0;
 					if ("number" == typeof n.length)
-						for (var o = n.length; o > i; i++) e[r++] = n[i];
-					else
-						for (; n[i] !== t;) e[r++] = n[i++];
+						for (var o = n.length; o > i; i++) {
+							e[r++] = n[i];
+						} else
+							for (; n[i] !== t;) e[r++] = n[i++];
 					e.length = r;
 					return e;
 				},
@@ -1951,7 +1954,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				for (n = (e || "").split(U), r = 0, i = this.length; i > r; r++)
 					if (o = this[r], 1 === o.nodeType && o.className)
 						if (e) {
-							for (a = (" " + o.className + " ").replace(B, " "), s = 0, c = n.length; c > s; s++) a = a.replace(" " + n[s] + " ", " ");
+							for (a = (" " + o.className + " ").replace(B, " "), s = 0, c = n.length; c > s; s++) {
+								a = a.replace(" " + n[s] + " ", " ");
+							}
 							o.className = I.trim(a)
 						} else o.className = "";
 			}
@@ -2337,7 +2342,12 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				if (h && (!n.button || "click" !== n.type)) {
 					for (a = I(this), a.context = this.ownerDocument || this, o = n.target; o != this; o = o.parentNode || this)
 						if (o.disabled !== true) {
-							for (c = {}, u = [], a[0] = o, r = 0; h > r; r++) f = p[r], d = f.selector, c[d] === t && (c[d] = f.quick ? ot(o, f.quick) : a.is(d)), c[d] && u.push(f);
+							for (c = {}, u = [], a[0] = o, r = 0; h > r; r++) {
+								f = p[r];
+								d = f.selector;
+								c[d] === t && (c[d] = f.quick ? ot(o, f.quick) : a.is(d));
+								c[d] && u.push(f);
+							}
 							if (u.length) {
 								y.push({
 									elem: o,
@@ -3254,9 +3264,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					r = t || [];
 				if ("[object Array]" === a.call(e)) Array.prototype.push.apply(r, e);
 				else if ("number" == typeof e.length)
-					for (var i = e.length; i > n; n++) r.push(e[n]);
-				else
-					for (; e[n]; n++) r.push(e[n]);
+					for (var i = e.length; i > n; n++) {
+						r.push(e[n]);
+					} else
+						for (; e[n]; n++) r.push(e[n]);
 				return r
 			}
 		}
@@ -3803,7 +3814,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				a = i.fragment;
 				if (o = 1 === a.childNodes.length ? a = a.firstChild : a.firstChild) {
 					n = n && I.nodeName(o, "tr");
-					for (var u = 0, d = this.length, p = d - 1; d > u; u++) r.call(n ? f(this[u], o) : this[u], i.cacheable || d > 1 && p > u ? I.clone(a, true, true) : a)
+					for (var u = 0, d = this.length, p = d - 1; d > u; u++) {
+						r.call(n ? f(this[u], o) : this[u], i.cacheable || d > 1 && p > u ? I.clone(a, true, true) : a);
+					}
 				}
 				if (l.length) {
 					I.each(l, function(e, t) {
@@ -3871,7 +3884,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					}
 			}
 			if (t && (d(e, a), n)) {
-				for (r = h(e), i = h(a), o = 0; r[o]; ++o) d(r[o], i[o]);
+				for (r = h(e), i = h(a), o = 0; r[o]; ++o) {
+					d(r[o], i[o]);
+				}
 			}
 			r = i = null;
 			return a;
@@ -3902,8 +3917,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					var $;
 					if (!I.support.appendChecked)
 						if (c[0] && "number" == typeof($ = c.length))
-							for (a = 0; $ > a; a++) m(c[a]);
-						else m(c);
+							for (a = 0; $ > a; a++) {
+								m(c[a]);
+							} else m(c);
 					if (c.nodeType) {
 						s.push(c);
 					} else {
@@ -4092,7 +4108,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			expand: function(n) {
 				var r, i = "string" == typeof n ? n.split(" ") : [n],
 					o = {};
-				for (r = 0; 4 > r; r++) o[e + zt[r] + t] = i[r] || i[r - 2] || i[0];
+				for (r = 0; 4 > r; r++) {
+					o[e + zt[r] + t] = i[r] || i[r - 2] || i[0];
+				}
 				return o
 			}
 		}
@@ -5040,7 +5058,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			for (t = i + o.replace(/\{\d+\}/g, function(e) {
 				var t, n = +e.slice(1, -1);
 				return n + 2 < a.length ? (t = a[n + 2], "function" == typeof t ? t.toString().replace(/ ?\{[\s\S]*$/, "") : "undefined" == typeof t ? "undefined" : "string" != typeof t ? B(t) : t) : e
-			}), t = t + "\nhttp://errors.angularjs.org/1.2.16/" + (e ? e + "/" : "") + r, n = 2; n < arguments.length; n++) t = t + (n == 2 ? "?" : "&") + "p" + (n - 2) + "=" + encodeURIComponent(s(arguments[n]));
+			}), t = t + "\nhttp://errors.angularjs.org/1.2.16/" + (e ? e + "/" : "") + r, n = 2; n < arguments.length; n++) {
+				t = t + (n == 2 ? "?" : "&") + "p" + (n - 2) + "=" + encodeURIComponent(s(arguments[n]));
+			}
 			return new Error(t)
 		}
 	}
@@ -5061,13 +5081,18 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					if (!(r == "prototype" || r == "length" || r == "name" || e.hasOwnProperty && !e.hasOwnProperty(r))) {
 						t.call(n, e[r], r)
 					} else if (e.forEach && e.forEach !== o) e.forEach(t, n);
-		else if (i(e))
-			for (r = 0; r < e.length; r++) t.call(n, e[r], r);
-		else
-			for (r in e)
+		else if (i(e)){
+			for (r = 0; r < e.length; r++) {
+				t.call(n, e[r], r);
+			}
+		}
+		else {
+			for (r in e){
 				if (e.hasOwnProperty(r)) {
 					t.call(n, e[r], r);
 				}
+			}
+		}
 		return e
 	}
 
@@ -5081,7 +5106,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}
 
 	function s(e, t, n) {
-		for (var r = a(e), i = 0; i < r.length; i++) t.call(n, e[r[i]], r[i]);
+		for (var r = a(e), i = 0; i < r.length; i++) {
+			t.call(n, e[r[i]], r[i]);
+		}
 		return r
 	}
 
@@ -5245,7 +5272,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (e === t) throw Sr("cpi", "Can't copy! Source and destination are identical.");
 			if (x(e)) {
 				t.length = 0;
-				for (var n = 0; n < e.length; n++) t.push(I(e[n]))
+				for (var n = 0; n < e.length; n++) {
+					t.push(I(e[n]));
+				}
 			} else {
 				var r = t.$$hashKey;
 				o(t, function(e, n) {
@@ -5730,7 +5759,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (!r || null != e)
 				for (; d.length;)
 					for (i = d.shift(), a = 0, s = i.length; s > a; a++)
-						for (c = br(i[a]), p ? c.triggerHandler("$destroy") : p = !p, l = 0, u = (f = c.children()).length; u > l; l++) d.push($r(f[l]));
+						for (c = br(i[a]), p ? c.triggerHandler("$destroy") : p = !p, l = 0, u = (f = c.children()).length; u > l; l++) {
+							d.push($r(f[l]));
+						}
 			return o.apply(this, arguments)
 		}
 		var o = $r.fn[e];
@@ -5748,7 +5779,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		else {
 			for (n = c.appendChild(t.createElement("div")), r = (Hr.exec(e) || ["", ""])[1].toLowerCase(), i = Ur[r] || Ur._default, n.innerHTML = "<div>&#160;</div>" + i[1] + e.replace(Br, "<$1></$2>") + i[2], n.removeChild(n.firstChild), o = i[0]; o--;) n = n.lastChild;
 			a = 0;
-			for (s = n.childNodes.length; s > a; ++a) l.push(n.childNodes[a]);
+			for (s = n.childNodes.length; s > a; ++a) {
+				l.push(n.childNodes[a]);
+			}
 			n = c.firstChild, n.textContent = ""
 		}
 		c.textContent = "";
@@ -5783,7 +5816,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
 	function vt(e) {
 		bt(e);
-		for (var t = 0, n = e.childNodes || []; t < n.length; t++) vt(n[t])
+		for (var t = 0, n = e.childNodes || []; t < n.length; t++) {
+			vt(n[t]);
+		}
 	}
 
 	function yt(e, t, n, r) {
@@ -5865,7 +5900,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	function Ct(e, t) {
 		if (t) {
 			t = t.nodeName || !y(t.length) || S(t) ? [t] : t;
-			for (var n = 0; n < t.length; n++) e.push(t[n])
+			for (var n = 0; n < t.length; n++) {
+				e.push(t[n]);
+			}
 		}
 	}
 
@@ -5885,7 +5922,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}
 
 	function Et(e) {
-		for (var t = 0, n = e.childNodes; t < n.length; t++) vt(n[t]);
+		for (var t = 0, n = e.childNodes; t < n.length; t++) {
+			vt(n[t]);
+		}
 		for (; e.firstChild;) e.removeChild(e.firstChild)
 	}
 
@@ -6467,8 +6506,16 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					function s(e, r, i, o) {
 						var a, s, c, l, u, f, d, p, g, m = r.length,
 							v = new Array(m);
-						for (d = 0; m > d; d++) v[d] = r[d];
-						for (d = 0, g = 0, p = h.length; p > d; g++) c = v[g], a = h[d++], s = h[d++], l = br(c), a ? (a.scope ? (u = e.$new(), l.data("$scope", u)) : u = e, f = a.transclude, f || !o && t ? a(s, u, c, i, _(e, f || t)) : a(s, u, c, i, o)) : s && s(e, c.childNodes, n, o)
+						for (d = 0; m > d; d++) {
+							v[d] = r[d];
+						}
+						for (d = 0, g = 0, p = h.length; p > d; g++) {
+							c = v[g];
+							a = h[d++];
+							s = h[d++];
+							l = br(c);
+							a ? (a.scope ? (u = e.$new(), l.data("$scope", u)) : u = e, f = a.transclude, f || !o && t ? a(s, u, c, i, _(e, f || t)) : a(s, u, c, i, o)) : s && s(e, c.childNodes, n, o);
+						}
 					}
 					for (var c, l, u, f, d, p, h = [], g = 0; g < e.length; g++) c = new Y, l = q(e[g], [], c, 0 === g ? i : n, o), u = l.length ? I(l, e[g], c, t, r, null, [], [], a) : null, u && u.scope && N(br(e[g]), "ng-scope"), d = u && u.terminal || !(f = e[g].childNodes) || !f.length ? null : j(f, u ? u.transclude : t), h.push(u, d), p = p || u || d, a = null;
 					return p ? s : null
@@ -6734,9 +6781,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 
 				function P(e) {
-					for (var t = 0, n = e.length; n > t; t++) e[t] = p(e[t], {
-						$$isolateScope: true
-					})
+					for (var t = 0, n = e.length; n > t; t++) {
+						e[t] = p(e[t], {
+							$$isolateScope: true
+						});
+					}
 				}
 
 				function F(t, r, o, s, l, u, f) {
@@ -8351,7 +8400,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								if (b(o))
 									if (i(o)) {
 										c = new Array(o.length);
-										for (var e = 0; e < o.length; e++) c[e] = o[e]
+										for (var e = 0; e < o.length; e++) {
+											c[e] = o[e];
+										}
 									} else {
 										c = {};
 										for (var n in o)
@@ -9149,7 +9200,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 			var n, r, i = [];
 			t > e.length ? t = e.length : t < -e.length && (t = -e.length);
-			for (t > 0 ? (n = 0, r = t) : (n = e.length + t, r = e.length); r > n; n++) i.push(e[n]);
+			for (t > 0 ? (n = 0, r = t) : (n = e.length + t, r = e.length); r > n; n++) {
+				i.push(e[n]);
+			}
 			return i
 		}
 	}
@@ -9196,7 +9249,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					return a(r(e), r(t))
 				}, n)
 			});
-			for (var s = [], c = 0; c < t.length; c++) s.push(t[c]);
+			for (var s = [], c = 0; c < t.length; c++) {
+				s.push(t[c]);
+			}
 			return s.sort(o(i, r))
 		}
 	}
@@ -9741,7 +9796,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (v(t)) {
 				return e.innerHTML;
 			}
-			for (var n = 0, r = e.childNodes; n < r.length; n++) vt(r[n]);
+			for (var n = 0, r = e.childNodes; n < r.length; n++) {
+				vt(r[n]);
+			}
 			e.innerHTML = t
 		},
 		empty: Et
@@ -9764,7 +9821,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 				return a
 			}
-			for (i = 0; i < this.length; i++) e(this[i], t, r);
+			for (i = 0; i < this.length; i++) {
+				e(this[i], t, r);
+			}
 			return this
 		}
 	}), o({
@@ -10440,7 +10499,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			for (var e = this.expect(), t = this.$filter(e.text), n = [];;) {
 				if (!(e = this.expect(":"))) {
 					var r = function(e, r, i) {
-						for (var o = [i], a = 0; a < n.length; a++) o.push(n[a](e, r));
+						for (var o = [i], a = 0; a < n.length; a++) {
+							o.push(n[a](e, r));
+						}
 						return t.apply(e, o)
 					};
 					return function() {
@@ -10541,7 +10602,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			this.consume(")");
 			var r = this;
 			return function(i, o) {
-				for (var a = [], s = t ? t(i, o) : i, c = 0; c < n.length; c++) a.push(n[c](i, o));
+				for (var a = [], s = t ? t(i, o) : i, c = 0; c < n.length; c++) {
+					a.push(n[c](i, o));
+				}
 				var l = e(i, o, s) || h;
 				$n(s, r.text), $n(l, r.text);
 				var u = l.apply ? l.apply(s, a) : l(a[0], a[1], a[2], a[3], a[4]);
@@ -10559,7 +10622,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				} while (this.expect(","));
 			this.consume("]");
 			return f(function(t, n) {
-				for (var r = [], i = 0; i < e.length; i++) r.push(e[i](t, n));
+				for (var r = [], i = 0; i < e.length; i++) {
+					r.push(e[i](t, n));
+				}
 				return r
 			}, {
 				literal: true,
@@ -13686,7 +13751,9 @@ org.cometd.Cometd = function(e) {
 	function i(e) {
 		var t, n = {},
 			r = e.split(",");
-		for (t = 0; t < r.length; t++) n[r[t]] = true;
+		for (t = 0; t < r.length; t++) {
+			n[r[t]] = true;
+		}
 		return n
 	}
 
@@ -13965,13 +14032,20 @@ window.Modernizr = function(e, t, n) {
 
 	function u() {
 		h.input = function(n) {
-			for (var r = 0, i = n.length; i > r; r++) j[n[r]] = n[r] in $;
+			for (var r = 0, i = n.length; i > r; r++) {
+				j[n[r]] = n[r] in $;
+			}
 			if (j.list) {
 				(j.list = !!t.createElement("datalist") && !!e.HTMLDataListElement)
 			}
 			return j;
 		}("autocomplete autofocus list placeholder max min multiple pattern required step".split(" ")), h.inputtypes = function(e) {
-			for (var r, i, o, a = 0, s = e.length; s > a; a++) $.setAttribute("type", i = e[a]), r = "text" !== $.type, r && ($.value = w, $.style.cssText = "position:absolute;visibility:hidden;", /^range$/.test(i) && $.style.WebkitAppearance !== n ? (m.appendChild($), o = t.defaultView, r = o.getComputedStyle && "textfield" !== o.getComputedStyle($, null).WebkitAppearance && 0 !== $.offsetHeight, m.removeChild($)) : /^(search|tel)$/.test(i) || (r = /^(url|email)$/.test(i) ? $.checkValidity && $.checkValidity() === false : $.value != w)), N[e[a]] = !!r;
+			for (var r, i, o, a = 0, s = e.length; s > a; a++) {
+				$.setAttribute("type", i = e[a]);
+				r = "text" !== $.type;
+				r && ($.value = w, $.style.cssText = "position:absolute;visibility:hidden;", /^range$/.test(i) && $.style.WebkitAppearance !== n ? (m.appendChild($), o = t.defaultView, r = o.getComputedStyle && "textfield" !== o.getComputedStyle($, null).WebkitAppearance && 0 !== $.offsetHeight, m.removeChild($)) : /^(search|tel)$/.test(i) || (r = /^(url|email)$/.test(i) ? $.checkValidity && $.checkValidity() === false : $.value != w));
+				N[e[a]] = !!r;
+			}
 			return N
 		}("search tel url email datetime date month week time datetime-local number range color".split(" "))
 	}
@@ -14272,7 +14346,9 @@ window.Modernizr = function(e, t, n) {
 					return e.createDocumentFragment();
 				}
 				n = n || i(e);
-				for (var o = n.frag.cloneNode(), a = 0, s = r(), c = s.length; c > a; a++) o.createElement(s[a]);
+				for (var o = n.frag.cloneNode(), a = 0, s = r(), c = s.length; c > a; a++) {
+					o.createElement(s[a]);
+				}
 				return o
 			}
 
@@ -14443,7 +14519,9 @@ window.Modernizr = function(e, t, n) {
 				r = e[n].split("=");
 				(t = A[r.shift()]) && (o = t(o, r));
 			}
-			for (n = 0; i > n; n++) o = C[n](o);
+			for (n = 0; i > n; n++) {
+				o = C[n](o);
+			}
 			return o
 		}
 
@@ -15619,7 +15697,13 @@ angular.module("app.services.random", []).factory("$random", [
 				a = 0,
 				c = r.i = r.j = r.m = 0;
 			for (r.S = [], r.c = [], i || (e = [i++]); s > a;) r.S[a] = a++;
-			for (a = 0; s > a; a++) t = r.S[a], c = o(c + t + e[a % i]), n = r.S[c], r.S[a] = n, r.S[c] = t;
+			for (a = 0; s > a; a++) {
+				t = r.S[a];
+				c = o(c + t + e[a % i]);
+				n = r.S[c];
+				r.S[a] = n;
+				r.S[c] = t;
+			}
 			r.g = function(e) {
 				var t = r.S,
 					n = o(r.i + 1),
@@ -15646,7 +15730,9 @@ angular.module("app.services.random", []).factory("$random", [
 		}
 
 		function i(e, t, n, r) {
-			for (e += "", n = 0, r = 0; r < e.length; r++) t[o(r)] = o((n ^= 19 * t[o(r)]) + e.charCodeAt(r));
+			for (e += "", n = 0, r = 0; r < e.length; r++) {
+				t[o(r)] = o((n ^= 19 * t[o(r)]) + e.charCodeAt(r));
+			}
 			e = "";
 			for (r in t) e += String.fromCharCode(t[r]);
 			return e
@@ -16034,7 +16120,9 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 	}
 
 	function i(e) {
-		for (var t = 1, n = arguments.length; n > t; t++) e.appendChild(arguments[t]);
+		for (var t = 1, n = arguments.length; n > t; t++) {
+			e.appendChild(arguments[t]);
+		}
 		return e
 	}
 
@@ -16242,9 +16330,13 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 						left: u
 					});
 				if (n.shadow) {
-					for (a = 1; a <= n.lines; a++) o(a, -2, "progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)");
+					for (a = 1; a <= n.lines; a++) {
+						o(a, -2, "progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)");
+					}
 				}
-				for (a = 1; a <= n.lines; a++) o(a);
+				for (a = 1; a <= n.lines; a++) {
+					o(a);
+				}
 				return i(t, f)
 			}, u.prototype.opacity = function(e, t, n, r) {
 				var i = e.firstChild;
@@ -16664,7 +16756,9 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 			n = 0;
 			t = jn(e);
 		}
-		for (var r = t.length; r > n; n++) e[t[n]] = F(e[t[n]], e);
+		for (var r = t.length; r > n; n++) {
+			e[t[n]] = F(e[t[n]], e);
+		}
 		return e
 	}
 
@@ -17369,7 +17463,9 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 	function d(e, t) {
 		var n, r, i = e.length,
 			o = [];
-		for (n = 0; i > n; ++n) o[n] = [e[n][0], e[n][1]];
+		for (n = 0; i > n; ++n) {
+			o[n] = [e[n][0], e[n][1]];
+		}
 		for (r = 1; i > r; ++r)
 			for (n = 0; i - r > n; ++n) {
 				o[n][0] = (1 - t) * o[n][0] + t * o[parseInt(n + 1, 10)][0];
@@ -17380,7 +17476,13 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 
 	function p(e, t, n) {
 		var r, i, o, a, s = [];
-		for (r = 0; 6 > r; r++) o = Math.min(15, parseInt(t.charAt(r), 16)), a = Math.min(15, parseInt(n.charAt(r), 16)), i = Math.floor((a - o) * e + o), i = i > 15 ? 15 : 0 > i ? 0 : i, s[r] = i.toString(16);
+		for (r = 0; 6 > r; r++) {
+			o = Math.min(15, parseInt(t.charAt(r), 16));
+			a = Math.min(15, parseInt(n.charAt(r), 16));
+			i = Math.floor((a - o) * e + o);
+			i = i > 15 ? 15 : 0 > i ? 0 : i;
+			s[r] = i.toString(16);
+		}
 		return "#" + s.join("")
 	}
 
