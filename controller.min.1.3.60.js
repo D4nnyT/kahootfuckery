@@ -5,39 +5,55 @@ function hasSVG() {
 function detectSVG() {
 	var e = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNzUiIGhlaWdodD0iMjc1Ij48L3N2Zz4%3D",
 		t = document.createElement("img");
-	t.setAttribute("src", e), t.onload = hasSVG, document.documentElement.className += " no-svg"
+	t.setAttribute("src", e);
+	t.onload = hasSVG;
+	document.documentElement.className += " no-svg";
 }
 
 function appCtrl() {}
 
 function GameCtrl(e, t, n, r, i, o, a) {
-	e.statusBarTitle = "Kahoot!", e.gameId = null, r.playerId = null, r.preloadAssets(), e.notStandalone = function() {
-		return !i.navigator.standalone
-	}, e.joinSession = function(n) {
+	e.statusBarTitle = "Kahoot!";
+	e.gameId = null;
+	r.playerId = null;
+	r.preloadAssets();
+	e.notStandalone = function() {
+		return !i.navigator.standalone;
+	};
+	e.joinSession = function(n) {
 		function i() {
-			e.$broadcast("clearWait"), e.$broadcast("dismissAlert", {
+			e.$broadcast("clearWait");
+			e.$broadcast("dismissAlert", {
 				key: "handshakeFailure"
-			}), t.path("/join"), e.$$phase || e.$apply()
+			});
+			t.path("/join");
+			e.$$phase || e.$apply()
 		}
 
 		function s(t) {
-			e.gameId = t, r.connect(e.gameId)
+			e.gameId = t;
+			r.connect(e.gameId);
 		}
 
 		function c() {
-			e.$broadcast("clearWait"), e.$broadcast("badGameId"), e.$broadcast("alert", {
+			e.$broadcast("clearWait");
+			e.$broadcast("badGameId");
+			e.$broadcast("alert", {
 				key: "invalidGameId",
 				message: e.siteAppContent.errors["quiz-pin-invalid"],
 				alertType: "error",
 				autoDismiss: !0,
 				userDismissable: !0
-			})
+			});
 		}
-		e.handshakeWitnessed = !1, e.$broadcast("dismissAlert", {
+		e.handshakeWitnessed = !1;
+		e.$broadcast("dismissAlert", {
 			key: "blankGameId"
-		}), e.$broadcast("dismissAlert", {
+		});
+		e.$broadcast("dismissAlert", {
 			key: "invalidGameId"
-		}), e.$on("handshakeFailure", function() {
+		});
+		e.$on("handshakeFailure", function() {
 			e.$broadcast("clearWait"), e.$broadcast("alert", {
 				key: "handshakeFailure",
 				message: e.siteAppContent.errors["quiz-connection"],
@@ -45,27 +61,49 @@ function GameCtrl(e, t, n, r, i, o, a) {
 				autoDismiss: !1,
 				userDismissable: !1
 			})
-		}), e.$on("handshakeSuccess", function() {
+		});
+		e.$on("handshakeSuccess", function() {
 			e.handshakeWitnessed || (e.handshakeWitnessed = !0, i())
-		}), "string" == typeof n && (n = n.replace(/^\s+|\s+$/g, "")), n ? (e.$broadcast("busy"), o.session.api ? (n = n.replace(/[^0-9]+/g, ""), n = 1 * n, e.$broadcast("wait", {
-			message: e.siteAppContent.info["connecting-to-server"]
-		}), a.exists(n, function(t, r) {
-			t ? s(n) : (200 == r ? c() : (e.$broadcast("badGameId"), e.$broadcast("alert", {
-				key: "invalidGameId",
-				message: e.siteAppContent.errors["quiz-pin-general"],
+		});
+		"string" == typeof n && (n = n.replace(/^\s+|\s+$/g, ""));
+		if (n) {
+			e.$broadcast("busy");
+			if (o.session.api) {
+				n = n.replace(/[^0-9]+/g, "");
+				n = 1 * n;
+				e.$broadcast("wait", {
+					message: e.siteAppContent.info["connecting-to-server"]
+				});
+				a.exists(n, function(t, r) {
+					t ? s(n) : (200 == r ? c() : (e.$broadcast("badGameId"), e.$broadcast("alert", {
+						key: "invalidGameId",
+						message: e.siteAppContent.errors["quiz-pin-general"],
+						alertType: "error",
+						autoDismiss: !0,
+						userDismissable: !0
+					})), e.$broadcast("free"))
+				});
+			} else {
+				if (1 * n == 1) {
+					e.$broadcast("wait", {
+						message: e.siteAppContent.info["connecting-to-server"]
+					});
+					s(n);
+				} else {
+					c();
+					e.$broadcast("free");
+				}
+			}
+		} else {
+			e.$broadcast("badGameId");
+			e.$broadcast("alert", {
+				key: "blankGameId",
+				message: e.siteAppContent.errors["quiz-pin-non-entry"],
 				alertType: "error",
 				autoDismiss: !0,
 				userDismissable: !0
-			})), e.$broadcast("free"))
-		})) : 1 * n == 1 ? (e.$broadcast("wait", {
-			message: e.siteAppContent.info["connecting-to-server"]
-		}), s(n)) : (c(), e.$broadcast("free"))) : (e.$broadcast("badGameId"), e.$broadcast("alert", {
-			key: "blankGameId",
-			message: e.siteAppContent.errors["quiz-pin-non-entry"],
-			alertType: "error",
-			autoDismiss: !0,
-			userDismissable: !0
-		}))
+			});
+		}
 	}
 }
 
@@ -293,7 +331,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 		}
 	}
-}! function(e, t) {
+};
+! function(e, t) {
 	function n(e) {
 		var t, n, r = D[e] = {};
 		for (e = e.split(/\s+/), t = 0, n = e.length; n > t; t++) r[e[t]] = !0;
@@ -2899,9 +2938,12 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	try {
 		Rt = O.href
 	} catch (ln) {
-		Rt = q.createElement("a"), Rt.href = "", Rt = Rt.href
+		Rt = q.createElement("a");
+		Rt.href = "";
+		Rt = Rt.href;
 	}
-	Ht = rn.exec(Rt.toLowerCase()) || [], I.fn.extend({
+	Ht = rn.exec(Rt.toLowerCase()) || [];
+	I.fn.extend({
 		load: function(e, n, r) {
 			if ("string" != typeof e && on) return on.apply(this, arguments);
 			if (!this.length) return this;
@@ -3010,17 +3052,34 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		ajax: function(e, n) {
 			function r(e, n, r, a) {
 				if (2 !== w) {
-					w = 2, c && clearTimeout(c), s = t, o = a || "", k.readyState = e > 0 ? 4 : 0;
+					w = 2;
+					c && clearTimeout(c);
+					s = t;
+					o = a || "";
+					k.readyState = e > 0 ? 4 : 0;
 					var l, f, y, b, $, C = n,
 						S = r ? x(d, k, r) : t;
 					if (e >= 200 && 300 > e || 304 === e)
 						if (d.ifModified && ((b = k.getResponseHeader("Last-Modified")) && (I.lastModified[i] = b), ($ = k.getResponseHeader("Etag")) && (I.etag[i] = $)), 304 === e) C = "notmodified", l = !0;
 						else try {
-							f = T(d, S), C = "success", l = !0
+							f = T(d, S);
+							C = "success";
+							l = !0;
 						} catch (A) {
-							C = "parsererror", y = A
-						} else y = C, (!C || e) && (C = "error", 0 > e && (e = 0));
-					k.status = e, k.statusText = "" + (n || C), l ? g.resolveWith(p, [f, C, k]) : g.rejectWith(p, [k, C, y]), k.statusCode(v), v = t, u && h.trigger("ajax" + (l ? "Success" : "Error"), [k, d, l ? f : y]), m.fireWith(p, [k, C]), u && (h.trigger("ajaxComplete", [k, d]), --I.active || I.event.trigger("ajaxStop"))
+							C = "parsererror";
+							y = A;
+						} else {
+							y = C;
+							(!C || e) && (C = "error", 0 > e && (e = 0));
+						}
+					k.status = e;
+					k.statusText = "" + (n || C);
+					l ? g.resolveWith(p, [f, C, k]) : g.rejectWith(p, [k, C, y]);
+					k.statusCode(v);
+					v = t;
+					u && h.trigger("ajax" + (l ? "Success" : "Error"), [k, d, l ? f : y]);
+					m.fireWith(p, [k, C]);
+					u && (h.trigger("ajaxComplete", [k, d]), --I.active || I.event.trigger("ajaxStop"))
 				}
 			}
 			"object" == typeof e && (n = e, e = t), n = n || {};
@@ -3038,9 +3097,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					setRequestHeader: function(e, t) {
 						if (!w) {
 							var n = e.toLowerCase();
-							e = b[n] = b[n] || e, y[e] = t
+							e = b[n] = b[n] || e;
+							y[e] = t;
 						}
-						return this
+						return this;
 					},
 					getAllResponseHeaders: function() {
 						return 2 === w ? o : null
@@ -3061,7 +3121,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						return e = e || "abort", s && s.abort(e), r(0, e), this
 					}
 				};
-			if (g.promise(k), k.success = k.done, k.error = k.fail, k.complete = m.add, k.statusCode = function(e) {
+			g.promise(k);
+			k.success = k.done;
+			k.error = k.fail;
+			k.complete = m.add;
+			k.statusCode = function(e) {
 				if (e) {
 					var t;
 					if (2 > w)
@@ -3069,12 +3133,34 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					else t = e[k.status], k.then(t, t)
 				}
 				return this
-			}, d.url = ((e || d.url) + "").replace(Vt, "").replace(Qt, Ht[1] + "//"), d.dataTypes = I.trim(d.dataType || "*").toLowerCase().split(tn), null == d.crossDomain && (l = rn.exec(d.url.toLowerCase()), d.crossDomain = !(!l || l[1] == Ht[1] && l[2] == Ht[2] && (l[3] || ("http:" === l[1] ? 80 : 443)) == (Ht[3] || ("http:" === Ht[1] ? 80 : 443)))), d.data && d.processData && "string" != typeof d.data && (d.data = I.param(d.data, d.traditional)), $(an, d, n, k), 2 === w) return !1;
-			if (u = d.global, d.type = d.type.toUpperCase(), d.hasContent = !Kt.test(d.type), u && 0 === I.active++ && I.event.trigger("ajaxStart"), !d.hasContent && (d.data && (d.url += (Yt.test(d.url) ? "&" : "?") + d.data, delete d.data), i = d.url, d.cache === !1)) {
+			};
+			d.url = ((e || d.url) + "").replace(Vt, "").replace(Qt, Ht[1] + "//");
+			d.dataTypes = I.trim(d.dataType || "*").toLowerCase().split(tn);
+			null == d.crossDomain && (l = rn.exec(d.url.toLowerCase()), d.crossDomain = !(!l || l[1] == Ht[1] && l[2] == Ht[2] && (l[3] || ("http:" === l[1] ? 80 : 443)) == (Ht[3] || ("http:" === Ht[1] ? 80 : 443))));
+			d.data && d.processData && "string" != typeof d.data && (d.data = I.param(d.data, d.traditional));
+			$(an, d, n, k);
+
+			if (2 === w) return !1;
+
+			u = d.global;
+			d.type = d.type.toUpperCase();
+			d.hasContent = !Kt.test(d.type);
+			u && 0 === I.active++ && I.event.trigger("ajaxStart");
+			if (!d.hasContent && (d.data && (d.url += (Yt.test(d.url) ? "&" : "?") + d.data, delete d.data), i = d.url, d.cache === !1)) {
 				var C = I.now(),
 					S = d.url.replace(nn, "$1_=" + C);
-				d.url = S + (S === d.url ? (Yt.test(d.url) ? "&" : "?") + "_=" + C : "")
-			}(d.data && d.hasContent && d.contentType !== !1 || n.contentType) && k.setRequestHeader("Content-Type", d.contentType), d.ifModified && (i = i || d.url, I.lastModified[i] && k.setRequestHeader("If-Modified-Since", I.lastModified[i]), I.etag[i] && k.setRequestHeader("If-None-Match", I.etag[i])), k.setRequestHeader("Accept", d.dataTypes[0] && d.accepts[d.dataTypes[0]] ? d.accepts[d.dataTypes[0]] + ("*" !== d.dataTypes[0] ? ", " + cn + "; q=0.01" : "") : d.accepts["*"]);
+				d.url = S + (S === d.url ? (Yt.test(d.url) ? "&" : "?") + "_=" + C : "");
+			}
+			if (d.data && d.hasContent && d.contentType !== !1 || n.contentType)
+				k.setRequestHeader("Content-Type", d.contentType);
+
+			if (d.ifModified) {
+				i = i || d.url;
+				I.lastModified[i] && k.setRequestHeader("If-Modified-Since", I.lastModified[i]);
+				I.etag[i] && k.setRequestHeader("If-None-Match", I.etag[i]);
+			}
+			k.setRequestHeader("Accept", d.dataTypes[0] && d.accepts[d.dataTypes[0]] ? d.accepts[d.dataTypes[0]] + ("*" !== d.dataTypes[0] ? ", " + cn + "; q=0.01" : "") : d.accepts["*"]);
+
 			for (f in d.headers) k.setRequestHeader(f, d.headers[f]);
 			if (d.beforeSend && (d.beforeSend.call(p, k, d) === !1 || 2 === w)) return k.abort(), !1;
 			for (f in {
@@ -3521,8 +3607,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}), e.jQuery = e.$ = I, "function" == typeof define && define.amd && define.amd.jQuery && define("jquery", [], function() {
 		return I
 	})
-}(window),
-function(e, t, n) {
+}(window);
+! function(e, t, n) {
 	"use strict";
 
 	function r(e) {
@@ -3824,21 +3910,23 @@ function(e, t, n) {
 
 	function X(e) {
 		var t, n, r = {};
-		return o((e || "").split("&"), function(e) {
+		o((e || "").split("&"), function(e) {
 			if (e && (t = e.split("="), n = J(t[0]), y(n))) {
 				var i = y(t[1]) ? J(t[1]) : !0;
 				r[n] ? x(r[n]) ? r[n].push(i) : r[n] = [r[n], i] : r[n] = i
 			}
-		}), r
+		});
+		return r;
 	}
 
 	function G(e) {
 		var t = [];
-		return o(e, function(e, n) {
+		o(e, function(e, n) {
 			x(e) ? o(e, function(e) {
 				t.push(Q(n, !0) + (e === !0 ? "" : "=" + Q(e, !0)))
 			}) : t.push(Q(n, !0) + (e === !0 ? "" : "=" + Q(e, !0)))
-		}), t.length ? t.join("&") : ""
+		});
+		return t.length ? t.join("&") : ""
 	}
 
 	function K(e) {
@@ -6023,7 +6111,15 @@ function(e, t, n) {
 		}, this.$get = ["$injector", "$exceptionHandler", "$parse", "$browser",
 			function(r, a, s, c) {
 				function u() {
-					this.$id = l(), this.$$phase = this.$parent = this.$$watchers = this.$$nextSibling = this.$$prevSibling = this.$$childHead = this.$$childTail = null, this["this"] = this.$root = this, this.$$destroyed = !1, this.$$asyncQueue = [], this.$$postDigestQueue = [], this.$$listeners = {}, this.$$listenerCount = {}, this.$$isolateBindings = {}
+					this.$id = l();
+					this.$$phase = this.$parent = this.$$watchers = this.$$nextSibling = this.$$prevSibling = this.$$childHead = this.$$childTail = null;
+					this["this"] = this.$root = this;
+					this.$$destroyed = !1;
+					this.$$asyncQueue = [];
+					this.$$postDigestQueue = [];
+					this.$$listeners = {};
+					this.$$listenerCount = {};
+					this.$$isolateBindings = {};
 				}
 
 				function f(e) {
@@ -6049,7 +6145,30 @@ function(e, t, n) {
 					constructor: u,
 					$new: function(e) {
 						var t, n;
-						return e ? (n = new u, n.$root = this.$root, n.$$asyncQueue = this.$$asyncQueue, n.$$postDigestQueue = this.$$postDigestQueue) : (t = function() {}, t.prototype = this, n = new t, n.$id = l()), n["this"] = n, n.$$listeners = {}, n.$$listenerCount = {}, n.$parent = this, n.$$watchers = n.$$nextSibling = n.$$childHead = n.$$childTail = null, n.$$prevSibling = this.$$childTail, this.$$childHead ? (this.$$childTail.$$nextSibling = n, this.$$childTail = n) : this.$$childHead = this.$$childTail = n, n
+						if (e) {
+							n = new u;
+							n.$root = this.$root;
+							n.$$asyncQueue = this.$$asyncQueue;
+							n.$$postDigestQueue = this.$$postDigestQueue;
+						} else {
+							t = function() {};
+							t.prototype = this;
+							n = new t;
+							n.$id = l();
+						}
+						n["this"] = n;
+						n.$$listeners = {};
+						n.$$listenerCount = {};
+						n.$parent = this;
+						n.$$watchers = n.$$nextSibling = n.$$childHead = n.$$childTail = null;
+						n.$$prevSibling = this.$$childTail;
+						if (this.$$childHead) {
+							this.$$childTail.$$nextSibling = n;
+							this.$$childTail = n;
+						} else {
+							this.$$childHead = this.$$childTail = n;
+						}
+						return n;
 					},
 					$watch: function(e, t, r) {
 						var i = this,
@@ -6085,13 +6204,27 @@ function(e, t, n) {
 							var e, t;
 							if (b(o))
 								if (i(o)) {
-									a !== p && (a = p, m = a.length = 0, f++), e = o.length, m !== e && (f++, a.length = m = e);
+									if (a !== p) {
+										a = p;
+										m = a.length = 0;
+										f++;
+									}
+									e = o.length;
+									if (m !== e) {
+										f++;
+										a.length = m = e;
+									}
 									for (var n = 0; e > n; n++) {
 										var r = a[n] !== a[n] && o[n] !== o[n];
 										r || a[n] === o[n] || (f++, a[n] = o[n])
 									}
 								} else {
-									a !== h && (a = h = {}, m = 0, f++), e = 0;
+									if (a !== h) {
+										a = h = {};
+										m = 0;
+										f++;
+									}
+									e = 0;
 									for (t in o) o.hasOwnProperty(t) && (e++, a.hasOwnProperty(t) ? a[t] !== o[t] && (f++, a[t] = o[t]) : (m++, a[t] = o[t], f++));
 									if (m > e) {
 										f++;
@@ -6147,7 +6280,19 @@ function(e, t, n) {
 													l = !1;
 													break e
 												}
-											} else l = !0, n = r, r.last = r.eq ? I(i) : i, r.fn(i, o === m ? i : o, p), 5 > $ && (h = 4 - $, k[h] || (k[h] = []), g = T(r.exp) ? "fn: " + (r.exp.name || r.exp.toString()) : r.exp, g += "; newVal: " + B(i) + "; oldVal: " + B(o), k[h].push(g))
+											} else {
+												l = !0;
+												n = r;
+												r.last = r.eq ? I(i) : i;
+												r.fn(i, o === m ? i : o, p);
+												if (5 > $) {
+													h = 4 - $;
+													k[h] || (k[h] = []);
+													g = T(r.exp) ? "fn: " + (r.exp.name || r.exp.toString()) : r.exp;
+													g += "; newVal: " + B(i) + "; oldVal: " + B(o);
+													k[h].push(g);
+												}
+											}
 									} catch (x) {
 										d(), a(x)
 									}
@@ -6165,9 +6310,22 @@ function(e, t, n) {
 					$destroy: function() {
 						if (!this.$$destroyed) {
 							var e = this.$parent;
-							this.$broadcast("$destroy"), this.$$destroyed = !0, this !== v && (o(this.$$listenerCount, R(null, g, this)), e.$$childHead == this && (e.$$childHead = this.$$nextSibling), e.$$childTail == this && (e.$$childTail = this.$$prevSibling), this.$$prevSibling && (this.$$prevSibling.$$nextSibling = this.$$nextSibling), this.$$nextSibling && (this.$$nextSibling.$$prevSibling = this.$$prevSibling), this.$parent = this.$$nextSibling = this.$$prevSibling = this.$$childHead = this.$$childTail = this.$root = null, this.$$listeners = {}, this.$$watchers = this.$$asyncQueue = this.$$postDigestQueue = [], this.$destroy = this.$digest = this.$apply = h, this.$on = this.$watch = function() {
-								return h
-							})
+							this.$broadcast("$destroy");
+							this.$$destroyed = !0;
+							if (this !== v) {
+								o(this.$$listenerCount, R(null, g, this));
+								e.$$childHead == this && (e.$$childHead = this.$$nextSibling);
+								e.$$childTail == this && (e.$$childTail = this.$$prevSibling);
+								this.$$prevSibling && (this.$$prevSibling.$$nextSibling = this.$$nextSibling);
+								this.$$nextSibling && (this.$$nextSibling.$$prevSibling = this.$$prevSibling);
+								this.$parent = this.$$nextSibling = this.$$prevSibling = this.$$childHead = this.$$childTail = this.$root = null;
+								this.$$listeners = {};
+								this.$$watchers = this.$$asyncQueue = this.$$postDigestQueue = [];
+								this.$destroy = this.$digest = this.$apply = h;
+								this.$on = this.$watch = function() {
+									return h;
+								}
+							}
 						}
 					},
 					$eval: function(e, t) {
@@ -6387,13 +6545,19 @@ function(e, t, n) {
 			return arguments.length && (e = !!t), e
 		}, this.$get = ["$parse", "$sniffer", "$sceDelegate",
 			function(t, n, r) {
-				if (e && n.msie && n.msieDocumentMode < 8) throw gi("iequirks", "Strict Contextual Escaping does not support Internet Explorer version < 9 in quirks mode.  You can fix this by adding the text <!doctype html> to the top of your HTML document.  See http://docs.angularjs.org/api/ng.$sce for more information.");
+				if (e && n.msie && n.msieDocumentMode < 8)
+					throw gi("iequirks", "Strict Contextual Escaping does not support Internet Explorer version < 9 in quirks mode.  You can fix this by adding the text <!doctype html> to the top of your HTML document.  See http://docs.angularjs.org/api/ng.$sce for more information.");
 				var i = I(mi);
 				i.isEnabled = function() {
 					return e
-				}, i.trustAs = r.trustAs, i.getTrusted = r.getTrusted, i.valueOf = r.valueOf, e || (i.trustAs = i.getTrusted = function(e, t) {
+				};
+				i.trustAs = r.trustAs;
+				i.getTrusted = r.getTrusted;
+				i.valueOf = r.valueOf;
+				e || (i.trustAs = i.getTrusted = function(e, t) {
 					return t
-				}, i.valueOf = g), i.parseAs = function(e, n) {
+				}, i.valueOf = g);
+				i.parseAs = function(e, n) {
 					var r = t(n);
 					return r.literal && r.constant ? r : function(t, n) {
 						return i.getTrusted(e, r(t, n))
@@ -6434,7 +6598,10 @@ function(e, t, n) {
 							n = r[0], n = n.substr(0, 1).toUpperCase() + n.substr(1);
 							break
 						}
-					n || (n = "WebkitOpacity" in u && "webkit"), f = !!("transition" in u || n + "Transition" in u), p = !!("animation" in u || n + "Animation" in u), !o || f && p || (f = $(s.body.style.webkitTransition), p = $(s.body.style.webkitAnimation))
+					n || (n = "WebkitOpacity" in u && "webkit");
+					f = !!("transition" in u || n + "Transition" in u);
+					p = !!("animation" in u || n + "Animation" in u);
+					!o || f && p || (f = $(s.body.style.webkitTransition), p = $(s.body.style.webkitAnimation))
 				}
 				return {
 					history: !(!e.history || !e.history.pushState || 4 > o || a),
@@ -6638,12 +6805,26 @@ function(e, t, n) {
 				y = t.lgSize,
 				$ = t.gSize;
 			if (h.length >= y + $)
-				for (m = h.length - y, g = 0; m > g; g++)(m - g) % $ === 0 && 0 !== g && (s += n), s += h.charAt(g);
-			for (g = m; g < h.length; g++)(h.length - g) % y === 0 && 0 !== g && (s += n), s += h.charAt(g);
-			for (; p.length < i;) p += "0";
-			i && "0" !== i && (s += r + p.substr(0, i))
+				for (m = h.length - y, g = 0; m > g; g++) {
+					if ((m - g) % $ === 0 && 0 !== g)
+						s += n;
+					s += h.charAt(g);
+				}
+			for (g = m; g < h.length; g++) {
+				if ((h.length - g) % y === 0 && 0 !== g)
+					s += n;
+				s += h.charAt(g);
+			}
+			for (; p.length < i;)
+				p += "0";
+			if (i && "0" !== i) {
+				s += r + p.substr(0, i);
+			}
 		}
-		return c.push(o ? t.negPre : t.posPre), c.push(s), c.push(o ? t.negSuf : t.posSuf), c.join("")
+		c.push(o ? t.negPre : t.posPre);
+		c.push(s);
+		c.push(o ? t.negSuf : t.posSuf);
+		return c.join("");
 	}
 
 	function Jn(e, t, n) {
@@ -6656,7 +6837,11 @@ function(e, t, n) {
 		return n = n || 0,
 			function(i) {
 				var o = i["get" + e]();
-				return (n > 0 || o > -n) && (o += n), 0 === o && -12 == n && (o = 12), Jn(o, t, r)
+				if (n > 0 || o > -n)
+					o += n;
+				if (0 === o && -12 == n)
+					o = 12;
+				return Jn(o, t, r)
 			}
 	}
 
@@ -6780,32 +6965,68 @@ function(e, t, n) {
 			c = 0,
 			l = a.$error = {},
 			u = [];
-		a.$name = t.name || t.ngForm, a.$dirty = !1, a.$pristine = !0, a.$valid = !0, a.$invalid = !1, s.$addControl(a), e.addClass(Pi), i(!0), a.$addControl = function(e) {
+		a.$name = t.name || t.ngForm;
+		a.$dirty = !1;
+		a.$pristine = !0;
+		a.$valid = !0;
+		a.$invalid = !1;
+		s.$addControl(a);
+		e.addClass(Pi);
+		i(!0);
+		a.$addControl = function(e) {
 			it(e.$name, "input"), u.push(e), e.$name && (a[e.$name] = e)
-		}, a.$removeControl = function(e) {
+		};
+		a.$removeControl = function(e) {
 			e.$name && a[e.$name] === e && delete a[e.$name], o(l, function(t, n) {
 				a.$setValidity(n, !0, e)
 			}), O(u, e)
-		}, a.$setValidity = function(e, t, n) {
+		};
+		a.$setValidity = function(e, t, n) {
 			var r = l[e];
-			if (t) r && (O(r, n), r.length || (c--, c || (i(t), a.$valid = !0, a.$invalid = !1), l[e] = !1, i(!0, e), s.$setValidity(e, !0, a)));
-			else {
+			if (t && r) {
+				O(r, n);
+				if (!r.length) {
+					c--;
+					c || (i(t), a.$valid = !0, a.$invalid = !1);
+					l[e] = !1;
+					i(!0, e);
+					s.$setValidity(e, !0, a);
+				}
+			} else {
 				if (c || i(t), r) {
-					if (q(r, n)) return
-				} else l[e] = r = [], c++, i(!1, e), s.$setValidity(e, !1, a);
-				r.push(n), a.$valid = !1, a.$invalid = !0
+					if (q(r, n)) return;
+				} else {
+					l[e] = r = [];
+					c++;
+					i(!1, e);
+					s.$setValidity(e, !1, a);
+				}
+				r.push(n);
+				a.$valid = !1;
+				a.$invalid = !0;
 			}
-		}, a.$setDirty = function() {
-			r.removeClass(e, Pi), r.addClass(e, Fi), a.$dirty = !0, a.$pristine = !1, s.$setDirty()
-		}, a.$setPristine = function() {
-			r.removeClass(e, Fi), r.addClass(e, Pi), a.$dirty = !1, a.$pristine = !0, o(u, function(e) {
+		};
+		a.$setDirty = function() {
+			r.removeClass(e, Pi);
+			r.addClass(e, Fi);
+			a.$dirty = !0;
+			a.$pristine = !1;
+			s.$setDirty();
+		};
+		a.$setPristine = function() {
+			r.removeClass(e, Fi);
+			r.addClass(e, Pi);
+			a.$dirty = !1;
+			a.$pristine = !0;
+			o(u, function(e) {
 				e.$setPristine()
-			})
-		}
+			});
+		};
 	}
 
 	function ir(e, t, r, i) {
-		return e.$setValidity(t, r), r ? i : n
+		e.$setValidity(t, r);
+		return r ? i : n;
 	}
 
 	function or(e, t, n) {
@@ -6823,9 +7044,11 @@ function(e, t, n) {
 		if (!o.android) {
 			var c = !1;
 			t.on("compositionstart", function() {
-				c = !0
-			}), t.on("compositionend", function() {
-				c = !1, l()
+				c = !0;
+			});
+			t.on("compositionend", function() {
+				c = !1;
+				l();
 			})
 		}
 		var l = function() {
@@ -6856,20 +7079,24 @@ function(e, t, n) {
 			var m = function(e, t) {
 				return ir(i, "pattern", i.$isEmpty(t) || e.test(t), t)
 			};
-			h = g.match(/^\/(.*)\/([gim]*)$/), h ? (g = new RegExp(h[1], h[2]), p = function(e) {
+			h = g.match(/^\/(.*)\/([gim]*)$/);
+			h ? (g = new RegExp(h[1], h[2]), p = function(e) {
 				return m(g, e)
 			}) : p = function(n) {
 				var i = e.$eval(g);
 				if (!i || !i.test) throw r("ngPattern")("noregexp", "Expected {0} to be a RegExp but was {1}. Element: {2}", g, i, V(t));
 				return m(i, n)
-			}, i.$formatters.push(p), i.$parsers.push(p)
+			};
+			i.$formatters.push(p);
+			i.$parsers.push(p);
 		}
 		if (n.ngMinlength) {
 			var v = d(n.ngMinlength),
 				y = function(e) {
 					return ir(i, "minlength", i.$isEmpty(e) || e.length >= v, e)
 				};
-			i.$parsers.push(y), i.$formatters.push(y)
+			i.$parsers.push(y);
+			i.$formatters.push(y);
 		}
 		if (n.ngMaxlength) {
 			var b = d(n.ngMaxlength),
@@ -7629,11 +7856,19 @@ function(e, t, n) {
 			})
 		},
 		readIdent: function() {
-			for (var e, t, n, r, i = this, o = "", a = this.index; this.index < this.text.length && (r = this.text.charAt(this.index), "." === r || this.isIdent(r) || this.isNumber(r));) "." === r && (e = this.index), o += r, this.index++;
+			var e, t, n, r, i = this,
+				o = "";
+			for (var a = this.index; this.index < this.text.length && (r = this.text.charAt(this.index), "." === r || this.isIdent(r) || this.isNumber(r));) {
+				"." === r && (e = this.index);
+				o += r;
+				this.index++;
+			}
 			if (e)
 				for (t = this.index; t < this.text.length;) {
 					if (r = this.text.charAt(t), "(" === r) {
-						n = o.substr(e - a + 1), o = o.substr(0, e - a), this.index = t;
+						n = o.substr(e - a + 1);
+						o = o.substr(0, e - a);
+						this.index = t;
 						break
 					}
 					if (!this.isWhitespace(r)) break;
@@ -7643,8 +7878,10 @@ function(e, t, n) {
 				index: a,
 				text: o
 			};
-			if (ui.hasOwnProperty(o)) s.fn = ui[o], s.json = ui[o];
-			else {
+			if (ui.hasOwnProperty(o)) {
+				s.fn = ui[o];
+				s.json = ui[o];
+			} else {
 				var c = Cn(o, this.options, this.text);
 				s.fn = f(function(e, t) {
 					return c(e, t)
@@ -7724,8 +7961,21 @@ function(e, t, n) {
 				var t = this.expect();
 				e = t.fn, e || this.throwError("not a primary expression", t), t.json && (e.constant = !0, e.literal = !0)
 			}
-			for (var n, r; n = this.expect("(", "[", ".");) "(" === n.text ? (e = this.functionCall(e, r), r = null) : "[" === n.text ? (r = e, e = this.objectIndex(e)) : "." === n.text ? (r = e, e = this.fieldAccess(e)) : this.throwError("IMPOSSIBLE");
-			return e
+			for (var n, r; n = this.expect("(", "[", ".");) {
+				if (n.text === "(") {
+					e = this.functionCall(e, r);
+					r = null;
+				} else if (n.text === "[") {
+					r = e;
+					e = this.objectIndex(e);
+				} else if (n.text === ".") {
+					r = e;
+					e = this.fieldAccess(e);
+				} else {
+					this.throwError("IMPOSSIBLE");
+				}
+			}
+			return e;
 		},
 		throwError: function(e, t) {
 			throw ci("syntax", "Syntax Error: Token '{0}' {1} at column {2} of the expression [{3}] starting at [{4}].", t.text, e, t.index + 1, this.text, this.text.substring(t.index))
@@ -7740,7 +7990,7 @@ function(e, t, n) {
 					o = i.text;
 				if (o === e || o === t || o === n || o === r || !e && !t && !n && !r) return i
 			}
-			return !1
+			return !1;
 		},
 		expect: function(e, t, n, r) {
 			var i = this.peek(e, t, n, r);
@@ -7999,7 +8249,8 @@ function(e, t, n) {
 				}
 			}
 		}
-	}), o(["src", "srcset", "href"], function(e) {
+	});
+	o(["src", "srcset", "href"], function(e) {
 		var t = Ht("ng-" + e);
 		Si[t] = function() {
 			return {
@@ -8091,9 +8342,20 @@ function(e, t, n) {
 		zi = ["$scope", "$exceptionHandler", "$attrs", "$element", "$parse", "$animate",
 			function(e, t, n, i, a, s) {
 				function c(e, t) {
-					t = t ? "-" + et(t, "-") : "", s.removeClass(i, (e ? Li : Di) + t), s.addClass(i, (e ? Di : Li) + t)
-				}
-				this.$viewValue = Number.NaN, this.$modelValue = Number.NaN, this.$parsers = [], this.$formatters = [], this.$viewChangeListeners = [], this.$pristine = !0, this.$dirty = !1, this.$valid = !0, this.$invalid = !1, this.$name = n.name;
+					t = t ? "-" + et(t, "-") : "";
+					s.removeClass(i, (e ? Li : Di) + t);
+					s.addClass(i, (e ? Di : Li) + t);
+				};
+				this.$viewValue = Number.NaN;
+				this.$modelValue = Number.NaN;
+				this.$parsers = [];
+				this.$formatters = [];
+				this.$viewChangeListeners = [];
+				this.$pristine = !0;
+				this.$dirty = !1;
+				this.$valid = !0;
+				this.$invalid = !1;
+				this.$name = n.name;
 				var l = a(n.ngModel),
 					u = l.assign;
 				if (!u) throw r("ngModel")("nonassign", "Expression '{0}' is non-assignable. Element: {1}", n.ngModel, V(i));
@@ -8103,20 +8365,43 @@ function(e, t, n) {
 				var f = i.inheritedData("$formController") || Ai,
 					d = 0,
 					p = this.$error = {};
-				i.addClass(Pi), c(!0), this.$setValidity = function(e, t) {
-					p[e] !== !t && (t ? (p[e] && d--, d || (c(!0), this.$valid = !0, this.$invalid = !1)) : (c(!1), this.$invalid = !0, this.$valid = !1, d++), p[e] = !t, c(t, e), f.$setValidity(e, t, this))
-				}, this.$setPristine = function() {
-					this.$dirty = !1, this.$pristine = !0, s.removeClass(i, Fi), s.addClass(i, Pi)
-				}, this.$setViewValue = function(n) {
-					this.$viewValue = n, this.$pristine && (this.$dirty = !0, this.$pristine = !1, s.removeClass(i, Pi), s.addClass(i, Fi), f.$setDirty()), o(this.$parsers, function(e) {
+				i.addClass(Pi);
+				c(!0);
+				this.$setValidity = function(e, t) {
+					if (p[e] !== !t) {
+						if (t) {
+							p[e] && d--;
+							d || (c(!0), this.$valid = !0, this.$invalid = !1);
+						} else {
+							c(!1);
+							this.$invalid = !0;
+							this.$valid = !1;
+							d++;
+						}
+						p[e] = !t;
+						c(t, e);
+						f.$setValidity(e, t, this);
+					}
+				};
+				this.$setPristine = function() {
+					this.$dirty = !1;
+					this.$pristine = !0;
+					s.removeClass(i, Fi);
+					s.addClass(i, Pi);
+				};
+				this.$setViewValue = function(n) {
+					this.$viewValue = n;
+					this.$pristine && (this.$dirty = !0, this.$pristine = !1, s.removeClass(i, Pi), s.addClass(i, Fi), f.$setDirty());
+					o(this.$parsers, function(e) {
 						n = e(n)
-					}), this.$modelValue !== n && (this.$modelValue = n, u(e, n), o(this.$viewChangeListeners, function(e) {
+					});
+					this.$modelValue !== n && (this.$modelValue = n, u(e, n), o(this.$viewChangeListeners, function(e) {
 						try {
 							e()
 						} catch (n) {
 							t(n)
 						}
-					}))
+					}));
 				};
 				var g = this;
 				e.$watch(function() {
@@ -8417,15 +8702,32 @@ function(e, t, n) {
 							C = {
 								$id: _t
 							};
-						if (!T) throw l("iexp", "Expected expression in form of '_item_ in _collection_[ track by _id_]' but got '{0}'.", x);
-						if (b = T[1], $ = T[2], h = T[3], h ? (g = e(h), m = function(e, t, n) {
-							return k && (C[k] = e), C[w] = t, C.$index = n, g(r, C)
-						}) : (v = function(e, t) {
-							return _t(t)
-						}, y = function(e) {
-							return e
-						}), T = b.match(/^(?:([\$\w]+)|\(([\$\w]+)\s*,\s*([\$\w]+)\))$/), !T) throw l("iidexp", "'_item_' in '_item_ in _collection_' should be an identifier or '(_key_, _value_)' expression, but got '{0}'.", b);
-						w = T[3] || T[1], k = T[2];
+						if (!T)
+							throw l("iexp", "Expected expression in form of '_item_ in _collection_[ track by _id_]' but got '{0}'.", x);
+						b = T[1];
+						$ = T[2];
+						h = T[3];
+						if (h) {
+							g = e(h);
+							m = function(e, t, n) {
+								k && (C[k] = e);
+								C[w] = t;
+								C.$index = n;
+								return g(r, C);
+							};
+						} else {
+							v = function(e, t) {
+								return _t(t);
+							};
+							y = function(e) {
+								return e;
+							};
+						}
+						T = b.match(/^(?:([\$\w]+)|\(([\$\w]+)\s*,\s*([\$\w]+)\))$/);
+						if (!T)
+							throw l("iidexp", "'_item_' in '_item_ in _collection_' should be an identifier or '(_key_, _value_)' expression, but got '{0}'.", b);
+						w = T[3] || T[1];
+						k = T[2];
 						var S = {};
 						r.$watchCollection($, function(e) {
 							var f, d, h, g, b, $, T, C, A, E, N, j, _ = u[0],
@@ -8456,12 +8758,19 @@ function(e, t, n) {
 									do h = h.nextSibling; while (h && h[c]);
 									a(N) != h && n.move(at(N.clone), null, br(_)), _ = s(N)
 								} else b = r.$new();
-								b[w] = T, k && (b[k] = $), b.$index = f, b.$first = 0 === f, b.$last = f === g - 1, b.$middle = !(b.$first || b.$last), b.$odd = !(b.$even = 0 === (1 & f)), N.scope || p(b, function(e) {
+								b[w] = T;
+								k && (b[k] = $);
+								b.$index = f;
+								b.$first = 0 === f;
+								b.$last = f === g - 1;
+								b.$middle = !(b.$first || b.$last);
+								b.$odd = !(b.$even = 0 === (1 & f));
+								N.scope || p(b, function(e) {
 									e[e.length++] = t.createComment(" end ngRepeat: " + x + " "), n.enter(e, null, br(_)), _ = e, N.scope = b, N.clone = e, q[N.id] = N
-								})
+								});
 							}
 							S = q
-						})
+						});
 					}
 				}
 			}
@@ -8684,15 +8993,43 @@ function(e, t, n) {
 									label: "",
 									selected: !0
 								})), A = 0, $ = O.length; $ > A; A++) {
-									for (e = O[A], n = M[e], C.length <= A ? (i = {
-										element: T.clone().attr("label", e),
-										label: n.label
-									}, c = [i], C.push(c), o.append(i.element)) : (c = C[A], i = c[0], i.label != e && i.element.attr("label", i.label = e)), j = null, E = 0, S = n.length; S > E; E++) r = n[E], (l = c[E + 1]) ? (j = l.element, l.label !== r.label && j.text(l.label = r.label), l.id !== r.id && j.val(l.id = r.id), l.selected !== r.selected && j.prop("selected", l.selected = r.selected)) : ("" === r.id && w ? _ = w : (_ = k.clone()).val(r.id).attr("selected", r.selected).text(r.label), c.push(l = {
-										element: _,
-										label: r.label,
-										id: r.id,
-										selected: r.selected
-									}), j ? j.after(_) : i.element.append(_), j = _);
+									e = O[A];
+									n = M[e];
+									if (C.length <= A) {
+										i = {
+											element: T.clone().attr("label", e),
+											label: n.label
+										};
+										c = [i];
+										C.push(c);
+										o.append(i.element);
+									} else {
+										c = C[A];
+										i = c[0];
+										i.label != e && i.element.attr("label", i.label = e);
+									}
+									j = null;
+									E = 0;
+									for (S = n.length; S > E; E++) {
+										r = n[E];
+										if (l = c[E + 1]) {
+											j = l.element;
+											l.label !== r.label && j.text(l.label = r.label);
+											l.id !== r.id && j.val(l.id = r.id);
+											l.selected !== r.selected && j.prop("selected", l.selected = r.selected);
+										} else {
+											"" === r.id && w ? _ = w : (_ = k.clone()).val(r.id).attr("selected", r.selected).text(r.label);
+											c.push(l = {
+												element: _,
+												label: r.label,
+												id: r.id,
+												selected: r.selected
+											});
+											j ? j.after(_) : i.element.append(_);
+											j = _;
+										}
+									}
+
 									for (E++; c.length > E;) c.pop().element.remove()
 								}
 								for (; C.length > A;) C.pop()[0].element.remove()
@@ -8743,14 +9080,26 @@ function(e, t, n) {
 							}), s.$render = c, t.$watch(c)
 						}
 						if (u[1]) {
-							for (var h, g = u[0], m = u[1], b = l.multiple, $ = l.ngOptions, w = !1, k = br(t.createElement("option")), T = br(t.createElement("optgroup")), C = k.clone(), S = 0, A = c.children(), E = A.length; E > S; S++)
+							var h, g = u[0],
+								m = u[1],
+								b = l.multiple,
+								$ = l.ngOptions,
+								w = !1,
+								k = br(t.createElement("option")),
+								T = br(t.createElement("optgroup")),
+								C = k.clone(),
+								S = 0,
+								A = c.children();
+							for (var E = A.length; E > S; S++)
 								if ("" === A[S].value) {
 									h = w = A.eq(S);
 									break
 								}
-							g.init(m, w, C), b && (m.$isEmpty = function(e) {
+							g.init(m, w, C);
+							b && (m.$isEmpty = function(e) {
 								return !e || 0 === e.length
-							}), $ ? p(s, c, m) : b ? d(s, c, m) : f(s, c, m, g)
+							});
+							$ ? p(s, c, m) : b ? d(s, c, m) : f(s, c, m, g);
 						}
 					}
 				}
@@ -8791,19 +9140,25 @@ function(e, t, n) {
 	return e.angular.bootstrap ? void console.log("WARNING: Tried to load angular more than once.") : (tt(), ct(Ar), void br(t).ready(function() {
 		Y(t, Z)
 	}))
-}(window, document), !angular.$$csp() && angular.element(document).find("head").prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\\:form{display:block;}.ng-animate-block-transitions{transition:0s all!important;-webkit-transition:0s all!important;}</style>');
+}(window, document);
+!angular.$$csp() && angular.element(document).find("head").prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\\:form{display:block;}.ng-animate-block-transitions{transition:0s all!important;-webkit-transition:0s all!important;}</style>');
 var svgOldWinOnload = window.onload;
 window.onload = function() {
 	detectSVG(), svgOldWinOnload && svgOldWinOnload()
-}, org.cometd.Utils = {}, org.cometd.Utils.isString = function(e) {
+};
+org.cometd.Utils = {};
+org.cometd.Utils.isString = function(e) {
 	return void 0 === e || null === e ? !1 : "string" == typeof e || e instanceof String
-}, org.cometd.Utils.isArray = function(e) {
+};
+org.cometd.Utils.isArray = function(e) {
 	return void 0 === e || null === e ? !1 : e instanceof Array
-}, org.cometd.Utils.inArray = function(e, t) {
+};
+org.cometd.Utils.inArray = function(e, t) {
 	for (var n = 0; n < t.length; ++n)
 		if (e === t[n]) return n;
 	return -1
-}, org.cometd.Utils.setTimeout = function(e, t, n) {
+};
+org.cometd.Utils.setTimeout = function(e, t, n) {
 	return window.setTimeout(function() {
 		try {
 			t()
@@ -8811,9 +9166,11 @@ window.onload = function() {
 			e._debug("Exception invoking timed function", t, n)
 		}
 	}, n)
-}, org.cometd.Utils.clearTimeout = function(e) {
+};
+org.cometd.Utils.clearTimeout = function(e) {
 	window.clearTimeout(e)
-}, org.cometd.LongPollingTransport = function() {
+};
+org.cometd.LongPollingTransport = function() {
 	var e = new org.cometd.RequestTransport,
 		t = org.cometd.Transport.derive(e),
 		n = !0;
@@ -8856,7 +9213,8 @@ window.onload = function() {
 	}, t.reset = function() {
 		e.reset(), n = !0
 	}, t
-}, org.cometd.WebSocketTransport = function() {
+};
+org.cometd.WebSocketTransport = function() {
 	function e() {
 		var e = r.getURL().replace(/^http/, "ws");
 		this._debug("Transport", this.getType(), "connecting to URL", e);
@@ -8988,7 +9346,8 @@ window.onload = function() {
 	}, a.reset = function() {
 		o.reset(), null !== f && d && f.close(1e3, "Reset"), s = !0, c = !1, u = {}, l = {}, f = null, d = !1, i = null
 	}, a
-}, org.cometd.CallbackPollingTransport = function() {
+};
+org.cometd.CallbackPollingTransport = function() {
 	var e = new org.cometd.RequestTransport,
 		t = org.cometd.Transport.derive(e),
 		n = 2e3;
@@ -9049,7 +9408,8 @@ window.onload = function() {
 			}, 0)
 		}
 	}, t
-}, org.cometd.RequestTransport = function() {
+};
+org.cometd.RequestTransport = function() {
 	function e(e) {
 		for (; f.length > 0;) {
 			var t = f[0],
@@ -9141,7 +9501,8 @@ window.onload = function() {
 	}, s.reset = function() {
 		a.reset(), l = null, u = [], f = []
 	}, s
-}, org.cometd.TransportRegistry = function() {
+};
+org.cometd.TransportRegistry = function() {
 	var e = [],
 		t = {};
 	this.getTransportTypes = function() {
@@ -9184,7 +9545,8 @@ window.onload = function() {
 	}, this.reset = function() {
 		for (var n = 0; n < e.length; ++n) t[e[n]].reset()
 	}
-}, org.cometd.Transport = function() {
+};
+org.cometd.Transport = function() {
 	var e, t;
 	this.registered = function(n, r) {
 		e = n, t = r
@@ -9225,10 +9587,12 @@ window.onload = function() {
 	}, this.toString = function() {
 		return this.getType()
 	}
-}, org.cometd.Transport.derive = function(e) {
+};
+org.cometd.Transport.derive = function(e) {
 	function t() {}
 	return t.prototype = e, new t
-}, org.cometd.Cometd = function(e) {
+};
+org.cometd.Cometd = function(e) {
 	function t(e) {
 		return org.cometd.Utils.isString(e)
 	}
@@ -9962,7 +10326,8 @@ window.onload = function() {
 	}, this.getAdvice = function() {
 		return this._mixin(!0, {}, gt)
 	}, org.cometd.WebSocket = window.WebSocket, org.cometd.WebSocket || (org.cometd.WebSocket = window.MozWebSocket)
-},
+};
+
 function() {
 	function e(e) {
 		return e.AckExtension = function() {
@@ -9990,7 +10355,8 @@ function() {
 		}
 	}
 	"function" == typeof define && define.amd ? define(["org/cometd"], e) : e(org.cometd)
-}(),
+}();
+
 function() {
 	function e(e) {
 		return e.TimeSyncExtension = function(t) {
@@ -10045,7 +10411,8 @@ function() {
 		}
 	}
 	"function" == typeof define && define.amd ? define(["org/cometd"], e) : e(org.cometd)
-}(),
+}();
+
 function(e, t, n) {
 	"use strict";
 	t.module("ngCookies", ["ng"]).factory("$cookies", ["$rootScope", "$browser",
@@ -10085,7 +10452,8 @@ function(e, t, n) {
 			}
 		}
 	])
-}(window, window.angular),
+}(window, window.angular);
+
 function(e, t, n) {
 	"use strict";
 
@@ -10245,7 +10613,8 @@ function(e, t, n) {
 			}, u
 		}
 	])
-}(window, window.angular),
+}(window, window.angular);
+
 function(e, t) {
 	"use strict";
 
@@ -10418,7 +10787,8 @@ function(e, t) {
 	}
 	var a = t.module("ngRoute", ["ng"]).provider("$route", n);
 	a.provider("$routeParams", r), a.directive("ngView", i), a.directive("ngView", o), i.$inject = ["$route", "$anchorScroll", "$animate"], o.$inject = ["$compile", "$controller", "$route"]
-}(window, window.angular),
+}(window, window.angular);
+
 function(e, t) {
 	"use strict";
 
@@ -10562,7 +10932,8 @@ function(e, t) {
 			}
 		}
 	])
-}(window, window.angular),
+}(window, window.angular);
+
 function(e, t, n) {
 	function r(e) {
 		var t = {},
@@ -10644,7 +11015,8 @@ function(e, t, n) {
 			this.value = ""
 		})
 	}))
-}(this, document, jQuery), window.Modernizr = function(e, t, n) {
+}(this, document, jQuery);
+window.Modernizr = function(e, t, n) {
 	function r(e) {
 		b.cssText = e
 	}
@@ -10977,7 +11349,8 @@ function(e, t, n) {
 		}, h.testAllProps = l, h.testStyles = M, h.prefixed = function(e, t, n) {
 			return t ? l(e, t, n) : l(e, "pfx")
 		}, m.className = m.className.replace(/(^|\s)no-js(\s|$)/, "$1$2") + (g ? " js " + _.join(" ") : ""), h
-}(this, this.document),
+}(this, this.document);
+
 function(e, t, n) {
 	function r(e) {
 		return "[object Function]" == m.call(e)
@@ -11333,7 +11706,8 @@ var addToHome = function(e) {
 	"undefined" != typeof exports ? t(require, exports) : (window.mobitroll = window.mobitroll || {}, t(function(e) {
 		return window[e]
 	}, window.mobitroll.sanitize = {}))
-}), angular.module("app.services.config", ["ng"]).factory("$config", ["$location", "$routeParams",
+});
+angular.module("app.services.config", ["ng"]).factory("$config", ["$location", "$routeParams",
 	function(e) {
 		function t(e) {
 			var t = e.split(".");
@@ -11591,7 +11965,8 @@ var addToHome = function(e) {
 		};
 		return r
 	}
-]), angular.module("app.services.comet", ["app.services.config"]).factory("$comet", ["$config", "$window", "$log", "$http",
+]);
+angular.module("app.services.comet", ["app.services.config"]).factory("$comet", ["$config", "$window", "$log", "$http",
 	function(e, t, n, r) {
 		function i() {
 			var e = new org.cometd.LongPollingTransport,
@@ -11626,7 +12001,8 @@ var addToHome = function(e) {
 			maxNetworkDelay: 4e4
 		}), o
 	}
-]), angular.module("app.services.comet-ack", ["app.services.config", "app.services.comet"]).factory("$comet-ack", ["$config", "$log", "$comet",
+]);
+angular.module("app.services.comet-ack", ["app.services.config", "app.services.comet"]).factory("$comet-ack", ["$config", "$log", "$comet",
 	function(e, t, n) {
 		function r(e) {
 			var t = new e;
@@ -11634,7 +12010,8 @@ var addToHome = function(e) {
 		}
 		return r(org.cometd.AckExtension, n), n
 	}
-]), angular.module("app.services.comet-timesync", ["app.services.config", "app.services.comet"]).factory("$comet-timesync", ["$config", "$log", "$comet",
+]);
+angular.module("app.services.comet-timesync", ["app.services.config", "app.services.comet"]).factory("$comet-timesync", ["$config", "$log", "$comet",
 	function(e, t, n) {
 		function r(e) {
 			var t = new e;
@@ -11642,7 +12019,8 @@ var addToHome = function(e) {
 		}
 		return r(org.cometd.TimeSyncExtension, n), n
 	}
-]), angular.module("app.services.network", ["underscore", "app.services.comet"]).factory("$network", ["$config", "$log", "_", "$comet", "$timeout", "$rootScope",
+]);
+angular.module("app.services.network", ["underscore", "app.services.comet"]).factory("$network", ["$config", "$log", "_", "$comet", "$timeout", "$rootScope",
 	function(e, t, n, r, i, o) {
 		function a(e) {
 			var e = e || 3e3;
@@ -11702,7 +12080,8 @@ var addToHome = function(e) {
 			};
 		return p
 	}
-]), angular.module("app.services.mobitroll", ["app.services.comet", "app.services.comet-ack", "app.services.comet-timesync", "ngCookies"]).factory("$mobitroll", ["$comet", "$config", "$location", "$rootScope", "$log", "$cookieStore", "$window", "$timeout", "$comet-ack", "$comet-timesync",
+]);
+angular.module("app.services.mobitroll", ["app.services.comet", "app.services.comet-ack", "app.services.comet-timesync", "ngCookies"]).factory("$mobitroll", ["$comet", "$config", "$location", "$rootScope", "$log", "$cookieStore", "$window", "$timeout", "$comet-ack", "$comet-timesync",
 	function(e, t, n, r, i, o, a, s) {
 		function c(e) {
 			e.successful ? (p.handshaked = !0, r.$broadcast("handshakeSuccess", e)) : r.$broadcast("handshakeFailure", e)
@@ -11793,7 +12172,8 @@ var addToHome = function(e) {
 		};
 		return p
 	}
-]), angular.module("app.services.utils", ["underscore"]).factory("$utils", ["$window", "$document", "_",
+]);
+angular.module("app.services.utils", ["underscore"]).factory("$utils", ["$window", "$document", "_",
 	function(e, t, n) {
 		var r = {
 			findElemById: function(e, r) {
@@ -11834,7 +12214,8 @@ var addToHome = function(e) {
 		};
 		return r
 	}
-]), angular.module("app.services.webpurify", ["underscore"]).factory("$webpurify", ["$http", "$log", "$config", "_",
+]);
+angular.module("app.services.webpurify", ["underscore"]).factory("$webpurify", ["$http", "$log", "$config", "_",
 	function(e, t, n) {
 		function r(e, t) {
 			var n = i("%METHOD%", e, a);
@@ -11901,7 +12282,8 @@ var addToHome = function(e) {
 			u.init(n.webpurify.key)
 		}(), u
 	}
-]), angular.module("app.services.profanityfilter", ["underscore", "app.services.webpurify"]).factory("$profanityfilter", ["$webpurify", "$log", "$config", "_",
+]);
+angular.module("app.services.profanityfilter", ["underscore", "app.services.webpurify"]).factory("$profanityfilter", ["$webpurify", "$log", "$config", "_",
 	function(e, t, n, r) {
 		var i = {
 				clean: function(n, o) {
@@ -11922,7 +12304,8 @@ var addToHome = function(e) {
 			o = ["aardvark", "accordion", "accountant", "actor", "actress", "adapter", "adult", "advantage", "advertisement", "afghanistan", "africa", "afternoon", "aftershave", "aeroplane", "airport", "alarm", "albatross", "algebra", "algeria", "alibi", "alley", "alligator", "alloy", "alphabet", "aluminium", "ambulance", "america", "amusement", "anatomy", "anethesiologist", "angle", "animal", "ankle", "answer", "ant", "antarctica", "anteater", "antelope", "anthropology", "apartment", "apology", "apparatus", "appeal", "appendix", "apple", "appliance", "approval", "april", "aquarius", "arch", "archaeology", "archer", "architecture", "area", "argentina", "argument", "aries", "arithmetic", "arm", "armadillo", "armchair", "armenian", "army", "arrow", "art", "ash", "asia", "asparagus", "asphalt", "asterisk", "astronomy", "athlete", "atom", "attack", "attempt", "attention", "attic", "attraction", "august", "aunt", "australia", "australian", "author", "avenue", "baboon", "baby", "back", "backbone", "bacon", "badge", "badger", "bag", "bagel", "bagpipe", "bail", "bait", "baker", "bakery", "balance", "ball", "balloon", "bamboo", "banana", "band", "bandana", "bangladesh", "bangle", "banjo", "bank", "banker", "bar", "barbara", "barber", "barge", "baritone", "barometer", "base", "baseball", "basement", "basin", "basket", "basketball", "bass", "bassoon", "bat", "bath", "bathroom", "bathtub", "battery", "battle", "bay", "beach", "bead", "beam", "bean", "bear", "beard", "beast", "beat", "beautician", "beauty", "beaver", "bed", "bedroom", "bee", "beech", "beef", "beet", "beetle", "beginner", "behaviour", "belgian", "belief", "believe", "bell", "belt", "bench", "bengal", "beret", "berry", "bestseller", "betty", "bibliography", "bicycle", "bike", "bill", "billboard", "biology", "birch", "bird", "birth", "birthday", "bit", "bite", "black", "bladder", "blade", "blanket", "blinker", "blizzard", "block", "blouse", "blue", "board", "boat", "body", "bolt", "bomb", "bomber", "bone", "bongo", "bonsai", "book", "bookcase", "booklet", "boot", "border", "botany", "bottle", "bottom", "boundary", "bow", "bowl", "bowling", "box", "boy", "brace", "bracket", "brain", "brake", "branch", "brand", "brandy", "brass", "brazil", "bread", "break", "breakfast", "breath", "brian", "brick", "bridge", "british", "broccoli", "brochure", "broker", "bronze", "brother", "brother-in-law", "brow", "brown", "brush", "bubble", "bucket", "budget", "buffer", "buffet", "building", "bulb", "bull", "bulldozer", "bumper", "bun", "burglar", "burma", "burst", "bus", "bush", "business", "butcher", "butter", "button", "buzzard", "cabbage", "cabinet", "cable", "cactus", "cafe", "cake", "calculator", "calculus", "calendar", "calf", "call", "camel", "camera", "camp", "can", "canada", "canadian", "candle", "cannon", "canoe", "canvas", "cap", "capital", "capricorn", "captain", "caption", "car", "caravan", "carbon", "card", "cardboard", "cardigan", "care", "carnation", "carol", "carp", "carpenter", "carriage", "carrot", "cart", "cartoon", "case", "cast", "cat", "catamaran", "caterpillar", "cathedral", "cattle", "cauliflower", "caution", "cave", "ceiling", "celery", "cell", "cellar", "cello", "celsius", "cement", "cemetery", "cent", "centimeter", "century", "ceramic", "cereal", "certification", "chain", "chair", "chalk", "chance", "change", "channel", "character", "charles", "chauffeur", "check", "cheek", "cheese", "cheetah", "chef", "chemistry", "cheque", "cherries", "cherry", "chess", "chest", "chick", "chicken", "chief", "child", "children", "chill", "chime", "chimpanzee", "chin", "china", "chinese", "chive", "chocolate", "chord", "christmas", "christopher", "church", "cinema", "circle", "circulation", "cirrus", "citizenship", "city", "clam", "clarinet", "class", "claus", "clave", "clef", "clerk", "click", "client", "climb", "clipper", "cloakroom", "clock", "close", "closet", "cloth", "cloud", "cloudy", "clover", "club", "clutch", "coach", "coal", "coast", "coat", "cobweb", "cockroach", "cocktail", "cocoa", "cod", "coffee", "coil", "coin", "coke", "cold", "collar", "college", "collision", "colombia", "colour", "colt", "column", "columnist", "comb", "comfort", "comic", "comma", "command", "commission", "committee", "community", "company", "comparison", "competition", "competitor", "composer", "composition", "computer", "condition", "condor", "cone", "confirmation", "conga", "congo", "conifer", "connection", "consonant", "continent", "control", "cook", "cooking", "copper", "copy", "copyright", "cord", "cork", "cormorant", "corn", "cornet", "correspondent", "cost", "cotton", "couch", "cough", "country", "course", "court", "cousin", "cover", "cow", "cowbell", "crab", "crack", "cracker", "craftsman", "crate", "crayfish", "crayon", "cream", "creator", "creature", "credit", "creditor", "creek", "crib", "cricket", "crime", "criminal", "crocodile", "crocus", "croissant", "crook", "crop", "cross", "crow", "crowd", "crown", "crush", "cry", "cub", "cuban", "cucumber", "cultivator", "cup", "cupboard", "cupcake", "currency", "current", "curtain", "curve", "cushion", "custard", "customer", "cut", "cycle", "cyclone", "cylinder", "cymbal", "dad", "daffodil", "daisy", "damage", "dance", "dancer", "danger", "daniel", "dash", "dashboard", "database", "date", "daughter", "david", "day", "deadline", "deal", "deborah", "debt", "debtor", "decade", "december", "decimal", "decision", "decrease", "dedication", "deer", "defense", "deficit", "degree", "delete", "delivery", "den", "denim", "dentist", "deodorant", "department", "deposit", "description", "desert", "design", "desire", "desk", "dessert", "destruction", "detail", "detective", "development", "dew", "diamond", "diaphragm", "dibble", "dictionary", "dietician", "difference", "digestion", "digger", "digital", "dill", "dime", "dimple", "dinghy", "dinner", "dinosaur", "diploma", "dipstick", "direction", "disadvantage", "discovery", "discussion", "disgust", "dish", "distance", "distributor", "diving", "division", "dock", "doctor", "dog", "doll", "dollar", "dolphin", "domain", "donald", "donkey", "donna", "door", "dorothy", "double", "doubt", "downtown", "dragon", "dragonfly", "drain", "drake", "drama", "draw", "drawbridge", "drawer", "dream", "dress", "dresser", "dressing", "drill", "drink", "drive", "driver", "driving", "drizzle", "drop", "drug", "drum", "dry", "dryer", "duck", "duckling", "dugout", "dungeon", "dust", "eagle", "ear", "earth", "earthquake", "ease", "east", "edge", "editor", "editorial", "education", "edward", "eel", "effect", "egg", "eggnog", "eggplant", "egypt", "eight", "elbow", "element", "elephant", "elizabeth", "ellipse", "employee", "employer", "encyclopedia", "end", "enemy", "energy", "engine", "engineer", "english", "entrance", "environment", "equinox", "equipment", "era", "error", "estimate", "ethernet", "ethiopia", "europe", "evening", "event", "examination", "example", "exchange", "exclamation", "exhaust", "expert", "explanation", "eye", "eyebrow", "eyelash", "eyeliner", "face", "fact", "factory", "fahrenheit", "fairies", "fall", "family", "fan", "fang", "farm", "farmer", "father", "faucet", "fear", "feast", "feather", "feature", "february", "feedback", "feeling", "feet", "female", "ferry", "ferryboat", "fertiliser", "fiber", "fiberglass", "fibre", "fiction", "field", "fifth", "fight", "fighter", "file", "find", "fine", "finger", "fir", "fire", "fireman", "fireplace", "firewall", "fish", "fisherman", "flag", "flame", "flare", "flat", "flavour", "flesh", "flight", "flock", "flood", "floor", "flower", "flute", "fly", "foam", "fog", "fold", "font", "food", "foot", "football", "footnote", "force", "forecast", "forehead", "forest", "forgery", "fork", "form", "format", "fortnight", "foundation", "fountain", "fowl", "fox", "fragrance", "frame", "france", "freckle", "freeze", "freezer", "french", "friction", "friday", "fridge", "friend", "frog", "front", "frost", "frown", "fruit", "fuel", "fur", "furniture", "galley", "gallon", "game", "garage", "garden", "garlic", "gas", "gasoline", "gate", "gateway", "gauge", "gazelle", "gear", "geese", "gemini", "geography", "geology", "geometry", "george", "geranium", "german", "germany", "ghana", "ghost", "giant", "giraffe", "girl", "glass", "glider", "gliding", "glockenspiel", "glove", "glue", "goal", "goat", "gold", "goldfish", "golf", "gondola", "gong", "good-bye", "goose", "gorilla", "gosling", "government", "governor", "grade", "grain", "gram", "granddaughter", "grandfather", "grandmother", "grandson", "grape", "graphic", "grass", "grasshopper", "gray", "grease", "greece", "greek", "green", "grey", "grill", "grip", "ground", "group", "grouse", "growth", "guarantee", "guatemalan", "guide", "guilty", "guitar", "gum", "gym", "gymnast", "hail", "hair", "haircut", "halibut", "hall", "hallway", "hamburger", "hammer", "hamster", "hand", "handball", "handle", "harbor", "hardboard", "hardcover", "hardhat", "hardware", "harmonica", "harmony", "harp", "hat", "hawk", "head", "headlight", "headline", "health", "hearing", "heart", "heat", "heaven", "hedge", "height", "helen", "helicopter", "helium", "hell", "help", "hemp", "hen", "heron", "herring", "hexagon", "hill", "himalayan", "hip", "hippopotamus", "history", "hobbies", "hockey", "hole", "holiday", "home", "honey", "hood", "hook", "hope", "horn", "horse", "hose", "hospital", "hot", "hour", "hourglass", "house", "hovercraft", "hub", "hubcap", "humidity", "humour", "hurricane", "hyacinth", "hydrant", "hydrogen", "hyena", "hygienic", "ice", "icebreaker", "icicle", "icon", "idea", "ikebana", "illegal", "improvement", "impulse", "inch", "income", "increase", "index", "india", "indonesia", "industry", "ink", "innocent", "input", "insect", "instruction", "instrument", "insurance", "interactive", "interest", "internet", "interviewer", "intestine", "invention", "invoice", "iran", "iraq", "iris", "iron", "island", "israel", "italian", "italy", "jacket", "jaguar", "jam", "james", "january", "japan", "japanese", "jar", "jasmine", "jason", "jaw", "jeans", "jeep", "jeff", "jelly", "jellyfish", "jennifer", "jet", "jewel", "jogging", "john", "join", "joke", "joseph", "journey", "judge", "judo", "juice", "july", "jumbo", "jump", "jumper", "june", "jury", "justice", "kamikaze", "kangaroo", "karate", "karen", "kayak", "kendo", "kenneth", "kenya", "ketchup", "kettle", "kevin", "key", "keyboard", "kick", "kidney", "kilogram", "kilometer", "kimberly", "kiss", "kitchen", "kite", "kitten", "kitty", "knee", "knickers", "knight", "knot", "knowledge", "korean", "lace", "ladybug", "lake", "lamb", "lamp", "land", "language", "lasagna", "latency", "latex", "laugh", "laundry", "laura", "law", "lawyer", "layer", "lead", "leaf", "learning", "leather", "leek", "leg", "legal", "lemonade", "lentil", "leo", "leopard", "letter", "lettuce", "level", "libra", "library", "license", "lift", "light", "lightning", "lilac", "lily", "limit", "linda", "line", "linen", "link", "lion", "lip", "lipstick", "liquid", "liquor", "lisa", "literature", "litter", "liver", "lizard", "llama", "loaf", "loan", "lobster", "lock", "locket", "locust", "look", "loss", "lotion", "love", "low", "lumber", "lunch", "lunchroom", "lung", "lycra", "lynx", "lyric", "macaroni", "machine", "magazine", "magic", "magician", "maid", "mail", "mailbox", "mailman", "makeup", "malaysia", "male", "mall", "mallet", "man", "manager", "mandolin", "manicure", "map", "maple", "maraca", "marble", "march", "margaret", "margin", "maria", "mark", "market", "married", "mary", "mascara", "mask", "mass", "match", "math", "may", "mayonnaise", "meal", "measure", "meat", "mechanic", "medicine", "meeting", "melody", "memory", "men", "menu", "mercury", "message", "metal", "meteorology", "meter", "mexican", "mexico", "mice", "michael", "michelle", "microwave", "middle", "mile", "milk", "milkshake", "millennium", "millimeter", "millisecond", "mind", "mine", "minibus", "mini-skirt", "minister", "mint", "minute", "mirror", "missile", "mist", "mistake", "mitten", "moat", "modem", "mole", "mum", "monday", "money", "monkey", "month", "moon", "morning", "morocco", "mosque", "mosquito", "mother", "motion", "motorboat", "motorcycle", "mountain", "mouse", "moustache", "mouth", "move", "multimedia", "muscle", "museum", "music", "musician", "mustard", "myanmar", "nail", "name", "nancy", "napkin", "nation", "neck", "need", "needle", "neon", "nepal", "nephew", "nerve", "nest", "net", "network", "news", "newsprint", "newsstand", "niece", "nigeria", "night", "nitrogen", "node", "noise", "noodle", "north", "north america", "north korea", "norwegian", "nose", "note", "notebook", "notify", "novel", "november", "number", "numeric", "nurse", "nut", "nylon", "oak", "oatmeal", "objective", "oboe", "observation", "occupation", "ocean", "octagon", "octave", "october", "octopus", "offence", "offer", "office", "oil", "okra", "olive", "onion", "open", "opera", "operation", "opinion", "option", "orange", "orchestra", "orchid", "order", "organ", "organisation", "ornament", "ostrich", "otter", "ounce", "output", "oval", "oven", "overcoat", "owl", "owner", "ox", "oxygen", "oyster", "package", "packet", "page", "pail", "pain", "paint", "pair", "pakistan", "palm", "pamphlet", "pan", "pancake", "pancreas", "panda", "pansy", "panther", "pantry", "pants", "paper", "paperback", "parade", "parallelogram", "parcel", "parent", "parentheses", "park", "parrot", "parsnip", "part", "particle", "partner", "partridge", "party", "passbook", "passenger", "passive", "pasta", "paste", "pastor", "pastry", "patch", "path", "patient", "patio", "patricia", "paul", "payment", "pea", "peace", "peak", "peanut", "pear", "pedestrian", "pediatrician", "pelican", "pen", "penalty", "pencil", "pendulum", "pentagon", "pepper", "perch", "perfume", "period", "periodical", "peripheral", "permission", "persian", "person", "peru", "pest", "pet", "pharmacist", "pheasant", "philippines", "philosophy", "phone", "physician", "piano", "piccolo", "pickle", "picture", "pie", "pig", "pigeon", "pike", "pillow", "pilot", "pimple", "pin", "pine", "ping", "pink", "pint", "pipe", "pisces", "pizza", "place", "plain", "plane", "planet", "plant", "plantation", "plaster", "plasterboard", "plastic", "plate", "platinum", "play", "playground", "playroom", "pleasure", "plier", "plot", "plough", "plow", "plywood", "pocket", "poet", "point", "poison", "poland", "police", "policeman", "polish", "politician", "pollution", "polo", "polyester", "pond", "popcorn", "poppy", "population", "porch", "porcupine", "port", "porter", "position", "possibility", "postage", "postbox", "pot", "potato", "poultry", "pound", "powder", "power", "precipitation", "preface", "prepared", "pressure", "price", "priest", "print", "printer", "prison", "probation", "process", "processing", "produce", "product", "production", "professor", "profit", "promotion", "propane", "property", "prose", "prosecution", "protest", "protocol", "pruner", "psychiatrist", "psychology", "puffin", "pull", "puma", "pump", "pumpkin", "punch", "punishment", "puppy", "purchase", "purple", "purpose", "push", "pyjama", "pyramid", "quail", "quality", "quart", "quarter", "quartz", "queen", "question", "quicksand", "quiet", "quill", "quilt", "quit", "quiver", "quotation", "rabbi", "rabbit", "racing", "radar", "radiator", "radio", "radish", "raft", "rail", "railway", "rain", "rainbow", "raincoat", "rainstorm", "rake", "random", "range", "rat", "rate", "raven", "ravioli", "ray", "rayon", "reaction", "reading", "reason", "receipt", "recess", "record", "recorder", "rectangle", "red", "reduction", "refrigerator", "refund", "regret", "reindeer", "relation", "relative", "religion", "relish", "reminder", "repair", "replace", "report", "representative", "request", "resolution", "respect", "responsibility", "rest", "restaurant", "result", "retailer", "revolve", "revolver", "reward", "rhinoceros", "rhythm", "rice", "richard", "riddle", "ring", "rise", "risk", "river", "riverbed", "road", "roadway", "roast", "robert", "robin", "rock", "rocket", "rod", "roll", "romania", "romanian", "ronald", "roof", "room", "rooster", "root", "rose", "rotate", "route", "router", "rowboat", "rub", "rubber", "rugby", "rule", "run", "russia", "russian", "ruth", "sack", "sagittarius", "sail", "sailboat", "sailor", "salad", "salary", "sale", "salesman", "salmon", "salt", "samurai", "sand", "sandra", "sandwich", "santa", "sarah", "sardine", "satin", "saturday", "sauce", "saudi arabia", "sausage", "save", "saw", "saxophone", "scale", "scallion", "scanner", "scarecrow", "scarf", "scene", "scent", "schedule", "school", "science", "scissors", "scooter", "scorpio", "scorpion", "scraper", "screen", "screw", "screwdriver", "sea", "seagull", "seal", "seaplane", "search", "seashore", "season", "seat", "second", "secretary", "secure", "security", "seed", "seeder", "segment", "select", "selection", "self", "sense", "sentence", "separated", "september", "servant", "server", "session", "shade", "shadow", "shake", "shallot", "shame", "shampoo", "shape", "share", "shark", "sharon", "shears", "sheep", "sheet", "shelf", "shell", "shield", "shingle", "ship", "shirt", "shock", "shoe", "shoemaker", "shop", "shorts", "shoulder", "shovel", "show", "shrimp", "shrine", "siamese", "siberian", "side", "sideboard", "sidecar", "sidewalk", "sign", "signature", "silica", "silk", "silver", "sing", "singer", "single", "sink", "sister", "size", "skate", "skiing", "skill", "skin", "skirt", "sky", "slash", "slave", "sled", "sleep", "sleet", "slice", "slime", "slip", "slipper", "slope", "smash", "smell", "smile", "smoke", "snail", "snake", "sneeze", "snow", "snowboarding", "snowflake", "snowman", "snowplow", "snowstorm", "soap", "soccer", "society", "sociology", "sock", "soda", "sofa", "softball", "softdrink", "software", "soil", "soldier", "son", "song", "soprano", "sort", "sound", "soup", "south africa", "south america", "south korea", "soy", "soybean", "space", "spade", "spaghetti", "spain", "spandex", "spark", "sparrow", "spear", "specialist", "speedboat", "sphere", "sphynx", "spider", "spike", "spinach", "spleen", "sponge", "spoon", "spot", "spring", "sprout", "spruce", "spy", "square", "squash", "squid", "squirrel", "stage", "staircase", "stamp", "star", "start", "starter", "state", "statement", "station", "statistic", "steam", "steel", "stem", "step", "steven", "stew", "stick", "stinger", "stitch", "stock", "stocking", "stomach", "stone", "stool", "stop", "stopsign", "stopwatch", "store", "storm", "story", "stove", "stranger", "straw", "stream", "street", "streetcar", "stretch", "string", "structure", "study", "sturgeon", "submarine", "substance", "subway", "success", "sudan", "suede", "sugar", "suggestion", "suit", "summer", "sun", "sunday", "sundial", "sunflower", "sunshine", "supermarket", "supply", "support", "surfboard", "surgeon", "surname", "surprise", "susan", "sushi", "swallow", "swamp", "swan", "sweater", "sweatshirt", "sweatshop", "swedish", "sweets", "swim", "swimming", "swing", "swiss", "switch", "sword", "swordfish", "sycamore", "syria", "syrup", "system", "table", "tablecloth", "tabletop", "tadpole", "tail", "tailor", "taiwan", "talk", "tank", "tanker", "tanzania", "target", "taste", "taurus", "tax", "taxi", "taxicab", "tea", "teacher", "teaching", "team", "technician", "teeth", "television", "temper", "temperature", "temple", "tempo", "tendency", "tennis", "tenor", "tent", "territory", "test", "text", "textbook", "texture", "thailand", "theater", "theory", "thermometer", "thing", "thistle", "thomas", "thought", "thread", "thrill", "throat", "throne", "thumb", "thunder", "thunderstorm", "thursday", "ticket", "tie", "tiger", "tights", "tile", "time", "timer", "tin", "tip", "tire", "titanium", "title", "toad", "toast", "toe", "toenail", "toilet", "tomato", "ton", "tongue", "tooth", "toothbrush", "toothpaste", "top", "tornado", "tortellini", "tortoise", "touch", "tower", "town", "toy", "tractor", "trade", "traffic", "trail", "train", "tramp", "transaction", "transmission", "transport", "trapezoid", "tray", "treatment", "tree", "trial", "triangle", "trick", "trigonometry", "trip", "trombone", "trouble", "trousers", "trout", "trowel", "truck", "trumpet", "trunk", "t-shirt", "tsunami", "tub", "tuba", "tuesday", "tugboat", "tulip", "tuna", "tune", "turkey", "turkish", "turn", "turnip", "turnover", "turret", "turtle", "tv", "twig", "twilight", "twist", "typhoon", "uganda", "ukraine", "ukrainian", "umbrella", "uncle", "underclothes", "underpants", "undershirt", "underwear", "unit", "united kingdom", "unshielded", "use", "utensil", "uzbekistan", "vacation", "vacuum", "valley", "value", "van", "vase", "vault", "vegetable", "vegetarian", "veil", "vein", "velvet", "venezuela", "venezuelan", "verdict", "vermicelli", "verse", "vessel", "vest", "veterinarian", "vietnam", "view", "vinyl", "viola", "violet", "violin", "virgo", "viscose", "vise", "vision", "visitor", "voice", "volcano", "volleyball", "voyage", "vulture", "waiter", "waitress", "walk", "wall", "wallaby", "wallet", "walrus", "war", "warm", "wash", "washer", "wasp", "waste", "watch", "watchmaker", "water", "waterfall", "wave", "wax", "way", "wealth", "weapon", "weasel", "weather", "wedge", "wednesday", "weed", "weeder", "week", "weight", "whale", "wheel", "whip", "whiskey", "whistle", "white", "wholesaler", "wilderness", "william", "willow", "wind", "windchime", "window", "windscreen", "windshield", "wine", "wing", "winter", "wire", "wish", "witch", "withdrawal", "witness", "wolf", "woman", "women", "wood", "wool", "woolen", "word", "work", "workshop", "worm", "wound", "wren", "wrench", "wrinkle", "wrist", "writer", "xylophone", "yacht", "yak", "yam", "yard", "yarn", "year", "yellow", "yew", "yogurt", "yoke", "yugoslavian", "zebra", "zephyr", "zinc", "zipper", "zone", "zoo"];
 		return i
 	}
-]), angular.module("app.services.countdown", ["underscore"]).factory("$countdown", ["$rootScope", "$log", "$timeout", "_",
+]);
+angular.module("app.services.countdown", ["underscore"]).factory("$countdown", ["$rootScope", "$log", "$timeout", "_",
 	function(e, t, n, r) {
 		e.$on("$routeChangeStart", function() {
 			i.killAll()
@@ -11981,12 +12364,14 @@ var addToHome = function(e) {
 		};
 		return i
 	}
-]), angular.module("underscore", []).factory("_", [
+]);
+angular.module("underscore", []).factory("_", [
 
 	function() {
 		return _ || void 0
 	}
-]), angular.module("app.services.preloader", ["underscore"]).factory("$preloader", ["_", "$log", "$timeout", "$rootScope",
+]);
+angular.module("app.services.preloader", ["underscore"]).factory("$preloader", ["_", "$log", "$timeout", "$rootScope",
 	function(e, t, n, r) {
 		function i(e, t, r, i, o) {
 			var a = 0;
@@ -12033,7 +12418,8 @@ var addToHome = function(e) {
 		};
 		return s
 	}
-]), angular.module("app.services.session", []).factory("$session", ["$config", "$location", "$rootScope", "$log", "$http", "$authentication",
+]);
+angular.module("app.services.session", []).factory("$session", ["$config", "$location", "$rootScope", "$log", "$http", "$authentication",
 	function(e, t, n, r, i, o) {
 		function a() {
 			return e.session.api ? i.post(e.session.api + "/?" + (new Date).getTime(), null, {
@@ -12064,7 +12450,8 @@ var addToHome = function(e) {
 		};
 		return s
 	}
-]), angular.module("app.services.random", []).factory("$random", [
+]);
+angular.module("app.services.random", []).factory("$random", [
 
 	function() {
 		function e(e, t) {
@@ -12139,7 +12526,8 @@ var addToHome = function(e) {
 		};
 		return h
 	}
-]), angular.module("app.services.lang", ["ngResource", "underscore"]).factory("$lang", ["$rootScope", "$resource", "$timeout",
+]);
+angular.module("app.services.lang", ["ngResource", "underscore"]).factory("$lang", ["$rootScope", "$resource", "$timeout",
 	function(e, t) {
 		var n = {
 			language: "en_gb",
@@ -12162,7 +12550,8 @@ var addToHome = function(e) {
 		};
 		return n
 	}
-]), angular.module("app.services.quiz", ["underscore"]).factory("$quiz", ["$config", "$log", "$http", "_", "$authentication", "$q",
+]);
+angular.module("app.services.quiz", ["underscore"]).factory("$quiz", ["$config", "$log", "$http", "_", "$authentication", "$q",
 	function(e, t, n, r, i, o) {
 		function a(t) {
 			var o = e.usergrid.server + "/kahoots/" + t;
@@ -12236,11 +12625,13 @@ var addToHome = function(e) {
 		};
 		return s
 	}
-]), angular.module("app.services.ios7fixes", ["ng"]).factory("$ios7fixes", ["$window",
+]);
+angular.module("app.services.ios7fixes", ["ng"]).factory("$ios7fixes", ["$window",
 	function(e) {
 		return e.navigator.userAgent.match(/iPad;.*CPU.*OS 7_\d/i) && $("html").addClass("ipad ios7"), e.navigator.userAgent.indexOf("CriOS") >= 0 && $("html").addClass("chromeios"), e.navigator.standalone && $("html").addClass("standalone"), null
 	}
-]), angular.module("app.services.lq.analytics", ["ng"]).factory("$analytics", ["$rootScope", "$window", "$location",
+]);
+angular.module("app.services.lq.analytics", ["ng"]).factory("$analytics", ["$rootScope", "$window", "$location",
 	function(e, t) {
 		function n() {
 			var e = t.document.location.pathname + t.document.location.search + t.document.location.hash; - 1 == e.toLowerCase().indexOf("token") && (t._gaq && t._gaq.push(["_trackPageview", e]), t.ga && t.ga("send", "pageview", e))
@@ -12267,13 +12658,15 @@ var addToHome = function(e) {
 		};
 		return o
 	}
-]), angular.module("app.directives.loader", []).directive("loader", function() {
+]);
+angular.module("app.directives.loader", []).directive("loader", function() {
 	return {
 		link: function(e, t) {
 			t.css("display", "none")
 		}
 	}
-}), angular.module("app.directives.debug", ["app.services.network", "app.services.config", "underscore"]).directive("debugInfo", ["$config", "$network", "_",
+});
+angular.module("app.directives.debug", ["app.services.network", "app.services.config", "underscore"]).directive("debugInfo", ["$config", "$network", "_",
 	function(e, t, n) {
 		return {
 			link: function(r, i, o) {
@@ -12317,7 +12710,8 @@ var addToHome = function(e) {
 			}
 		}
 	}
-]), angular.module("app.directives.notifications", []).directive("alerts", ["$timeout",
+]);
+angular.module("app.directives.notifications", []).directive("alerts", ["$timeout",
 	function(e) {
 		function t(e, t, n, r) {
 			return "<div id=" + n + ' class="alert ' + e + '">' + (r ? '<div class="close_icon"></div>' : "") + '<i class="icon"></i><div class="msg">' + t + '</div><span class="logo"></span></div>'
@@ -12408,7 +12802,8 @@ var addToHome = function(e) {
 			}
 		}
 	}
-]), angular.module("app.directives.blocking", []).directive("blocking", function() {
+]);
+angular.module("app.directives.blocking", []).directive("blocking", function() {
 	return function(e, t, n) {
 		var r = "disabled";
 		e.$on("busy", function() {
@@ -12417,13 +12812,16 @@ var addToHome = function(e) {
 			t.removeClass(r), t.prop("disabled", !1), e.prevHtml && t.html(e.prevHtml)
 		})
 	}
-}), angular.module("app.directives.placeholder", []).directive("placeholder", ["$rootScope",
+});
+angular.module("app.directives.placeholder", []).directive("placeholder", ["$rootScope",
 	function() {
 		return function(e, t) {
 			$(t).placeholder()
 		}
 	}
-]), angular.module("app.services.sanitize", []).value("sanitize", mobitroll.sanitize), angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("bindHtml", ["sanitize",
+]);
+angular.module("app.services.sanitize", []).value("sanitize", mobitroll.sanitize);
+angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("bindHtml", ["sanitize",
 	function(e) {
 		return function(t, n, r) {
 			n.addClass("ng-binding").data("$binding", r.bindHtml), t.$watch(r.bindHtml, function(t) {
@@ -12439,7 +12837,8 @@ var addToHome = function(e) {
 			})
 		}
 	}
-]), ! function(e, t, n) {
+]);
+! function(e, t, n) {
 	function r(e, n) {
 		var r, i = t.createElement(e || "div");
 		for (r in n) i[r] = n[r];
@@ -12638,7 +13037,8 @@ var addToHome = function(e) {
 	}(), "function" == typeof define && define.amd ? define(function() {
 		return u
 	}) : e.Spinner = u
-}(window, document),
+}(window, document);
+
 function(e, t) {
 	"use strict";
 
@@ -13416,7 +13816,8 @@ function(e, t) {
 	}), "function" == typeof define && "object" == typeof define.amd && define.amd ? (e._ = n, define(function() {
 		return n
 	})) : Ct ? "object" == typeof module && module && module.exports == Ct ? (module.exports = n)._ = n : Ct._ = n : e._ = n
-}(this),
+}(this);
+
 function(e) {
 	var t = e.document;
 	if (!location.hash && e.addEventListener) {
@@ -13434,7 +13835,8 @@ function(e) {
 			}, 0)
 		})
 	}
-}(this), ! function(e, t) {
+}(this);
+! function(e, t) {
 	"function" == typeof define ? define(t) : "undefined" != typeof module ? module.exports = t() : this[e] = t()
 }("morpheus", function() {
 	function e(e, t, n) {
@@ -13769,13 +14171,16 @@ angular.module("app", ["app.filters", "app.directives", "app.directives.spinner"
 	}
 ]).run(["$config",
 	function() {}
-]), appCtrl.loadContent = function(e, t, n, r) {
+]);
+appCtrl.loadContent = function(e, t, n, r) {
 	return window.device && navigator.splashscreen.hide(), n.defer = e.defer(), n.siteAppContent ? n.defer.resolve() : (r.getContent(), n.$on("loadContentSuccess", function() {
 		n.defer.resolve()
 	}), n.$on("loadContentFailure", function() {
 		n.defer.reject()
 	})), n.defer.promise
-}, appCtrl.loadContent.$inject = ["$q", "$timeout", "$rootScope", "$lang", "$ios7fixes"], angular.module("app.services.auth", []).factory("$authentication", [
+};
+appCtrl.loadContent.$inject = ["$q", "$timeout", "$rootScope", "$lang", "$ios7fixes"];
+angular.module("app.services.auth", []).factory("$authentication", [
 
 	function() {
 		var e = {
@@ -13785,7 +14190,8 @@ angular.module("app", ["app.filters", "app.directives", "app.directives.spinner"
 		};
 		return e
 	}
-]), angular.module("app.services.moderation", []).factory("$moderation", ["$rootScope", "$cookies",
+]);
+angular.module("app.services.moderation", []).factory("$moderation", ["$rootScope", "$cookies",
 	function(e, t) {
 		var n = {
 			kickCookieName: "bLjokq2kR2b82fN",
@@ -13815,7 +14221,8 @@ angular.module("app", ["app.filters", "app.directives", "app.directives.spinner"
 		};
 		return n
 	}
-]), angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.services.utils", "app.services.profanityfilter", "app.services.network", "app.services.lq.analytics"]).factory("$lecturequiz-controller", ["$mobitroll", "$location", "$rootScope", "$config", "$log", "_", "$profanityfilter", "$utils", "$preloader", "$window", "$network", "$timeout", "$analytics", "$moderation",
+]);
+angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.services.utils", "app.services.profanityfilter", "app.services.network", "app.services.lq.analytics"]).factory("$lecturequiz-controller", ["$mobitroll", "$location", "$rootScope", "$config", "$log", "_", "$profanityfilter", "$utils", "$preloader", "$window", "$network", "$timeout", "$analytics", "$moderation",
 	function(e, t, n, r, i, o, a, s, c, l, u, f, d, p) {
 		function h() {
 			e.withComet(function(e) {
@@ -14079,19 +14486,30 @@ angular.module("app", ["app.filters", "app.directives", "app.directives.spinner"
 		};
 		return T
 	}
-]), GameCtrl.$inject = ["$rootScope", "$location", "$log", "$lecturequiz-controller", "$window", "$config", "$session"], JoinCtrl.$inject = ["$rootScope", "$location", "$log", "$lecturequiz-controller", "$preloader", "$window", "$config"], InstructionsCtrl.$inject = ["$scope", "$rootScope", "$log", "$lecturequiz-controller"], StartCtrl.$inject = ["$rootScope", "$scope", "$lecturequiz-controller", "$quiz", "$location"], GetReadyCtrl.$inject = ["$scope", "$rootScope", "$countdown", "$location", "$lecturequiz-controller", "$quiz"], AnswerCtrl.$inject = ["$scope", "$rootScope", "$log", "$lecturequiz-controller", "_", "$quiz", "$location", "sanitize"], FeedbackCtrl.$inject = ["$scope", "$rootScope", "$log", "$lecturequiz-controller", "$location", "$quiz", "$timeout"], GameOverCtrl.$inject = ["$rootScope", "$scope", "$lecturequiz-controller", "$window", "$config", "$quiz", "$location", "$timeout"], angular.module("app.filters", []).filter("interpolate", ["version",
+]);
+GameCtrl.$inject = ["$rootScope", "$location", "$log", "$lecturequiz-controller", "$window", "$config", "$session"];
+JoinCtrl.$inject = ["$rootScope", "$location", "$log", "$lecturequiz-controller", "$preloader", "$window", "$config"];
+InstructionsCtrl.$inject = ["$scope", "$rootScope", "$log", "$lecturequiz-controller"];
+StartCtrl.$inject = ["$rootScope", "$scope", "$lecturequiz-controller", "$quiz", "$location"];
+GetReadyCtrl.$inject = ["$scope", "$rootScope", "$countdown", "$location", "$lecturequiz-controller", "$quiz"];
+AnswerCtrl.$inject = ["$scope", "$rootScope", "$log", "$lecturequiz-controller", "_", "$quiz", "$location", "sanitize"];
+FeedbackCtrl.$inject = ["$scope", "$rootScope", "$log", "$lecturequiz-controller", "$location", "$quiz", "$timeout"];
+GameOverCtrl.$inject = ["$rootScope", "$scope", "$lecturequiz-controller", "$window", "$config", "$quiz", "$location", "$timeout"];
+angular.module("app.filters", []).filter("interpolate", ["version",
 	function(e) {
 		return function(t) {
 			return String(t).replace(/\%VERSION\%/gm, e)
 		}
 	}
-]), angular.module("app.directives", []).directive("appVersion", ["version",
+]);
+angular.module("app.directives", []).directive("appVersion", ["version",
 	function(e) {
 		return function(t, n) {
 			n.text(e)
 		}
 	}
-]), angular.module("app.directives.spinner", []).directive("spinner", function() {
+]);
+angular.module("app.directives.spinner", []).directive("spinner", function() {
 	var e = {
 		link: function(e, t) {
 			var n = new Spinner(kahoot.theme.current.controller.spinner).spin();
@@ -14099,7 +14517,8 @@ angular.module("app", ["app.filters", "app.directives", "app.directives.spinner"
 		}
 	};
 	return e
-}), angular.module("app.directives.moderation", ["app.services.moderation"]).directive("snitch", ["$moderation",
+});
+angular.module("app.directives.moderation", ["app.services.moderation"]).directive("snitch", ["$moderation",
 	function(e) {
 		return function(t, n) {
 			t.$on("snitch", function() {
@@ -14111,7 +14530,8 @@ angular.module("app", ["app.filters", "app.directives", "app.directives.spinner"
 			})
 		}
 	}
-]), angular.module("app.directives.mobile", []).directive("tap", ["$rootScope",
+]);
+angular.module("app.directives.mobile", []).directive("tap", ["$rootScope",
 	function() {
 		return function(e, t, n) {
 			function r() {
@@ -14152,7 +14572,8 @@ angular.module("app", ["app.filters", "app.directives", "app.directives.spinner"
 			}
 		}
 	}
-]), angular.module("app.directives.effects", []).directive("fadeoutOnClick", function() {
+]);
+angular.module("app.directives.effects", []).directive("fadeoutOnClick", function() {
 	return {
 		link: function(e, t, n) {
 			var r = parseInt(n.fadeDuration);
@@ -14200,7 +14621,8 @@ angular.module("app", ["app.filters", "app.directives", "app.directives.spinner"
 			}
 		}
 	}
-}), angular.module("app").run(["$templateCache",
+});
+angular.module("app").run(["$templateCache",
 	function(e) {
 		e.put("answer.html", '<div class="screen answer-screen">  <div class="statusbar top">    <div class="info">      <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>      <div class="username" ng-cloak>{{user.cleanName}}</div>    </div>    <div class="title">      <div class="number" ng-cloak>{{questionNumber(\'Q\')}}</div>      <div class="question" ng-cloak>{{statusBarTitle}}</div>    </div>  </div>  <div class="center valignwrapper selectanswer">    <div class="valign">      <div class="answerButtons" ng-class="answerButtonsClass()">        <button class="answer answerA" type="button" tapstart="selectAnswer(0)"><span>A</span></button>        <button class="answer answerB" type="button" tapstart="selectAnswer(1)"><span>B</span></button>        <button class="answer answerC" type="button" tapstart="selectAnswer(2)" ng-show="showAnswer(2)"><span>C</span></button>        <button class="answer answerD" type="button" tapstart="selectAnswer(3)" ng-show="showAnswer(3)"><span>D</span></button>      </div>      <div class="message" ng-class="messageClass()">        <div class="valign">          <div class="result" ng-class="resultClass()">            <div class="resultIcon" ng-class="resultIcon()"></div>            <h1 ng-cloak ng-bind-html="resultMessage"></h1>          </div>          <button class="btn disabled selectedAnswer" ng-class="selectedAnswerClass()"><span bind-html="selectedAnswerLabel()"></span></button>          <h4 class="message_container" ng-bind-html="statusMessage" ng-class="statusMessageClass()"></h4>        </div>      </div>    </div>  </div>  <div class="statusbar fixed bottom">    <div class="username" ng-cloak>{{user.cleanName}}</div>    <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>  </div></div>'), e.put("feedback.html", '<div class="screen feedback-screen">  <div class="statusbar top">    <div class="info">      <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>      <div class="username" ng-cloak>{{user.cleanName}}</div>    </div>    <div class="title">      <div class="question" ng-cloak>{{statusBarTitle}}</div>    </div>  </div>  <div class="sub-screen" ng-show="!done()">    <div class="center main valignwrapper feedback">      <div class="valign pad">        <div class="feedback-item">          <div class="feedback-question">How fun was it?</div>          <div class="feedback-controls">            <div class="scale-control">              <div class="scale-input"><input type="radio" name="feedback2" id="feedback2-1" value="1" ng-model="feedback.fun"><label for="feedback2-1" class="s1"></label></div>            </div>            <div class="scale-control">              <div class="scale-input"><input type="radio" name="feedback2" id="feedback2-2" value="2" ng-model="feedback.fun"><label for="feedback2-2" class="s2"></label></div>            </div>            <div class="scale-control">              <div class="scale-input"><input type="radio" name="feedback2" id="feedback2-3" value="3" ng-model="feedback.fun"><label for="feedback2-3" class="s3"></label></div>            </div>            <div class="scale-control">              <div class="scale-input"><input type="radio" name="feedback2" id="feedback2-4" value="4" ng-model="feedback.fun"><label for="feedback2-4" class="s4"></label></div>            </div>            <div class="scale-control">              <div class="scale-input"><input type="radio" name="feedback2" id="feedback2-5" value="5" ng-model="feedback.fun"><label for="feedback2-5" class="s5"></label></div>            </div>          </div>        </div>        <div class="feedback-item binary">          <div class="feedback-question">Did you learn something?</div>          <div class="feedback-controls">            <div class="scale-control binary">              <div class="scale-input"><input type="radio" name="feedback1" id="feedback1-1" value="1" ng-model="feedback.learning"><label for="feedback1-1" class="like"></label></div>            </div>            <div class="scale-control binary">              <div class="scale-input"><input type="radio" name="feedback1" id="feedback1-2" value="0" ng-model="feedback.learning"><label for="feedback1-2" class="dislike"></label></div>            </div>          </div>        </div>        <div class="feedback-item binary">          <div class="feedback-question">Do you recommend it?</div>          <div class="feedback-controls">            <div class="scale-control binary">              <div class="scale-input"><input type="radio" name="feedback3" id="feedback3-1" value="1" ng-model="feedback.recommend"><label for="feedback3-1" class="like"></label></div>            </div>            <div class="scale-control binary">              <div class="scale-input"><input type="radio" name="feedback3" id="feedback3-2" value="0" ng-model="feedback.recommend"><label for="feedback3-2" class="dislike"></label></div>            </div>          </div>        </div>      </div>    </div>    <div class="info-footer">      <div class="content">        <div class="feedback-summary">          <div class="feedback-item">            <div class="feedback-question">To continue, tell us how you feel?</div>            <div>                            <button type="button" class="face-btn happy" tap="smile()"></button>              <button type="button" class="face-btn indifferent" tap="meh()"></button>              <button type="button" class="face-btn sad" tap="frown()"></button>                          </div>          </div>        </div>      </div>    </div>  </div>  <div class="sub-screen" ng-show="done()">    <div class="center main valignwrapper feedback">      <div class="valign pad">        <h1 ng-bind="feedbackResponse().title">Thanks!</h1>        <div class="smiley" ng-class="feeling()"></div>        <div class="feedback-response" ng-bind="feedbackResponse().text"></div>      </div>    </div>  </div></div>'), e.put("gameid.html", '<div class="center join_view valignwrapper">	<div class="valign">		<div class="logo center-block"><span>Kahoot!</span></div>		<form ng-submit="joinSession(gameId)">			<input id="inputSession" ios7fix class="username" placeholder="Game pin" ng-model="gameId" type="tel" maxlength="6" shake="badGameId">			<button type="button" class="btn btn-block btn-greyscale join" blocking tap="joinSession(gameId)">Enter</button>		</form>	</div>	<p class="info" ng-show="notStandalone()">Make your own at <a href="https://getkahoot.com" target="_system">getkahoot.com</a></a></p></div>'), e.put("gameover.html", '<div class="screen gameover-screen">  <div class="statusbar top endscreen">    <div class="info">      <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>      <div class="username" ng-cloak>{{user.cleanName}}</div>    </div>    <div class="title">      <div class="question" ng-cloak>{{statusBarTitle}}</div>    </div>  </div>  <div class="center valignwrapper gameover" ng-class="gameOverClass()">    <div class="valign">      <h1 ng-bind-html="gameoverTitle()"></h1>      <h4 ng-cloak ng-bind-html="resultMessage()"></h4>      <div class="resultsList" ng-class="resultsListClass()">        <div class="correct">          <div class="icon"></div>          <div class="answers" ng-cloak>{{result.correctCount}} correct</div>        </div>        <div class="incorrect">          <div class="icon"></div>          <div class="answers" ng-cloak>{{result.incorrectCount}} incorrect</div>        </div>      </div>      <div ng-class="shareSocialClass()">        <span class="text">Share my {{shareWhat}}:</span>        <a ng-click="shareTwitter()" class="but-twitter" type="button">Tweet on twitter</a>        <a ng-click="shareFacebook()" class="but-facebook" type="button">Post to my wall</a>      </div>    </div>  </div>  <div class="info-footer">    <div class="divider"></div>    <div class="content">      <p><a href="https://getkahoot.com/register/" target="_system"><strong>Get my free account now</strong> and start making my own! <i class="icon-link"></i></a></p>    </div>  </div>  <div class="statusbar fixed bottom">    <div class="username" ng-cloak>{{user.cleanName}}</div>    <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>  </div></div>'), e.put("getready.html", '<div class="statusbar top">  <div class="info">    <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>    <div class="username" ng-cloak>{{user.cleanName}}</div>  </div>  <div class="title">    <div class="number" ng-cloak>{{questionNumber(\'Q\')}}</div>    <div class="question" ng-cloak>{{statusBarTitle}}</div>  </div></div><div class="center intro valignwrapper">  <div class="valign">    <h1 ng-cloak>{{questionNumber(\'Question \')}}</h1>    <h1 class="counter" ng-cloak>{{counter}}</h1>    <h4 ng-bind-html="introMessage()"></h4>  </div></div><div class="statusbar fixed bottom">  <div class="username" ng-cloak>{{user.cleanName}}</div>  <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div></div>'), e.put("instructions.html", '<div class="screen instructions-screen">  <div class="statusbar top">    <div class="info">      <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>      <div class="username" ng-cloak>{{user.cleanName}}</div>    </div>    <div class="title">      <div class="question" ng-cloak>{{statusBarTitle}}</div>    </div>  </div>  <div class="center main valignwrapper instructions">    <div class="valign pad">      <h1>You&rsquo;re In!</h1>      <h4>Did you see your name appear at the front?</h4>    </div>  </div>  <div class="statusbar fixed bottom">    <div class="username" ng-cloak>{{user.cleanName}}</div>    <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>  </div></div>'), e.put("join.html", '<div class="screen join-screen">	<div class="statusbar">		<div class="title" ng-cloak>{{statusBarTitle}}</div>	</div>	<div class="center join_view valignwrapper">				<div class="valign">			<h1>Play Now</h1>			<form ng-submit="join(user)">				<input id="username" ios7fix class="username" type="text" placeholder="Nickname" ng-model="user.name" maxlength="15" shake="badUsername">				<button type="button" class="btn btn-block btn-greyscale join" blocking tap="join(user)">Join game</button>			</form>		 </div>	</div></div>'), e.put("start.html", '<div class="screen start-screen">  <div class="statusbar top">    <div class="info">      <div ng-cloak ng-class="scoreClass()">{{totalScore}}</div>      <div class="username" ng-cloak>{{user.cleanName}}</div>    </div>    <div class="title">      <div class="question">{{statusBarTitle}}</div>    </div>  </div>  <div class="center main valignwrapper start">    <div class="valign pad">      <h1>Get Ready!</h1>      <div class="spinner" spinner></div>      <h4>Loading</h4>    </div>  </div>  <div class="statusbar fixed bottom">    <div class="username" ng-cloak>{{user.cleanName}}</div>    <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>  </div></div>')
 	}
