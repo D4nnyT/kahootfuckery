@@ -1615,7 +1615,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				change: 1,
 				focusin: 1
 			}) l = "on" + u, f = l in d, f || (d.setAttribute(l, "return;"), f = "function" == typeof d[l]), t[u + "Bubbles"] = f;
-		return s.removeChild(d), s = i = o = d = a = null, I(function() {
+		s.removeChild(d);
+		s = i = o = d = a = null;
+		I(function() {
 			var n, r, i, o, a, s, l, u, p, h, g, m, v = q.getElementsByTagName("body")[0];
 			if (v) {
 				(l = 1, m = "padding:0;margin:0;border:", h = "position:absolute;top:0;left:0;width:1px;height:1px;", g = m + "0;visibility:hidden;", u = "style='" + h + m + "5px solid #000;", p = "<div " + u + "display:block;'><div style='" + m + "0;display:block;overflow:hidden;'></div></div><table " + u + "' cellpadding='0' cellspacing='0'><tr><td></td></tr></table>", n = q.createElement("div"), n.style.cssText = g + "width:0;height:0;position:static;top:0;margin-top:" + l + "px", v.insertBefore(n, v.firstChild), d = q.createElement("div"), n.appendChild(d), d.innerHTML = "<table><tr><td style='" + m + "0;display:none'></td><td>t</td></tr></table>", c = d.getElementsByTagName("td"), f = 0 === c[0].offsetHeight, c[0].style.display = "", c[1].style.display = "none", t.reliableHiddenOffsets = f && 0 === c[0].offsetHeight, e.getComputedStyle && (d.innerHTML = "", s = q.createElement("div"), s.style.width = "0", s.style.marginRight = "0", d.style.width = "2px", d.appendChild(s), t.reliableMarginRight = 0 === (parseInt((e.getComputedStyle(s, null) || {
@@ -1627,7 +1629,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					marginTop: 0
 				}).marginTop), "undefined" != typeof n.style.zoom && (n.style.zoom = 1), v.removeChild(n), s = d = n = null, I.extend(t, a));
 			}
-		}), t
+		});
+		return t;
 	}();
 	var P = /^(?:\{.*\}|\[.*\])$/,
 		F = /([A-Z])/g;
@@ -2234,7 +2237,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			filter: function(e, n) {
 				var r, i, o, a = n.button,
 					s = n.fromElement;
-				return null == e.pageX && null != n.clientX && (r = e.target.ownerDocument || q, i = r.documentElement, o = r.body, e.pageX = n.clientX + (i && i.scrollLeft || o && o.scrollLeft || 0) - (i && i.clientLeft || o && o.clientLeft || 0), e.pageY = n.clientY + (i && i.scrollTop || o && o.scrollTop || 0) - (i && i.clientTop || o && o.clientTop || 0)), !e.relatedTarget && s && (e.relatedTarget = s === e.target ? n.toElement : s), e.which || a === t || (e.which = 1 & a ? 1 : 2 & a ? 3 : 4 & a ? 2 : 0), e
+				null == e.pageX && null != n.clientX && (r = e.target.ownerDocument || q, i = r.documentElement, o = r.body, e.pageX = n.clientX + (i && i.scrollLeft || o && o.scrollLeft || 0) - (i && i.clientLeft || o && o.clientLeft || 0), e.pageY = n.clientY + (i && i.scrollTop || o && o.scrollTop || 0) - (i && i.clientTop || o && o.clientTop || 0));
+				!e.relatedTarget && s && (e.relatedTarget = s === e.target ? n.toElement : s);
+				e.which || a === t || (e.which = 1 & a ? 1 : 2 & a ? 3 : 4 & a ? 2 : 0);
+				return e;
 			}
 		},
 		fix: function(e) {
@@ -2245,7 +2251,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				o = I.event.fixHooks[e.type] || {},
 				a = o.props ? this.props.concat(o.props) : this.props;
 			for (e = I.Event(i), n = a.length; n;) r = a[--n], e[r] = i[r];
-			return e.target || (e.target = i.srcElement || q), 3 === e.target.nodeType && (e.target = e.target.parentNode), e.metaKey === t && (e.metaKey = e.ctrlKey), o.filter ? o.filter(e, i) : e
+			e.target || (e.target = i.srcElement || q);
+			3 === e.target.nodeType && (e.target = e.target.parentNode);
+			e.metaKey === t && (e.metaKey = e.ctrlKey);
+			return o.filter ? o.filter(e, i) : e;
 		},
 		special: {
 			ready: {
@@ -2831,7 +2840,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					},
 					ATTR: function(e, t, n, r, i, o) {
 						var a = e[1] = e[1].replace(l, "");
-						return !o && h.attrMap[a] && (e[1] = h.attrMap[a]), e[4] = (e[4] || e[5] || "").replace(l, ""), "~=" === e[2] && (e[4] = " " + e[4] + " "), e
+						!o && h.attrMap[a] && (e[1] = h.attrMap[a]);
+						e[4] = (e[4] || e[5] || "").replace(l, "");
+						"~=" === e[2] && (e[4] = " " + e[4] + " ");
+						return e;
 					},
 					PSEUDO: function(e, t, n, i, o) {
 						if ("not" === e[1]) {
@@ -3774,7 +3786,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		}
 	}), I.curCSS = I.css, q.defaultView && q.defaultView.getComputedStyle && (jt = function(e, t) {
 		var n, r, i, o, a = e.style;
-		return t = t.replace(Ot, "-$1").toLowerCase(), (r = e.ownerDocument.defaultView) && (i = r.getComputedStyle(e, null)) && (n = i.getPropertyValue(t), "" !== n || I.contains(e.ownerDocument.documentElement, e) || (n = I.style(e, t))), !I.support.pixelMargin && i && Pt.test(t) && Dt.test(n) && (o = a.width, a.width = n, n = i.width, a.width = o), n
+		t = t.replace(Ot, "-$1").toLowerCase();
+		(r = e.ownerDocument.defaultView) && (i = r.getComputedStyle(e, null)) && (n = i.getPropertyValue(t), "" !== n || I.contains(e.ownerDocument.documentElement, e) || (n = I.style(e, t)));
+		!I.support.pixelMargin && i && Pt.test(t) && Dt.test(n) && (o = a.width, a.width = n, n = i.width, a.width = o);
+		return n;
 	}), q.documentElement.currentStyle && (_t = function(e, t) {
 		var n, r, i, o = e.currentStyle && e.currentStyle[t],
 			a = e.style;
@@ -4064,7 +4079,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						return this;
 					},
 					abort: function(e) {
-						return e = e || "abort", s && s.abort(e), r(0, e), this
+						e = e || "abort";
+						s && s.abort(e);
+						r(0, e);
+						return this;
 					}
 				};
 			g.promise(k);
@@ -5670,7 +5688,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
 			function i(e, t) {
 				var n, i, o = function() {};
-				return o.prototype = (x(e) ? e[e.length - 1] : e).prototype, n = new o, i = r(e, n, t), b(i) || T(i) ? i : n
+				o.prototype = (x(e) ? e[e.length - 1] : e).prototype;
+				n = new o;
+				i = r(e, n, t);
+				return b(i) || T(i) ? i : n;
 			}
 			return {
 				invoke: r,
@@ -5856,9 +5877,12 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 		}, l.defer = function(e, t) {
 			var n;
-			return y++, n = p(function() {
+			y++;
+			n = p(function() {
 				delete m[n], a(e)
-			}, t || 0), m[n] = true, n
+			}, t || 0);
+			m[n] = true;
+			return n;
 		}, l.defer.cancel = function(e) {
 			return m[e] ? (delete m[e], g(e), a(h), true) : false
 		}
@@ -5914,7 +5938,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							i(n)
 						}
 						if (!v(t)) {
-							return e in c || a++, c[e] = t, a > l && this.remove(p.key), t;
+							e in c || a++;
+							c[e] = t;
+							a > l && this.remove(p.key);
+							return t;
 						}
 					},
 					get: function(e) {
@@ -6277,7 +6304,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							_ = Math.max(_, k.priority);
 						}
 					}
-					return m.scope = w && w.scope === true, m.transclude = J && et, p.hasElementTranscludeDirective = X, m
+					m.scope = w && w.scope === true;
+					m.transclude = J && et;
+					p.hasElementTranscludeDirective = X;
+					return m;
 				}
 
 				function P(e) {
@@ -8095,11 +8125,14 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							return e
 						}
 					};
-					return e && (t.prototype = new e), t.prototype.valueOf = function() {
+					e && (t.prototype = new e);
+					t.prototype.valueOf = function() {
 						return this.$$unwrapTrustedValue()
-					}, t.prototype.toString = function() {
+					};
+					t.prototype.toString = function() {
 						return this.$$unwrapTrustedValue().toString()
-					}, t
+					};
+					return t;
 				}
 
 				function s(e, t) {
@@ -8250,7 +8283,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					var c, l = n.defer(),
 						u = l.promise,
 						f = y(s) && !s;
-					return c = t.defer(function() {
+					c = t.defer(function() {
 						try {
 							l.resolve(i())
 						} catch (t) {
@@ -8259,7 +8292,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							delete o[u.$$timeoutId]
 						}
 						f || e.$apply()
-					}, a), u.$$timeoutId = c, o[c] = l, u
+					}, a);
+					u.$$timeoutId = c;
+					o[c] = l;
+					return u;
 				}
 				var o = {};
 				i.cancel = function(e) {
@@ -9090,7 +9126,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		css: function(e, t, r) {
 			if (t = ut(t), !y(r)) {
 				var i;
-				return 8 >= yr && (i = e.currentStyle && e.currentStyle[t], "" === i && (i = "auto")), i = i || e.style[t], 8 >= yr && (i = "" === i ? n : i), i
+				8 >= yr && (i = e.currentStyle && e.currentStyle[t], "" === i && (i = "auto"));
+				i = i || e.style[t];
+				8 >= yr && (i = "" === i ? n : i);
+				return i;
 			}
 			e.style[t] = r
 		},
@@ -9398,7 +9437,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				return this.$$url;
 			}
 			var n = ii.exec(e);
-			return n[1] && this.path(decodeURIComponent(n[1])), (n[2] || n[1]) && this.search(n[3] || ""), this.hash(n[5] || "", t), this
+			n[1] && this.path(decodeURIComponent(n[1]));
+			(n[2] || n[1]) && this.search(n[3] || "");
+			this.hash(n[5] || "", t);
+			return this;
 		},
 		protocol: gn("$$protocol"),
 		host: gn("$$host"),
@@ -9726,7 +9768,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				})
 			});
 			var n = t ? this.primary() : this.statements();
-			return 0 !== this.tokens.length && this.throwError("is an unexpected token", this.tokens[0]), n.literal = !!n.literal, n.constant = !!n.constant, n
+			0 !== this.tokens.length && this.throwError("is an unexpected token", this.tokens[0]);
+			n.literal = !!n.literal;
+			n.constant = !!n.constant;
+			return n;
 		},
 		primary: function() {
 			var e;
@@ -11272,11 +11317,13 @@ org.cometd.CallbackPollingTransport = function() {
 	var e = new org.cometd.RequestTransport,
 		t = org.cometd.Transport.derive(e),
 		n = 2e3;
-	return t.accept = function() {
+	t.accept = function() {
 		return true
-	}, t.jsonpSend = function() {
+	};
+	t.jsonpSend = function() {
 		throw "Abstract"
-	}, t.transportSend = function(e, t) {
+	};
+	t.transportSend = function(e, t) {
 		for (var r = this, i = 0, o = e.messages.length, a = []; o > 0;) {
 			var s = org.cometd.JSON.toJSON(e.messages.slice(i, i + o)),
 				c = e.url.length + encodeURI(s).length;
@@ -11336,7 +11383,8 @@ org.cometd.CallbackPollingTransport = function() {
 				r.transportFailure(u, t, "error", m)
 			}, 0)
 		}
-	}, t
+	};
+	return t;
 };
 org.cometd.RequestTransport = function() {
 	function e(e) {
@@ -12098,7 +12146,10 @@ org.cometd.Cometd = function(e) {
 			a = ft[e];
 		a || (a = [], ft[e] = a);
 		var s = a.push(o) - 1;
-		return o.id = s, o.handle = [e, s], tt._debug("Added listener", o, "for channel", e, "having id =", s), o.handle
+		o.id = s;
+		o.handle = [e, s];
+		tt._debug("Added listener", o, "for channel", e, "having id =", s);
+		return o.handle;
 	}
 
 	function Y(e) {
@@ -12502,7 +12553,7 @@ org.cometd.Cometd = function(e) {
 				c = false,
 				l = t.copy,
 				u = t.isUndefined;
-			return r.addPollFn(function() {
+			r.addPollFn(function() {
 				var t = r.cookies();
 				if (o != t) {
 					o = t;
@@ -12510,7 +12561,10 @@ org.cometd.Cometd = function(e) {
 					l(t, a);
 					c && e.$apply();
 				}
-			})(), c = true, e.$watch(i), a
+			})();
+			c = true;
+			e.$watch(i);
+			return a;
 		}
 	]).factory("$cookieStore", ["$cookies",
 		function(e) {
@@ -12587,7 +12641,8 @@ org.cometd.Cometd = function(e) {
 					o(e || {}, this)
 				}
 				var w = new l(s);
-				return v = h({}, f, v), p(v, function(i, s) {
+				v = h({}, f, v);
+				p(v, function(i, s) {
 					var c = /^(POST|PUT|PATCH)$/i.test(i.method);
 					$[s] = function(s, l, u, f) {
 						var v, k, x, T = {};
@@ -12667,9 +12722,11 @@ org.cometd.Cometd = function(e) {
 						var r = $[s].call(this, e, this, t, n);
 						return r.$promise || r
 					}
-				}), $.bind = function(e) {
+				});
+				$.bind = function(e) {
 					return u(s, h({}, c, e), v)
-				}, $
+				};
+				return $;
 			}
 			var f = {
 					get: {
@@ -12795,13 +12852,16 @@ org.cometd.Cometd = function(e) {
 						(e || r) && (g = false, n.$broadcast("$routeChangeStart", e, r), m.current = e, e && e.redirectTo && (t.isString(e.redirectTo) ? i.path(h(e.redirectTo, e.params)).search(e.params).replace() : i.url(e.redirectTo(e.pathParams, i.path(), i.search())).replace()), a.when(e).then(function() {
 							if (e) {
 								var n, r, i = t.extend({}, e.resolve);
-								return t.forEach(i, function(e, n) {
+								t.forEach(i, function(e, n) {
 									i[n] = t.isString(e) ? s.get(e) : s.invoke(e)
-								}), t.isDefined(n = e.template) ? t.isFunction(n) && (n = n(e.params)) : t.isDefined(r = e.templateUrl) && (t.isFunction(r) && (r = r(e.params)), r = u.getTrustedResourceUrl(r), t.isDefined(r) && (e.loadedTemplateUrl = r, n = c.get(r, {
+								});
+								t.isDefined(n = e.template) ? t.isFunction(n) && (n = n(e.params)) : t.isDefined(r = e.templateUrl) && (t.isFunction(r) && (r = r(e.params)), r = u.getTrustedResourceUrl(r), t.isDefined(r) && (e.loadedTemplateUrl = r, n = c.get(r, {
 									cache: l
 								}).then(function(e) {
 									return e.data
-								}))), t.isDefined(n) && (i.$template = n), a.all(i)
+								})));
+								t.isDefined(n) && (i.$template = n);
+								return a.all(i);
 							}
 						}).then(function(i) {
 							if (e == m.current) {
@@ -13616,7 +13676,10 @@ window.Modernizr = function(e, t, n) {
 	}
 
 	function l(e, t, n, r, o) {
-		return y = 0, t = t || "j", i(e) ? c(t == "c" ? x : k, e, t, this.i++, n, r, o) : (v.splice(this.i++, 0, e), 1 == v.length && s()), this
+		y = 0;
+		t = t || "j";
+		i(e) ? c(t == "c" ? x : k, e, t, this.i++, n, r, o) : (v.splice(this.i++, 0, e), 1 == v.length && s());
+		return this;
 	}
 
 	function u() {
@@ -13843,7 +13906,10 @@ var addToHome = function(e) {
 	}
 
 	function s() {
-		return b.removeEventListener("webkitTransitionEnd", s, false), b.style.webkitTransitionProperty = "-webkit-transform", b.style.webkitTransitionDuration = "0.2s", k ? void(5 > g && k && (w = setInterval(c, E.iterations))) : (b.parentNode.removeChild(b), void(b = null))
+		b.removeEventListener("webkitTransitionEnd", s, false);
+		b.style.webkitTransitionProperty = "-webkit-transform";
+		b.style.webkitTransitionDuration = "0.2s";
+		return k ? void(5 > g && k && (w = setInterval(c, E.iterations))) : (b.parentNode.removeChild(b), void(b = null));
 	}
 
 	function c() {
@@ -13931,7 +13997,10 @@ var addToHome = function(e) {
 					t = t.replace(o, "&Klt;" + i + "&Kgt;"), t = t.replace(a, "&Klt;/" + i + "&Kgt;")
 				}
 				var s = new RegExp("<[^>]>+", "gi");
-				return t = t.replace(s, ""), t = t.replace(/\&Klt;/g, "<"), t = t.replace(/\&Kgt;/g, ">"), t = t.replace(/"/g, "&quot;")
+				t = t.replace(s, "");
+				t = t.replace(/\&Klt;/g, "<");
+				t = t.replace(/\&Kgt;/g, ">");
+				return t = t.replace(/"/g, "&quot;");
 			},
 			characterCount: function(e) {
 				if (!e || !e.length) {
@@ -14773,7 +14842,10 @@ angular.module("app.services.random", []).factory("$random", [
 	function() {
 		function e(e, t) {
 			var o = [];
-			return e = i(r(t ? [e, a] : arguments.length ? e : [(new Date).getTime(), a, window], 3), o), p = new n(o), i(p.S, a), e
+			e = i(r(t ? [e, a] : arguments.length ? e : [(new Date).getTime(), a, window], 3), o);
+			p = new n(o);
+			i(p.S, a);
+			return e;
 		}
 
 		function t() {
@@ -14953,7 +15025,10 @@ angular.module("app.services.quiz", ["underscore"]).factory("$quiz", ["$config",
 ]);
 angular.module("app.services.ios7fixes", ["ng"]).factory("$ios7fixes", ["$window",
 	function(e) {
-		return e.navigator.userAgent.match(/iPad;.*CPU.*OS 7_\d/i) && $("html").addClass("ipad ios7"), e.navigator.userAgent.indexOf("CriOS") >= 0 && $("html").addClass("chromeios"), e.navigator.standalone && $("html").addClass("standalone"), null
+		e.navigator.userAgent.match(/iPad;.*CPU.*OS 7_\d/i) && $("html").addClass("ipad ios7");
+		e.navigator.userAgent.indexOf("CriOS") >= 0 && $("html").addClass("chromeios");
+		e.navigator.standalone && $("html").addClass("standalone");
+		return null;
 	}
 ]);
 angular.module("app.services.lq.analytics", ["ng"]).factory("$analytics", ["$rootScope", "$window", "$location",
@@ -15861,7 +15936,10 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 			n = t.length;
 		return function() {
 			var r, i = arguments;
-			return i.length && (t.length = n, Zt.apply(t, i)), r = 1 == t.length ? e.call(this, t[0]) : e.apply(this, t), t.length = n, r
+			i.length && (t.length = n, Zt.apply(t, i));
+			r = 1 == t.length ? e.call(this, t[0]) : e.apply(this, t);
+			t.length = n;
+			return r;
 		}
 	}
 
@@ -15873,7 +15951,10 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 		return function() {
 			var t = new Date,
 				l = n - (t - c);
-			return i = arguments, a = this, 0 >= l ? (c = t, o = e.apply(a, i)) : s || (s = cn(r, l)), o
+			i = arguments;
+			a = this;
+			0 >= l ? (c = t, o = e.apply(a, i)) : s || (s = cn(r, l));
+			return o;
 		}
 	}
 
@@ -16282,7 +16363,10 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 		var t = Gt[e];
 		r.prototype[e] = function() {
 			var e = this._wrapped;
-			return t.apply(e, arguments), 0 === e.length && delete e[0], this._chain && (e = new r(e), e._chain = true), e
+			t.apply(e, arguments);
+			0 === e.length && delete e[0];
+			this._chain && (e = new r(e), e._chain = true);
+			return e;
 		}
 	}), wn(["concat", "join", "slice"], function(e) {
 		var t = Gt[e];
@@ -16704,11 +16788,14 @@ angular.module("app", ["app.filters", "app.directives", "app.directives.spinner"
 	function() {}
 ]);
 appCtrl.loadContent = function(e, t, n, r) {
-	return window.device && navigator.splashscreen.hide(), n.defer = e.defer(), n.siteAppContent ? n.defer.resolve() : (r.getContent(), n.$on("loadContentSuccess", function() {
+	window.device && navigator.splashscreen.hide();
+	n.defer = e.defer();
+	n.siteAppContent ? n.defer.resolve() : (r.getContent(), n.$on("loadContentSuccess", function() {
 		n.defer.resolve()
 	}), n.$on("loadContentFailure", function() {
 		n.defer.reject()
-	})), n.defer.promise
+	}));
+	return n.defer.promise;
 };
 appCtrl.loadContent.$inject = ["$q", "$timeout", "$rootScope", "$lang", "$ios7fixes"];
 angular.module("app.services.auth", []).factory("$authentication", [
