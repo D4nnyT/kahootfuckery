@@ -483,9 +483,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	function c() {
 		var t = {};
 		if (1 == e.result.rank) {
-			(t.winner = true, t.position = "I won");
+			t.winner = true;
+			t.position = "I won";
 		} else {
-			(t.winner = false, t.position = "I finished " + e.result.rank + n.ordinal(e.result.rank));
+			t.winner = false;
+			t.position = "I finished " + e.result.rank + n.ordinal(e.result.rank);
 		}
 		t.score = e.result.totalScore + " Kahoots";
 		t.kahoots = e.result.totalScore;
@@ -1398,7 +1400,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						if (e.DOMParser) {
 							(i = new DOMParser, r = i.parseFromString(n, "text/xml"));
 						} else {
-							(r = new ActiveXObject("Microsoft.XMLDOM"), r.async = "false", r.loadXML(n));
+							r = new ActiveXObject("Microsoft.XMLDOM");
+							r.async = "false";
+							r.loadXML(n);
 						}
 					} catch (o) {
 						r = t
@@ -2049,7 +2053,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		},
 		_unmark: function(e, t, n) {
 			if (e !== true) {
-				(n = t, t = e, e = false)
+				n = t;
+				t = e;
+				e = false;
 			}
 			if (t) {
 				n = n || "fx";
@@ -2083,7 +2089,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		queue: function(e, n) {
 			var r = 2;
 			if ("string" != typeof e) {
-				(n = e, e = "fx", r--)
+				n = e;
+				e = "fx";
+				r--;
 			}
 			if (arguments.length < r) {
 				return I.queue(this[0], e);
@@ -2452,7 +2460,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (t === false) {
 				I.removeAttr(e, n);
 			} else {
-				(r = I.propFix[n] || n, r in e && (e[r] = true), e.setAttribute(n, n.toLowerCase()));
+				r = I.propFix[n] || n;
+				r in e && (e[r] = true);
+				e.setAttribute(n, n.toLowerCase());
 			}
 			return n;
 		}
@@ -2870,7 +2880,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					o.selector
 				}
 				if ((!i || i !== r && !I.contains(r, i))) {
-					(e.type = o.origType, n = o.handler.apply(this, arguments), e.type = t)
+					e.type = o.origType;
+					n = o.handler.apply(this, arguments);
+					e.type = t;
 				}
 				return n;
 			}
@@ -2982,10 +2994,12 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				return this;
 			}
 			if (1 === o) {
-				(s = i, i = function(e) {
+				s = i;
+				i = function(e) {
 					I().off(e);
 					return s.apply(this, arguments);
-				}, i.guid = s.guid || (s.guid = I.guid++))
+				};
+				i.guid = s.guid || (s.guid = I.guid++);
 			}
 			return this.each(function() {
 				I.event.add(this, e, i, r, n)
@@ -4394,7 +4408,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			(a = q)
 		}
 		if (!(!(1 === e.length && "string" == typeof s && s.length < 512 && a === q && "<" === s.charAt(0)) || kt.test(s) || !I.support.checkClone && Tt.test(s) || !I.support.html5Clone && xt.test(s))) {
-			(i = true, o = I.fragments[s], o && 1 !== o && (r = o))
+			i = true;
+			o = I.fragments[s];
+			o && 1 !== o && (r = o);
 		}
 		if (!(r)) {
 			(r = a.createDocumentFragment(), I.clean(e, a, r, n))
@@ -4773,9 +4789,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				dataType: "html",
 				data: n,
 				complete: function(e, t, n) {
-					n = e.responseText, e.isResolved() && (e.done(function(e) {
+					n = e.responseText;
+					e.isResolved() && (e.done(function(e) {
 						n = e
-					}), s.html(o ? I("<div>").append(n.replace(Zt, "")).find(o) : n)), r && s.each(r, [n, t, e])
+					}), s.html(o ? I("<div>").append(n.replace(Zt, "")).find(o) : n));
+					r && s.each(r, [n, t, e]);
 				}
 			});
 			return this;
@@ -4818,7 +4836,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}), I.each(["get", "post"], function(e, n) {
 		I[n] = function(e, r, i, o) {
 			if (I.isFunction(r)) {
-				(o = o || i, i = r, r = t)
+				o = o || i;
+				i = r;
+				r = t;
 			}
 			return I.ajax({
 				type: n,
@@ -5349,7 +5369,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					if ($n.test(n)) {
 						(d = I._data(this, "toggle" + r) || ("toggle" === n ? g ? "show" : "hide" : 0), d ? (I._data(this, "toggle" + r, "show" === d ? "hide" : "show"), i[d]()) : i[n]());
 					} else {
-						(c = wn.exec(n), l = i.cur(), c ? (u = parseFloat(c[2]), f = c[3] || (I.cssNumber[r] ? "" : "px"), "px" !== f && (I.style(this, r, (u || 1) + f), l = (u || 1) / i.cur() * l, I.style(this, r, l + f)), c[1] && (u = ("-=" === c[1] ? -1 : 1) * u + l), i.custom(l, u, f)) : i.custom(l, n, ""));
+						c = wn.exec(n);
+						l = i.cur();
+						c ? (u = parseFloat(c[2]), f = c[3] || (I.cssNumber[r] ? "" : "px"), "px" !== f && (I.style(this, r, (u || 1) + f), l = (u || 1) / i.cur() * l, I.style(this, r, l + f)), c[1] && (u = ("-=" === c[1] ? -1 : 1) * u + l), i.custom(l, u, f)) : i.custom(l, n, "");
 					}
 				}
 				return true
@@ -5363,7 +5385,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		},
 		stop: function(e, n, r) {
 			if ("string" != typeof e) {
-				(r = n, n = e, e = t)
+				r = n;
+				n = e;
+				e = t;
 			}
 			if (n && e !== false) {
 				this.queue(e || "fx", [])
@@ -5385,7 +5409,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 				for (n = o.length; n--;)
 					if (!(o[n].elem !== this || null != e && o[n].queue !== e)) {
-						(r ? o[n](true) : o[n].saveState(), i = true, o.splice(n, 1))
+						r ? o[n](true) : o[n].saveState();
+						i = true;
+						o.splice(n, 1);
 					}
 				if (!(r && i)) {
 					I.dequeue(this, e)
@@ -5488,7 +5514,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			this.options.orig[this.prop] = e || I.style(this.elem, this.prop), this.options.show = true, e !== t ? this.custom(this.cur(), e) : this.custom("width" === this.prop || "height" === this.prop ? 1 : 0, this.cur()), I(this.elem).show()
 		},
 		hide: function() {
-			this.options.orig[this.prop] = I._data(this.elem, "fxshow" + this.prop) || I.style(this.elem, this.prop), this.options.hide = true, this.custom(this.cur(), 0)
+			this.options.orig[this.prop] = I._data(this.elem, "fxshow" + this.prop) || I.style(this.elem, this.prop);
+			this.options.hide = true;
+			this.custom(this.cur(), 0);
 		},
 		step: function(e) {
 			var t, n, r, i = yn || A(),
@@ -6298,13 +6326,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}
 
 	function tt() {
-		$r = e.jQuery, $r ? (br = $r, f($r.fn, {
+		$r = e.jQuery;
+		$r ? (br = $r, f($r.fn, {
 			scope: Wr.scope,
 			isolateScope: Wr.isolateScope,
 			controller: Wr.controller,
 			injector: Wr.injector,
 			inheritedData: Wr.inheritedData
-		}), ft("remove", true, true, false), ft("empty", false, false, false), ft("html", false, false, true)) : br = gt, Ar.element = br
+		}), ft("remove", true, true, false), ft("empty", false, false, false), ft("html", false, false, true)) : br = gt;
+		Ar.element = br;
 	}
 
 	function nt(e, t, n) {
@@ -6461,7 +6491,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			function(e) {
 				e.provider({
 					$$sanitizeUri: _n
-				}), e.provider("$compile", Rt).directive({
+				});
+				e.provider("$compile", Rt).directive({
 					a: Ci,
 					input: Ii,
 					textarea: Ii,
@@ -6501,7 +6532,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					ngValue: Vi
 				}).directive({
 					ngInclude: io
-				}).directive(Si).directive(to), e.provider({
+				}).directive(Si).directive(to);
+				e.provider({
 					$anchorScroll: It,
 					$animate: ei,
 					$browser: Pt,
@@ -6527,7 +6559,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					$window: Rn,
 					$$rAF: Nn,
 					$$asyncCallback: Dt
-				})
+				});
 			}
 		])
 	}
@@ -6807,7 +6839,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				})
 			})), e.$inject = t);
 		} else if (x(e)) {
-			(i = e.length - 1, rt(e[i], "fn"), t = e.slice(0, i));
+			i = e.length - 1;
+			rt(e[i], "fn");
+			t = e.slice(0, i);
 		} else {
 			rt(e, "fn", true);
 		}
@@ -6855,7 +6889,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		}
 
 		function s(e, t) {
-			it(e, "constant"), y[e] = t, k[e] = t
+			it(e, "constant");
+			y[e] = t;
+			k[e] = t;
 		}
 
 		function l(e, t) {
@@ -7125,7 +7161,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			A = false;
 		l.onUrlChange = function(t) {
 			if (!(A)) {
-				(i.history && br(e).on("popstate", c), i.hashchange ? br(e).on("hashchange", c) : l.addPollFn(c), A = true)
+				i.history && br(e).on("popstate", c);
+				i.hashchange ? br(e).on("hashchange", c) : l.addPollFn(c);
+				A = true;
 			}
 			S.push(t);
 			return t;
@@ -7309,7 +7347,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		this.directive = function d(t, n) {
 			it(t, "directive");
 			if ($(t)) {
-				(nt(n, "directiveFactory"), i.hasOwnProperty(t) || (i[t] = [], e.factory(t + a, ["$injector", "$exceptionHandler",
+				nt(n, "directiveFactory");
+				i.hasOwnProperty(t) || (i[t] = [], e.factory(t + a, ["$injector", "$exceptionHandler",
 					function(e, n) {
 						var r = [];
 						o(i[t], function(i, o) {
@@ -7324,7 +7363,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						});
 						return r;
 					}
-				])), i[t].push(n));
+				]));
+				i[t].push(n);
 			} else {
 				o(t, c(d));
 			}
@@ -7393,7 +7433,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							s = h[d++];
 							l = br(c);
 							if (a) {
-								(a.scope ? (u = e.$new(), l.data("$scope", u)) : u = e, f = a.transclude, f || !o && t ? a(s, u, c, i, _(e, f || t)) : a(s, u, c, i, o));
+								a.scope ? (u = e.$new(), l.data("$scope", u)) : u = e;
+								f = a.transclude;
+								f || !o && t ? a(s, u, c, i, _(e, f || t)) : a(s, u, c, i, o);
 							} else {
 								s && s(e, c.childNodes, n, o);
 							}
@@ -7411,7 +7453,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					return function(n, r, i) {
 						var o = false;
 						if (!(n)) {
-							(n = e.$new(), n.$$transcluded = true, o = true)
+							n = e.$new();
+							n.$$transcluded = true;
+							o = true;
 						}
 						var a = t(n, r, i);
 						if (o) {
@@ -8264,7 +8308,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
 				function m(t, n, r) {
 					function o(e, t, n, r) {
-						l && (Kt(e) ? l.put(g, [e, t, Jt(n), r]) : l.remove(g)), s(t, e, n, r), i.$$phase || i.$apply()
+						l && (Kt(e) ? l.put(g, [e, t, Jt(n), r]) : l.remove(g));
+						s(t, e, n, r);
+						i.$$phase || i.$apply();
 					}
 
 					function s(e, n, r, i) {
@@ -8379,7 +8425,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		function a(e, t) {
 			var n = i.createElement("script"),
 				r = function() {
-					n.onreadystatechange = n.onload = n.onerror = null, i.body.removeChild(n), t && t()
+					n.onreadystatechange = n.onload = n.onerror = null;
+					i.body.removeChild(n);
+					t && t();
 				};
 			n.type = "text/javascript";
 			n.src = e;
@@ -8400,7 +8448,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		var s = -1;
 		return function(i, c, l, u, f, d, p, g) {
 			function m() {
-				b = s, w && w(), k && k.abort()
+				b = s;
+				w && w();
+				k && k.abort();
 			}
 
 			function v(t, r, i, o, a) {
@@ -8555,7 +8605,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					}
 					f.then(null, null, r);
 					f.$$intervalId = c(function() {
-						u.notify(d++), a > 0 && d >= a && (u.resolve(d), l(f.$$intervalId), delete i[f.$$intervalId]), p || e.$apply()
+						u.notify(d++);
+						a > 0 && d >= a && (u.resolve(d), l(f.$$intervalId), delete i[f.$$intervalId]);
+						p || e.$apply();
 					}, o);
 					i[f.$$intervalId] = u;
 					return f;
@@ -8803,7 +8855,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						if (o && !n.attr("target") && s && !t.isDefaultPrevented()) {
 							t.preventDefault();
 							if (s != i.url()) {
-								(c.$$parse(s), r.$apply(), e.angular["ff-684208-preventDefault"] = true)
+								c.$$parse(s);
+								r.$apply();
+								e.angular["ff-684208-preventDefault"] = true;
 							}
 						}
 					}
@@ -9488,7 +9542,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 													(f++, a[t] = o[t])
 												}
 											} else {
-												(m++, a[t] = o[t], f++);
+												m++;
+												a[t] = o[t];
+												f++;
 											}
 										}
 									if (m > e) {
@@ -10459,7 +10515,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 
 	function rr(e, t, n, r) {
 		function i(t, n) {
-			n = n ? "-" + et(n, "-") : "", r.removeClass(e, (t ? Li : Di) + n), r.addClass(e, (t ? Di : Li) + n)
+			n = n ? "-" + et(n, "-") : "";
+			r.removeClass(e, (t ? Li : Di) + n);
+			r.addClass(e, (t ? Di : Li) + n);
 		}
 		var a = this,
 			s = e.parent().controller("form") || Ai,
@@ -10475,12 +10533,16 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		e.addClass(Pi);
 		i(true);
 		a.$addControl = function(e) {
-			it(e.$name, "input"), u.push(e), e.$name && (a[e.$name] = e)
+			it(e.$name, "input");
+			u.push(e);
+			e.$name && (a[e.$name] = e);
 		};
 		a.$removeControl = function(e) {
-			e.$name && a[e.$name] === e && delete a[e.$name], o(l, function(t, n) {
+			e.$name && a[e.$name] === e && delete a[e.$name];
+			o(l, function(t, n) {
 				a.$setValidity(n, true, e)
-			}), O(u, e)
+			});
+			O(u, e);
 		};
 		a.$setValidity = function(e, t, n) {
 			var r = l[e];
@@ -10489,7 +10551,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				if (!r.length) {
 					c--;
 					if (!(c)) {
-						(i(t), a.$valid = true, a.$invalid = false)
+						i(t);
+						a.$valid = true;
+						a.$invalid = false;
 					}
 					l[e] = false;
 					i(true, e);
@@ -11166,9 +11230,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		},
 		off: yt,
 		one: function(e, t, n) {
-			e = br(e), e.on(t, function r() {
+			e = br(e);
+			e.on(t, function r() {
 				e.off(t, n), e.off(t, r)
-			}), e.on(t, n)
+			});
+			e.on(t, n);
 		},
 		replaceWith: function(e, t) {
 			var n, r = e.parentNode;
@@ -11279,7 +11345,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			} else {
 				return this;
 			}
-		}, gt.prototype.bind = gt.prototype.on, gt.prototype.unbind = gt.prototype.off
+		};
+		gt.prototype.bind = gt.prototype.on;
+		gt.prototype.unbind = gt.prototype.off;
 	}), qt.prototype = {
 		put: function(e, t) {
 			this[_t(e)] = t
@@ -11334,14 +11402,18 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								this.enter(e, t, n, r)
 							},
 							addClass: function(e, t, r) {
-								t = $(t) ? t : x(t) ? t.join(" ") : "", o(e, function(e) {
+								t = $(t) ? t : x(t) ? t.join(" ") : "";
+								o(e, function(e) {
 									Tt(e, t)
-								}), n(r)
+								});
+								n(r);
 							},
 							removeClass: function(e, t, r) {
-								t = $(t) ? t : x(t) ? t.join(" ") : "", o(e, function(e) {
+								t = $(t) ? t : x(t) ? t.join(" ") : "";
+								o(e, function(e) {
 									xt(e, t)
-								}), n(r)
+								});
+								n(r);
 							},
 							setClass: function(e, t, r, i) {
 								o(e, function(e) {
@@ -11711,7 +11783,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		}
 	};
 	var pi = function(e, t, n) {
-		this.lexer = e, this.$filter = t, this.options = n
+		this.lexer = e;
+		this.$filter = t;
+		this.options = n;
 	};
 	pi.ZERO = f(function() {
 		return 0
@@ -12160,7 +12234,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 									var s = r.parent().controller("form"),
 										c = i.name || i.ngForm;
 									c && wn(e, c, o, c), s && r.on("$destroy", function() {
-										s.$removeControl(o), c && wn(e, c, n, c), f(o, Ai)
+										s.$removeControl(o);
+										c && wn(e, c, n, c);
+										f(o, Ai);
 									})
 								}
 							}
@@ -12246,7 +12322,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								d--;
 							}
 							if (!(d)) {
-								(c(true), this.$valid = true, this.$invalid = false)
+								c(true);
+								this.$valid = true;
+								this.$invalid = false;
 							}
 						} else {
 							c(false);
@@ -12479,15 +12557,19 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							if (W(o)) {
 								if (!(c)) {
 									(c = n.$new(), a(c, function(n) {
-										n[n.length++] = t.createComment(" end ngIf: " + i.ngIf + " "), s = {
+										n[n.length++] = t.createComment(" end ngIf: " + i.ngIf + " ");
+										s = {
 											clone: n
-										}, e.enter(n, r.parent(), r)
+										};
+										e.enter(n, r.parent(), r);
 									}))
 								}
 							} else {
-								(l && (l.remove(), l = null), c && (c.$destroy(), c = null), s && (l = at(s.clone), e.leave(l, function() {
+								l && (l.remove(), l = null);
+								c && (c.$destroy(), c = null);
+								s && (l = at(s.clone), e.leave(l, function() {
 									l = null
-								}), s = null));
+								}), s = null);
 							}
 						})
 					}
@@ -12509,9 +12591,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						return function(o, a, u, f, d) {
 							var p, h, g, m = 0,
 								v = function() {
-									h && (h.remove(), h = null), p && (p.$destroy(), p = null), g && (r.leave(g, function() {
+									h && (h.remove(), h = null);
+									p && (p.$destroy(), p = null);
+									g && (r.leave(g, function() {
 										h = null
-									}), h = g, g = null)
+									}), h = g, g = null);
 								};
 							o.$watch(i.parseAsResourceUrl(s), function(i) {
 								var s = function() {
@@ -12854,25 +12938,35 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							var r, i, o = this,
 								a = {},
 								c = s;
-							o.databound = n.ngModel, o.init = function(e, t, n) {
-								c = e, r = t, i = n
-							}, o.addOption = function(t) {
-								it(t, '"option value"'), a[t] = true, t == c.$viewValue && (e.val(t), i.parent() && i.remove())
-							}, o.removeOption = function(e) {
+							o.databound = n.ngModel;
+							o.init = function(e, t, n) {
+								c = e;
+								r = t;
+								i = n;
+							};
+							o.addOption = function(t) {
+								it(t, '"option value"');
+								a[t] = true;
+								t == c.$viewValue && (e.val(t), i.parent() && i.remove());
+							};
+							o.removeOption = function(e) {
 								if (this.hasOption(e)) {
 									delete a[e];
 									if (e == c.$viewValue) {
 										this.renderUnknownOption(e)
 									}
 								}
-							}, o.renderUnknownOption = function(t) {
+							};
+							o.renderUnknownOption = function(t) {
 								var n = "? " + _t(t) + " ?";
 								i.val(n), e.prepend(i), e.val(n), i.prop("selected", true)
-							}, o.hasOption = function(e) {
-								return a.hasOwnProperty(e)
-							}, t.$on("$destroy", function() {
-								o.renderUnknownOption = h
-							})
+							};
+							o.hasOption = function(e) {
+								return a.hasOwnProperty(e);
+							};
+							t.$on("$destroy", function() {
+								o.renderUnknownOption = h;
+							});
 						}
 					],
 					link: function(s, c, l, u) {
@@ -12880,7 +12974,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							n.$render = function() {
 								var e = n.$viewValue;
 								if (r.hasOption(e)) {
-									(C.parent() && C.remove(), t.val(e), "" === e && h.prop("selected", true));
+									C.parent() && C.remove();
+									t.val(e);
+									"" === e && h.prop("selected", true);
 								} else if (v(e) && h) {
 									t.val("");
 								} else {
@@ -13124,7 +13220,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								a = n.parent(),
 								s = a.data(o) || a.parent().data(o);
 							s && s.databound ? n.prop("selected", false) : s = t, i ? e.$watch(i, function(e, t) {
-								r.$set("value", e), e !== t && s.removeOption(t), s.addOption(e)
+								r.$set("value", e);
+								e !== t && s.removeOption(t);
+								s.addOption(e);
 							}) : s.addOption(r.value), n.on("$destroy", function() {
 								s.removeOption(r.value)
 							})
@@ -13588,12 +13686,16 @@ org.cometd.RequestTransport = function() {
 	};
 	s.transportSuccess = function(e, t, n) {
 		if (!(t.expired)) {
-			(this.clearTimeout(t.timeout), this.complete(t, true, t.metaConnect), n && n.length > 0 ? e.onSuccess(n) : e.onFailure(t.xhr, e.messages, "Empty HTTP response"))
+			this.clearTimeout(t.timeout);
+			this.complete(t, true, t.metaConnect);
+			n && n.length > 0 ? e.onSuccess(n) : e.onFailure(t.xhr, e.messages, "Empty HTTP response");
 		}
 	};
 	s.transportFailure = function(e, t, n, r) {
 		if (!(t.expired)) {
-			(this.clearTimeout(t.timeout), this.complete(t, false, t.metaConnect), e.onFailure(t.xhr, e.messages, n, r))
+			this.clearTimeout(t.timeout);
+			this.complete(t, false, t.metaConnect);
+			e.onFailure(t.xhr, e.messages, n, r);
 		}
 	};
 	s.send = function(e, t) {
@@ -14017,9 +14119,11 @@ org.cometd.Cometd = function(e) {
 	}
 
 	function E() {
-		a("handshaking"), ut = true, g(function() {
+		a("handshaking");
+		ut = true;
+		g(function() {
 			A(et)
-		})
+		});
 	}
 
 	function N(e) {
@@ -14118,7 +14222,9 @@ org.cometd.Cometd = function(e) {
 	}
 
 	function I(e) {
-		S(true), p("/meta/disconnect", e), p("/meta/unsuccessful", e)
+		S(true);
+		p("/meta/disconnect", e);
+		p("/meta/unsuccessful", e);
 	}
 
 	function D(e) {
@@ -14204,7 +14310,9 @@ org.cometd.Cometd = function(e) {
 	}
 
 	function W(e) {
-		U(e), p("/meta/publish", e), p("/meta/unsuccessful", e)
+		U(e);
+		p("/meta/publish", e);
+		p("/meta/unsuccessful", e);
 	}
 
 	function V(e) {
@@ -14440,7 +14548,9 @@ org.cometd.Cometd = function(e) {
 	}, this.init = function(e, t) {
 		this.configure(e), this.handshake(t)
 	}, this.handshake = function(e) {
-		a("disconnected"), vt = false, A(e)
+		a("disconnected");
+		vt = false;
+		A(e);
 	}, this.disconnect = function(e, t) {
 		if (!s()) {
 			if (void 0 === t && "boolean" != typeof e) {
@@ -14647,7 +14757,9 @@ org.cometd.Cometd = function(e) {
 			}, this.outgoing = function(i) {
 				var o = i.channel;
 				if (o == "/meta/handshake") {
-					(i.ext || (i.ext = {}), i.ext.ack = t && t.ackEnabled !== false, r = -1);
+					i.ext || (i.ext = {});
+					i.ext.ack = t && t.ackEnabled !== false;
+					r = -1;
 				} else {
 					n && o == "/meta/connect" && (i.ext || (i.ext = {}), i.ext.ack = r, e("AckExtension: client sending ack id", r));
 				}
@@ -14696,11 +14808,13 @@ org.cometd.Cometd = function(e) {
 			}, this.outgoing = function(t) {
 				var r = t.channel;
 				if (r && 0 === r.indexOf("/meta/")) {
-					(t.ext || (t.ext = {}), t.ext.timesync = {
+					t.ext || (t.ext = {});
+					t.ext.timesync = {
 						tc: (new Date).getTime(),
 						l: s,
 						o: c
-					}, n("TimeSyncExtension: client sending timesync", e.JSON.toJSON(t.ext.timesync)))
+					};
+					n("TimeSyncExtension: client sending timesync", e.JSON.toJSON(t.ext.timesync));
 				}
 				return t;
 			}, this.getTimeOffset = function() {
@@ -14850,7 +14964,9 @@ org.cometd.Cometd = function(e) {
 			}
 
 			function l(e, t) {
-				this.template = e, this.defaults = t || {}, this.urlParams = {}
+				this.template = e;
+				this.defaults = t || {};
+				this.urlParams = {};
 			}
 
 			function u(s, c, v) {
@@ -15089,7 +15205,9 @@ org.cometd.Cometd = function(e) {
 					var e = p(),
 						r = m.current;
 					if (e && r && e.$$route === r.$$route && t.equals(e.pathParams, r.pathParams) && !e.reloadOnSearch && !g) {
-						(r.params = e.params, t.copy(r.params, o), n.$broadcast("$routeUpdate", r));
+						r.params = e.params;
+						t.copy(r.params, o);
+						n.$broadcast("$routeUpdate", r);
 					} else {
 						if ((e || r)) {
 							(g = false, n.$broadcast("$routeChangeStart", e, r), m.current = e, e && e.redirectTo && (t.isString(e.redirectTo) ? i.path(h(e.redirectTo, e.params)).search(e.params).replace() : i.url(e.redirectTo(e.pathParams, i.path(), i.search())).replace()), a.when(e).then(function() {
@@ -15188,9 +15306,11 @@ org.cometd.Cometd = function(e) {
 			transclude: "element",
 			link: function(i, o, a, s, c) {
 				function l() {
-					p && (p.remove(), p = null), f && (f.$destroy(), f = null), d && (r.leave(d, function() {
+					p && (p.remove(), p = null);
+					f && (f.$destroy(), f = null);
+					d && (r.leave(d, function() {
 						p = null
-					}), p = d, d = null)
+					}), p = d, d = null);
 				}
 
 				function u() {
@@ -15346,16 +15466,20 @@ org.cometd.Cometd = function(e) {
 			i = t.bind(e, e.push);
 		return {
 			start: function(e, o, a) {
-				e = t.lowercase(e), !r && C[e] && (r = e), r || S[e] !== true || (i("<"), i(e), t.forEach(o, function(r, o) {
+				e = t.lowercase(e);
+				!r && C[e] && (r = e);
+				r || S[e] !== true || (i("<"), i(e), t.forEach(o, function(r, o) {
 					var a = t.lowercase(o),
 						c = "img" === e && "src" === a || "background" === a;
 					if (!(E[a] !== true || A[a] === true && !n(r, c))) {
 						(i(" "), i(o), i('="'), i(s(r)), i('"'))
 					}
-				}), i(a ? "/>" : ">"))
+				}), i(a ? "/>" : ">"));
 			},
 			end: function(e) {
-				e = t.lowercase(e), r || S[e] !== true || (i("</"), i(e), i(">")), r == e && (r = false)
+				e = t.lowercase(e);
+				r || S[e] !== true || (i("</"), i(e), i(">"));
+				r == e && (r = false);
 			},
 			chars: function(e) {
 				if (!(r)) {
@@ -15919,17 +16043,19 @@ window.Modernizr = function(e, t, n) {
 			}
 
 			function s(e, t) {
-				t.cache || (t.cache = {}, t.createElem = e.createElement, t.createFrag = e.createDocumentFragment, t.frag = t.createFrag()), e.createElement = function(n) {
+				t.cache || (t.cache = {}, t.createElem = e.createElement, t.createFrag = e.createDocumentFragment, t.frag = t.createFrag());
+				e.createElement = function(n) {
 					if (v.shivMethods) {
 						return o(n, e, t);
 					} else {
 						return t.createElem(n);
 					}
-				}, e.createDocumentFragment = Function("h,f", "return function(){var n=f.cloneNode(),c=n.createElement;h.shivMethods&&(" + r().join().replace(/\w+/g, function(e) {
+				};
+				e.createDocumentFragment = Function("h,f", "return function(){var n=f.cloneNode(),c=n.createElement;h.shivMethods&&(" + r().join().replace(/\w+/g, function(e) {
 					t.createElem(e);
 					t.frag.createElement(e);
 					return 'c("' + e + '")';
-				}) + ");return n}")(v, t.frag)
+				}) + ");return n}")(v, t.frag);
 			}
 
 			function c(e) {
@@ -16279,7 +16405,9 @@ var addToHome = function(e) {
 			switch (E.closeButton && b.removeEventListener("click", a, false), !f && g >= 6 && window.removeEventListener("orientationchange", u, false), 5 > g && (t = f ? e.scrollY - S : e.scrollY + e.innerHeight - S, n = f ? e.scrollX - C : e.scrollX + Math.round((e.innerWidth - b.offsetWidth) / 2) - C), b.style.webkitTransitionProperty = "-webkit-transform,opacity", E.animationOut) {
 				case "drop":
 					if (f) {
-						(i = "0.4s", r = "0", t += 50);
+						i = "0.4s";
+						r = "0";
+						t += 50;
 					} else {
 						(i = "0.6s", t = t + b.offsetHeight + E.bottomOffset + 50);
 					}
@@ -16288,7 +16416,9 @@ var addToHome = function(e) {
 					if (f) {
 						(i = "0.8s", t = t - b.offsetHeight - E.bottomOffset - 50);
 					} else {
-						(i = "0.4s", r = "0", t -= 50);
+						i = "0.4s";
+						r = "0";
+						t -= 50;
 					}
 					break;
 				default:
@@ -16299,7 +16429,9 @@ var addToHome = function(e) {
 	}
 
 	function a() {
-		e.sessionStorage.setItem("addToHomeSession", "1"), v = true, o()
+		e.sessionStorage.setItem("addToHomeSession", "1");
+		v = true;
+		o();
 	}
 
 	function s() {
@@ -16882,7 +17014,9 @@ angular.module("app.services.network", ["underscore", "app.services.comet"]).fac
 				},
 				watchNetworkMessages: function() {
 					if (!(u)) {
-						(f && (f(), d(), f = null, d = null, u = false), s(), u = true)
+						f && (f(), d(), f = null, d = null, u = false);
+						s();
+						u = true;
 					}
 				},
 				unwatchNetworkMessages: function() {
@@ -17095,7 +17229,9 @@ angular.module("app.services.webpurify", ["underscore"]).factory("$webpurify", [
 			},
 			u = {
 				init: function(e) {
-					c = e, a = a.replace(/%API_KEY%/g, c), a = a.replace(/%LANG%/g, s)
+					c = e;
+					a = a.replace(/%API_KEY%/g, c);
+					a = a.replace(/%LANG%/g, s);
 				},
 				check: function(e, t) {
 					var n = r(l.check, e);
@@ -17173,10 +17309,12 @@ angular.module("app.services.countdown", ["underscore"]).factory("$countdown", [
 						onCount: function() {
 							var t = a;
 							if (t.counter > 0) {
-								(t.counter--, t.timeoutId = n(t.onCount, t.countdownStep), e.$broadcast("countdown", {
+								t.counter--;
+								t.timeoutId = n(t.onCount, t.countdownStep);
+								e.$broadcast("countdown", {
 									id: t.id,
 									timeLeft: t.counter
-								}));
+								});
 							} else {
 								t.stop();
 							}
@@ -17259,9 +17397,13 @@ angular.module("app.services.preloader", ["underscore"]).factory("$preloader", [
 		function o(e, n) {
 			var r = 0;
 			i(function(i) {
-				n[i] = new Image, n[i].onload = function() {
-					r++, t.log("Preloaded " + i + " (" + r + " of " + e.length + ")."), a(r, e.length)
-				}, n[i].src = i
+				n[i] = new Image;
+				n[i].onload = function() {
+					r++;
+					t.log("Preloaded " + i + " (" + r + " of " + e.length + ").");
+					a(r, e.length);
+				};
+				n[i].src = i;
 			}, e, 1, 250, function() {
 				t.log("Preloading complete."), a(r, e.length, true)
 			})
@@ -17762,10 +17904,14 @@ angular.module("app.directives.blocking", []).directive("blocking", function() {
 		var r = "disabled";
 		e.$on("busy", function() {
 			if (!(t.hasClass(r))) {
-				(t.addClass(r), t.prop("disabled", true), "" !== n.blocking && (e.prevHtml = t.html(), t.html(n.blocking)))
+				t.addClass(r);
+				t.prop("disabled", true);
+				"" !== n.blocking && (e.prevHtml = t.html(), t.html(n.blocking));
 			}
 		}), e.$on("free", function() {
-			t.removeClass(r), t.prop("disabled", false), e.prevHtml && t.html(e.prevHtml)
+			t.removeClass(r);
+			t.prop("disabled", false);
+			e.prevHtml && t.html(e.prevHtml);
 		})
 	}
 });
@@ -17931,7 +18077,9 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 		stop: function() {
 			var e = this.el;
 			if (e) {
-				(clearTimeout(this.timeout), e.parentNode && e.parentNode.removeChild(e), this.el = n)
+				clearTimeout(this.timeout);
+				e.parentNode && e.parentNode.removeChild(e);
+				this.el = n;
 			}
 			return this;
 		},
@@ -17977,7 +18125,8 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 			behavior: "url(#default#VML)"
 		});
 		if (!a(t, "transform") && t.adj) {
-			(h.addRule(".spin-vml", "behavior:url(#default#VML)"), u.prototype.lines = function(t, n) {
+			h.addRule(".spin-vml", "behavior:url(#default#VML)");
+			u.prototype.lines = function(t, n) {
 				function r() {
 					return s(e("group", {
 						coordsize: l + " " + l,
@@ -18024,10 +18173,11 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 					o(a);
 				}
 				return i(t, f)
-			}, u.prototype.opacity = function(e, t, n, r) {
+			};
+			u.prototype.opacity = function(e, t, n, r) {
 				var i = e.firstChild;
 				r = r.shadow && r.lines || 0, i && t + r < i.childNodes.length && (i = i.childNodes[t + r], i = i && i.firstChild, i = i && i.firstChild, i && (i.opacity = n))
-			});
+			};
 		} else {
 			f = a(t, "animation");
 		}
@@ -18073,10 +18223,12 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 					n = n;
 				}
 				if (/beforeLoop|loopExp|inLoop/.test(t)) {
-					("string" == typeof n && (n = {
+					"string" == typeof n && (n = {
 						array: n,
 						object: n
-					}), o.arrayBranch[t] = n.array, o.objectBranch[t] = n.object);
+					});
+					o.arrayBranch[t] = n.array;
+					o.objectBranch[t] = n.object;
 				} else {
 					o[t] = n;
 				}
@@ -18593,7 +18745,9 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 
 	function X(e, n) {
 		function r() {
-			c = new Date, s = t, e.apply(a, i)
+			c = new Date;
+			s = t;
+			e.apply(a, i);
 		}
 		var i, o, a, s, c = 0;
 		return function() {
@@ -19263,7 +19417,9 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 		n(c);
 		return {
 			stop: function(e) {
-				g = 1, v = e, e || (i = null)
+				g = 1;
+				v = e;
+				e || (i = null);
 			}
 		};
 	}
@@ -19358,7 +19514,9 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 				var N, j = I(u[n], E),
 					_ = l(t[E]) ? t[E](u[n]) : t[E];
 				if ("string" != typeof _ || !C.test(_) || C.test(j)) {
-					(b[n][E] = E == "transform" ? i(j) : "string" == typeof _ && C.test(_) ? s(j).slice(1) : parseFloat(j), $[n][E] = E == "transform" ? i(_, b[n][E]) : "string" == typeof _ && "#" == _.charAt(0) ? s(_).slice(1) : g(_, parseFloat(j)), "string" == typeof _ && (N = _.match(A)) && (w[n][E] = N[1]));
+					b[n][E] = E == "transform" ? i(j) : "string" == typeof _ && C.test(_) ? s(j).slice(1) : parseFloat(j);
+					$[n][E] = E == "transform" ? i(_, b[n][E]) : "string" == typeof _ && "#" == _.charAt(0) ? s(_).slice(1) : g(_, parseFloat(j));
+					"string" == typeof _ && (N = _.match(A)) && (w[n][E] = N[1]);
 				} else {
 					delete t[E];
 				}
@@ -19631,11 +19789,13 @@ appCtrl.loadContent = function(e, t, n, r) {
 	if (n.siteAppContent) {
 		n.defer.resolve();
 	} else {
-		(r.getContent(), n.$on("loadContentSuccess", function() {
+		r.getContent();
+		n.$on("loadContentSuccess", function() {
 			n.defer.resolve()
-		}), n.$on("loadContentFailure", function() {
+		});
+		n.$on("loadContentFailure", function() {
 			n.defer.reject()
-		}));
+		});
 	}
 	return n.defer.promise;
 };
@@ -19761,10 +19921,12 @@ angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.ser
 		}), n.$on("connectionBroken", function() {
 			n.$broadcast("wait", {
 				message: n.siteAppContent.info["attempt-reconnection"]
-			}), n.$broadcast("alert", {
+			});
+			n.$broadcast("alert", {
 				key: "reconnecting",
 				message: n.siteAppContent.misc.oops + ". " + n.siteAppContent.errors["lost-connection"]
-			}), T.trackConnection("connectionBroken")
+			});
+			T.trackConnection("connectionBroken");
 		}), n.$on("$routeChangeSuccess", function() {
 			switch (t.path()) {
 				case "/":
@@ -20004,14 +20166,16 @@ angular.module("app.directives.moderation", ["app.services.moderation"]).directi
 		return function(t, n) {
 			t.$on("snitch", function() {
 				n.addClass("kicked")
-			}), t.$on("snitch.clear", function() {
+			});
+			t.$on("snitch.clear", function() {
 				n.removeClass("kicked")
-			}), t.$on("loadContentSuccess", function() {
+			});
+			t.$on("loadContentSuccess", function() {
 				if (e.isKicked()) {
 					n.addClass("kicked");
 					e.kickAlert();
 				}
-			})
+			});
 		}
 	}
 ]);
