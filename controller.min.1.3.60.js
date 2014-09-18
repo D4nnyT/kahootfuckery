@@ -1608,12 +1608,18 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					function e(t, n) {
 						return new e.fn.init(t, n)
 					}
-					s.extend(true, e, this), e.superclass = this, e.fn = e.prototype = this(), e.fn.constructor = e, e.sub = this.sub, e.fn.init = function(n, r) {
+					s.extend(true, e, this);
+					e.superclass = this;
+					e.fn = e.prototype = this();
+					e.fn.constructor = e;
+					e.sub = this.sub;
+					e.fn.init = function(n, r) {
 						if (r && r instanceof s && !(r instanceof e)) {
 							(r = e(r))
 						}
 						return s.fn.init.call(this, n, r, t);
-					}, e.fn.init.prototype = e.fn;
+					};
+					e.fn.init.prototype = e.fn;
 					var t = e(q);
 					return e
 				},
@@ -2326,7 +2332,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 			}
 		}
-	}), I.extend({
+	});
+	I.extend({
 		valHooks: {
 			option: {
 				get: function(e) {
@@ -2490,7 +2497,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 			}
 		}
-	}), I.attrHooks.tabindex = I.propHooks.tabIndex, R = {
+	});
+	I.attrHooks.tabindex = I.propHooks.tabIndex;
+	R = {
 		get: function(e, n) {
 			var r, i = I.prop(e, n);
 			if (i === true || "boolean" != typeof i && (r = e.getAttributeNode(n)) && r.nodeValue !== false) {
@@ -2510,7 +2519,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 			return n;
 		}
-	}, K || (H = {
+	};
+	K || (H = {
 		name: true,
 		id: true,
 		coords: true
@@ -2546,7 +2556,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		set: function(e, t, n) {
 			"" === t && (t = "false"), z.set(e, t, n)
 		}
-	}), I.support.hrefNormalized || I.each(["href", "src", "width", "height"], function(e, n) {
+	});
+	I.support.hrefNormalized || I.each(["href", "src", "width", "height"], function(e, n) {
 		I.attrHooks[n] = I.extend(I.attrHooks[n], {
 			get: function(e) {
 				var r = e.getAttribute(n, 2);
@@ -2557,14 +2568,16 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 			}
 		})
-	}), I.support.style || (I.attrHooks.style = {
+	});
+	I.support.style || (I.attrHooks.style = {
 		get: function(e) {
 			return e.style.cssText.toLowerCase() || t
 		},
 		set: function(e, t) {
 			return e.style.cssText = "" + t
 		}
-	}), I.support.optSelected || (I.propHooks.selected = I.extend(I.propHooks.selected, {
+	});
+	I.support.optSelected || (I.propHooks.selected = I.extend(I.propHooks.selected, {
 		get: function(e) {
 			var t = e.parentNode;
 			if (t) {
@@ -2572,7 +2585,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 			return null;
 		}
-	})), I.support.enctype || (I.propFix.enctype = "encoding"), I.support.checkOn || I.each(["radio", "checkbox"], function() {
+	}));
+	I.support.enctype || (I.propFix.enctype = "encoding");
+	I.support.checkOn || I.each(["radio", "checkbox"], function() {
 		I.valHooks[this] = {
 			get: function(e) {
 				if (null === e.getAttribute("value")) {
@@ -2582,7 +2597,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 			}
 		}
-	}), I.each(["radio", "checkbox"], function() {
+	});
+	I.each(["radio", "checkbox"], function() {
 		I.valHooks[this] = I.extend(I.valHooks[this], {
 			set: function(e, t) {
 				if (I.isArray(t)) {
@@ -2628,16 +2644,29 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					} else {
 						return I.event.dispatch.apply(s.elem, arguments);
 					}
-				}, s.elem = e), n = I.trim(at(n)).split(" "), l = 0; l < n.length; l++) u = Y.exec(n[l]) || [], f = u[1], d = (u[2] || "").split(".").sort(), m = I.event.special[f] || {}, f = (o ? m.delegateType : m.bindType) || f, m = I.event.special[f] || {}, p = I.extend({
-					type: f,
-					origType: u[1],
-					data: i,
-					handler: r,
-					guid: r.guid,
-					selector: o,
-					quick: o && it(o),
-					namespace: d.join(".")
-				}, h), g = c[f], g || (g = c[f] = [], g.delegateCount = 0, m.setup && m.setup.call(e, i, d, s) !== false || (e.addEventListener ? e.addEventListener(f, s, false) : e.attachEvent && e.attachEvent("on" + f, s))), m.add && (m.add.call(e, p), p.handler.guid || (p.handler.guid = r.guid)), o ? g.splice(g.delegateCount++, 0, p) : g.push(p), I.event.global[f] = true;
+				}, s.elem = e), n = I.trim(at(n)).split(" "), l = 0; l < n.length; l++) {
+					u = Y.exec(n[l]) || [];
+					f = u[1];
+					d = (u[2] || "").split(".").sort();
+					m = I.event.special[f] || {};
+					f = (o ? m.delegateType : m.bindType) || f;
+					m = I.event.special[f] || {};
+					p = I.extend({
+						type: f,
+						origType: u[1],
+						data: i,
+						handler: r,
+						guid: r.guid,
+						selector: o,
+						quick: o && it(o),
+						namespace: d.join(".")
+					}, h);
+					g = c[f];
+					g || (g = c[f] = [], g.delegateCount = 0, m.setup && m.setup.call(e, i, d, s) !== false || (e.addEventListener ? e.addEventListener(f, s, false) : e.attachEvent && e.attachEvent("on" + f, s)));
+					m.add && (m.add.call(e, p), p.handler.guid || (p.handler.guid = r.guid));
+					o ? g.splice(g.delegateCount++, 0, p) : g.push(p);
+					I.event.global[f] = true;
+				}
 				e = null
 			}
 		},
@@ -2709,7 +2738,12 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								}
 							}
 							for (c = 0; c < h.length && !n.isPropagationStopped(); c++) {
-								l = h[c][0], n.type = h[c][1], p = (I._data(l, "events") || {})[n.type] && I._data(l, "handle"), p && p.apply(l, r), p = f && l[f], p && I.acceptData(l) && p.apply(l, r) === false && n.preventDefault();
+								l = h[c][0];
+								n.type = h[c][1];
+								p = (I._data(l, "events") || {})[n.type] && I._data(l, "handle");
+								p && p.apply(l, r);
+								p = f && l[f];
+								p && I.acceptData(l) && p.apply(l, r) === false && n.preventDefault();
 							}
 							n.type = m;
 							if (!(o || n.isDefaultPrevented() || d._default && d._default.apply(i.ownerDocument, r) !== false || "click" === m && I.nodeName(i, "a") || !I.acceptData(i))) {
@@ -2894,7 +2928,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			});
 			r ? I.event.trigger(i, null, t) : I.event.dispatch.call(t, i), i.isDefaultPrevented() && n.preventDefault()
 		}
-	}, I.event.handle = I.event.dispatch, I.removeEvent = q.removeEventListener ? function(e, t, n) {
+	};
+	I.event.handle = I.event.dispatch;
+	I.removeEvent = q.removeEventListener ? function(e, t, n) {
 		if (e.removeEventListener) {
 			e.removeEventListener(t, n, false);
 		}
@@ -2902,13 +2938,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		if (e.detachEvent) {
 			e.detachEvent("on" + t, n);
 		}
-	}, I.Event = function(e, t) {
+	};
+	I.Event = function(e, t) {
 		if (this instanceof I.Event) {
 			return (e && e.type ? (this.originalEvent = e, this.type = e.type, this.isDefaultPrevented = e.defaultPrevented || e.returnValue === false || e.getPreventDefault && e.getPreventDefault() ? s : a) : this.type = e, t && I.extend(this, t), this.timeStamp = e && e.timeStamp || I.now(), void(this[I.expando] = true));
 		} else {
 			return new I.Event(e, t);
 		}
-	}, I.Event.prototype = {
+	};
+	I.Event.prototype = {
 		preventDefault: function() {
 			this.isDefaultPrevented = s;
 			var e = this.originalEvent;
@@ -2936,7 +2974,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		isDefaultPrevented: a,
 		isPropagationStopped: a,
 		isImmediatePropagationStopped: a
-	}, I.each({
+	};
+	I.each({
 		mouseenter: "mouseover",
 		mouseleave: "mouseout"
 	}, function(e, t) {
@@ -2958,7 +2997,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				return n;
 			}
 		}
-	}), I.support.submitBubbles || (I.event.special.submit = {
+	});
+	I.support.submitBubbles || (I.event.special.submit = {
 		setup: function() {
 			if (I.nodeName(this, "form")) {
 				return false;
@@ -2990,7 +3030,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				return void I.event.remove(this, "._submit");
 			}
 		}
-	}), I.support.changeBubbles || (I.event.special.change = {
+	});
+	I.support.changeBubbles || (I.event.special.change = {
 		setup: function() {
 			if (Q.test(this.nodeName)) {
 				return (("checkbox" === this.type || "radio" === this.type) && (I.event.add(this, "propertychange._change", function(e) {
@@ -3029,7 +3070,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			I.event.remove(this, "._change");
 			return Q.test(this.nodeName);
 		}
-	}), I.support.focusinBubbles || I.each({
+	});
+	I.support.focusinBubbles || I.each({
 		focus: "focusin",
 		blur: "focusout"
 	}, function(e, t) {
@@ -3049,7 +3091,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 			}
 		}
-	}), I.fn.extend({
+	});
+	I.fn.extend({
 		on: function(e, n, r, i, o) {
 			var s, c;
 			if ("object" == typeof e) {
@@ -3157,7 +3200,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		hover: function(e, t) {
 			return this.mouseenter(e).mouseleave(t || e)
 		}
-	}), I.each("blur focus focusin focusout load resize scroll unload click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup error contextmenu".split(" "), function(e, t) {
+	});
+	I.each("blur focus focusin focusout load resize scroll unload click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup error contextmenu".split(" "), function(e, t) {
 		I.fn[t] = function(e, n) {
 			if (n == null) {
 				(n = e, e = null)
@@ -3171,8 +3215,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		I.attrFn && (I.attrFn[t] = true);
 		et.test(t) && (I.event.fixHooks[t] = I.event.keyHooks);
 		tt.test(t) && (I.event.fixHooks[t] = I.event.mouseHooks);
-	}),
-	function() {
+	});
+
+	! function() {
 		function e(e, t, n, r, o, a) {
 			for (var s = 0, c = r.length; c > s; s++) {
 				var l = r[s];
@@ -3268,7 +3313,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					expr: w.pop(),
 					set: y(i)
 				} : d.find(w.pop(), 1 !== w.length || "~" !== w[0] && "+" !== w[0] || !t.parentNode ? t : t.parentNode, $), c = f.expr ? d.filter(f.expr, f.set) : f.set, w.length > 0 ? l = y(c) : b = false; w.length;) {
-					p = w.pop(), m = p, h.relative[p] ? m = w.pop() : p = "", m == null && (m = t), h.relative[p](l, m, $);
+					p = w.pop();
+					m = p;
+					h.relative[p] ? m = w.pop() : p = "";
+					m == null && (m = t);
+					h.relative[p](l, m, $);
 				}
 			} else {
 				l = w = [];
@@ -3313,11 +3362,14 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					}
 			}
 			return e
-		}, d.matches = function(e, t) {
+		};
+		d.matches = function(e, t) {
 			return d(e, null, null, t)
-		}, d.matchesSelector = function(e, t) {
+		};
+		d.matchesSelector = function(e, t) {
 			return d(t, null, null, [e]).length > 0
-		}, d.find = function(e, t, n) {
+		};
+		d.find = function(e, t, n) {
 			var r, i, o, a, s, c;
 			if (!e) {
 				return [];
@@ -3339,7 +3391,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				set: r,
 				expr: e
 			};
-		}, d.filter = function(e, n, r, i) {
+		};
+		d.filter = function(e, n, r, i) {
 			for (var o, a, s, c, l, u, f, p, g, m = e, v = [], y = n, b = n && n[0] && d.isXML(n[0]); e && n.length;) {
 				for (s in h.filter)
 					if (null != (o = h.leftMatch[s].exec(e)) && o[2]) {
@@ -3390,7 +3443,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				m = e
 			}
 			return y
-		}, d.error = function(e) {
+		};
+		d.error = function(e) {
 			throw new Error("Syntax error, unrecognized expression: " + e)
 		};
 		var p = d.getText = function(e) {
@@ -3905,12 +3959,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				r = r.nextSibling
 			}
 			return 1
-		}),
-		function() {
+		});
+
+		! function() {
 			var e = q.createElement("div"),
 				n = "script" + (new Date).getTime(),
 				r = q.documentElement;
-			e.innerHTML = "<a name='" + n + "'/>", r.insertBefore(e, r.firstChild), q.getElementById(n) && (h.find.ID = function(e, n, r) {
+			e.innerHTML = "<a name='" + n + "'/>";
+			r.insertBefore(e, r.firstChild);
+			q.getElementById(n) && (h.find.ID = function(e, n, r) {
 				if ("undefined" != typeof n.getElementById && !r) {
 					var i = n.getElementById(e[1]);
 					if (i) {
@@ -3926,11 +3983,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}, h.filter.ID = function(e, t) {
 				var n = "undefined" != typeof e.getAttributeNode && e.getAttributeNode("id");
 				return 1 === e.nodeType && n && n.nodeValue === t
-			}), r.removeChild(e), r = e = null
-		}(),
-		function() {
+			});
+			r.removeChild(e);
+			r = e = null;
+		}();
+
+		! function() {
 			var e = q.createElement("div");
-			e.appendChild(q.createComment("")), e.getElementsByTagName("*").length > 0 && (h.find.TAG = function(e, t) {
+			e.appendChild(q.createComment(""));
+			e.getElementsByTagName("*").length > 0 && (h.find.TAG = function(e, t) {
 				var n = t.getElementsByTagName(e[1]);
 				if ("*" === e[1]) {
 					for (var r = [], i = 0; n[i]; i++)
@@ -3940,10 +4001,14 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					n = r
 				}
 				return n
-			}), e.innerHTML = "<a href='#'></a>", e.firstChild && "undefined" != typeof e.firstChild.getAttribute && "#" !== e.firstChild.getAttribute("href") && (h.attrHandle.href = function(e) {
+			});
+			e.innerHTML = "<a href='#'></a>";
+			e.firstChild && "undefined" != typeof e.firstChild.getAttribute && "#" !== e.firstChild.getAttribute("href") && (h.attrHandle.href = function(e) {
 				return e.getAttribute("href", 2)
-			}), e = null
-		}(), q.querySelectorAll && ! function() {
+			});
+			e = null;
+		}();
+		q.querySelectorAll && ! function() {
 			var e = d,
 				t = q.createElement("div"),
 				n = "__sizzle__";
@@ -4000,8 +4065,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 				t = null
 			}
-		}(),
-		function() {
+		}();
+
+		! function() {
 			var e = q.documentElement,
 				t = e.matchesSelector || e.mozMatchesSelector || e.webkitMatchesSelector || e.msMatchesSelector;
 			if (t) {
@@ -4024,8 +4090,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					return d(i, null, null, [e]).length > 0
 				}
 			}
-		}(),
-		function() {
+		}();
+
+		! function() {
 			var e = q.createElement("div");
 			e.innerHTML = "<div class='test e'></div><div class='test'></div>", e.getElementsByClassName && 0 !== e.getElementsByClassName("e").length && (e.lastChild.className = "e", 1 !== e.getElementsByClassName("e").length && (h.order.splice(1, 0, "CLASS"), h.find.CLASS = function(e, t, n) {
 				if ("undefined" == typeof t.getElementsByClassName || n) {
@@ -4034,13 +4101,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					return t.getElementsByClassName(e[1]);
 				}
 			}, e = null))
-		}(), d.contains = q.documentElement.contains ? function(e, t) {
+		}();
+		d.contains = q.documentElement.contains ? function(e, t) {
 			return e !== t && (e.contains ? e.contains(t) : true)
 		} : q.documentElement.compareDocumentPosition ? function(e, t) {
 			return !!(16 & e.compareDocumentPosition(t))
 		} : function() {
 			return false
-		}, d.isXML = function(e) {
+		};
+		d.isXML = function(e) {
 			var t = (e ? e.ownerDocument || e : 0).documentElement;
 			if (t) {
 				return "HTML" !== t.nodeName;
@@ -4060,7 +4129,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			for (var s = 0, c = a.length; c > s; s++) d(e, a[s], i, n);
 			return d.filter(o, i)
 		};
-		d.attr = I.attr, d.selectors.attrMap = {}, I.find = d, I.expr = d.selectors, I.expr[":"] = I.expr.filters, I.unique = d.uniqueSort, I.text = d.getText, I.isXMLDoc = d.isXML, I.contains = d.contains
+		d.attr = I.attr;
+		d.selectors.attrMap = {};
+		I.find = d;
+		I.expr = d.selectors;
+		I.expr[":"] = I.expr.filters;
+		I.unique = d.uniqueSort;
+		I.text = d.getText;
+		I.isXMLDoc = d.isXML;
+		I.contains = d.contains;
 	}();
 	var st = /Until$/,
 		ct = /^(?:parents|prevUntil|prevAll)/,
@@ -4297,7 +4374,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			_default: [0, "", ""]
 		},
 		Et = u(q);
-	At.optgroup = At.option, At.tbody = At.tfoot = At.colgroup = At.caption = At.thead, At.th = At.td, I.support.htmlSerialize || (At._default = [1, "div<div>", "</div>"]), I.fn.extend({
+	At.optgroup = At.option;
+	At.tbody = At.tfoot = At.colgroup = At.caption = At.thead;
+	At.th = At.td;
+	I.support.htmlSerialize || (At._default = [1, "div<div>", "</div>"]);
+	I.fn.extend({
 		text: function(e) {
 			return I.access(this, function(e) {
 				if (e === t) {
@@ -4510,7 +4591,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 			return this
 		}
-	}), I.buildFragment = function(e, t, n) {
+	});
+	I.buildFragment = function(e, t, n) {
 		var r, i, o, a, s = e[0];
 		if (t && t[0]) {
 			(a = t[0].ownerDocument || t[0])
@@ -4537,7 +4619,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			fragment: r,
 			cacheable: i
 		};
-	}, I.fragments = {}, I.each({
+	};
+	I.fragments = {};
+	I.each({
 		appendTo: "append",
 		prependTo: "prepend",
 		insertBefore: "before",
@@ -4558,7 +4642,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 			return this.pushStack(r, e, i.selector)
 		}
-	}), I.extend({
+	});
+	I.extend({
 		clone: function(e, t, n) {
 			var r, i, o, a = I.support.html5Clone || I.isXMLDoc(e) || !xt.test("<" + e.nodeName + ">") ? e.cloneNode(true) : v(e);
 			if (!(I.support.noCloneEvent && I.support.noCloneChecked || 1 !== e.nodeType && 11 !== e.nodeType || I.isXMLDoc(e))) {
@@ -4674,7 +4759,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				return I.css(e, n);
 			}
 		}, e, n, arguments.length > 1)
-	}, I.extend({
+	};
+	I.extend({
 		cssHooks: {
 			opacity: {
 				get: function(e, t) {
@@ -4752,7 +4838,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 			return r
 		}
-	}), I.curCSS = I.css, q.defaultView && q.defaultView.getComputedStyle && (jt = function(e, t) {
+	});
+	I.curCSS = I.css;
+	q.defaultView && q.defaultView.getComputedStyle && (jt = function(e, t) {
 		var n, r, i, o, a = e.style;
 		t = t.replace(Ot, "-$1").toLowerCase();
 		if ((r = e.ownerDocument.defaultView) && (i = r.getComputedStyle(e, null))) {
@@ -4765,7 +4853,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			a.width = o;
 		}
 		return n;
-	}), q.documentElement.currentStyle && (_t = function(e, t) {
+	});
+	q.documentElement.currentStyle && (_t = function(e, t) {
 		var n, r, i, o = e.currentStyle && e.currentStyle[t],
 			a = e.style;
 		if (o == null && a && (i = a[t])) {
@@ -4785,7 +4874,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		} else {
 			return o;
 		}
-	}), Nt = jt || _t, I.each(["height", "width"], function(e, t) {
+	});
+	Nt = jt || _t;
+	I.each(["height", "width"], function(e, t) {
 		I.cssHooks[t] = {
 			get: function(e, n, r) {
 				if (n) {
@@ -4808,7 +4899,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 			}
 		}
-	}), I.support.opacity || (I.cssHooks.opacity = {
+	});
+	I.support.opacity || (I.cssHooks.opacity = {
 		get: function(e, t) {
 			if (Mt.test((t && e.currentStyle ? e.currentStyle.filter : e.style.filter) || "")) {
 				return parseFloat(RegExp.$1) / 100 + "";
@@ -4825,7 +4917,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				o = r && r.filter || n.filter || "";
 			n.zoom = 1, t >= 1 && "" === I.trim(o.replace(qt, "")) && (n.removeAttribute("filter"), r && !r.filter) || (n.filter = qt.test(o) ? o.replace(qt, i) : o + " " + i)
 		}
-	}), I(function() {
+	});
+	I(function() {
 		if (!(I.support.reliableMarginRight)) {
 			(I.cssHooks.marginRight = {
 				get: function(e, t) {
@@ -4841,13 +4934,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 			})
 		}
-	}), I.expr && I.expr.filters && (I.expr.filters.hidden = function(e) {
+	});
+	I.expr && I.expr.filters && (I.expr.filters.hidden = function(e) {
 		var t = e.offsetWidth,
 			n = e.offsetHeight;
 		return 0 === t && 0 === n || !I.support.reliableHiddenOffsets && "none" === (e.style && e.style.display || I.css(e, "display"))
 	}, I.expr.filters.visible = function(e) {
 		return !I.expr.filters.hidden(e)
-	}), I.each({
+	});
+	I.each({
 		margin: "",
 		padding: "",
 		border: "Width"
@@ -4960,11 +5055,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 			}).get()
 		}
-	}), I.each("ajaxStart ajaxStop ajaxComplete ajaxError ajaxSuccess ajaxSend".split(" "), function(e, t) {
+	});
+	I.each("ajaxStart ajaxStop ajaxComplete ajaxError ajaxSuccess ajaxSend".split(" "), function(e, t) {
 		I.fn[t] = function(e) {
 			return this.on(t, e)
 		}
-	}), I.each(["get", "post"], function(e, n) {
+	});
+	I.each(["get", "post"], function(e, n) {
 		I[n] = function(e, r, i, o) {
 			if (I.isFunction(r)) {
 				o = o || i;
@@ -4979,7 +5076,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				dataType: o
 			});
 		}
-	}), I.extend({
+	});
+	I.extend({
 		getScript: function(e, n) {
 			return I.get(e, t, n, "script")
 		},
@@ -5249,7 +5347,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 			return r.join("&").replace(Bt, "+")
 		}
-	}), I.extend({
+	});
+	I.extend({
 		active: 0,
 		lastModified: {},
 		etag: {}
@@ -5261,7 +5360,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		jsonpCallback: function() {
 			return I.expando + "_" + un++
 		}
-	}), I.ajaxPrefilter("json jsonp", function(t, n, r) {
+	});
+	I.ajaxPrefilter("json jsonp", function(t, n, r) {
 		var i = "string" == typeof t.data && /^application\/x\-www\-form\-urlencoded/.test(t.contentType);
 		if ("jsonp" === t.dataTypes[0] || t.jsonp !== false && (fn.test(t.url) || i && fn.test(t.data))) {
 			var o, a = t.jsonpCallback = I.isFunction(t.jsonpCallback) ? t.jsonpCallback() : t.jsonpCallback,
@@ -5289,7 +5389,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			t.dataTypes[0] = "json";
 			return "script";
 		}
-	}), I.ajaxSetup({
+	});
+	I.ajaxSetup({
 		accepts: {
 			script: "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"
 		},
@@ -5302,9 +5403,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				return e;
 			}
 		}
-	}), I.ajaxPrefilter("script", function(e) {
+	});
+	I.ajaxPrefilter("script", function(e) {
 		e.cache === t && (e.cache = false), e.crossDomain && (e.type = "GET", e.global = false)
-	}), I.ajaxTransport("script", function(e) {
+	});
+	I.ajaxTransport("script", function(e) {
 		if (e.crossDomain) {
 			var n, r = q.head || q.getElementsByTagName("head")[0] || q.documentElement;
 			return {
@@ -5377,7 +5480,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 									if (4 !== c.readyState) {
 										c.abort();
 									} else {
-										s = c.status, u = c.getAllResponseHeaders(), f = {}, d = c.responseXML, d && d.documentElement && (f.xml = d);
+										s = c.status;
+										u = c.getAllResponseHeaders();
+										f = {};
+										d = c.responseXML;
+										d && d.documentElement && (f.xml = d);
 										try {
 											f.text = c.responseText
 										} catch (e) {}
@@ -5567,7 +5674,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 			});
 		}
-	}), I.each({
+	});
+	I.each({
 		slideDown: N("show", 1),
 		slideUp: N("hide", 1),
 		slideToggle: N("toggle", 1),
@@ -5584,7 +5692,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		I.fn[e] = function(e, n, r) {
 			return this.animate(t, e, n, r)
 		}
-	}), I.extend({
+	});
+	I.extend({
 		speed: function(e, t, n) {
 			var r = e && "object" == typeof e ? I.extend({}, e) : {
 				complete: n || !n && t || I.isFunction(e) && e,
@@ -5624,7 +5733,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			this.prop = n;
 			t.orig = t.orig || {};
 		}
-	}), I.fx.prototype = {
+	});
+	I.fx.prototype = {
 		update: function() {
 			this.options.step && this.options.step.call(this.elem, this.now, this), (I.fx.step[this.prop] || I.fx.step._default)(this)
 		},
@@ -5649,7 +5759,14 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 			var o = this,
 				a = I.fx;
-			this.startTime = yn || A(), this.end = n, this.now = this.start = e, this.pos = this.state = 0, this.unit = r || this.unit || (I.cssNumber[this.prop] ? "" : "px"), i.queue = this.options.queue, i.elem = this.elem, i.saveState = function() {
+			this.startTime = yn || A();
+			this.end = n;
+			this.now = this.start = e;
+			this.pos = this.state = 0;
+			this.unit = r || this.unit || (I.cssNumber[this.prop] ? "" : "px");
+			i.queue = this.options.queue;
+			i.elem = this.elem;
+			i.saveState = function() {
 				if (I._data(o.elem, "fxshow" + o.prop) === t) {
 					if (o.options.hide) {
 						I._data(o.elem, "fxshow" + o.prop, o.start);
@@ -5659,7 +5776,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						}
 					}
 				}
-			}, i() && I.timers.push(i) && !vn && (vn = setInterval(a.tick, a.interval))
+			};
+			i() && I.timers.push(i) && !vn && (vn = setInterval(a.tick, a.interval));
 		},
 		show: function() {
 			var e = I._data(this.elem, "fxshow" + this.prop);
@@ -5711,7 +5829,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			this.update();
 			return true;
 		}
-	}, I.extend(I.fx, {
+	};
+	I.extend(I.fx, {
 		tick: function() {
 			for (var e, t = I.timers, n = 0; n < t.length; n++) {
 				e = t[n];
@@ -5742,13 +5861,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 			}
 		}
-	}), I.each(kn.concat.apply([], kn), function(e, t) {
+	});
+	I.each(kn.concat.apply([], kn), function(e, t) {
 		if (t.indexOf("margin")) {
 			(I.fx.step[t] = function(e) {
 				I.style(e.elem, t, Math.max(0, e.now) + e.unit)
 			});
 		}
-	}), I.expr && I.expr.filters && (I.expr.filters.animated = function(e) {
+	});
+	I.expr && I.expr.filters && (I.expr.filters.animated = function(e) {
 		return I.grep(I.timers, function(t) {
 			return e === t.elem
 		}).length
@@ -5786,7 +5907,14 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		}
 	} : function(e, t, n) {
 		for (var r, i = e.offsetParent, o = e, a = t.body, s = t.defaultView, c = s ? s.getComputedStyle(e, null) : e.currentStyle, l = e.offsetTop, u = e.offsetLeft;
-			(e = e.parentNode) && e !== a && e !== n && (!I.support.fixedPosition || "fixed" !== c.position);) r = s ? s.getComputedStyle(e, null) : e.currentStyle, l -= e.scrollTop, u -= e.scrollLeft, e === i && (l += e.offsetTop, u += e.offsetLeft, !I.support.doesNotAddBorder || I.support.doesAddBorderForTableAndCells && Tn.test(e.nodeName) || (l += parseFloat(r.borderTopWidth) || 0, u += parseFloat(r.borderLeftWidth) || 0), o = i, i = e.offsetParent), I.support.subtractsBorderForOverflowNotVisible && "visible" !== r.overflow && (l += parseFloat(r.borderTopWidth) || 0, u += parseFloat(r.borderLeftWidth) || 0), c = r;
+			(e = e.parentNode) && e !== a && e !== n && (!I.support.fixedPosition || "fixed" !== c.position);) {
+			r = s ? s.getComputedStyle(e, null) : e.currentStyle;
+			l -= e.scrollTop;
+			u -= e.scrollLeft;
+			e === i && (l += e.offsetTop, u += e.offsetLeft, !I.support.doesNotAddBorder || I.support.doesAddBorderForTableAndCells && Tn.test(e.nodeName) || (l += parseFloat(r.borderTopWidth) || 0, u += parseFloat(r.borderLeftWidth) || 0), o = i, i = e.offsetParent);
+			I.support.subtractsBorderForOverflowNotVisible && "visible" !== r.overflow && (l += parseFloat(r.borderTopWidth) || 0, u += parseFloat(r.borderLeftWidth) || 0);
+			c = r;
+		}
 		if (("relative" === c.position || "static" === c.position)) {
 			(l += a.offsetTop, u += a.offsetLeft)
 		}
@@ -5797,7 +5925,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			top: l,
 			left: u
 		};
-	}, I.fn.offset = function(e) {
+	};
+	I.fn.offset = function(e) {
 		if (arguments.length) {
 			if (e === t) {
 				return this;
@@ -5818,7 +5947,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		} else {
 			return null;
 		}
-	}, I.offset = {
+	};
+	I.offset = {
 		bodyOffset: function(e) {
 			var t = e.offsetTop,
 				n = e.offsetLeft;
@@ -5842,9 +5972,14 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				u = ("absolute" === r || "fixed" === r) && I.inArray("auto", [c, l]) > -1,
 				f = {},
 				d = {};
-			u ? (d = a.position(), i = d.top, o = d.left) : (i = parseFloat(c) || 0, o = parseFloat(l) || 0), I.isFunction(t) && (t = t.call(e, n, s)), null != t.top && (f.top = t.top - s.top + i), null != t.left && (f.left = t.left - s.left + o), "using" in t ? t.using.call(e, f) : a.css(f)
+			u ? (d = a.position(), i = d.top, o = d.left) : (i = parseFloat(c) || 0, o = parseFloat(l) || 0);
+			I.isFunction(t) && (t = t.call(e, n, s));
+			null != t.top && (f.top = t.top - s.top + i);
+			null != t.left && (f.left = t.left - s.left + o);
+			"using" in t ? t.using.call(e, f) : a.css(f);
 		}
-	}, I.fn.extend({
+	};
+	I.fn.extend({
 		position: function() {
 			if (!this[0]) {
 				return null;
@@ -5871,7 +6006,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				return e
 			})
 		}
-	}), I.each({
+	});
+	I.each({
 		scrollLeft: "pageXOffset",
 		scrollTop: "pageYOffset"
 	}, function(e, n) {
@@ -5894,7 +6030,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 			}, e, i, arguments.length, null)
 		}
-	}), I.each({
+	});
+	I.each({
 		Height: "height",
 		Width: "width"
 	}, function(e, n) {
@@ -5937,9 +6074,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 			}, n, e, arguments.length, null)
 		}
-	}), e.jQuery = e.$ = I, "function" == typeof define && define.amd && define.amd.jQuery && define("jquery", [], function() {
+	});
+	e.jQuery = e.$ = I;
+	"function" == typeof define && define.amd && define.amd.jQuery && define("jquery", [], function() {
 		return I
-	})
+	});
 }(window);
 ! function(e, t, n) {
 	"use strict";
@@ -7544,7 +7683,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								var a = e.invoke(i);
 								T(a) ? a = {
 									compile: m(a)
-								} : !a.compile && a.link && (a.compile = m(a.link)), a.priority = a.priority || 0, a.index = o, a.name = a.name || t, a.require = a.require || a.controller && a.name, a.restrict = a.restrict || "A", r.push(a)
+								} : !a.compile && a.link && (a.compile = m(a.link));
+								a.priority = a.priority || 0;
+								a.index = o;
+								a.name = a.name || t;
+								a.require = a.require || a.controller && a.name;
+								a.restrict = a.restrict || "A";
+								r.push(a);
 							} catch (s) {
 								n(s)
 							}
@@ -7631,7 +7776,16 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							}
 						}
 					}
-					for (var c, l, u, f, d, p, h = [], g = 0; g < e.length; g++) c = new Y, l = q(e[g], [], c, 0 === g ? i : n, o), u = l.length ? I(l, e[g], c, t, r, null, [], [], a) : null, u && u.scope && N(br(e[g]), "ng-scope"), d = u && u.terminal || !(f = e[g].childNodes) || !f.length ? null : j(f, u ? u.transclude : t), h.push(u, d), p = p || u || d, a = null;
+					for (var c, l, u, f, d, p, h = [], g = 0; g < e.length; g++) {
+						c = new Y;
+						l = q(e[g], [], c, 0 === g ? i : n, o);
+						u = l.length ? I(l, e[g], c, t, r, null, [], [], a) : null;
+						u && u.scope && N(br(e[g]), "ng-scope");
+						d = u && u.terminal || !(f = e[g].childNodes) || !f.length ? null : j(f, u ? u.transclude : t);
+						h.push(u, d);
+						p = p || u || d;
+						a = null;
+					}
 					if (p) {
 						return s;
 					} else {
@@ -7667,7 +7821,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								if (f = m[v], !yr || yr >= 8 || f.specified) {
 									d = f.name, h = Ht(d), it.test(h) && (d = et(h.substr(6), "-"));
 									var k = h.replace(/(Start|End)$/, "");
-									h === k + "Start" && (b = d, w = d.substr(0, d.length - 5) + "end", d = d.substr(0, d.length - 6)), p = Ht(d.toLowerCase()), u[p] = d, n[p] = g = Nr(f.value), Nt(e, p) && (n[p] = true), G(e, t, g, p), F(t, p, "A", r, i, b, w)
+									h === k + "Start" && (b = d, w = d.substr(0, d.length - 5) + "end", d = d.substr(0, d.length - 6));
+									p = Ht(d.toLowerCase());
+									u[p] = d;
+									n[p] = g = Nr(f.value);
+									Nt(e, p) && (n[p] = true);
+									G(e, t, g, p);
+									F(t, p, "A", r, i, b, w);
 								}
 							}
 							if (a = e.className, $(a) && "" !== a)
@@ -7777,11 +7937,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 										if (u && !h[l]) {
 											return;
 										}
-										o = v(h[l]), s = o.literal ? L : function(e, t) {
+										o = v(h[l]);
+										s = o.literal ? L : function(e, t) {
 											return e === t
-										}, a = o.assign || function() {
+										};
+										a = o.assign || function() {
 											throw i = x[n] = o(t), ti("nonassign", "Expression '{0}' used with directive '{1}' is non-assignable!", h[l], F.name)
-										}, i = x[n] = o(t), x.$watch(function() {
+										};
+										i = x[n] = o(t);
+										x.$watch(function() {
 											var e = o(t);
 											if (!(s(e, x[n]))) {
 												if (s(e, i)) {
@@ -7811,7 +7975,12 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								$attrs: h,
 								$transclude: T
 							};
-							k = e.controller, k == "@" && (k = h[e.name]), n = y(k, r), C[e.name] = n, X || m.data("$" + e.name + "Controller", n), e.controllerAs && (r.$scope[e.controllerAs] = n)
+							k = e.controller;
+							k == "@" && (k = h[e.name]);
+							n = y(k, r);
+							C[e.name] = n;
+							X || m.data("$" + e.name + "Controller", n);
+							e.controllerAs && (r.$scope[e.controllerAs] = n);
 						});
 						b = 0;
 						for ($ = f.length; $ > b; b++) try {
@@ -7907,13 +8076,18 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							} else {
 								G.html(j);
 							}
-						if (k.templateUrl) W("template", R, k, G), R = k, k.replace && (Z = k), m = B(e.splice(tt, e.length - tt), G, a, l, et, f, d, {
-							controllerDirectives: I,
-							newIsolateScopeDirective: F,
-							templateDirective: R,
-							nonTlbTranscludeDirective: U
-						}), nt = e.length;
-						else if (k.compile) try {
+						if (k.templateUrl) {
+							W("template", R, k, G);
+							R = k;
+							k.replace && (Z = k);
+							m = B(e.splice(tt, e.length - tt), G, a, l, et, f, d, {
+								controllerDirectives: I,
+								newIsolateScopeDirective: F,
+								templateDirective: R,
+								nonTlbTranscludeDirective: U
+							});
+							nt = e.length;
+						} else if (k.compile) try {
 							A = k.compile(G, a, et), T(A) ? h(null, A, it, ot) : A && h(A.pre, A.post, it, ot)
 						} catch (lt) {
 							c(lt, V(G))
@@ -9056,7 +9230,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				}
 				var c, l, u, f = i.baseHref(),
 					d = i.url();
-				n ? (u = fn(d) + (f || "/"), l = o.history ? dn : hn) : (u = ln(d), l = pn), c = new l(u, "#" + t), c.$$parse(c.$$rewrite(d)), a.on("click", function(t) {
+				n ? (u = fn(d) + (f || "/"), l = o.history ? dn : hn) : (u = ln(d), l = pn);
+				c = new l(u, "#" + t);
+				c.$$parse(c.$$rewrite(d));
+				a.on("click", function(t) {
 					if (!t.ctrlKey && !t.metaKey && 2 != t.which) {
 						for (var n = br(t.target);
 							"a" !== pr(n[0].nodeName);)
@@ -9077,7 +9254,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							}
 						}
 					}
-				}), c.absUrl() != d && i.url(c.absUrl(), true), i.onUrlChange(function(e) {
+				});
+				c.absUrl() != d && i.url(c.absUrl(), true);
+				i.onUrlChange(function(e) {
 					if (c.absUrl() != e) {
 						r.$evalAsync(function() {
 							var t = c.absUrl();
@@ -10381,13 +10560,23 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			return e.factory(r + n, i)
 		}
 		var n = "Filter";
-		this.register = t, this.$get = ["$injector",
+		this.register = t;
+		this.$get = ["$injector",
 			function(e) {
 				return function(t) {
 					return e.get(t + n)
 				}
 			}
-		], t("currency", Un), t("date", Yn), t("filter", Bn), t("json", Zn), t("limitTo", er), t("lowercase", xi), t("number", Wn), t("orderBy", tr), t("uppercase", Ti)
+		];
+		t("currency", Un);
+		t("date", Yn);
+		t("filter", Bn);
+		t("json", Zn);
+		t("limitTo", er);
+		t("lowercase", xi);
+		t("number", Wn);
+		t("orderBy", tr);
+		t("uppercase", Ti);
 	}
 
 	function Bn() {
@@ -11001,23 +11190,29 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	function fr(e, t, n, r) {
 		var i = n.ngTrueValue,
 			o = n.ngFalseValue;
-		$(i) || (i = true), $(o) || (o = false), t.on("click", function() {
+		$(i) || (i = true);
+		$(o) || (o = false);
+		t.on("click", function() {
 			e.$apply(function() {
 				r.$setViewValue(t[0].checked)
 			})
-		}), r.$render = function() {
+		});
+		r.$render = function() {
 			t[0].checked = r.$viewValue
-		}, r.$isEmpty = function(e) {
+		};
+		r.$isEmpty = function(e) {
 			return e !== i
-		}, r.$formatters.push(function(e) {
+		};
+		r.$formatters.push(function(e) {
 			return e === i
-		}), r.$parsers.push(function(e) {
+		});
+		r.$parsers.push(function(e) {
 			if (e) {
 				return i;
 			} else {
 				return o;
 			}
-		})
+		});
 	}
 
 	function dr(e, t) {
@@ -11841,7 +12036,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	di.prototype = {
 		constructor: di,
 		lex: function(e) {
-			this.text = e, this.index = 0, this.ch = n, this.lastCh = ":", this.tokens = [];
+			this.text = e;
+			this.index = 0;
+			this.ch = n;
+			this.lastCh = ":";
+			this.tokens = [];
 			for (var t, r = []; this.index < this.text.length;) {
 				if (this.ch = this.text.charAt(this.index), this.is("\"'")) this.readString(this.ch);
 				else if (this.isNumber(this.ch) || this.is(".") && this.isNumber(this.peek())) this.readNumber();
@@ -13395,7 +13594,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 										label: ""
 									}]
 								];
-							w && (e(w)(t), w.removeClass("ng-scope"), w.remove()), o.empty(), o.on("change", function() {
+							w && (e(w)(t), w.removeClass("ng-scope"), w.remove());
+							o.empty();
+							o.on("change", function() {
 								t.$apply(function() {
 									var e, r, i, a, c, l, u, p, m, y = g(t) || [],
 										$ = {};
@@ -13432,7 +13633,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 									}
 									s.$setViewValue(i)
 								})
-							}), s.$render = c, t.$watch(c)
+							});
+							s.$render = c;
+							t.$watch(c);
 						}
 						if (u[1]) {
 							var h, g = u[0],
@@ -13650,11 +13853,16 @@ org.cometd.WebSocketTransport = function() {
 					return void t.onMessage(e);
 				}
 			};
-		o.onopen = a, o.onclose = s, o.onerror = function() {
+		o.onopen = a;
+		o.onclose = s;
+		o.onerror = function() {
 			s({
 				code: 1002
 			})
-		}, o.onmessage = c, f = o, this._debug("Transport", this.getType(), "configured callbacks on", o)
+		};
+		o.onmessage = c;
+		f = o;
+		this._debug("Transport", this.getType(), "configured callbacks on", o);
 	}
 
 	function t(e, t) {
@@ -13827,10 +14035,19 @@ org.cometd.CallbackPollingTransport = function() {
 		if (a.length > 1) {
 			var f = 0,
 				d = a[0];
-			this._debug("Transport", this.getType(), "split", e.messages.length, "messages into", a.join(" + ")), u = this._mixin(false, {}, e), u.messages = e.messages.slice(f, d), u.onSuccess = e.onSuccess, u.onFailure = e.onFailure;
+			this._debug("Transport", this.getType(), "split", e.messages.length, "messages into", a.join(" + "));
+			u = this._mixin(false, {}, e);
+			u.messages = e.messages.slice(f, d);
+			u.onSuccess = e.onSuccess;
+			u.onFailure = e.onFailure;
 			for (var p = 1; p < a.length; ++p) {
 				var h = this._mixin(false, {}, e);
-				f = d, d += a[p], h.messages = e.messages.slice(f, d), h.onSuccess = e.onSuccess, h.onFailure = e.onFailure, this.send(h, t.metaConnect)
+				f = d;
+				d += a[p];
+				h.messages = e.messages.slice(f, d);
+				h.onSuccess = e.onSuccess;
+				h.onFailure = e.onFailure;
+				this.send(h, t.metaConnect);
 			}
 		}
 		this._debug("Transport", this.getType(), "sending request", t.id, "envelope", u);
@@ -14007,7 +14224,8 @@ org.cometd.TransportRegistry = function() {
 		t = {};
 	this.getTransportTypes = function() {
 		return e.slice(0)
-	}, this.findTransportTypes = function(n, r, i) {
+	};
+	this.findTransportTypes = function(n, r, i) {
 		for (var o = [], a = 0; a < e.length; ++a) {
 			var s = e[a];
 			if (t[s].accept(n, r, i) === true) {
@@ -14015,7 +14233,8 @@ org.cometd.TransportRegistry = function() {
 			}
 		}
 		return o
-	}, this.negotiateTransport = function(n, r, i, o) {
+	};
+	this.negotiateTransport = function(n, r, i, o) {
 		for (var a = 0; a < e.length; ++a)
 			for (var s = e[a], c = 0; c < n.length; ++c)
 				if (s === n[c]) {
@@ -14025,7 +14244,8 @@ org.cometd.TransportRegistry = function() {
 					}
 				}
 		return null
-	}, this.add = function(n, r, i) {
+	};
+	this.add = function(n, r, i) {
 		for (var o = false, a = 0; a < e.length; ++a)
 			if (e[a] === n) {
 				o = true;
@@ -14035,13 +14255,15 @@ org.cometd.TransportRegistry = function() {
 			("number" != typeof i ? e.push(n) : e.splice(i, 0, n), t[n] = r)
 		}
 		return !o;
-	}, this.find = function(n) {
+	};
+	this.find = function(n) {
 		for (var r = 0; r < e.length; ++r)
 			if (e[r] === n) {
 				return t[n];
 			}
 		return null
-	}, this.remove = function(n) {
+	};
+	this.remove = function(n) {
 		for (var r = 0; r < e.length; ++r)
 			if (e[r] === n) {
 				e.splice(r, 1);
@@ -14050,11 +14272,13 @@ org.cometd.TransportRegistry = function() {
 				return i;
 			}
 		return null
-	}, this.clear = function() {
+	};
+	this.clear = function() {
 		e = [], t = {}
-	}, this.reset = function() {
+	};
+	this.reset = function() {
 		for (var n = 0; n < e.length; ++n) t[e[n]].reset()
-	}
+	};
 };
 org.cometd.Transport = function() {
 	var e, t;
@@ -14361,7 +14585,11 @@ org.cometd.Cometd = function(e) {
 			};
 			yt || (e.advice = {
 				timeout: 0
-			}), a("connecting"), tt._debug("Connect sent", e), m(false, [e], true, "connect"), a("connected")
+			});
+			a("connecting");
+			tt._debug("Connect sent", e);
+			m(false, [e], true, "connect");
+			a("connected");
 		}
 	}
 
@@ -14389,9 +14617,14 @@ org.cometd.Cometd = function(e) {
 	}
 
 	function A(e) {
-		st = null, o(), s() ? (it.reset(), C(bt.advice)) : C(tt._mixin(false, gt, {
+		st = null;
+		o();
+		s() ? (it.reset(), C(bt.advice)) : C(tt._mixin(false, gt, {
 			reconnect: "retry"
-		})), ct = 0, ut = true, et = e;
+		}));
+		ct = 0;
+		ut = true;
+		et = e;
 		var t = "1.0",
 			n = it.findTransportTypes(t, rt, bt.url),
 			r = {
@@ -14405,7 +14638,11 @@ org.cometd.Cometd = function(e) {
 				}
 			},
 			i = tt._mixin(false, {}, et, r);
-		Z = it.negotiateTransport(n, t, rt, bt.url), tt._debug("Initial transport is", Z.getType()), a("handshaking"), tt._debug("Handshake sent", i), m(false, [i], false, "handshake")
+		Z = it.negotiateTransport(n, t, rt, bt.url);
+		tt._debug("Initial transport is", Z.getType());
+		a("handshaking");
+		tt._debug("Handshake sent", i);
+		m(false, [i], false, "handshake");
 	}
 
 	function E() {
@@ -14433,7 +14670,12 @@ org.cometd.Cometd = function(e) {
 			if (null === t) {
 				throw "Could not negotiate transport with server; client " + it.findTransportTypes(e.version, rt, bt.url) + ", server " + e.supportedConnectionTypes;
 			}
-			Z !== t && (tt._debug("Transport", Z, "->", t), Z = t), ut = false, w(), e.reestablish = vt, vt = true, p("/meta/handshake", e);
+			Z !== t && (tt._debug("Transport", Z, "->", t), Z = t);
+			ut = false;
+			w();
+			e.reestablish = vt;
+			vt = true;
+			p("/meta/handshake", e);
 			var n = s() ? "none" : gt.reconnect;
 			switch (n) {
 				case "retry":
@@ -14779,17 +15021,21 @@ org.cometd.Cometd = function(e) {
 				}
 		}
 		return n;
-	}, this._warn = function() {
+	};
+	this._warn = function() {
 		r("warn", arguments)
-	}, this._info = function() {
+	};
+	this._info = function() {
 		if ("warn" !== bt.logLevel) {
 			r("info", arguments);
 		}
-	}, this._debug = function() {
+	};
+	this._debug = function() {
 		if ("debug" === bt.logLevel) {
 			r("debug", arguments);
 		}
-	}, this._isCrossDomain = function(e) {
+	};
+	this._isCrossDomain = function(e) {
 		return e && e !== window.location.host
 	};
 	var $t, wt;
@@ -15086,12 +15332,14 @@ org.cometd.Cometd = function(e) {
 				c = 0;
 			this.registered = function(e, t) {
 				r = t, n("TimeSyncExtension: executing registration callback")
-			}, this.unregistered = function() {
+			};
+			this.unregistered = function() {
 				n("TimeSyncExtension: executing unregistration callback");
 				r = null;
 				o = [];
 				a = [];
-			}, this.incoming = function(e) {
+			};
+			this.incoming = function(e) {
 				var t = e.channel;
 				if (t && 0 === t.indexOf("/meta/") && e.ext && e.ext.timesync) {
 					var r = e.ext.timesync;
@@ -15107,7 +15355,8 @@ org.cometd.Cometd = function(e) {
 					s = parseInt((p / d).toFixed()), c = parseInt((h / d).toFixed()), n("TimeSyncExtension: network lag", s, "ms, time offset with server", c, "ms", s, c)
 				}
 				return e
-			}, this.outgoing = function(t) {
+			};
+			this.outgoing = function(t) {
 				var r = t.channel;
 				if (r && 0 === r.indexOf("/meta/")) {
 					t.ext || (t.ext = {});
@@ -15119,17 +15368,23 @@ org.cometd.Cometd = function(e) {
 					n("TimeSyncExtension: client sending timesync", e.JSON.toJSON(t.ext.timesync));
 				}
 				return t;
-			}, this.getTimeOffset = function() {
+			};
+			this.getTimeOffset = function() {
 				return c
-			}, this.getTimeOffsetSamples = function() {
+			};
+			this.getTimeOffsetSamples = function() {
 				return a
-			}, this.getNetworkLag = function() {
+			};
+			this.getNetworkLag = function() {
 				return s
-			}, this.getServerTime = function() {
+			};
+			this.getServerTime = function() {
 				return (new Date).getTime() + c
-			}, this.getServerDate = function() {
+			};
+			this.getServerDate = function() {
 				return new Date(this.getServerTime())
-			}, this.setTimeout = function(t, n) {
+			};
+			this.setTimeout = function(t, n) {
 				var i = n instanceof Date ? n.getTime() : 0 + n,
 					o = i - c,
 					a = o - (new Date).getTime();
@@ -15137,7 +15392,7 @@ org.cometd.Cometd = function(e) {
 					(a = 1)
 				}
 				return e.Utils.setTimeout(r, t, a);
-			}
+			};
 		}
 	}
 	if ("function" == typeof define && define.amd) {
@@ -15415,7 +15670,10 @@ org.cometd.Cometd = function(e) {
 						if (!new RegExp("^\\d+$").test(e) && e && new RegExp("(^|[^\\\\]):" + e + "(\\W|$)").test(l)) {
 							(u[e] = true);
 						}
-					}), l = l.replace(/\\:/g, ":"), n = n || {}, p(c.urlParams, function(e, r) {
+					});
+					l = l.replace(/\\:/g, ":");
+					n = n || {};
+					p(c.urlParams, function(e, r) {
 						i = n.hasOwnProperty(r) ? n[r] : c.defaults[r], t.isDefined(i) && null !== i ? (o = s(i), l = l.replace(new RegExp(":" + r + "(\\W|$)", "g"), function(e, t) {
 							return o + t
 						})) : l = l.replace(new RegExp("(/?):" + r + "(\\W|$)", "g"), function(e, t, n) {
@@ -15425,11 +15683,15 @@ org.cometd.Cometd = function(e) {
 								return t + n;
 							}
 						})
-					}), l = l.replace(/\/+$/, "") || "/", l = l.replace(/\/\.(?=\w+($|\?))/, "."), e.url = l.replace(/\/\\\./, "/."), p(n, function(t, n) {
+					});
+					l = l.replace(/\/+$/, "") || "/";
+					l = l.replace(/\/\.(?=\w+($|\?))/, ".");
+					e.url = l.replace(/\/\\\./, "/.");
+					p(n, function(t, n) {
 						if (!(c.urlParams[n])) {
 							(e.params = e.params || {}, e.params[n] = t)
 						}
-					})
+					});
 				}
 			};
 			return u;
@@ -15663,7 +15925,11 @@ org.cometd.Cometd = function(e) {
 		}
 	}
 	var a = t.module("ngRoute", ["ng"]).provider("$route", n);
-	a.provider("$routeParams", r), a.directive("ngView", i), a.directive("ngView", o), i.$inject = ["$route", "$anchorScroll", "$animate"], o.$inject = ["$compile", "$controller", "$route"]
+	a.provider("$routeParams", r);
+	a.directive("ngView", i);
+	a.directive("ngView", o);
+	i.$inject = ["$route", "$anchorScroll", "$animate"];
+	o.$inject = ["$compile", "$controller", "$route"];
 }(window, window.angular);
 
 ! function(e, t) {
@@ -15845,8 +16111,15 @@ org.cometd.Cometd = function(e) {
 				if (!o) {
 					return o;
 				}
-				for (var l, u, f, d = o, p = []; l = d.match(n);) u = l[0], l[2] == l[3] && (u = "mailto:" + u), f = l.index, s(d.substr(0, f)), c(u, l[0].replace(i, "")), d = d.substring(f + l[0].length);
-				s(d);
+				for (var l, u, f, d = o, p = []; l = d.match(n);) {
+					u = l[0];
+					l[2] == l[3] && (u = "mailto:" + u);
+					f = l.index;
+					s(d.substr(0, f));
+					c(u, l[0].replace(i, ""));
+					d = d.substring(f + l[0].length);
+					s(d);
+				}
 				return e(p.join(""));
 			}
 		}
@@ -16496,9 +16769,14 @@ window.Modernizr = function(e, t, n) {
 				a: c,
 				x: l
 			};
-		1 === S[n] && (m = 1, S[n] = []), e == "object" ? f.data = n : (f.src = n, f.type = e), f.width = f.height = "0", f.onerror = f.onload = f.onreadystatechange = function() {
+		1 === S[n] && (m = 1, S[n] = []);
+		e == "object" ? f.data = n : (f.src = n, f.type = e);
+		f.width = f.height = "0";
+		f.onerror = f.onload = f.onreadystatechange = function() {
 			u.call(this, m)
-		}, v.splice(i, 0, b), "img" != e && (m || 2 === S[n] ? (w.insertBefore(f, $ ? null : g), h(u, l)) : S[n].push(f))
+		};
+		v.splice(i, 0, b);
+		"img" != e && (m || 2 === S[n] ? (w.insertBefore(f, $ ? null : g), h(u, l)) : S[n].push(f));
 	}
 
 	function l(e, t, n, r, o) {
@@ -16638,13 +16916,20 @@ window.Modernizr = function(e, t, n) {
 			} else if (Object(e) === e) {
 				s(e, f);
 			}
-	}, d.addPrefix = function(e, t) {
+	};
+	d.addPrefix = function(e, t) {
 		A[e] = t
-	}, d.addFilter = function(e) {
+	};
+	d.addFilter = function(e) {
 		C.push(e)
-	}, d.errorTimeout = 1e4, null == t.readyState && t.addEventListener && (t.readyState = "loading", t.addEventListener("DOMContentLoaded", f = function() {
+	};
+	d.errorTimeout = 1e4;
+	null == t.readyState && t.addEventListener && (t.readyState = "loading", t.addEventListener("DOMContentLoaded", f = function() {
 		t.removeEventListener("DOMContentLoaded", f, 0), t.readyState = "complete"
-	}, 0)), e.yepnope = u(), e.yepnope.executeStack = s, e.yepnope.injectJs = function(e, n, r, i, c, l) {
+	}, 0));
+	e.yepnope = u();
+	e.yepnope.executeStack = s;
+	e.yepnope.injectJs = function(e, n, r, i, c, l) {
 		var u, f, p = t.createElement("script"),
 			i = i || d.errorTimeout;
 		p.src = e;
@@ -16662,7 +16947,8 @@ window.Modernizr = function(e, t, n) {
 				(u = 1, n(1))
 			}
 		}, i), c ? p.onload() : g.parentNode.insertBefore(p, g)
-	}, e.yepnope.injectCss = function(e, n, r, i, a, c) {
+	};
+	e.yepnope.injectCss = function(e, n, r, i, a, c) {
 		var l, i = t.createElement("link"),
 			n = c ? s : n || o;
 		i.href = e, i.rel = "stylesheet", i.type = "text/css";
@@ -16672,7 +16958,7 @@ window.Modernizr = function(e, t, n) {
 		if (!(a)) {
 			(g.parentNode.insertBefore(i, g), h(n, 0))
 		}
-	}
+	};
 }(this, document), Modernizr.load = function() {
 	yepnope.apply(window, [].slice.call(arguments, 0))
 };
@@ -16684,7 +16970,19 @@ var addToHome = function(e) {
 				for (t in e.addToHomeConfig) {
 					E[t] = e.addToHomeConfig[t];
 				}
-			E.autostart || (E.hookOnLoad = false), f = /ipad/gi.test(x.platform), d = e.devicePixelRatio && e.devicePixelRatio > 1, p = /Safari/i.test(x.appVersion) && !/CriOS/i.test(x.appVersion), h = x.standalone, g = x.appVersion.match(/OS (\d+_\d+)/i), g = g[1] ? +g[1].replace("_", ".") : 0, A = +e.localStorage.getItem("addToHome"), v = e.sessionStorage.getItem("addToHomeSession"), y = E.returningVisitor ? A && A + 24192e5 > r : true, A || (A = r), m = y && r >= A, E.hookOnLoad ? e.addEventListener("load", n, false) : !E.hookOnLoad && E.autostart && n()
+			E.autostart || (E.hookOnLoad = false);
+			f = /ipad/gi.test(x.platform);
+			d = e.devicePixelRatio && e.devicePixelRatio > 1;
+			p = /Safari/i.test(x.appVersion) && !/CriOS/i.test(x.appVersion);
+			h = x.standalone;
+			g = x.appVersion.match(/OS (\d+_\d+)/i);
+			g = g[1] ? +g[1].replace("_", ".") : 0;
+			A = +e.localStorage.getItem("addToHome");
+			v = e.sessionStorage.getItem("addToHomeSession");
+			y = E.returningVisitor ? A && A + 24192e5 > r : true;
+			A || (A = r);
+			m = y && r >= A;
+			E.hookOnLoad ? e.addEventListener("load", n, false) : !E.hookOnLoad && E.autostart && n();
 		}
 	}
 
@@ -16701,7 +16999,18 @@ var addToHome = function(e) {
 			var t = "",
 				i = x.platform.split(" ")[0],
 				o = x.language.replace("-", "_");
-			b = document.createElement("div"), b.id = "addToHomeScreen", b.style.cssText += "left:-9999px;-webkit-transition-property:-webkit-transform,opacity;-webkit-transition-duration:0;-webkit-transform:translate3d(0,0,0);position:" + (5 > g ? "absolute" : "fixed"), E.message in N && (o = E.message, E.message = ""), "" === E.message && (E.message = o in N ? N[o] : N.en_us), E.touchIcon && (t = document.querySelector(d ? 'head link[rel^=apple-touch-icon][sizes="114x114"],head link[rel^=apple-touch-icon][sizes="144x144"]' : 'head link[rel^=apple-touch-icon][sizes="57x57"],head link[rel^=apple-touch-icon]'), t && (t = '<span style="background-image:url(' + t.href + ')" class="addToHomeTouchIcon"></span>')), b.className = (f ? "addToHomeIpad" : "addToHomeIphone") + (t ? " addToHomeWide" : ""), b.innerHTML = t + E.message.replace("%device", i).replace("%icon", g >= 4.2 ? '<span class="addToHomeShare"></span>' : '<span class="addToHomePlus">+</span>') + (E.arrow ? '<span class="addToHomeArrow"></span>' : "") + (E.closeButton ? '<span class="addToHomeClose">×</span>' : ""), document.body.appendChild(b), E.closeButton && b.addEventListener("click", a, false), !f && g >= 6 && window.addEventListener("orientationchange", u, false), setTimeout(r, E.startDelay)
+			b = document.createElement("div");
+			b.id = "addToHomeScreen";
+			b.style.cssText += "left:-9999px;-webkit-transition-property:-webkit-transform,opacity;-webkit-transition-duration:0;-webkit-transform:translate3d(0,0,0);position:" + (5 > g ? "absolute" : "fixed");
+			E.message in N && (o = E.message, E.message = "");
+			"" === E.message && (E.message = o in N ? N[o] : N.en_us);
+			E.touchIcon && (t = document.querySelector(d ? 'head link[rel^=apple-touch-icon][sizes="114x114"],head link[rel^=apple-touch-icon][sizes="144x144"]' : 'head link[rel^=apple-touch-icon][sizes="57x57"],head link[rel^=apple-touch-icon]'), t && (t = '<span style="background-image:url(' + t.href + ')" class="addToHomeTouchIcon"></span>'));
+			b.className = (f ? "addToHomeIpad" : "addToHomeIphone") + (t ? " addToHomeWide" : "");
+			b.innerHTML = t + E.message.replace("%device", i).replace("%icon", g >= 4.2 ? '<span class="addToHomeShare"></span>' : '<span class="addToHomePlus">+</span>') + (E.arrow ? '<span class="addToHomeArrow"></span>' : "") + (E.closeButton ? '<span class="addToHomeClose">×</span>' : "");
+			document.body.appendChild(b);
+			E.closeButton && b.addEventListener("click", a, false);
+			!f && g >= 6 && window.addEventListener("orientationchange", u, false);
+			setTimeout(r, E.startDelay);
 		}
 	}
 
@@ -16730,7 +17039,12 @@ var addToHome = function(e) {
 					t = "1s", b.style.opacity = "0"
 			}
 		}
-		b.offsetHeight, b.style.webkitTransitionDuration = t, b.style.opacity = "1", b.style.webkitTransform = "translate3d(0,0,0)", b.addEventListener("webkitTransitionEnd", s, false), k = setTimeout(o, E.lifespan)
+		b.offsetHeight;
+		b.style.webkitTransitionDuration = t;
+		b.style.opacity = "1";
+		b.style.webkitTransform = "translate3d(0,0,0)";
+		b.addEventListener("webkitTransitionEnd", s, false);
+		k = setTimeout(o, E.lifespan);
 	}
 
 	function i(e) {
@@ -17884,7 +18198,15 @@ angular.module("app.services.random", []).factory("$random", [
 					a = o(r.j + i),
 					c = t[a];
 				t[n] = c, t[a] = i;
-				for (var l = t[o(i + c)]; --e;) n = o(n + 1), i = t[n], a = o(a + i), c = t[a], t[n] = c, t[a] = i, l = l * s + t[o(i + c)];
+				for (var l = t[o(i + c)]; --e;) {
+					n = o(n + 1);
+					i = t[n];
+					a = o(a + i);
+					c = t[a];
+					t[n] = c;
+					t[a] = i;
+					l = l * s + t[o(i + c)];
+				}
 				r.i = n;
 				r.j = a;
 				return l;
@@ -18188,7 +18510,8 @@ angular.module("app.directives.notifications", []).directive("alerts", ["$timeou
 					(u = 500);
 				}
 				var f = parseInt(l.slideDuration);
-				isNaN(f) && (f = 250), s.$on("clearWait", function(e, t) {
+				isNaN(f) && (f = 250);
+				s.$on("clearWait", function(e, t) {
 					if (!i || t && t.level && t.level >= i) {
 						i = 0;
 						var n = $("#waitOverlay", c[0]).animate({
@@ -18197,13 +18520,15 @@ angular.module("app.directives.notifications", []).directive("alerts", ["$timeou
 							n.remove()
 						})
 					}
-				}), s.$on("dismissAlert", function(e, t) {
+				});
+				s.$on("dismissAlert", function(e, t) {
 					var n = $("#" + t.key, c[0]).animate({
 						opacity: 0
 					}, u, "linear", function() {
 						n.remove()
 					})
-				}), s.$on("dismissAllNotifications", function(e, t) {
+				});
+				s.$on("dismissAllNotifications", function(e, t) {
 					s.$broadcast("clearWait");
 					if (!o || t && t.level && t.level >= o) {
 						o = 0;
@@ -18213,7 +18538,8 @@ angular.module("app.directives.notifications", []).directive("alerts", ["$timeou
 							n.remove()
 						})
 					}
-				}), s.$on("wait", function(e, t) {
+				});
+				s.$on("wait", function(e, t) {
 					var r = c[0],
 						o = "#waitOverlay";
 					if (t.level && i < t.level && (i = t.level), 0 == $(o, r).length || $(o, r).css("opacity") < 1) {
@@ -18224,23 +18550,29 @@ angular.module("app.directives.notifications", []).directive("alerts", ["$timeou
 						var l = $(o + " .spinner-message", r);
 						l.html(t.message)
 					}
-				}), s.$on("alert", function(n, i) {
+				});
+				s.$on("alert", function(n, i) {
 					if (0 == $("#" + i.key, c[0]).length || $("#" + i.key, c[0]).css("opacity") < 1) {
 						if (i.level && o < i.level) {
 							(o = i.level);
 						}
 						var s = 99999,
 							l = $(t(r[i.alertType], i.message, i.key, i.userDismissable));
-						i.level > 0 ? l.css("z-index", s + i.level) : l.css("z-index", s + 1), c.append(l), i.logo && l.addClass("with-logo"), l.css("bottom", -(l.height() + 10)), l.animate({
+						i.level > 0 ? l.css("z-index", s + i.level) : l.css("z-index", s + 1);
+						c.append(l);
+						i.logo && l.addClass("with-logo");
+						l.css("bottom", -(l.height() + 10));
+						l.animate({
 							bottom: 0
-						}, f, easings.easeOut), i.userDismissable && l.bind("click", function() {
+						}, f, easings.easeOut);
+						i.userDismissable && l.bind("click", function() {
 							var e = $(this);
 							e.animate({
 								opacity: 0
 							}, u, "linear", function() {
 								e.remove()
 							})
-						})
+						});
 					} else {
 						var l = $("#" + i.key, c[0]);
 						i.logo && l.addClass("with-logo"), l.find(".msg").text(i.message)
@@ -18257,7 +18589,7 @@ angular.module("app.directives.notifications", []).directive("alerts", ["$timeou
 					} else if (a[i.key]) {
 						e.cancel(a[i.key]);
 					}
-				})
+				});
 			}
 		}
 	}
@@ -18610,7 +18942,15 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 			u = /^[^,]+/.exec(a)[0],
 			f = l.loopExp,
 			d = /\S+$/.exec(f || u)[0];
-		o.firstArg = u, o.hasDontEnumBug = St, o.hasExp = "hasOwnProperty.call(" + d + ", index)", o.iteratedObject = d, o.shadowed = Mt, o.useHas = o.useHas !== false, o.exit || (o.exit = "if (!" + u + ") return result"), "object" != u && s.inLoop || (o.arrayBranch = null), f || (l.loopExp = "index in " + d);
+		o.firstArg = u;
+		o.hasDontEnumBug = St;
+		o.hasExp = "hasOwnProperty.call(" + d + ", index)";
+		o.iteratedObject = d;
+		o.shadowed = Mt;
+		o.useHas = o.useHas !== false;
+		o.exit || (o.exit = "if (!" + u + ") return result");
+		"object" != u && s.inLoop || (o.arrayBranch = null);
+		f || (l.loopExp = "index in " + d);
 		var p = Function("arrayClass, funcClass, hasOwnProperty, identity, iteratorBind, objectTypes, stringClass, toString, undefined", '"use strict"; return function(' + a + ") {\n" + ln(o) + "\n}");
 		return p(Ht, Wt, Yt, gt, c, zt, Xt, tn)
 	}
@@ -20122,51 +20462,59 @@ angular.module("app", ["app.filters", "app.directives", "app.directives.spinner"
 			resolve: {
 				loadContent: appCtrl.loadContent
 			}
-		}), e.when("/join", {
+		});
+		e.when("/join", {
 			templateUrl: "join.html",
 			controller: JoinCtrl,
 			resolve: {
 				loadContent: appCtrl.loadContent
 			}
-		}), e.when("/instructions", {
+		});
+		e.when("/instructions", {
 			templateUrl: "instructions.html",
 			controller: InstructionsCtrl,
 			resolve: {
 				loadContent: appCtrl.loadContent
 			}
-		}), e.when("/start", {
+		});
+		e.when("/start", {
 			templateUrl: "start.html",
 			controller: StartCtrl,
 			resolve: {
 				loadContent: appCtrl.loadContent
 			}
-		}), e.when("/getready", {
+		});
+		e.when("/getready", {
 			templateUrl: "getready.html",
 			controller: GetReadyCtrl,
 			resolve: {
 				loadContent: appCtrl.loadContent
 			}
-		}), e.when("/answer", {
+		});
+		e.when("/answer", {
 			templateUrl: "answer.html",
 			controller: AnswerCtrl,
 			resolve: {
 				loadContent: appCtrl.loadContent
 			}
-		}), e.when("/feedback", {
+		});
+		e.when("/feedback", {
 			templateUrl: "feedback.html",
 			controller: FeedbackCtrl,
 			resolve: {
 				loadContent: appCtrl.loadContent
 			}
-		}), e.when("/gameover", {
+		});
+		e.when("/gameover", {
 			templateUrl: "gameover.html",
 			controller: GameOverCtrl,
 			resolve: {
 				loadContent: appCtrl.loadContent
 			}
-		}), e.otherwise({
+		});
+		e.otherwise({
 			redirectTo: "/"
-		})
+		});
 	}
 ]).run(["$config",
 	function() {}
@@ -20293,11 +20641,14 @@ angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.ser
 					case u.latencyThreshold.playable:
 				}
 			}
-		}), n.$on("userNameCleaned", function(e, t) {
+		});
+		n.$on("userNameCleaned", function(e, t) {
 			b = t
-		}), n.$on("handshakeSuccess", function() {
+		});
+		n.$on("handshakeSuccess", function() {
 			T.trackConnection("handshakeSuccess"), x()
-		}), n.$on("connectionEstablished", function() {
+		});
+		n.$on("connectionEstablished", function() {
 			x();
 			T.trackConnection("connectionEstablished");
 			null !== T.playerId && e.withComet(function(e) {
@@ -20318,7 +20669,8 @@ angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.ser
 				alertType: "success",
 				message: n.siteAppContent.info["welcome-back"]
 			})) : k && n.$broadcast("clearWait");
-		}), n.$on("connectionBroken", function() {
+		});
+		n.$on("connectionBroken", function() {
 			n.$broadcast("wait", {
 				message: n.siteAppContent.info["attempt-reconnection"]
 			});
@@ -20327,7 +20679,8 @@ angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.ser
 				message: n.siteAppContent.misc.oops + ". " + n.siteAppContent.errors["lost-connection"]
 			});
 			T.trackConnection("connectionBroken");
-		}), n.$on("$routeChangeSuccess", function() {
+		});
+		n.$on("$routeChangeSuccess", function() {
 			switch (t.path()) {
 				case "/":
 				case "/join":
@@ -20384,14 +20737,18 @@ angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.ser
 							h(), T.trackConnection("restart");
 							break;
 						case "NONEXISTING_SESSION":
-							k = false, n.$broadcast("wait", {
+							k = false;
+							n.$broadcast("wait", {
 								message: n.siteAppContent.info["attempt-reconnection"]
-							}), n.$broadcast("alert", {
+							});
+							n.$broadcast("alert", {
 								key: "nonexisting-session",
 								message: n.siteAppContent.misc.oops + ". " + n.siteAppContent.errors["lost-session"]
-							}), f(function() {
+							});
+							f(function() {
 								h()
-							}, 3e3), T.trackConnection("nonExistingSession")
+							}, 3e3);
+							T.trackConnection("nonExistingSession");
 					}
 				} else {
 					n.$broadcast("clearWait");
@@ -20441,7 +20798,11 @@ angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.ser
 						});
 						break;
 					case y.gameOver:
-						n.result = angular.fromJson(r.data.content), n.quizType = n.result.quizType, n.quizQuestionAnswers = n.result.quizQuestionAnswers, "quiz" !== n.quizType && e.redirect("/gameover"), n.$broadcast("dismissAllNotifications");
+						n.result = angular.fromJson(r.data.content);
+						n.quizType = n.result.quizType;
+						n.quizQuestionAnswers = n.result.quizQuestionAnswers;
+						"quiz" !== n.quizType && e.redirect("/gameover");
+						n.$broadcast("dismissAllNotifications");
 						break;
 					case y.feedback:
 						e.redirect("/feedback"), n.$broadcast("dismissAllNotifications");
@@ -20456,7 +20817,12 @@ angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.ser
 						break;
 					case y.startQuiz:
 						var o = angular.fromJson(r.data.content);
-						n.quizName = o.quizName, n.quizType = o.quizType || "quiz", n.quizQuestionAnswers = o.quizQuestionAnswers, n.quizRandAnswers = o.quizRandAnswers, n.qIdx = 0, e.redirect("/start");
+						n.quizName = o.quizName;
+						n.quizType = o.quizType || "quiz";
+						n.quizQuestionAnswers = o.quizQuestionAnswers;
+						n.quizRandAnswers = o.quizRandAnswers;
+						n.qIdx = 0;
+						e.redirect("/start");
 						break;
 					case y.resetController:
 						var a = angular.fromJson(r.data.content);
