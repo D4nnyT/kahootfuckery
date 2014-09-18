@@ -2180,7 +2180,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				});
 			}
 			if (e && "string" == typeof e) {
-				for (t = e.split(U), n = 0, r = this.length; r > n; n++)
+				t = e.split(U);
+				n = 0;
+				for (r = this.length; r > n; n++)
 					if (i = this[n], 1 === i.nodeType)
 						if (i.className || 1 !== t.length) {
 							for (o = " " + i.className + " ", a = 0, s = t.length; s > a; a++)
@@ -2200,7 +2202,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				});
 			}
 			if (e && "string" == typeof e || e === t) {
-				for (n = (e || "").split(U), r = 0, i = this.length; i > r; r++)
+				n = (e || "").split(U);
+				r = 0;
+				for (i = this.length; i > r; r++)
 					if (o = this[r], 1 === o.nodeType && o.className)
 						if (e) {
 							for (a = (" " + o.className + " ").replace(B, " "), s = 0, c = n.length; c > s; s++) {
@@ -2651,7 +2655,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							if (h = [
 								[i, d.bindType || m]
 							], !o && !d.noBubble && !I.isWindow(i)) {
-								for (g = d.delegateType || m, l = nt.test(g + m) ? i : i.parentNode, u = null; l; l = l.parentNode) {
+								g = d.delegateType || m;
+								l = nt.test(g + m) ? i : i.parentNode;
+								for (u = null; l; l = l.parentNode) {
 									h.push([l, g]);
 									u = l;
 								}
@@ -2694,7 +2700,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			n.delegateTarget = this;
 			if (!v.preDispatch || v.preDispatch.call(this, n) !== false) {
 				if (h && (!n.button || "click" !== n.type)) {
-					for (a = I(this), a.context = this.ownerDocument || this, o = n.target; o != this; o = o.parentNode || this)
+					a = I(this);
+					a.context = this.ownerDocument || this;
+					for (o = n.target; o != this; o = o.parentNode || this) {
 						if (o.disabled !== true) {
 							for (c = {}, u = [], a[0] = o, r = 0; h > r; r++) {
 								f = p[r];
@@ -2709,6 +2717,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								});
 							}
 						}
+					}
 				}
 				if (p.length > h) {
 					y.push({
@@ -2716,11 +2725,14 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						matches: p.slice(h)
 					})
 				}
-				for (r = 0; r < y.length && !n.isPropagationStopped(); r++)
-					for (l = y[r], n.currentTarget = l.elem, i = 0; i < l.matches.length && !n.isImmediatePropagationStopped(); i++) {
+				for (r = 0; r < y.length && !n.isPropagationStopped(); r++) {
+					l = y[r];
+					n.currentTarget = l.elem;
+					for (i = 0; i < l.matches.length && !n.isImmediatePropagationStopped(); i++) {
 						f = l.matches[i];
 						(m || !n.namespace && !f.namespace || n.namespace_re && n.namespace_re.test(f.namespace)) && (n.data = f.data, n.handleObj = f, s = ((I.event.special[f.origType] || {}).handle || f.handler).apply(l.elem, g), s !== t && (n.result = s, s === false && (n.preventDefault(), n.stopPropagation())));
 					}
+				}
 				if (v.postDispatch) {
 					v.postDispatch.call(this, n)
 				}
@@ -4469,7 +4481,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					}
 			}
 			if (t && (d(e, a), n)) {
-				for (r = h(e), i = h(a), o = 0; r[o]; ++o) {
+				r = h(e);
+				i = h(a);
+				for (o = 0; r[o]; ++o) {
 					d(r[o], i[o]);
 				}
 			}
@@ -5838,14 +5852,16 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						return e;
 					}
 				};
-			for (t = i + o.replace(/\{\d+\}/g, function(e) {
+			t = i + o.replace(/\{\d+\}/g, function(e) {
 				var t, n = +e.slice(1, -1);
 				if (n + 2 < a.length) {
 					return (t = a[n + 2], "function" == typeof t ? t.toString().replace(/ ?\{[\s\S]*$/, "") : "undefined" == typeof t ? "undefined" : "string" != typeof t ? B(t) : t);
 				} else {
 					return e;
 				}
-			}), t = t + "\nhttp://errors.angularjs.org/1.2.16/" + (e ? e + "/" : "") + r, n = 2; n < arguments.length; n++) {
+			});
+			t = t + "\nhttp://errors.angularjs.org/1.2.16/" + (e ? e + "/" : "") + r;
+			for (n = 2; n < arguments.length; n++) {
 				t = t + (n == 2 ? "?" : "&") + "p" + (n - 2) + "=" + encodeURIComponent(s(arguments[n]));
 			}
 			return new Error(t)
@@ -6617,12 +6633,17 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		function i(e) {
 			var i, a, s, c, l, u, f, d = n && e ? [this.filter(e)] : [this],
 				p = t;
-			if (!r || null != e)
-				for (; d.length;)
-					for (i = d.shift(), a = 0, s = i.length; s > a; a++)
+			if (!r || null != e) {
+				for (; d.length;) {
+					i = d.shift();
+					a = 0;
+					for (s = i.length; s > a; a++) {
 						for (c = br(i[a]), p ? c.triggerHandler("$destroy") : p = !p, l = 0, u = (f = c.children()).length; u > l; l++) {
 							d.push($r(f[l]));
 						}
+					}
+				}
+			}
 			return o.apply(this, arguments)
 		}
 		var o = $r.fn[e];
@@ -6638,7 +6659,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			l = [];
 		if (dt(e)) l.push(t.createTextNode(e));
 		else {
-			for (n = c.appendChild(t.createElement("div")), r = (Hr.exec(e) || ["", ""])[1].toLowerCase(), i = Ur[r] || Ur._default, n.innerHTML = "<div>&#160;</div>" + i[1] + e.replace(Br, "<$1></$2>") + i[2], n.removeChild(n.firstChild), o = i[0]; o--;) n = n.lastChild;
+			for (n = c.appendChild(t.createElement("div")), r = (Hr.exec(e) || ["", ""])[1].toLowerCase(), i = Ur[r] || Ur._default, n.innerHTML = "<div>&#160;</div>" + i[1] + e.replace(Br, "<$1></$2>") + i[2], n.removeChild(n.firstChild), o = i[0]; o--;) {
+				n = n.lastChild;
+			}
 			a = 0;
 			for (s = n.childNodes.length; s > a; ++a) {
 				l.push(n.childNodes[a]);
@@ -6653,7 +6676,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	function ht(e, n) {
 		n = n || t;
 		var r;
-		if ((r = zr.exec(e))) {
+		if (r = zr.exec(e)) {
 			return [n.createElement(r[1])];
 		} else {
 			return pt(e, n);
@@ -7468,7 +7491,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						for (d = 0; m > d; d++) {
 							v[d] = r[d];
 						}
-						for (d = 0, g = 0, p = h.length; p > d; g++) {
+						d = 0;
+						g = 0;
+						for (p = h.length; p > d; g++) {
 							c = v[g];
 							a = h[d++];
 							s = h[d++];
@@ -7666,7 +7691,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							c(E, V(m))
 						}
 						var j = t;
-						for (F && (F.template || null === F.templateUrl) && (j = x), e && e(j, s.childNodes, n, u), b = d.length - 1; b >= 0; b--) try {
+						F && (F.template || null === F.templateUrl) && (j = x);
+						e && e(j, s.childNodes, n, u);
+						for (b = d.length - 1; b >= 0; b--) try {
 							w = d[b], w(w.isolateScope ? x : t, m, h, w.require && g(w.require, m, C), T)
 						} catch (E) {
 							c(E, V(m))
@@ -12815,7 +12842,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 									}
 								E.sort()
 							}
-							for (g = E.length, d = M.length = E.length, f = 0; d > f; f++)
+							g = E.length;
+							d = M.length = E.length;
+							for (f = 0; d > f; f++)
 								if ($ = e === E ? f : E[f], T = e[$], C = A($, T, f), it(C, "`track by` id"), S.hasOwnProperty(C)) N = S[C], delete S[C], q[C] = N, M[f] = N;
 								else {
 									if (q.hasOwnProperty(C)) {
@@ -13114,7 +13143,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 										selected: N
 									})
 								}
-								for (b || (w || null === I ? M[""].unshift({
+								b || (w || null === I ? M[""].unshift({
 									id: "",
 									label: "",
 									selected: !F
@@ -13122,7 +13151,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 									id: "?",
 									label: "",
 									selected: true
-								})), A = 0, $ = O.length; $ > A; A++) {
+								}));
+								A = 0;
+								for ($ = O.length; $ > A; A++) {
 									e = O[A];
 									n = M[e];
 									if (C.length <= A) {
@@ -13203,7 +13234,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 									var e, r, i, a, c, l, u, p, m, y = g(t) || [],
 										$ = {};
 									if (b) {
-										for (i = [], l = 0, p = C.length; p > l; l++)
+										i = [];
+										l = 0;
+										for (p = C.length; p > l; l++)
 											for (e = C[l], c = 1, u = e.length; u > c; c++)
 												if ((a = e[c].element)[0].selected) {
 													if (r = a.val(), d && ($[d] = r), v)
@@ -17675,7 +17708,9 @@ angular.module("app.services.random", []).factory("$random", [
 		}
 
 		function i(e, t, n, r) {
-			for (e += "", n = 0, r = 0; r < e.length; r++) {
+			e += "";
+			n = 0;
+			for (r = 0; r < e.length; r++) {
 				t[o(r)] = o((n ^= 19 * t[o(r)]) + e.charCodeAt(r));
 			}
 			e = "";
