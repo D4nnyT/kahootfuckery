@@ -930,8 +930,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 		});
 		else if (n || "object" !== I.type(t)) r(e, t);
-		else
-			for (var i in t) k(e + "[" + i + "]", t[i], n, r)
+		else {
+			for (var i in t) {
+				k(e + "[" + i + "]", t[i], n, r)
+			}
+		}
 	}
 
 	function x(e, n, r) {
@@ -3405,11 +3408,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					} else if (3 === r || 4 === r) {
 						return e.nodeValue;
 					}
-				} else
-					for (t = 0; n = e[t]; t++)
+				} else {
+					for (t = 0; n = e[t]; t++) {
 						if (8 !== n.nodeType) {
 							(i += p(n));
 						}
+					}
+				}
 				return i
 			},
 			h = d.selectors = {
@@ -4605,7 +4610,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						if (c[0] && "number" == typeof($ = c.length))
 							for (a = 0; $ > a; a++) {
 								m(c[a]);
-							} else m(c);
+							} else {
+								m(c);
+							}
 					if (c.nodeType) {
 						s.push(c);
 					} else {
@@ -5044,13 +5051,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					if (e >= 200 && 300 > e || 304 === e) {
 						if (d.ifModified && ((b = k.getResponseHeader("Last-Modified")) && (I.lastModified[i] = b), ($ = k.getResponseHeader("Etag")) && (I.etag[i] = $)), 304 === e) {
 							C = "notmodified", l = true;
-						} else try {
-							f = T(d, S);
-							C = "success";
-							l = true;
-						} catch (A) {
-							C = "parsererror";
-							y = A;
+						} else {
+							try {
+								f = T(d, S);
+								C = "success";
+								l = true;
+							} catch (A) {
+								C = "parsererror";
+								y = A;
+							}
 						}
 					} else {
 						y = C;
@@ -5220,7 +5229,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					}
 					r(-1, A)
 				}
-			} else r(-1, "No Transport");
+			} else {
+				r(-1, "No Transport");
+			}
 			return k
 		},
 		param: function(e, n) {
@@ -5231,8 +5242,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (n === t && (n = I.ajaxSettings.traditional), I.isArray(e) || e.jquery && !I.isPlainObject(e)) I.each(e, function() {
 				i(this.name, this.value)
 			});
-			else
-				for (var o in e) k(o, e[o], n, i);
+			else {
+				for (var o in e) {
+					k(o, e[o], n, i);
+				}
+			}
 			return r.join("&").replace(Bt, "+")
 		}
 	}), I.extend({
@@ -6802,7 +6816,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			Ct(this, ht(e));
 			var n = br(t.createDocumentFragment());
 			n.append(this)
-		} else Ct(this, e)
+		} else {
+			Ct(this, e);
+		}
 	}
 
 	function mt(e) {
@@ -7679,7 +7695,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							}
 							1 == e.nodeType && (e.hasAttribute(t) && i++, e.hasAttribute(n) && i--), r.push(e), e = e.nextSibling
 						} while (i > 0)
-					} else r.push(e);
+					} else {
+						r.push(e);
+					}
 					return br(r)
 				}
 
@@ -7886,7 +7904,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 									st = q(i, [], at),
 									ct = e.splice(tt + 1, e.length - (tt + 1));
 								F && P(st), e = e.concat(st).concat(ct), H(a, at), nt = e.length
-							} else G.html(j);
+							} else {
+								G.html(j);
+							}
 						if (k.templateUrl) W("template", R, k, G), R = k, k.replace && (Z = k), m = B(e.splice(tt, e.length - tt), G, a, l, et, f, d, {
 							controllerDirectives: I,
 							newIsolateScopeDirective: F,
@@ -8542,7 +8562,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							} else {
 								s(f, 200, {}, "OK");
 							}
-						} else l.put(g, h);
+						} else {
+							l.put(g, h);
+						}
 					if (v(f)) {
 						e(t.method, g, n, o, r, t.timeout, t.withCredentials, t.responseType)
 					}
@@ -11072,7 +11094,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 										var r = i(h);
 										d(r, n)
 									}
-								} else l(n)
+								} else {
+									l(n);
+								}
 							}
 							h = I(e)
 						}
@@ -11380,10 +11404,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				if (b(t)) {
 					for (i = 0; i < this.length; i++)
 						if (e === wt) e(this[i], t);
-						else
+						else {
 							for (o in t) {
 								e(this[i], o, t[o]);
 							}
+						}
 					return this
 				}
 				for (var a = e.$dv, s = a === n ? Math.min(this.length, 1) : this.length, c = 0; s > c; c++) {
@@ -14420,7 +14445,9 @@ org.cometd.Cometd = function(e) {
 				default:
 					throw "Unrecognized advice action " + n
 			}
-		} else N(e)
+		} else {
+			N(e);
+		}
 	}
 
 	function _(e, t) {
@@ -14469,7 +14496,9 @@ org.cometd.Cometd = function(e) {
 				default:
 					throw "Unrecognized advice action " + t
 			}
-		} else q(e)
+		} else {
+			q(e);
+		}
 	}
 
 	function O(e, t) {
@@ -15604,7 +15633,9 @@ org.cometd.Cometd = function(e) {
 								}), l()
 							});
 						d = m, f = p.scope = u, f.$emit("$viewContentLoaded"), f.$eval(g)
-					} else l()
+					} else {
+						l();
+					}
 				}
 				var f, d, p, h = a.autoscroll,
 					g = a.onload || "";
@@ -15877,7 +15908,9 @@ org.cometd.Cometd = function(e) {
 				o = o.removeAttr("id").hide().prev().attr("id", a).show()
 			}
 			o.addClass("placeholder"), o[0].value = o.attr("placeholder")
-		} else o.removeClass("placeholder")
+		} else {
+			o.removeClass("placeholder");
+		}
 	}
 	var a, s, c = "placeholder" in t.createElement("input"),
 		l = "placeholder" in t.createElement("textarea"),
@@ -16674,24 +16707,28 @@ var addToHome = function(e) {
 
 	function r() {
 		var t, n = 208;
-		if (f) switch (5 > g ? (S = e.scrollY, C = e.scrollX) : 6 > g && (n = 160), b.style.top = S + E.bottomOffset + "px", b.style.left = C + n - Math.round(b.offsetWidth / 2) + "px", E.animationIn) {
-			case "drop":
-				t = "0.6s", b.style.webkitTransform = "translate3d(0," + -(e.scrollY + E.bottomOffset + b.offsetHeight) + "px,0)";
-				break;
-			case "bubble":
-				t = "0.6s", b.style.opacity = "0", b.style.webkitTransform = "translate3d(0," + (S + 50) + "px,0)";
-				break;
-			default:
-				t = "1s", b.style.opacity = "0"
-		} else switch (S = e.innerHeight + e.scrollY, 5 > g ? (C = Math.round((e.innerWidth - b.offsetWidth) / 2) + e.scrollX, b.style.left = C + "px", b.style.top = S - b.offsetHeight - E.bottomOffset + "px") : (b.style.left = "50%", b.style.marginLeft = -Math.round(b.offsetWidth / 2) - (e.orientation % 180 && g >= 6 ? 40 : 0) + "px", b.style.bottom = E.bottomOffset + "px"), E.animationIn) {
-			case "drop":
-				t = "1s", b.style.webkitTransform = "translate3d(0," + -(S + E.bottomOffset) + "px,0)";
-				break;
-			case "bubble":
-				t = "0.6s", b.style.webkitTransform = "translate3d(0," + (b.offsetHeight + E.bottomOffset + 50) + "px,0)";
-				break;
-			default:
-				t = "1s", b.style.opacity = "0"
+		if (f) {
+			switch (5 > g ? (S = e.scrollY, C = e.scrollX) : 6 > g && (n = 160), b.style.top = S + E.bottomOffset + "px", b.style.left = C + n - Math.round(b.offsetWidth / 2) + "px", E.animationIn) {
+				case "drop":
+					t = "0.6s", b.style.webkitTransform = "translate3d(0," + -(e.scrollY + E.bottomOffset + b.offsetHeight) + "px,0)";
+					break;
+				case "bubble":
+					t = "0.6s", b.style.opacity = "0", b.style.webkitTransform = "translate3d(0," + (S + 50) + "px,0)";
+					break;
+				default:
+					t = "1s", b.style.opacity = "0"
+			}
+		} else {
+			switch (S = e.innerHeight + e.scrollY, 5 > g ? (C = Math.round((e.innerWidth - b.offsetWidth) / 2) + e.scrollX, b.style.left = C + "px", b.style.top = S - b.offsetHeight - E.bottomOffset + "px") : (b.style.left = "50%", b.style.marginLeft = -Math.round(b.offsetWidth / 2) - (e.orientation % 180 && g >= 6 ? 40 : 0) + "px", b.style.bottom = E.bottomOffset + "px"), E.animationIn) {
+				case "drop":
+					t = "1s", b.style.webkitTransform = "translate3d(0," + -(S + E.bottomOffset) + "px,0)";
+					break;
+				case "bubble":
+					t = "0.6s", b.style.webkitTransform = "translate3d(0," + (b.offsetHeight + E.bottomOffset + 50) + "px,0)";
+					break;
+				default:
+					t = "1s", b.style.opacity = "0"
+			}
 		}
 		b.offsetHeight, b.style.webkitTransitionDuration = t, b.style.opacity = "1", b.style.webkitTransform = "translate3d(0,0,0)", b.addEventListener("webkitTransitionEnd", s, false), k = setTimeout(o, E.lifespan)
 	}
@@ -20217,42 +20254,44 @@ angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.ser
 			w = false,
 			k = false;
 		n.$on(u.events.lagUpdate, function(t, r) {
-			if (e.isConnected()) switch (n.$broadcast("dismissAlert", {
-				key: "reconnecting"
-			}), r.assessment) {
-				case u.latencyThreshold.unplayable:
-					if (k) {
-						n.$broadcast("dismissAlert", {
-							key: "network-usable"
-						});
-						n.$broadcast("wait", {
-							message: n.siteAppContent.info["slow-network"]
-						});
-						n.$broadcast("alert", {
-							key: "network-unusable",
-							alertType: "error",
-							message: n.siteAppContent.errors["network-unusable"],
-							autoDismiss: true,
-							userDismissable: true
-						});
-					}
-					break;
-				case u.latencyThreshold.playableWithDifficulty:
-					if (k) {
-						n.$broadcast("clearWait");
-						n.$broadcast("dismissAlert", {
-							key: "network-unusable"
-						});
-						n.$broadcast("alert", {
-							key: "network-usable",
-							alertType: "warning",
-							message: n.siteAppContent.info["network-usable"],
-							autoDismiss: true,
-							userDismissable: true
-						});
-					}
-					break;
-				case u.latencyThreshold.playable:
+			if (e.isConnected()) {
+				switch (n.$broadcast("dismissAlert", {
+					key: "reconnecting"
+				}), r.assessment) {
+					case u.latencyThreshold.unplayable:
+						if (k) {
+							n.$broadcast("dismissAlert", {
+								key: "network-usable"
+							});
+							n.$broadcast("wait", {
+								message: n.siteAppContent.info["slow-network"]
+							});
+							n.$broadcast("alert", {
+								key: "network-unusable",
+								alertType: "error",
+								message: n.siteAppContent.errors["network-unusable"],
+								autoDismiss: true,
+								userDismissable: true
+							});
+						}
+						break;
+					case u.latencyThreshold.playableWithDifficulty:
+						if (k) {
+							n.$broadcast("clearWait");
+							n.$broadcast("dismissAlert", {
+								key: "network-unusable"
+							});
+							n.$broadcast("alert", {
+								key: "network-usable",
+								alertType: "warning",
+								message: n.siteAppContent.info["network-usable"],
+								autoDismiss: true,
+								userDismissable: true
+							});
+						}
+						break;
+					case u.latencyThreshold.playable:
+				}
 			}
 		}), n.$on("userNameCleaned", function(e, t) {
 			b = t
@@ -20330,86 +20369,99 @@ angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.ser
 				};
 			}
 			if ("loginResponse" === r.data.type)
-				if (r.data.error) switch (String(r.data.error)) {
-					case "USER_INPUT":
-						n.$broadcast("clearWait"), n.$broadcast("badUsername"), n.$broadcast("alert", {
-							key: "duplicatenickname",
-							message: n.siteAppContent.errors["quiz-nickname-taken"],
-							alertType: "error",
-							autoDismiss: false,
-							userDismissable: true
-						});
-						break;
-					case "RESTART":
-						h(), T.trackConnection("restart");
-						break;
-					case "NONEXISTING_SESSION":
-						k = false, n.$broadcast("wait", {
-							message: n.siteAppContent.info["attempt-reconnection"]
-						}), n.$broadcast("alert", {
-							key: "nonexisting-session",
-							message: n.siteAppContent.misc.oops + ". " + n.siteAppContent.errors["lost-session"]
-						}), f(function() {
-							h()
-						}, 3e3), T.trackConnection("nonExistingSession")
-				} else n.$broadcast("clearWait"), n.$broadcast("dismissAlert", {
-					key: "nonexisting-session"
-				}), n.$broadcast("dismissAlert", {
-					key: "duplicatenickname"
-				}), T.playerId = r.data.cid, w || e.redirect("/instructions"), w = false, k = true;
-				else if ("status" === r.data.type) switch (String(r.data.status)) {
-				case "MISSING":
-					T.state != T.states.gameOver && n.$broadcast("wait", {
-						message: n.siteAppContent.info["please-wait"],
-						level: 5
-					}), $ = true, T.trackConnection("playerMissing");
-					break;
-				case "ACTIVE":
-					if ($) {
-						$ = false;
-						w = true;
-						n.$broadcast("clearWait", {
-							level: 5
-						});
-						T.trackConnection("playerActive");
+				if (r.data.error) {
+					switch (String(r.data.error)) {
+						case "USER_INPUT":
+							n.$broadcast("clearWait"), n.$broadcast("badUsername"), n.$broadcast("alert", {
+								key: "duplicatenickname",
+								message: n.siteAppContent.errors["quiz-nickname-taken"],
+								alertType: "error",
+								autoDismiss: false,
+								userDismissable: true
+							});
+							break;
+						case "RESTART":
+							h(), T.trackConnection("restart");
+							break;
+						case "NONEXISTING_SESSION":
+							k = false, n.$broadcast("wait", {
+								message: n.siteAppContent.info["attempt-reconnection"]
+							}), n.$broadcast("alert", {
+								key: "nonexisting-session",
+								message: n.siteAppContent.misc.oops + ". " + n.siteAppContent.errors["lost-session"]
+							}), f(function() {
+								h()
+							}, 3e3), T.trackConnection("nonExistingSession")
 					}
-			} else if ("message" === r.data.type) switch (parseInt(r.data.id, 10)) {
-				case y.getReady:
-					i(angular.fromJson(r.data.content)), e.redirect("/getready"), p.unKick();
-					break;
-				case y.startQuestion:
-					if (T.state != T.states.playing) {
-						i(angular.fromJson(r.data.content));
-						e.redirect("/answer");
-						n.$broadcast("dismissAllNotifications");
-					}
-					break;
-				case y.timeUp:
-					n.$broadcast("timeUp", {
-						content: angular.fromJson(r.data.content)
+				} else {
+					n.$broadcast("clearWait");
+					n.$broadcast("dismissAlert", {
+						key: "nonexisting-session"
 					});
-					break;
-				case y.gameOver:
-					n.result = angular.fromJson(r.data.content), n.quizType = n.result.quizType, n.quizQuestionAnswers = n.result.quizQuestionAnswers, "quiz" !== n.quizType && e.redirect("/gameover"), n.$broadcast("dismissAllNotifications");
-					break;
-				case y.feedback:
-					e.redirect("/feedback"), n.$broadcast("dismissAllNotifications");
-					break;
-				case y.playAgain:
-					e.redirect("/instructions"), n.$broadcast("dismissAllNotifications");
-					break;
-				case y.answerResponse:
-					break;
-				case y.revealAnswer:
-					n.$broadcast("revealAnswer", angular.fromJson(r.data.content));
-					break;
-				case y.startQuiz:
-					var o = angular.fromJson(r.data.content);
-					n.quizName = o.quizName, n.quizType = o.quizType || "quiz", n.quizQuestionAnswers = o.quizQuestionAnswers, n.quizRandAnswers = o.quizRandAnswers, n.qIdx = 0, e.redirect("/start");
-					break;
-				case y.resetController:
-					var a = angular.fromJson(r.data.content);
-					e.disconnect(), e.redirect("/"), a.kickCode && p.kickController(a.kickCode)
+					n.$broadcast("dismissAlert", {
+						key: "duplicatenickname"
+					});
+					T.playerId = r.data.cid;
+					w || e.redirect("/instructions");
+					w = false;
+					k = true;
+				} else if ("status" === r.data.type) {
+				switch (String(r.data.status)) {
+					case "MISSING":
+						T.state != T.states.gameOver && n.$broadcast("wait", {
+							message: n.siteAppContent.info["please-wait"],
+							level: 5
+						}), $ = true, T.trackConnection("playerMissing");
+						break;
+					case "ACTIVE":
+						if ($) {
+							$ = false;
+							w = true;
+							n.$broadcast("clearWait", {
+								level: 5
+							});
+							T.trackConnection("playerActive");
+						}
+				}
+			} else if ("message" === r.data.type) {
+				switch (parseInt(r.data.id, 10)) {
+					case y.getReady:
+						i(angular.fromJson(r.data.content)), e.redirect("/getready"), p.unKick();
+						break;
+					case y.startQuestion:
+						if (T.state != T.states.playing) {
+							i(angular.fromJson(r.data.content));
+							e.redirect("/answer");
+							n.$broadcast("dismissAllNotifications");
+						}
+						break;
+					case y.timeUp:
+						n.$broadcast("timeUp", {
+							content: angular.fromJson(r.data.content)
+						});
+						break;
+					case y.gameOver:
+						n.result = angular.fromJson(r.data.content), n.quizType = n.result.quizType, n.quizQuestionAnswers = n.result.quizQuestionAnswers, "quiz" !== n.quizType && e.redirect("/gameover"), n.$broadcast("dismissAllNotifications");
+						break;
+					case y.feedback:
+						e.redirect("/feedback"), n.$broadcast("dismissAllNotifications");
+						break;
+					case y.playAgain:
+						e.redirect("/instructions"), n.$broadcast("dismissAllNotifications");
+						break;
+					case y.answerResponse:
+						break;
+					case y.revealAnswer:
+						n.$broadcast("revealAnswer", angular.fromJson(r.data.content));
+						break;
+					case y.startQuiz:
+						var o = angular.fromJson(r.data.content);
+						n.quizName = o.quizName, n.quizType = o.quizType || "quiz", n.quizQuestionAnswers = o.quizQuestionAnswers, n.quizRandAnswers = o.quizRandAnswers, n.qIdx = 0, e.redirect("/start");
+						break;
+					case y.resetController:
+						var a = angular.fromJson(r.data.content);
+						e.disconnect(), e.redirect("/"), a.kickCode && p.kickController(a.kickCode)
+				}
 			}
 		});
 		var T = {
@@ -20476,7 +20528,9 @@ angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.ser
 					t = "/shared/theme/kahoot/img";
 				if (Modernizr.svg) {
 					var n = ["/buttons/square.svg", "/buttons/triangle.svg", "/buttons/cross.svg", "/buttons/circle.svg", "/error.svg", "/information.svg", "/success.svg", "/warning.svg", "/kahoot.svg", "/sad.svg", "/happy.svg", "/indifferent.svg", "/dont_recommend_blue.svg", "/dont_recommend_white_selected.svg", "/number_blue.svg", "/number_white_selected.svg", "/star_yellow.svg", "/star_white_selected.svg", "/recommend_blue.svg", "/recommend_white_selected.svg"];
-				} else var n = ["/buttons/square.png", "/buttons/triangle.png", "/buttons/cross.png", "/buttons/circle.png"];
+				} else {
+					var n = ["/buttons/square.png", "/buttons/triangle.png", "/buttons/cross.png", "/buttons/circle.png"];
+				}
 				var r = ["/alert_sprites.png"],
 					i = ["/alert_sprites_retina.png"],
 					o = 2 == l.devicePixelRatio ? i : r;
