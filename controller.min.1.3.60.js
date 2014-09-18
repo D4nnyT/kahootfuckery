@@ -2704,7 +2704,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					a.context = this.ownerDocument || this;
 					for (o = n.target; o != this; o = o.parentNode || this) {
 						if (o.disabled !== true) {
-							for (c = {}, u = [], a[0] = o, r = 0; h > r; r++) {
+							c = {};
+							u = [];
+							a[0] = o;
+							for (r = 0; h > r; r++) {
 								f = p[r];
 								d = f.selector;
 								c[d] === t && (c[d] = f.quick ? ot(o, f.quick) : a.is(d));
@@ -4475,7 +4478,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		clone: function(e, t, n) {
 			var r, i, o, a = I.support.html5Clone || I.isXMLDoc(e) || !xt.test("<" + e.nodeName + ">") ? e.cloneNode(true) : v(e);
 			if (!(I.support.noCloneEvent && I.support.noCloneChecked || 1 !== e.nodeType && 11 !== e.nodeType || I.isXMLDoc(e))) {
-				for (p(e, a), r = h(e), i = h(a), o = 0; r[o]; ++o)
+				p(e, a);
+				r = h(e);
+				i = h(a);
+				for (o = 0; r[o]; ++o)
 					if (i[o]) {
 						p(r[o], i[o]);
 					}
@@ -6638,7 +6644,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					i = d.shift();
 					a = 0;
 					for (s = i.length; s > a; a++) {
-						for (c = br(i[a]), p ? c.triggerHandler("$destroy") : p = !p, l = 0, u = (f = c.children()).length; u > l; l++) {
+						c = br(i[a]);
+						p ? c.triggerHandler("$destroy") : p = !p;
+						l = 0;
+						for (u = (f = c.children()).length; u > l; l++) {
 							d.push($r(f[l]));
 						}
 					}
@@ -7240,7 +7249,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			var i, o, a, s, c;
 			if (!e) {
 				if (u.cookie !== N) {
-					for (N = u.cookie, o = N.split("; "), E = {}, s = 0; s < o.length; s++) {
+					N = u.cookie;
+					o = N.split("; ");
+					E = {};
+					for (s = 0; s < o.length; s++) {
 						a = o[s];
 						c = a.indexOf("=");
 						c > 0 && (e = unescape(a.substring(0, c)), E[e] === n && (E[e] = unescape(a.substring(c + 1))));
@@ -7677,7 +7689,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								}
 							})
 						}
-						for (T = u && p, I && o(I, function(e) {
+						T = u && p;
+						I && o(I, function(e) {
 							var n, r = {
 								$scope: e === F || e.$$isolateScope ? x : t,
 								$element: m,
@@ -7685,7 +7698,9 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								$transclude: T
 							};
 							k = e.controller, k == "@" && (k = h[e.name]), n = y(k, r), C[e.name] = n, X || m.data("$" + e.name + "Controller", n), e.controllerAs && (r.$scope[e.controllerAs] = n)
-						}), b = 0, $ = f.length; $ > b; b++) try {
+						});
+						b = 0;
+						for ($ = f.length; $ > b; b++) try {
 							w = f[b], w(w.isolateScope ? x : t, m, h, w.require && g(w.require, m, C), T)
 						} catch (E) {
 							c(E, V(m))
@@ -9824,7 +9839,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							},
 							l = F([c], arguments, 1);
 						do {
-							for (t = o.$$listeners[e] || i, c.currentScope = o, n = 0, r = t.length; r > n; n++)
+							t = o.$$listeners[e] || i;
+							c.currentScope = o;
+							n = 0;
+							for (r = t.length; r > n; n++)
 								if (t[n]) try {
 									t[n].apply(null, l)
 								} catch (u) {
@@ -9846,7 +9864,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							},
 							defaultPrevented: false
 						}, l = F([c], arguments, 1); o = s;) {
-							for (c.currentScope = o, t = o.$$listeners[e] || [], n = 0, r = t.length; r > n; n++)
+							c.currentScope = o;
+							t = o.$$listeners[e] || [];
+							n = 0;
+							for (r = t.length; r > n; n++)
 								if (t[n]) try {
 									t[n].apply(null, l)
 								} catch (u) {
