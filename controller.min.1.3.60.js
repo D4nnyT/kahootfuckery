@@ -1909,13 +1909,19 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		}
 		if (!d.addEventListener && d.attachEvent && d.fireEvent && (d.attachEvent("onclick", function() {
 			t.noCloneEvent = false
-		}), d.cloneNode(true).fireEvent("onclick")), a = q.createElement("input"), a.value = "t", a.setAttribute("type", "radio"), t.radioValue = "t" === a.value, a.setAttribute("checked", "checked"), a.setAttribute("name", "t"), d.appendChild(a), s = q.createDocumentFragment(), s.appendChild(d.lastChild), t.checkClone = s.cloneNode(true).cloneNode(true).lastChild.checked, t.appendChecked = a.checked, s.removeChild(a), s.appendChild(d), d.attachEvent)
+		}), d.cloneNode(true).fireEvent("onclick")), a = q.createElement("input"), a.value = "t", a.setAttribute("type", "radio"), t.radioValue = "t" === a.value, a.setAttribute("checked", "checked"), a.setAttribute("name", "t"), d.appendChild(a), s = q.createDocumentFragment(), s.appendChild(d.lastChild), t.checkClone = s.cloneNode(true).cloneNode(true).lastChild.checked, t.appendChecked = a.checked, s.removeChild(a), s.appendChild(d), d.attachEvent) {
 			for (u in {
 				submit: 1,
 				change: 1,
 				focusin: 1
-			}) l = "on" + u, f = l in d, f || (d.setAttribute(l, "return;"), f = "function" == typeof d[l]), t[u + "Bubbles"] = f;
-		s.removeChild(d);
+			}) {
+				l = "on" + u;
+				f = l in d;
+				f || (d.setAttribute(l, "return;"), f = "function" == typeof d[l]);
+				t[u + "Bubbles"] = f;
+				s.removeChild(d);
+			}
+		}
 		s = i = o = d = a = null;
 		I(function() {
 			var n, r, i, o, a, s, l, u, p, h, g, m, v = q.getElementsByTagName("body")[0];
@@ -2046,7 +2052,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 			return true
 		}
-	}), I.fn.extend({
+	});
+	I.fn.extend({
 		data: function(e, n) {
 			var i, o, a, s, c, l = this[0],
 				u = 0,
@@ -2084,7 +2091,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				I.removeData(this, e)
 			})
 		}
-	}), I.extend({
+	});
+	I.extend({
 		_mark: function(e, t) {
 			if (e) {
 				t = (t || "fx") + "mark";
@@ -2125,7 +2133,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				I.dequeue(e, t)
 			}, i)), n.length || (I.removeData(e, t + "queue " + t + ".run", true), o(e, t, "queue"))
 		}
-	}), I.fn.extend({
+	});
+	I.fn.extend({
 		queue: function(e, n) {
 			var r = 2;
 			if ("string" != typeof e) {
@@ -5781,7 +5790,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		},
 		show: function() {
 			var e = I._data(this.elem, "fxshow" + this.prop);
-			this.options.orig[this.prop] = e || I.style(this.elem, this.prop), this.options.show = true, e !== t ? this.custom(this.cur(), e) : this.custom("width" === this.prop || "height" === this.prop ? 1 : 0, this.cur()), I(this.elem).show()
+			this.options.orig[this.prop] = e || I.style(this.elem, this.prop);
+			this.options.show = true;
+			e !== t ? this.custom(this.cur(), e) : this.custom("width" === this.prop || "height" === this.prop ? 1 : 0, this.cur());
+			I(this.elem).show();
 		},
 		hide: function() {
 			this.options.orig[this.prop] = I._data(this.elem, "fxshow" + this.prop) || I.style(this.elem, this.prop);
@@ -5794,7 +5806,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				a = this.elem,
 				s = this.options;
 			if (e || i >= s.duration + this.startTime) {
-				this.now = this.end, this.pos = this.state = 1, this.update(), s.animatedProperties[this.prop] = true;
+				this.now = this.end;
+				this.pos = this.state = 1;
+				this.update();
+				s.animatedProperties[this.prop] = true;
 				for (t in s.animatedProperties)
 					if (s.animatedProperties[t] !== true) {
 						(o = false);
@@ -7619,7 +7634,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							if (!t) {
 								return;
 							}
-							d == t && (d = t.p), p == t && (p = t.n), o(t.n, t.p), delete u[e]
+							d == t && (d = t.p);
+							p == t && (p = t.n);
+							o(t.n, t.p);
+							delete u[e];
 						}
 						delete c[e], a--
 					},
@@ -7702,19 +7720,22 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				o(t, c(d));
 			}
 			return this;
-		}, this.aHrefSanitizationWhitelist = function(e) {
+		};
+		this.aHrefSanitizationWhitelist = function(e) {
 			if (y(e)) {
 				return (r.aHrefSanitizationWhitelist(e), this);
 			} else {
 				return r.aHrefSanitizationWhitelist();
 			}
-		}, this.imgSrcSanitizationWhitelist = function(e) {
+		};
+		this.imgSrcSanitizationWhitelist = function(e) {
 			if (y(e)) {
 				return (r.imgSrcSanitizationWhitelist(e), this);
 			} else {
 				return r.imgSrcSanitizationWhitelist();
 			}
-		}, this.$get = ["$injector", "$interpolate", "$exceptionHandler", "$http", "$templateCache", "$parse", "$controller", "$rootScope", "$document", "$sce", "$animate", "$$sanitizeUri",
+		};
+		this.$get = ["$injector", "$interpolate", "$exceptionHandler", "$http", "$templateCache", "$parse", "$controller", "$rootScope", "$document", "$sce", "$animate", "$$sanitizeUri",
 			function(e, r, c, d, h, v, y, w, k, C, S, A) {
 				function E(e, t, n, r, i) {
 					e instanceof br || (e = br(e)), o(e, function(t, n) {
@@ -8424,7 +8445,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					it = /^ngAttr[A-Z]/;
 				return E
 			}
-		]
+		];
 	}
 
 	function Ht(e) {
@@ -9087,7 +9108,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			(e = "/" + e);
 		}
 		var i = Fn(e, n);
-		t.$$path = decodeURIComponent(r && "/" === i.pathname.charAt(0) ? i.pathname.substring(1) : i.pathname), t.$$search = X(i.search), t.$$hash = decodeURIComponent(i.hash), t.$$path && "/" != t.$$path.charAt(0) && (t.$$path = "/" + t.$$path)
+		t.$$path = decodeURIComponent(r && "/" === i.pathname.charAt(0) ? i.pathname.substring(1) : i.pathname);
+		t.$$search = X(i.search);
+		t.$$hash = decodeURIComponent(i.hash);
+		t.$$path && "/" != t.$$path.charAt(0) && (t.$$path = "/" + t.$$path);
 	}
 
 	function cn(e, t) {
@@ -9118,17 +9142,20 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	function dn(e, t) {
 		this.$$html5 = true, t = t || "";
 		var r = un(e);
-		an(e, this, e), this.$$parse = function(t) {
+		an(e, this, e);
+		this.$$parse = function(t) {
 			var n = cn(r, t);
 			if (!$(n)) {
 				throw ai("ipthprfx", 'Invalid url "{0}", missing path prefix "{1}".', t, r);
 			}
 			sn(n, this, e), this.$$path || (this.$$path = "/"), this.$$compose()
-		}, this.$$compose = function() {
+		};
+		this.$$compose = function() {
 			var e = G(this.$$search),
 				t = this.$$hash ? "#" + K(this.$$hash) : "";
 			this.$$url = on(this.$$path) + (e ? "?" + e : "") + t, this.$$absUrl = r + this.$$url.substr(1)
-		}, this.$$rewrite = function(i) {
+		};
+		this.$$rewrite = function(i) {
 			var o, a;
 			if ((o = cn(e, i)) !== n) {
 				return (a = o, (o = cn(t, o)) !== n ? r + (cn("/", o) || o) : e + a);
@@ -9139,12 +9166,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			} else {
 				return void 0;
 			}
-		}
+		};
 	}
 
 	function pn(e, t) {
 		var n = un(e);
-		an(e, this, e), this.$$parse = function(r) {
+		an(e, this, e);
+		this.$$parse = function(r) {
 			function i(e, t, n) {
 				var r, i = /^\/?.*?:(\/.*)/;
 				if (0 === t.indexOf(n)) {
@@ -9162,17 +9190,19 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				throw ai("ihshprfx", 'Invalid url "{0}", missing hash prefix "{1}".', r, t);
 			}
 			sn(a, this, e), this.$$path = i(this.$$path, a, e), this.$$compose()
-		}, this.$$compose = function() {
+		};
+		this.$$compose = function() {
 			var n = G(this.$$search),
 				r = this.$$hash ? "#" + K(this.$$hash) : "";
 			this.$$url = on(this.$$path) + (n ? "?" + n : "") + r, this.$$absUrl = e + (this.$$url ? t + this.$$url : "")
-		}, this.$$rewrite = function(t) {
+		};
+		this.$$rewrite = function(t) {
 			if (ln(e) == ln(t)) {
 				return t;
 			} else {
 				return void 0;
 			}
-		}
+		};
 	}
 
 	function hn(e, t) {
@@ -11357,7 +11387,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		Sr = r("ng"),
 		Ar = (e.angular, e.angular || (e.angular = {})),
 		Er = ["0", "0", "0"];
-	yr = d((/msie (\d+)/.exec(pr(navigator.userAgent)) || [])[1]), isNaN(yr) && (yr = d((/trident\/.*; rv:(\d+)/.exec(pr(navigator.userAgent)) || [])[1])), h.$inject = [], g.$inject = [];
+	yr = d((/msie (\d+)/.exec(pr(navigator.userAgent)) || [])[1]);
+	isNaN(yr) && (yr = d((/trident\/.*; rv:(\d+)/.exec(pr(navigator.userAgent)) || [])[1]));
+	h.$inject = [];
+	g.$inject = [];
 	var Nr = function() {
 		if (String.prototype.trim) {
 			return function(e) {
@@ -11474,7 +11507,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	var Jr = {};
 	o("input,select,option,textarea,button,form,details".split(","), function(e) {
 		Jr[gr(e)] = true
-	}), o({
+	});
+	o({
 		data: wt,
 		inheritedData: At,
 		scope: function(e) {
@@ -11621,7 +11655,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 			return this
 		}
-	}), o({
+	});
+	o({
 		removeData: bt,
 		dealoc: vt,
 		on: function xo(e, n, r, i) {
@@ -11786,7 +11821,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		};
 		gt.prototype.bind = gt.prototype.on;
 		gt.prototype.unbind = gt.prototype.off;
-	}), qt.prototype = {
+	});
+	qt.prototype = {
 		put: function(e, t) {
 			this[_t(e)] = t
 		},
@@ -12042,15 +12078,22 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			this.lastCh = ":";
 			this.tokens = [];
 			for (var t, r = []; this.index < this.text.length;) {
-				if (this.ch = this.text.charAt(this.index), this.is("\"'")) this.readString(this.ch);
-				else if (this.isNumber(this.ch) || this.is(".") && this.isNumber(this.peek())) this.readNumber();
-				else if (this.isIdent(this.ch)) this.readIdent(), this.was("{,") && "{" === r[0] && (t = this.tokens[this.tokens.length - 1]) && (t.json = -1 === t.text.indexOf("."));
-				else if (this.is("(){}[].,;:?")) this.tokens.push({
-					index: this.index,
-					text: this.ch,
-					json: this.was(":[,") && this.is("{[") || this.is("}]:,")
-				}), this.is("{[") && r.unshift(this.ch), this.is("}]") && r.shift(), this.index++;
-				else {
+				if (this.ch = this.text.charAt(this.index), this.is("\"'")) {
+					this.readString(this.ch);
+				} else if (this.isNumber(this.ch) || this.is(".") && this.isNumber(this.peek())) {
+					this.readNumber();
+				} else if (this.isIdent(this.ch)) {
+					this.readIdent(), this.was("{,") && "{" === r[0] && (t = this.tokens[this.tokens.length - 1]) && (t.json = -1 === t.text.indexOf("."));
+				} else if (this.is("(){}[].,;:?")) {
+					this.tokens.push({
+						index: this.index,
+						text: this.ch,
+						json: this.was(":[,") && this.is("{[") || this.is("}]:,")
+					});
+					this.is("{[") && r.unshift(this.ch);
+					this.is("}]") && r.shift();
+					this.index++;
+				} else {
 					if (this.isWhitespace(this.ch)) {
 						this.index++;
 						continue
@@ -12239,7 +12282,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}), pi.prototype = {
 		constructor: pi,
 		parse: function(e, t) {
-			this.text = e, this.json = t, this.tokens = this.lexer.lex(e), t && (this.assignment = this.logicalOR, this.functionCall = this.fieldAccess = this.objectIndex = this.filterChain = function() {
+			this.text = e;
+			this.json = t;
+			this.tokens = this.lexer.lex(e);
+			t && (this.assignment = this.logicalOR, this.functionCall = this.fieldAccess = this.objectIndex = this.filterChain = function() {
 				this.throwError("is not valid json", {
 					text: e,
 					index: 0
@@ -13059,7 +13105,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 											var n = d(t, function(e) {
 												v(), r.enter(e, null, a, s)
 											});
-											p = t, g = n, p.$emit("$includeContentLoaded"), o.$eval(c)
+											p = t;
+											g = n;
+											p.$emit("$includeContentLoaded");
+											o.$eval(c);
 										}
 									}).error(function() {
 										if (u === m) {
@@ -13192,20 +13241,26 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							var f, d, h, g, b, $, T, C, A, E, N, j, _ = u[0],
 								q = {},
 								M = [];
-							if (i(e)) E = e, A = m || v;
-							else {
+							if (i(e)) {
+								E = e, A = m || v;
+							} else {
 								A = m || y, E = [];
-								for ($ in e)
+								for ($ in e) {
 									if (e.hasOwnProperty($) && "$" != $.charAt(0)) {
 										E.push($);
 									}
+								}
 								E.sort()
 							}
 							g = E.length;
 							d = M.length = E.length;
-							for (f = 0; d > f; f++)
-								if ($ = e === E ? f : E[f], T = e[$], C = A($, T, f), it(C, "`track by` id"), S.hasOwnProperty(C)) N = S[C], delete S[C], q[C] = N, M[f] = N;
-								else {
+							for (f = 0; d > f; f++) {
+								if ($ = e === E ? f : E[f], T = e[$], C = A($, T, f), it(C, "`track by` id"), S.hasOwnProperty(C)) {
+									N = S[C];
+									delete S[C];
+									q[C] = N;
+									M[f] = N;
+								} else {
 									if (q.hasOwnProperty(C)) {
 										throw o(M, function(e) {
 											if (e && e.scope) {
@@ -13217,7 +13272,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 										id: C
 									}, q[C] = false
 								}
-							for ($ in S)
+							}
+							for ($ in S) {
 								if (S.hasOwnProperty($)) {
 									N = S[$];
 									j = at(N.clone);
@@ -13227,6 +13283,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 									});
 									N.scope.$destroy();
 								}
+							}
 							f = 0;
 							for (d = E.length; d > f; f++) {
 								if ($ = e === E ? f : E[f], T = e[$], N = M[f], M[f - 1] && (_ = s(M[f - 1])), N.scope) {
@@ -13413,7 +13470,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							};
 							o.renderUnknownOption = function(t) {
 								var n = "? " + _t(t) + " ?";
-								i.val(n), e.prepend(i), e.val(n), i.prop("selected", true)
+								i.val(n);
+								e.prepend(i);
+								e.val(n);
+								i.prop("selected", true);
 							};
 							o.hasOption = function(e) {
 								return a.hasOwnProperty(e);
@@ -13915,7 +13975,10 @@ org.cometd.WebSocketTransport = function() {
 		d = false,
 		p = false;
 	a.onOpen = function() {
-		this._debug("Transport", this.getType(), "opened", f), d = true, c = true, this._debug("Sending pending messages", l);
+		this._debug("Transport", this.getType(), "opened", f);
+		d = true;
+		c = true;
+		this._debug("Sending pending messages", l);
 		for (var e in l) {
 			var n = l[e],
 				r = n[0],
@@ -13965,7 +14028,10 @@ org.cometd.WebSocketTransport = function() {
 				o = l[r][1];
 			o && (p = false), i.onFailure(f, i.messages, "closed " + e + "/" + t)
 		}
-		l = {}, null !== f && d && f.close(1e3, "Close"), d = false, f = null
+		l = {};
+		null !== f && d && f.close(1e3, "Close");
+		d = false;
+		f = null;
 	};
 	a.registered = function(e, t) {
 		o.registered(e, t), r = t
@@ -15285,9 +15351,11 @@ org.cometd.Cometd = function(e) {
 				r = -1;
 			this.registered = function(n, r) {
 				t = r, e("AckExtension: executing registration callback")
-			}, this.unregistered = function() {
+			};
+			this.unregistered = function() {
 				e("AckExtension: executing unregistration callback"), t = null
-			}, this.incoming = function(t) {
+			};
+			this.incoming = function(t) {
 				var i = t.channel;
 				if (i == "/meta/handshake") {
 					n = t.ext && t.ext.ack, e("AckExtension: server supports acks", n);
@@ -15299,7 +15367,8 @@ org.cometd.Cometd = function(e) {
 					}
 				}
 				return t
-			}, this.outgoing = function(i) {
+			};
+			this.outgoing = function(i) {
 				var o = i.channel;
 				if (o == "/meta/handshake") {
 					i.ext || (i.ext = {});
@@ -15309,7 +15378,7 @@ org.cometd.Cometd = function(e) {
 					n && o == "/meta/connect" && (i.ext || (i.ext = {}), i.ext.ack = r, e("AckExtension: client sending ack id", r));
 				}
 				return i;
-			}
+			};
 		}
 	}
 	if ("function" == typeof define && define.amd) {
@@ -15894,7 +15963,10 @@ org.cometd.Cometd = function(e) {
 									}
 								}), l()
 							});
-						d = m, f = p.scope = u, f.$emit("$viewContentLoaded"), f.$eval(g)
+						d = m;
+						f = p.scope = u;
+						f.$emit("$viewContentLoaded");
+						f.$eval(g);
 					} else {
 						l();
 					}
@@ -16936,17 +17008,20 @@ window.Modernizr = function(e, t, n) {
 		for (f in r) {
 			p.setAttribute(f, r[f]);
 		}
-		n = l ? s : n || o, p.onreadystatechange = p.onload = function() {
+		n = l ? s : n || o;
+		p.onreadystatechange = p.onload = function() {
 			if (!u && a(p.readyState)) {
 				u = 1;
 				n();
 				p.onload = p.onreadystatechange = null;
 			}
-		}, h(function() {
+		};
+		h(function() {
 			if (!(u)) {
 				(u = 1, n(1))
 			}
-		}, i), c ? p.onload() : g.parentNode.insertBefore(p, g)
+		}, i);
+		c ? p.onload() : g.parentNode.insertBefore(p, g);
 	};
 	e.yepnope.injectCss = function(e, n, r, i, a, c) {
 		var l, i = t.createElement("link"),
@@ -17085,7 +17160,10 @@ var addToHome = function(e) {
 				default:
 					i = "0.8s", r = "0"
 			}
-			b.addEventListener("webkitTransitionEnd", s, false), b.style.opacity = r, b.style.webkitTransitionDuration = i, b.style.webkitTransform = "translate3d(" + n + "px," + t + "px,0)"
+			b.addEventListener("webkitTransitionEnd", s, false);
+			b.style.opacity = r;
+			b.style.webkitTransitionDuration = i;
+			b.style.webkitTransform = "translate3d(" + n + "px," + t + "px,0)";
 		}
 	}
 
@@ -18735,7 +18813,8 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 			left: "auto",
 			position: "relative"
 		};
-	u.defaults = {}, c(u.prototype, {
+	u.defaults = {};
+	c(u.prototype, {
 		spin: function(e) {
 			this.stop();
 			var t, n, i = this,
@@ -18818,8 +18897,9 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 				(e.childNodes[t].style.opacity = n);
 			}
 		}
-	}),
-	function() {
+	});
+
+	! function() {
 		function e(e, t) {
 			return r("<" + e + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', t)
 		}
@@ -18883,9 +18963,10 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 		} else {
 			f = a(t, "animation");
 		}
-	}(), "function" == typeof define && define.amd ? define(function() {
+	}();
+	"function" == typeof define && define.amd ? define(function() {
 		return u
-	}) : e.Spinner = u
+	}) : e.Spinner = u;
 }(window, document);
 
 ! function(e, t) {
