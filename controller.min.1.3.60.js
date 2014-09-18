@@ -3697,16 +3697,17 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						if (r) {
 							(t = t.toLowerCase());
 						}
-						for (var o, a = 0, s = e.length; s > a; a++)
+						for (var o, a = 0, s = e.length; s > a; a++) {
 							if (o = e[a]) {
-								for (;
-									(o = o.previousSibling) && 1 !== o.nodeType;);
-								if (i || o && o.nodeName.toLowerCase() === t) {
-									e[a] = o || false;
-								} else {
-									e[a] = o === t;
+								for (; o = o.previousSibling && 1 !== o.nodeType;) {
+									if (i || o && o.nodeName.toLowerCase() === t) {
+										e[a] = o || false;
+									} else {
+										e[a] = o === t;
+									}
 								}
 							}
+						}
 						if (i) {
 							d.filter(t, e, true);
 						}
