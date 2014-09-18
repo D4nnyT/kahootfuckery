@@ -2663,7 +2663,12 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							n.type = m;
 							if (!(o || n.isDefaultPrevented() || d._default && d._default.apply(i.ownerDocument, r) !== false || "click" === m && I.nodeName(i, "a") || !I.acceptData(i))) {
 								if (f && i[m] && ("focus" !== m && "blur" !== m || 0 !== n.target.offsetWidth) && !I.isWindow(i)) {
-									(u = i[f], u && (i[f] = null), I.event.triggered = m, i[m](), I.event.triggered = t, u && (i[f] = u))
+									u = i[f];
+									u && (i[f] = null);
+									I.event.triggered = m;
+									i[m]();
+									I.event.triggered = t;
+									u && (i[f] = u);
 								}
 							}
 							return n.result;
@@ -2743,7 +2748,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 				var r, i, o, a = n.button,
 					s = n.fromElement;
 				if (null == e.pageX && null != n.clientX) {
-					(r = e.target.ownerDocument || q, i = r.documentElement, o = r.body, e.pageX = n.clientX + (i && i.scrollLeft || o && o.scrollLeft || 0) - (i && i.clientLeft || o && o.clientLeft || 0), e.pageY = n.clientY + (i && i.scrollTop || o && o.scrollTop || 0) - (i && i.clientTop || o && o.clientTop || 0))
+					r = e.target.ownerDocument || q;
+					i = r.documentElement;
+					o = r.body;
+					e.pageX = n.clientX + (i && i.scrollLeft || o && o.scrollLeft || 0) - (i && i.clientLeft || o && o.clientLeft || 0);
+					e.pageY = n.clientY + (i && i.scrollTop || o && o.scrollTop || 0) - (i && i.clientTop || o && o.clientTop || 0);
 				}
 				if (!e.relatedTarget && s) {
 					if (s === e.target) {
@@ -3092,7 +3101,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			} else {
 				return this.trigger(t);
 			}
-		}, I.attrFn && (I.attrFn[t] = true), et.test(t) && (I.event.fixHooks[t] = I.event.keyHooks), tt.test(t) && (I.event.fixHooks[t] = I.event.mouseHooks)
+		};
+		I.attrFn && (I.attrFn[t] = true);
+		et.test(t) && (I.event.fixHooks[t] = I.event.keyHooks);
+		tt.test(t) && (I.event.fixHooks[t] = I.event.mouseHooks);
 	}),
 	function() {
 		function e(e, t, n, r, o, a) {
@@ -4637,7 +4649,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			(n = i.getPropertyValue(t), "" !== n || I.contains(e.ownerDocument.documentElement, e) || (n = I.style(e, t)))
 		}
 		if (!I.support.pixelMargin && i && Pt.test(t) && Dt.test(n)) {
-			(o = a.width, a.width = n, n = i.width, a.width = o)
+			o = a.width;
+			a.width = n;
+			n = i.width;
+			a.width = o;
 		}
 		return n;
 	}), q.documentElement.currentStyle && (_t = function(e, t) {
@@ -4647,7 +4662,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			(o = i)
 		}
 		if (Dt.test(o)) {
-			(n = a.left, r = e.runtimeStyle && e.runtimeStyle.left, r && (e.runtimeStyle.left = e.currentStyle.left), a.left = "fontSize" === t ? "1em" : o, o = a.pixelLeft + "px", a.left = n, r && (e.runtimeStyle.left = r))
+			n = a.left;
+			r = e.runtimeStyle && e.runtimeStyle.left;
+			r && (e.runtimeStyle.left = e.currentStyle.left);
+			a.left = "fontSize" === t ? "1em" : o;
+			o = a.pixelLeft + "px";
+			a.left = n;
+			r && (e.runtimeStyle.left = r);
 		}
 		if ("" === o) {
 			return "auto";
@@ -5167,7 +5188,11 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			var n, r = q.head || q.getElementsByTagName("head")[0] || q.documentElement;
 			return {
 				send: function(i, o) {
-					n = q.createElement("script"), n.async = "async", e.scriptCharset && (n.charset = e.scriptCharset), n.src = e.url, n.onload = n.onreadystatechange = function(e, i) {
+					n = q.createElement("script");
+					n.async = "async";
+					e.scriptCharset && (n.charset = e.scriptCharset);
+					n.src = e.url;
+					n.onload = n.onreadystatechange = function(e, i) {
 						if ((i || !n.readyState || /loaded|complete/.test(n.readyState))) {
 							n.onload = n.onreadystatechange = null;
 							if (r && n.parentNode) {
@@ -5178,7 +5203,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								o(200, "success")
 							}
 						}
-					}, r.insertBefore(n, r.firstChild)
+					};
+					r.insertBefore(n, r.firstChild);
 				},
 				abort: function() {
 					if (n) {
@@ -5470,7 +5496,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		},
 		timers: [],
 		fx: function(e, t, n) {
-			this.options = t, this.elem = e, this.prop = n, t.orig = t.orig || {}
+			this.options = t;
+			this.elem = e;
+			this.prop = n;
+			t.orig = t.orig || {};
 		}
 	}), I.fx.prototype = {
 		update: function() {
@@ -5551,7 +5580,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			if (1 / 0 == s.duration) {
 				this.now = i;
 			} else {
-				(n = i - this.startTime, this.state = n / s.duration, this.pos = I.easing[s.animatedProperties[this.prop]](this.state, n, 0, 1, s.duration), this.now = this.start + (this.end - this.start) * this.pos);
+				n = i - this.startTime;
+				this.state = n / s.duration;
+				this.pos = I.easing[s.animatedProperties[this.prop]](this.state, n, 0, 1, s.duration);
+				this.now = this.start + (this.end - this.start) * this.pos;
 			}
 			this.update();
 			return true;
@@ -6266,7 +6298,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			c = ["ng:app", "ng-app", "x-ng-app", "data-ng-app"],
 			l = /\sng[:\-]app(:\s*([\w\d_]+);?)?\s/;
 		o(c, function(n) {
-			c[n] = true, r(t.getElementById(n)), n = n.replace(":", "\\:"), e.querySelectorAll && (o(e.querySelectorAll("." + n), r), o(e.querySelectorAll("." + n + "\\:"), r), o(e.querySelectorAll("[" + n + "]"), r))
+			c[n] = true;
+			r(t.getElementById(n));
+			n = n.replace(":", "\\:");
+			e.querySelectorAll && (o(e.querySelectorAll("." + n), r), o(e.querySelectorAll("." + n + "\\:"), r), o(e.querySelectorAll("[" + n + "]"), r));
 		}), o(s, function(e) {
 			if (!i) {
 				var t = " " + e.className + " ",
@@ -7303,10 +7338,16 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						delete c[e], a--
 					},
 					removeAll: function() {
-						c = {}, a = 0, u = {}, d = p = null
+						c = {};
+						a = 0;
+						u = {};
+						d = p = null;
 					},
 					destroy: function() {
-						c = null, s = null, u = null, delete t[e]
+						c = null;
+						s = null;
+						u = null;
+						delete t[e];
 					},
 					info: function() {
 						return f({}, s, {
@@ -7834,7 +7875,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 					});
 					return function(e, t, n, r, i) {
 						if (p) {
-							(p.push(t), p.push(n), p.push(r), p.push(i));
+							p.push(t);
+							p.push(n);
+							p.push(r);
+							p.push(i);
 						} else {
 							l(u, t, n, r, i);
 						}
@@ -8119,7 +8163,10 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		var t, n, r, i = {};
 		if (e) {
 			return (o(e.split("\n"), function(e) {
-				r = e.indexOf(":"), t = pr(Nr(e.substr(0, r))), n = Nr(e.substr(r + 1)), t && (i[t] ? i[t] += ", " + n : i[t] = n)
+				r = e.indexOf(":");
+				t = pr(Nr(e.substr(0, r)));
+				n = Nr(e.substr(r + 1));
+				t && (i[t] ? i[t] += ", " + n : i[t] = n);
 			}), i);
 		} else {
 			return i;
@@ -8454,7 +8501,13 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 			}
 
 			function v(t, r, i, o, a) {
-				T && n.cancel(T), w = k = null, 0 === r && (r = i ? 200 : "file" == Fn(c).protocol ? 404 : 0), r = 1223 === r ? 204 : r, a = a || "", t(r, i, o, a), e.$$completeOutstandingRequest(h)
+				T && n.cancel(T);
+				w = k = null;
+				0 === r && (r = i ? 200 : "file" == Fn(c).protocol ? 404 : 0);
+				r = 1223 === r ? 204 : r;
+				a = a || "";
+				t(r, i, o, a);
+				e.$$completeOutstandingRequest(h);
 			}
 			var b;
 			if (e.$$incOutstandingRequestCount(), c = c || e.url(), "jsonp" == pr(i)) {
@@ -10748,16 +10801,19 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 	}
 
 	function ur(e, t, n, r) {
-		v(n.name) && t.attr("name", l()), t.on("click", function() {
+		v(n.name) && t.attr("name", l());
+		t.on("click", function() {
 			if (t[0].checked) {
 				e.$apply(function() {
 					r.$setViewValue(n.value)
 				});
 			}
-		}), r.$render = function() {
+		});
+		r.$render = function() {
 			var e = n.value;
 			t[0].checked = e == r.$viewValue
-		}, n.$observe("value", r.$render)
+		};
+		n.$observe("value", r.$render);
 	}
 
 	function fr(e, t, n, r) {
@@ -11369,13 +11425,15 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 		Zr = r("$animate"),
 		ei = ["$provide",
 			function(e) {
-				this.$$selectors = {}, this.register = function(t, n) {
+				this.$$selectors = {};
+				this.register = function(t, n) {
 					var r = t + "-animation";
 					if (t && "." != t.charAt(0)) {
 						throw Zr("notcsel", "Expecting class selector starting with '.' got '{0}'.", t);
 					}
 					this.$$selectors[t.substr(1)] = r, e.factory(r, n)
-				}, this.classNameFilter = function(e) {
+				};
+				this.classNameFilter = function(e) {
 					if (1 === arguments.length) {
 						if (e instanceof RegExp) {
 							this.$$classNameFilter = e;
@@ -11384,7 +11442,8 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 						}
 					}
 					return this.$$classNameFilter;
-				}, this.$get = ["$timeout", "$$asyncCallback",
+				};
+				this.$get = ["$timeout", "$$asyncCallback",
 					function(e, t) {
 						function n(e) {
 							if (e) {
@@ -11423,7 +11482,7 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 							enabled: h
 						}
 					}
-				]
+				];
 			}
 		],
 		ti = r("$compile");
@@ -12798,7 +12857,12 @@ function GameOverCtrl(e, t, n, r, i, o, a, s) {
 								b.$odd = !(b.$even = 0 === (1 & f));
 								if (!(N.scope)) {
 									p(b, function(e) {
-										e[e.length++] = t.createComment(" end ngRepeat: " + x + " "), n.enter(e, null, br(_)), _ = e, N.scope = b, N.clone = e, q[N.id] = N
+										e[e.length++] = t.createComment(" end ngRepeat: " + x + " ");
+										n.enter(e, null, br(_));
+										_ = e;
+										N.scope = b;
+										N.clone = e;
+										q[N.id] = N;
 									})
 								}
 							}
@@ -13515,7 +13579,15 @@ org.cometd.WebSocketTransport = function() {
 		this.reset()
 	};
 	a.reset = function() {
-		o.reset(), null !== f && d && f.close(1e3, "Reset"), s = true, c = false, u = {}, l = {}, f = null, d = false, i = null
+		o.reset();
+		null !== f && d && f.close(1e3, "Reset");
+		s = true;
+		c = false;
+		u = {};
+		l = {};
+		f = null;
+		d = false;
+		i = null;
 	};
 	return a;
 };
@@ -13714,7 +13786,10 @@ org.cometd.RequestTransport = function() {
 		l && (this._debug("Aborting metaConnect request", l), l.xhr && l.xhr.abort()), this.reset()
 	};
 	s.reset = function() {
-		a.reset(), l = null, u = [], f = []
+		a.reset();
+		l = null;
+		u = [];
+		f = [];
 	};
 	return s;
 };
@@ -14095,7 +14170,13 @@ org.cometd.Cometd = function(e) {
 	}
 
 	function S(e) {
-		h(), e && Z.abort(), st = null, a("disconnected"), ct = 0, y(), lt.length > 0 && (wt.call(tt, void 0, lt, "error", "Disconnected"), lt = [])
+		h();
+		e && Z.abort();
+		st = null;
+		a("disconnected");
+		ct = 0;
+		y();
+		lt.length > 0 && (wt.call(tt, void 0, lt, "error", "Disconnected"), lt = []);
 	}
 
 	function A(e) {
@@ -14788,7 +14869,10 @@ org.cometd.Cometd = function(e) {
 			this.registered = function(e, t) {
 				r = t, n("TimeSyncExtension: executing registration callback")
 			}, this.unregistered = function() {
-				n("TimeSyncExtension: executing unregistration callback"), r = null, o = [], a = []
+				n("TimeSyncExtension: executing unregistration callback");
+				r = null;
+				o = [];
+				a = [];
 			}, this.incoming = function(e) {
 				var t = e.channel;
 				if (t && 0 === t.indexOf("/meta/") && e.ext && e.ext.timesync) {
@@ -15210,7 +15294,11 @@ org.cometd.Cometd = function(e) {
 						n.$broadcast("$routeUpdate", r);
 					} else {
 						if ((e || r)) {
-							(g = false, n.$broadcast("$routeChangeStart", e, r), m.current = e, e && e.redirectTo && (t.isString(e.redirectTo) ? i.path(h(e.redirectTo, e.params)).search(e.params).replace() : i.url(e.redirectTo(e.pathParams, i.path(), i.search())).replace()), a.when(e).then(function() {
+							g = false;
+							n.$broadcast("$routeChangeStart", e, r);
+							m.current = e;
+							e && e.redirectTo && (t.isString(e.redirectTo) ? i.path(h(e.redirectTo, e.params)).search(e.params).replace() : i.url(e.redirectTo(e.pathParams, i.path(), i.search())).replace());
+							a.when(e).then(function() {
 								if (e) {
 									var n, r, i = t.extend({}, e.resolve);
 									t.forEach(i, function(e, n) {
@@ -15245,7 +15333,7 @@ org.cometd.Cometd = function(e) {
 								if (e == m.current) {
 									n.$broadcast("$routeChangeError", e, r, t);
 								}
-							}))
+							});
 						}
 					}
 				}
@@ -15472,7 +15560,11 @@ org.cometd.Cometd = function(e) {
 					var a = t.lowercase(o),
 						c = "img" === e && "src" === a || "background" === a;
 					if (!(E[a] !== true || A[a] === true && !n(r, c))) {
-						(i(" "), i(o), i('="'), i(s(r)), i('"'))
+						i(" ");
+						i(o);
+						i('="');
+						i(s(r));
+						i('"');
 					}
 				}), i(a ? "/>" : ">"));
 			},
@@ -15522,7 +15614,13 @@ org.cometd.Cometd = function(e) {
 				}
 
 				function c(e, n) {
-					p.push("<a "), t.isDefined(a) && (p.push('target="'), p.push(a), p.push('" ')), p.push('href="'), p.push(e), p.push('">'), s(n), p.push("</a>")
+					p.push("<a ");
+					t.isDefined(a) && (p.push('target="'), p.push(a), p.push('" '));
+					p.push('href="');
+					p.push(e);
+					p.push('">');
+					s(n);
+					p.push("</a>");
 				}
 				if (!o) {
 					return o;
@@ -15597,14 +15695,17 @@ org.cometd.Cometd = function(e) {
 			return this
 		}, s.input = s.textarea = true);
 	} else {
-		(s = u.placeholder = function() {
+		s = u.placeholder = function() {
 			var e = this;
 			e.filter((c ? "textarea" : ":input") + "[placeholder]").not(".placeholder").bind({
 				"focus.placeholder": i,
 				"blur.placeholder": o
 			}).data("placeholder-enabled", true).trigger("blur.placeholder");
 			return e;
-		}, s.input = c, s.textarea = l, a = {
+		};
+		s.input = c;
+		s.textarea = l;
+		a = {
 			get: function(e) {
 				var t = n(e);
 				if (t.data("placeholder-enabled") && t.hasClass("placeholder")) {
@@ -15621,18 +15722,22 @@ org.cometd.Cometd = function(e) {
 					return e.value = r;
 				}
 			}
-		}, c || (f.input = a), l || (f.textarea = a), n(function() {
+		};
+		c || (f.input = a);
+		l || (f.textarea = a);
+		n(function() {
 			n(t).delegate("form", "submit.placeholder", function() {
 				var e = n(".placeholder", this).each(i);
 				setTimeout(function() {
 					e.each(o)
 				}, 10)
 			})
-		}), n(e).bind("beforeunload.placeholder", function() {
+		});
+		n(e).bind("beforeunload.placeholder", function() {
 			n(".placeholder").each(function() {
 				this.value = ""
 			})
-		}));
+		});
 	}
 }(this, document, jQuery);
 window.Modernizr = function(e, t, n) {
@@ -15744,7 +15849,11 @@ window.Modernizr = function(e, t, n) {
 			(u ? l : f).innerHTML += o;
 			f.appendChild(l);
 			if (!(u)) {
-				(f.style.background = "", f.style.overflow = "hidden", c = m.style.overflow, m.style.overflow = "hidden", m.appendChild(f))
+				f.style.background = "";
+				f.style.overflow = "hidden";
+				c = m.style.overflow;
+				m.style.overflow = "hidden";
+				m.appendChild(f);
 			}
 			a = n(l, e);
 			if (u) {
@@ -16004,7 +16113,10 @@ window.Modernizr = function(e, t, n) {
 			function i(e) {
 				var t = m[e[h]];
 				if (!(t)) {
-					(t = {}, g++, e[h] = g, m[g] = t)
+					t = {};
+					g++;
+					e[h] = g;
+					m[g] = t;
 				}
 				return t;
 			}
@@ -16233,7 +16345,10 @@ window.Modernizr = function(e, t, n) {
 			var c = t(e),
 				l = c.autoCallback;
 			c.url.split(".").pop().split("?").shift(), c.bypass || (i && (i = r(i) ? i : i[e] || i[a] || i[e.split("/").pop().split("?")[0]]), c.instead ? c.instead(e, i, o, a, s) : (S[c.url] ? c.noexec = true : S[c.url] = 1, o.load(c.url, c.forceCSS || !c.forceJS && "css" == c.url.split(".").pop().split("?").shift() ? "c" : n, c.noexec, c.attrs, c.timeout), (r(i) || r(l)) && o.load(function() {
-				u(), i && i(c.origUrl, s, a), l && l(c.origUrl, s, a), S[c.url] = 2
+				u();
+				i && i(c.origUrl, s, a);
+				l && l(c.origUrl, s, a);
+				S[c.url] = 2;
 			})))
 		}
 
@@ -16570,7 +16685,14 @@ var addToHome = function(e) {
 			}
 		};
 		if (void 0 !== t) {
-			(t.allowedTags = n.allowedTags, t.characterCount = n.characterCount, t.removeDangerousTags = n.removeDangerousTags, t.escapeTags = n.escapeTags, t.stripTags = n.stripTags, t.plainText = n.plainText, t.escapeEntities = n.escapeEntities, t.wysiwigEncode = n.wysiwigEncode)
+			t.allowedTags = n.allowedTags;
+			t.characterCount = n.characterCount;
+			t.removeDangerousTags = n.removeDangerousTags;
+			t.escapeTags = n.escapeTags;
+			t.stripTags = n.stripTags;
+			t.plainText = n.plainText;
+			t.escapeEntities = n.escapeEntities;
+			t.wysiwigEncode = n.wysiwigEncode;
 		}
 		return n;
 	})
@@ -17023,7 +17145,10 @@ angular.module("app.services.network", ["underscore", "app.services.comet"]).fac
 					if (u) {
 						u = false;
 						if (f) {
-							(f(), d(), f = null, d = null)
+							f();
+							d();
+							f = null;
+							d = null;
 						}
 					}
 				}
@@ -17068,7 +17193,11 @@ angular.module("app.services.mobitroll", ["app.services.comet", "app.services.co
 				o.put("no.mobitroll.session", t), s(function() {
 					var t = p;
 					if (!(t.handshaked)) {
-						(e.addListener("/meta/handshake", c), e.addListener("/meta/connect", d), e.addListener("/meta/subscribe", f), e.addListener("/meta/unsuccessful", l), e.handshake())
+						e.addListener("/meta/handshake", c);
+						e.addListener("/meta/connect", d);
+						e.addListener("/meta/subscribe", f);
+						e.addListener("/meta/unsuccessful", l);
+						e.handshake();
 					}
 				}, 50)
 			},
@@ -18050,10 +18179,13 @@ angular.module("app.directives.sanitize", ["app.services.sanitize"]).directive("
 				}),
 				c = o.radius + o.length + o.width;
 			if (e) {
-				(e.insertBefore(a, e.firstChild || null), n = l(e), t = l(a), s(a, {
+				e.insertBefore(a, e.firstChild || null);
+				n = l(e);
+				t = l(a);
+				s(a, {
 					left: ("auto" == o.left ? n.x - t.x + (e.offsetWidth >> 1) : parseInt(o.left, 10) + c) + "px",
 					top: ("auto" == o.top ? n.y - t.y + (e.offsetHeight >> 1) : parseInt(o.top, 10) + c) + "px"
-				}))
+				});
 			}
 			a.setAttribute("aria-role", "progressbar");
 			i.lines(a, i.opts);
@@ -19821,16 +19953,20 @@ angular.module("app.services.moderation", []).factory("$moderation", ["$rootScop
 			kickAlert: function(t) {
 				e.$broadcast("snitch", {
 					kickCode: t
-				}), e.$broadcast("alert", {
+				});
+				e.$broadcast("alert", {
 					key: "kicked-general",
 					message: e.siteAppContent.errors["kicked-general"],
 					alertType: "error",
 					autoDismiss: false,
 					userDismissable: false
-				})
+				});
 			},
 			kickController: function(r) {
-				r = r || t[n.kickCookieName], n.kickAlert(r), n.kickCookie(r), e.user && (e.user.name = "")
+				r = r || t[n.kickCookieName];
+				n.kickAlert(r);
+				n.kickCookie(r);
+				e.user && (e.user.name = "");
 			},
 			isKicked: function() {
 				return 1 * t[n.kickCookieName] > 0
@@ -19902,22 +20038,26 @@ angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.ser
 		}), n.$on("handshakeSuccess", function() {
 			T.trackConnection("handshakeSuccess"), x()
 		}), n.$on("connectionEstablished", function() {
-			x(), T.trackConnection("connectionEstablished"), null !== T.playerId && e.withComet(function(e) {
+			x();
+			T.trackConnection("connectionEstablished");
+			null !== T.playerId && e.withComet(function(e) {
 				e.publish("/service/controller", {
 					type: "relogin",
 					gameid: n.gameId,
 					host: r.comet.server,
 					cid: T.playerId
 				})
-			}), n.$broadcast("dismissAlert", {
+			});
+			n.$broadcast("dismissAlert", {
 				key: "reconnecting"
-			}), T.state == T.states.playing ? (n.$broadcast("wait", {
+			});
+			T.state == T.states.playing ? (n.$broadcast("wait", {
 				message: n.siteAppContent.info["waiting-next-question"]
 			}), n.$broadcast("alert", {
 				key: "waitingfornextquestion",
 				alertType: "success",
 				message: n.siteAppContent.info["welcome-back"]
-			})) : k && n.$broadcast("clearWait")
+			})) : k && n.$broadcast("clearWait");
 		}), n.$on("connectionBroken", function() {
 			n.$broadcast("wait", {
 				message: n.siteAppContent.info["attempt-reconnection"]
@@ -19946,16 +20086,27 @@ angular.module("app.services.lq.controller", ["app.services.mobitroll", "app.ser
 			}
 		});
 		var x = function() {
-			g && e.unsubscribe(g), m && e.unsubscribe(m), v && e.unsubscribe(v), g = null, m = null, v = null, g = e.subscribe("/service/controller"), m = e.subscribe("/service/player"), v = e.subscribe("/service/status")
+			g && e.unsubscribe(g);
+			m && e.unsubscribe(m);
+			v && e.unsubscribe(v);
+			g = null;
+			m = null;
+			v = null;
+			g = e.subscribe("/service/controller");
+			m = e.subscribe("/service/player");
+			v = e.subscribe("/service/status");
 		};
 		n.$on("messageRecieved", function(t, r) {
 			function i(e) {
-				n.qIdx = e.questionNumber, n.quizType = e.quizType, n.quizQuestionAnswers = e.quizQuestionAnswers, n.qAnswerMap = e.answerMap || {
+				n.qIdx = e.questionNumber;
+				n.quizType = e.quizType;
+				n.quizQuestionAnswers = e.quizQuestionAnswers;
+				n.qAnswerMap = e.answerMap || {
 					1: 1,
 					2: 2,
 					3: 3,
 					4: 4
-				}
+				};
 			}
 			if ("loginResponse" === r.data.type)
 				if (r.data.error) switch (String(r.data.error)) {
@@ -20280,7 +20431,14 @@ angular.module("app.directives.effects", []).directive("fadeoutOnClick", functio
 });
 angular.module("app").run(["$templateCache",
 	function(e) {
-		e.put("answer.html", '<div class="screen answer-screen">  <div class="statusbar top">    <div class="info">      <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>      <div class="username" ng-cloak>{{user.cleanName}}</div>    </div>    <div class="title">      <div class="number" ng-cloak>{{questionNumber(\'Q\')}}</div>      <div class="question" ng-cloak>{{statusBarTitle}}</div>    </div>  </div>  <div class="center valignwrapper selectanswer">    <div class="valign">      <div class="answerButtons" ng-class="answerButtonsClass()">        <button class="answer answerA" type="button" tapstart="selectAnswer(0)"><span>A</span></button>        <button class="answer answerB" type="button" tapstart="selectAnswer(1)"><span>B</span></button>        <button class="answer answerC" type="button" tapstart="selectAnswer(2)" ng-show="showAnswer(2)"><span>C</span></button>        <button class="answer answerD" type="button" tapstart="selectAnswer(3)" ng-show="showAnswer(3)"><span>D</span></button>      </div>      <div class="message" ng-class="messageClass()">        <div class="valign">          <div class="result" ng-class="resultClass()">            <div class="resultIcon" ng-class="resultIcon()"></div>            <h1 ng-cloak ng-bind-html="resultMessage"></h1>          </div>          <button class="btn disabled selectedAnswer" ng-class="selectedAnswerClass()"><span bind-html="selectedAnswerLabel()"></span></button>          <h4 class="message_container" ng-bind-html="statusMessage" ng-class="statusMessageClass()"></h4>        </div>      </div>    </div>  </div>  <div class="statusbar fixed bottom">    <div class="username" ng-cloak>{{user.cleanName}}</div>    <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>  </div></div>'), e.put("feedback.html", '<div class="screen feedback-screen">  <div class="statusbar top">    <div class="info">      <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>      <div class="username" ng-cloak>{{user.cleanName}}</div>    </div>    <div class="title">      <div class="question" ng-cloak>{{statusBarTitle}}</div>    </div>  </div>  <div class="sub-screen" ng-show="!done()">    <div class="center main valignwrapper feedback">      <div class="valign pad">        <div class="feedback-item">          <div class="feedback-question">How fun was it?</div>          <div class="feedback-controls">            <div class="scale-control">              <div class="scale-input"><input type="radio" name="feedback2" id="feedback2-1" value="1" ng-model="feedback.fun"><label for="feedback2-1" class="s1"></label></div>            </div>            <div class="scale-control">              <div class="scale-input"><input type="radio" name="feedback2" id="feedback2-2" value="2" ng-model="feedback.fun"><label for="feedback2-2" class="s2"></label></div>            </div>            <div class="scale-control">              <div class="scale-input"><input type="radio" name="feedback2" id="feedback2-3" value="3" ng-model="feedback.fun"><label for="feedback2-3" class="s3"></label></div>            </div>            <div class="scale-control">              <div class="scale-input"><input type="radio" name="feedback2" id="feedback2-4" value="4" ng-model="feedback.fun"><label for="feedback2-4" class="s4"></label></div>            </div>            <div class="scale-control">              <div class="scale-input"><input type="radio" name="feedback2" id="feedback2-5" value="5" ng-model="feedback.fun"><label for="feedback2-5" class="s5"></label></div>            </div>          </div>        </div>        <div class="feedback-item binary">          <div class="feedback-question">Did you learn something?</div>          <div class="feedback-controls">            <div class="scale-control binary">              <div class="scale-input"><input type="radio" name="feedback1" id="feedback1-1" value="1" ng-model="feedback.learning"><label for="feedback1-1" class="like"></label></div>            </div>            <div class="scale-control binary">              <div class="scale-input"><input type="radio" name="feedback1" id="feedback1-2" value="0" ng-model="feedback.learning"><label for="feedback1-2" class="dislike"></label></div>            </div>          </div>        </div>        <div class="feedback-item binary">          <div class="feedback-question">Do you recommend it?</div>          <div class="feedback-controls">            <div class="scale-control binary">              <div class="scale-input"><input type="radio" name="feedback3" id="feedback3-1" value="1" ng-model="feedback.recommend"><label for="feedback3-1" class="like"></label></div>            </div>            <div class="scale-control binary">              <div class="scale-input"><input type="radio" name="feedback3" id="feedback3-2" value="0" ng-model="feedback.recommend"><label for="feedback3-2" class="dislike"></label></div>            </div>          </div>        </div>      </div>    </div>    <div class="info-footer">      <div class="content">        <div class="feedback-summary">          <div class="feedback-item">            <div class="feedback-question">To continue, tell us how you feel?</div>            <div>                            <button type="button" class="face-btn happy" tap="smile()"></button>              <button type="button" class="face-btn indifferent" tap="meh()"></button>              <button type="button" class="face-btn sad" tap="frown()"></button>                          </div>          </div>        </div>      </div>    </div>  </div>  <div class="sub-screen" ng-show="done()">    <div class="center main valignwrapper feedback">      <div class="valign pad">        <h1 ng-bind="feedbackResponse().title">Thanks!</h1>        <div class="smiley" ng-class="feeling()"></div>        <div class="feedback-response" ng-bind="feedbackResponse().text"></div>      </div>    </div>  </div></div>'), e.put("gameid.html", '<div class="center join_view valignwrapper">	<div class="valign">		<div class="logo center-block"><span>Kahoot!</span></div>		<form ng-submit="joinSession(gameId)">			<input id="inputSession" ios7fix class="username" placeholder="Game pin" ng-model="gameId" type="tel" maxlength="6" shake="badGameId">			<button type="button" class="btn btn-block btn-greyscale join" blocking tap="joinSession(gameId)">Enter</button>		</form>	</div>	<p class="info" ng-show="notStandalone()">Make your own at <a href="https://getkahoot.com" target="_system">getkahoot.com</a></a></p></div>'), e.put("gameover.html", '<div class="screen gameover-screen">  <div class="statusbar top endscreen">    <div class="info">      <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>      <div class="username" ng-cloak>{{user.cleanName}}</div>    </div>    <div class="title">      <div class="question" ng-cloak>{{statusBarTitle}}</div>    </div>  </div>  <div class="center valignwrapper gameover" ng-class="gameOverClass()">    <div class="valign">      <h1 ng-bind-html="gameoverTitle()"></h1>      <h4 ng-cloak ng-bind-html="resultMessage()"></h4>      <div class="resultsList" ng-class="resultsListClass()">        <div class="correct">          <div class="icon"></div>          <div class="answers" ng-cloak>{{result.correctCount}} correct</div>        </div>        <div class="incorrect">          <div class="icon"></div>          <div class="answers" ng-cloak>{{result.incorrectCount}} incorrect</div>        </div>      </div>      <div ng-class="shareSocialClass()">        <span class="text">Share my {{shareWhat}}:</span>        <a ng-click="shareTwitter()" class="but-twitter" type="button">Tweet on twitter</a>        <a ng-click="shareFacebook()" class="but-facebook" type="button">Post to my wall</a>      </div>    </div>  </div>  <div class="info-footer">    <div class="divider"></div>    <div class="content">      <p><a href="https://getkahoot.com/register/" target="_system"><strong>Get my free account now</strong> and start making my own! <i class="icon-link"></i></a></p>    </div>  </div>  <div class="statusbar fixed bottom">    <div class="username" ng-cloak>{{user.cleanName}}</div>    <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>  </div></div>'), e.put("getready.html", '<div class="statusbar top">  <div class="info">    <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>    <div class="username" ng-cloak>{{user.cleanName}}</div>  </div>  <div class="title">    <div class="number" ng-cloak>{{questionNumber(\'Q\')}}</div>    <div class="question" ng-cloak>{{statusBarTitle}}</div>  </div></div><div class="center intro valignwrapper">  <div class="valign">    <h1 ng-cloak>{{questionNumber(\'Question \')}}</h1>    <h1 class="counter" ng-cloak>{{counter}}</h1>    <h4 ng-bind-html="introMessage()"></h4>  </div></div><div class="statusbar fixed bottom">  <div class="username" ng-cloak>{{user.cleanName}}</div>  <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div></div>'), e.put("instructions.html", '<div class="screen instructions-screen">  <div class="statusbar top">    <div class="info">      <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>      <div class="username" ng-cloak>{{user.cleanName}}</div>    </div>    <div class="title">      <div class="question" ng-cloak>{{statusBarTitle}}</div>    </div>  </div>  <div class="center main valignwrapper instructions">    <div class="valign pad">      <h1>You&rsquo;re In!</h1>      <h4>Did you see your name appear at the front?</h4>    </div>  </div>  <div class="statusbar fixed bottom">    <div class="username" ng-cloak>{{user.cleanName}}</div>    <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>  </div></div>'), e.put("join.html", '<div class="screen join-screen">	<div class="statusbar">		<div class="title" ng-cloak>{{statusBarTitle}}</div>	</div>	<div class="center join_view valignwrapper">				<div class="valign">			<h1>Play Now</h1>			<form ng-submit="join(user)">				<input id="username" ios7fix class="username" type="text" placeholder="Nickname" ng-model="user.name" maxlength="15" shake="badUsername">				<button type="button" class="btn btn-block btn-greyscale join" blocking tap="join(user)">Join game</button>			</form>		 </div>	</div></div>'), e.put("start.html", '<div class="screen start-screen">  <div class="statusbar top">    <div class="info">      <div ng-cloak ng-class="scoreClass()">{{totalScore}}</div>      <div class="username" ng-cloak>{{user.cleanName}}</div>    </div>    <div class="title">      <div class="question">{{statusBarTitle}}</div>    </div>  </div>  <div class="center main valignwrapper start">    <div class="valign pad">      <h1>Get Ready!</h1>      <div class="spinner" spinner></div>      <h4>Loading</h4>    </div>  </div>  <div class="statusbar fixed bottom">    <div class="username" ng-cloak>{{user.cleanName}}</div>    <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>  </div></div>')
+		e.put("answer.html", '<div class="screen answer-screen">  <div class="statusbar top">    <div class="info">      <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>      <div class="username" ng-cloak>{{user.cleanName}}</div>    </div>    <div class="title">      <div class="number" ng-cloak>{{questionNumber(\'Q\')}}</div>      <div class="question" ng-cloak>{{statusBarTitle}}</div>    </div>  </div>  <div class="center valignwrapper selectanswer">    <div class="valign">      <div class="answerButtons" ng-class="answerButtonsClass()">        <button class="answer answerA" type="button" tapstart="selectAnswer(0)"><span>A</span></button>        <button class="answer answerB" type="button" tapstart="selectAnswer(1)"><span>B</span></button>        <button class="answer answerC" type="button" tapstart="selectAnswer(2)" ng-show="showAnswer(2)"><span>C</span></button>        <button class="answer answerD" type="button" tapstart="selectAnswer(3)" ng-show="showAnswer(3)"><span>D</span></button>      </div>      <div class="message" ng-class="messageClass()">        <div class="valign">          <div class="result" ng-class="resultClass()">            <div class="resultIcon" ng-class="resultIcon()"></div>            <h1 ng-cloak ng-bind-html="resultMessage"></h1>          </div>          <button class="btn disabled selectedAnswer" ng-class="selectedAnswerClass()"><span bind-html="selectedAnswerLabel()"></span></button>          <h4 class="message_container" ng-bind-html="statusMessage" ng-class="statusMessageClass()"></h4>        </div>      </div>    </div>  </div>  <div class="statusbar fixed bottom">    <div class="username" ng-cloak>{{user.cleanName}}</div>    <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>  </div></div>');
+		e.put("feedback.html", '<div class="screen feedback-screen">  <div class="statusbar top">    <div class="info">      <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>      <div class="username" ng-cloak>{{user.cleanName}}</div>    </div>    <div class="title">      <div class="question" ng-cloak>{{statusBarTitle}}</div>    </div>  </div>  <div class="sub-screen" ng-show="!done()">    <div class="center main valignwrapper feedback">      <div class="valign pad">        <div class="feedback-item">          <div class="feedback-question">How fun was it?</div>          <div class="feedback-controls">            <div class="scale-control">              <div class="scale-input"><input type="radio" name="feedback2" id="feedback2-1" value="1" ng-model="feedback.fun"><label for="feedback2-1" class="s1"></label></div>            </div>            <div class="scale-control">              <div class="scale-input"><input type="radio" name="feedback2" id="feedback2-2" value="2" ng-model="feedback.fun"><label for="feedback2-2" class="s2"></label></div>            </div>            <div class="scale-control">              <div class="scale-input"><input type="radio" name="feedback2" id="feedback2-3" value="3" ng-model="feedback.fun"><label for="feedback2-3" class="s3"></label></div>            </div>            <div class="scale-control">              <div class="scale-input"><input type="radio" name="feedback2" id="feedback2-4" value="4" ng-model="feedback.fun"><label for="feedback2-4" class="s4"></label></div>            </div>            <div class="scale-control">              <div class="scale-input"><input type="radio" name="feedback2" id="feedback2-5" value="5" ng-model="feedback.fun"><label for="feedback2-5" class="s5"></label></div>            </div>          </div>        </div>        <div class="feedback-item binary">          <div class="feedback-question">Did you learn something?</div>          <div class="feedback-controls">            <div class="scale-control binary">              <div class="scale-input"><input type="radio" name="feedback1" id="feedback1-1" value="1" ng-model="feedback.learning"><label for="feedback1-1" class="like"></label></div>            </div>            <div class="scale-control binary">              <div class="scale-input"><input type="radio" name="feedback1" id="feedback1-2" value="0" ng-model="feedback.learning"><label for="feedback1-2" class="dislike"></label></div>            </div>          </div>        </div>        <div class="feedback-item binary">          <div class="feedback-question">Do you recommend it?</div>          <div class="feedback-controls">            <div class="scale-control binary">              <div class="scale-input"><input type="radio" name="feedback3" id="feedback3-1" value="1" ng-model="feedback.recommend"><label for="feedback3-1" class="like"></label></div>            </div>            <div class="scale-control binary">              <div class="scale-input"><input type="radio" name="feedback3" id="feedback3-2" value="0" ng-model="feedback.recommend"><label for="feedback3-2" class="dislike"></label></div>            </div>          </div>        </div>      </div>    </div>    <div class="info-footer">      <div class="content">        <div class="feedback-summary">          <div class="feedback-item">            <div class="feedback-question">To continue, tell us how you feel?</div>            <div>                            <button type="button" class="face-btn happy" tap="smile()"></button>              <button type="button" class="face-btn indifferent" tap="meh()"></button>              <button type="button" class="face-btn sad" tap="frown()"></button>                          </div>          </div>        </div>      </div>    </div>  </div>  <div class="sub-screen" ng-show="done()">    <div class="center main valignwrapper feedback">      <div class="valign pad">        <h1 ng-bind="feedbackResponse().title">Thanks!</h1>        <div class="smiley" ng-class="feeling()"></div>        <div class="feedback-response" ng-bind="feedbackResponse().text"></div>      </div>    </div>  </div></div>');
+		e.put("gameid.html", '<div class="center join_view valignwrapper">	<div class="valign">		<div class="logo center-block"><span>Kahoot!</span></div>		<form ng-submit="joinSession(gameId)">			<input id="inputSession" ios7fix class="username" placeholder="Game pin" ng-model="gameId" type="tel" maxlength="6" shake="badGameId">			<button type="button" class="btn btn-block btn-greyscale join" blocking tap="joinSession(gameId)">Enter</button>		</form>	</div>	<p class="info" ng-show="notStandalone()">Make your own at <a href="https://getkahoot.com" target="_system">getkahoot.com</a></a></p></div>');
+		e.put("gameover.html", '<div class="screen gameover-screen">  <div class="statusbar top endscreen">    <div class="info">      <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>      <div class="username" ng-cloak>{{user.cleanName}}</div>    </div>    <div class="title">      <div class="question" ng-cloak>{{statusBarTitle}}</div>    </div>  </div>  <div class="center valignwrapper gameover" ng-class="gameOverClass()">    <div class="valign">      <h1 ng-bind-html="gameoverTitle()"></h1>      <h4 ng-cloak ng-bind-html="resultMessage()"></h4>      <div class="resultsList" ng-class="resultsListClass()">        <div class="correct">          <div class="icon"></div>          <div class="answers" ng-cloak>{{result.correctCount}} correct</div>        </div>        <div class="incorrect">          <div class="icon"></div>          <div class="answers" ng-cloak>{{result.incorrectCount}} incorrect</div>        </div>      </div>      <div ng-class="shareSocialClass()">        <span class="text">Share my {{shareWhat}}:</span>        <a ng-click="shareTwitter()" class="but-twitter" type="button">Tweet on twitter</a>        <a ng-click="shareFacebook()" class="but-facebook" type="button">Post to my wall</a>      </div>    </div>  </div>  <div class="info-footer">    <div class="divider"></div>    <div class="content">      <p><a href="https://getkahoot.com/register/" target="_system"><strong>Get my free account now</strong> and start making my own! <i class="icon-link"></i></a></p>    </div>  </div>  <div class="statusbar fixed bottom">    <div class="username" ng-cloak>{{user.cleanName}}</div>    <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>  </div></div>');
+		e.put("getready.html", '<div class="statusbar top">  <div class="info">    <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>    <div class="username" ng-cloak>{{user.cleanName}}</div>  </div>  <div class="title">    <div class="number" ng-cloak>{{questionNumber(\'Q\')}}</div>    <div class="question" ng-cloak>{{statusBarTitle}}</div>  </div></div><div class="center intro valignwrapper">  <div class="valign">    <h1 ng-cloak>{{questionNumber(\'Question \')}}</h1>    <h1 class="counter" ng-cloak>{{counter}}</h1>    <h4 ng-bind-html="introMessage()"></h4>  </div></div><div class="statusbar fixed bottom">  <div class="username" ng-cloak>{{user.cleanName}}</div>  <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div></div>');
+		e.put("instructions.html", '<div class="screen instructions-screen">  <div class="statusbar top">    <div class="info">      <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>      <div class="username" ng-cloak>{{user.cleanName}}</div>    </div>    <div class="title">      <div class="question" ng-cloak>{{statusBarTitle}}</div>    </div>  </div>  <div class="center main valignwrapper instructions">    <div class="valign pad">      <h1>You&rsquo;re In!</h1>      <h4>Did you see your name appear at the front?</h4>    </div>  </div>  <div class="statusbar fixed bottom">    <div class="username" ng-cloak>{{user.cleanName}}</div>    <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>  </div></div>');
+		e.put("join.html", '<div class="screen join-screen">	<div class="statusbar">		<div class="title" ng-cloak>{{statusBarTitle}}</div>	</div>	<div class="center join_view valignwrapper">				<div class="valign">			<h1>Play Now</h1>			<form ng-submit="join(user)">				<input id="username" ios7fix class="username" type="text" placeholder="Nickname" ng-model="user.name" maxlength="15" shake="badUsername">				<button type="button" class="btn btn-block btn-greyscale join" blocking tap="join(user)">Join game</button>			</form>		 </div>	</div></div>');
+		e.put("start.html", '<div class="screen start-screen">  <div class="statusbar top">    <div class="info">      <div ng-cloak ng-class="scoreClass()">{{totalScore}}</div>      <div class="username" ng-cloak>{{user.cleanName}}</div>    </div>    <div class="title">      <div class="question">{{statusBarTitle}}</div>    </div>  </div>  <div class="center main valignwrapper start">    <div class="valign pad">      <h1>Get Ready!</h1>      <div class="spinner" spinner></div>      <h4>Loading</h4>    </div>  </div>  <div class="statusbar fixed bottom">    <div class="username" ng-cloak>{{user.cleanName}}</div>    <div ng-class="scoreClass()" ng-cloak>{{totalScore}}</div>  </div></div>');
 	}
 ]);
 //# sourceMappingURL=controller.min.js.map
