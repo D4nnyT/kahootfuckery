@@ -1,0 +1,34 @@
+GET /shared/theme/kahoot/img/buttons/triangle.svg HTTP/1.1
+Host: kahoot.it
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0 Iceweasel/31.0
+Accept: image/png,image/*;q=0.8,*/*;q=0.5
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: https://kahoot.it/
+Cookie: no.mobitroll.session=12
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+
+HTTP/1.1 200 OK
+server: nginx/1.4.6 (Ubuntu)
+date: Fri, 19 Sep 2014 23:22:59 GMT
+content-type: image/svg+xml
+content-length: 766
+last-modified: Wed, 17 Sep 2014 08:42:44 GMT
+connection: keep-alive
+etag: "54194984-2fe"
+accept-ranges: bytes
+
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="114px" height="130px" viewBox="0 0 52 59" enable-background="new 0 0 52 59" xml:space="preserve">
+<g>
+	<path opacity="0.35" d="M23.429,7.053L3.866,53.932l47.027-2.141L23.429,7.053z M22.396,24.033L35.61,43.006l-20.818,2.879
+		L22.396,24.033z"/>
+	<path fill="#FFFFFF" d="M21.429,5.053L1.866,51.932l47.027-2.141L21.429,5.053z M20.396,22.033L33.61,41.006l-20.818,2.879
+		L20.396,22.033z"/>
+</g>
+</svg>

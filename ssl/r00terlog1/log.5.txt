@@ -1,0 +1,180 @@
+GET /shared/theme/kahoot/img/information.svg HTTP/1.1
+Host: kahoot.it
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0 Iceweasel/31.0
+Accept: image/png,image/*;q=0.8,*/*;q=0.5
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: https://kahoot.it/
+Cookie: no.mobitroll.session=12
+Connection: keep-alive
+If-Modified-Since: Wed, 17 Sep 2014 08:42:58 GMT
+If-None-Match: "54194992-39c"
+Cache-Control: max-age=0
+
+HTTP/1.1 200 OK
+server: nginx/1.4.6 (Ubuntu)
+date: Fri, 19 Sep 2014 23:21:32 GMT
+content-type: image/svg+xml
+content-length: 924
+last-modified: Wed, 17 Sep 2014 08:43:08 GMT
+connection: keep-alive
+etag: "5419499c-39c"
+accept-ranges: bytes
+
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="34px" height="34px" viewBox="0 0 34 34" enable-background="new 0 0 34 34" xml:space="preserve">
+<g>
+	<path opacity="0.35" d="M17.5,1C8.388,1,1,8.387,1,17.5S8.388,34,17.5,34S34,26.613,34,17.5S26.612,1,17.5,1z M24.5,28.75
+		L17,23.167l-7.25,4.416l2.25-7.5L3.5,14h10.25L16,6.667l4.75,6.541l8.75-1.146l-8,7.719L24.5,28.75z"/>
+	<path fill="#FFFFFF" d="M16.5,0C7.388,0,0,7.387,0,16.5S7.388,33,16.5,33S33,25.613,33,16.5S25.612,0,16.5,0z M23.5,27.75
+		L16,22.167l-7.25,4.416l2.25-7.5L2.5,13h10.25L15,5.667l4.75,6.541l8.75-1.146l-8,7.719L23.5,27.75z"/>
+</g>
+</svg>
+GET /shared/theme/kahoot/img/success.svg HTTP/1.1
+Host: kahoot.it
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0 Iceweasel/31.0
+Accept: image/png,image/*;q=0.8,*/*;q=0.5
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: https://kahoot.it/
+Cookie: no.mobitroll.session=12
+Connection: keep-alive
+If-Modified-Since: Wed, 17 Sep 2014 08:42:58 GMT
+If-None-Match: "54194992-37c"
+Cache-Control: max-age=0
+
+HTTP/1.1 200 OK
+server: nginx/1.4.6 (Ubuntu)
+date: Fri, 19 Sep 2014 23:21:32 GMT
+content-type: image/svg+xml
+content-length: 892
+last-modified: Wed, 17 Sep 2014 08:43:08 GMT
+connection: keep-alive
+etag: "5419499c-37c"
+accept-ranges: bytes
+
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="34px" height="34px" viewBox="0 0 34 34" enable-background="new 0 0 34 34" xml:space="preserve">
+<g>
+	<path opacity="0.35" d="M17.5,1C8.388,1,1,8.387,1,17.5S8.388,34,17.5,34S34,26.613,34,17.5S26.612,1,17.5,1z M13.451,26.953
+		l-7.488-7.605l2.867-4.036l4.563,5.733L24.215,8.993l3.861,3.686L13.451,26.953z"/>
+	<path fill="#FFFFFF" d="M16.5,0C7.388,0,0,7.387,0,16.5S7.388,33,16.5,33S33,25.613,33,16.5S25.612,0,16.5,0z M12.451,25.953
+		l-7.488-7.605l2.867-4.036l4.563,5.733L23.215,7.993l3.861,3.686L12.451,25.953z"/>
+</g>
+</svg>
+GET /shared/theme/kahoot/img/warning.svg HTTP/1.1
+Host: kahoot.it
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0 Iceweasel/31.0
+Accept: image/png,image/*;q=0.8,*/*;q=0.5
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: https://kahoot.it/
+Cookie: no.mobitroll.session=12
+Connection: keep-alive
+If-Modified-Since: Wed, 17 Sep 2014 08:42:58 GMT
+If-None-Match: "54194992-36d"
+Cache-Control: max-age=0
+
+HTTP/1.1 200 OK
+server: nginx/1.4.6 (Ubuntu)
+date: Fri, 19 Sep 2014 23:21:32 GMT
+content-type: image/svg+xml
+content-length: 877
+last-modified: Wed, 17 Sep 2014 08:43:08 GMT
+connection: keep-alive
+etag: "5419499c-36d"
+accept-ranges: bytes
+
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="34px" height="34px" viewBox="0 0 34 34" enable-background="new 0 0 34 34" xml:space="preserve">
+<g>
+	<path opacity="0.35" d="M16.461,1L0.99,34l33.007-1.39L16.461,1z M20.783,12.161L18.483,25h-1.59l-1.277-13.035L20.783,12.161z
+		 M20,29.5L18.731,31h-2.228l-0.99-1.016L16.503,28h1.98L20,28.361V29.5z"/>
+	<path fill="#FFFFFF" d="M15.472,0L0,33l33.007-1.39L15.472,0z M19.793,11.161L17.494,24h-1.59l-1.277-13.035L19.793,11.161z
+		 M19,28.5L17.742,30h-2.228l-0.99-1.016L15.514,27h1.98L19,27.361V28.5z"/>
+</g>
+</svg>
+GET /shared/theme/kahoot/img/sad.svg HTTP/1.1
+Host: kahoot.it
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0 Iceweasel/31.0
+Accept: image/png,image/*;q=0.8,*/*;q=0.5
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: https://kahoot.it/
+Cookie: no.mobitroll.session=12
+Connection: keep-alive
+If-Modified-Since: Wed, 17 Sep 2014 08:42:58 GMT
+If-None-Match: "54194992-4ce"
+Cache-Control: max-age=0
+
+HTTP/1.1 200 OK
+server: nginx/1.4.6 (Ubuntu)
+date: Fri, 19 Sep 2014 23:21:33 GMT
+content-type: image/svg+xml
+content-length: 1230
+last-modified: Wed, 17 Sep 2014 08:43:08 GMT
+connection: keep-alive
+etag: "5419499c-4ce"
+accept-ranges: bytes
+
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="50px" height="50px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+<g>
+	<circle opacity="0.65" cx="26" cy="26" r="24"/>
+	<circle fill="#DE1831" cx="24" cy="24" r="24"/>
+</g>
+<g opacity="0.35">
+	<circle cx="17.289" cy="19.37" r="4.098"/>
+	<circle cx="32.711" cy="19.37" r="4.098"/>
+	<path d="M38.5,35.564l-1.162,1.162C32.711,33.91,29.77,32.699,25,32.699c-4.77,0-7.711,1.211-12.338,4.027L11.5,35.564
+		c2.418-3.504,7.474-7.756,13.5-7.756C31.025,27.809,36.082,32.061,38.5,35.564z"/>
+</g>
+<g>
+	<circle fill="#FFFFFF" cx="16.289" cy="18.37" r="4.098"/>
+	<circle fill="#FFFFFF" cx="31.711" cy="18.37" r="4.098"/>
+	<path fill="#FFFFFFGET /shared/theme/kahoot/img/buttons/square.svg HTTP/1.1
+Host: kahoot.it
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0 Iceweasel/31.0
+Accept: image/png,image/*;q=0.8,*/*;q=0.5
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: https://kahoot.it/
+Cookie: no.mobitroll.session=12
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+
+HTTP/1.1 200 OK
+server: nginx/1.4.6 (Ubuntu)
+date: Fri, 19 Sep 2014 23:22:58 GMT
+content-type: image/svg+xml
+content-length: 809
+last-modified: Wed, 17 Sep 2014 08:42:44 GMT
+connection: keep-alive
+etag: "54194984-329"
+accept-ranges: bytes
+
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="114px" height="130px" viewBox="0 0 52 59" enable-background="new 0 0 52 59" xml:space="preserve">
+<g>
+	<path opacity="0.35" d="M2.543,8.665l3.279,40.878l44.157,4.044l1.858-46.453L2.543,8.665z M37.41,41.674l-25.686-2.077
+		L9.866,15.004l29.074-0.765L37.41,41.674z"/>
+	<path fill="#FFFFFF" d="M0.543,6.665l3.279,40.878l44.157,4.044l1.858-46.453L0.543,6.665z M35.41,39.674L9.725,37.597
+		L7.866,13.004l29.074-0.765L35.41,39.674z"/>
+</g>
+</svg>

@@ -3,11 +3,11 @@
 import ssl, socket, select, sys, threading, time
 
 
-def logit(text, connid, logdir):
+def logit(text, connid, logdir, direction):
 	with open(logdir+"/log."+str(connid)+".txt", "a") as myfile:
 		myfile.write(text)
 		t = time.time()
-		sys.stdout.write("cid "+str(connid)+" at "+str(t)+": "+text)
+		sys.stdout.write("cid "+str(connid)+" at "+str(t)+": "+direction+"\n")
 		sys.stdout.flush()
 
 
@@ -23,20 +23,20 @@ def handle_conn(nssl, client_addr, connid, remote, logdir):
 		for s in read:
 			if s == rssl:
 				data = rssl.recv()
-				print "server -> client ("+str(connid)+"): "+str(len(data))
+#				print "server -> client ("+str(connid)+"): "+str(len(data))
 				if len(data) == 0:
 					ins = []
 				else:
 					nssl.send(data)
-					logit(data, connid, logdir)
+					logit(data, connid, logdir, "server->client")
 			elif s == nssl:
 				data = nssl.recv()
-				print "client -> server ("+str(connid)+"): "+str(len(data))
+#				print "client -> server ("+str(connid)+"): "+str(len(data))
 				if len(data) == 0:
 					ins = []
 				else:
 					rssl.send(data)
-					logit(data, connid, logdir)
+					logit(data, connid, logdir, "client->server")
 	rssl.close()
 	nssl.close()
 

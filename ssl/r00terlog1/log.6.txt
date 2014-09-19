@@ -1,0 +1,35 @@
+GET /shared/theme/kahoot/img/kahoot.svg HTTP/1.1
+Host: kahoot.it
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0 Iceweasel/31.0
+Accept: image/png,image/*;q=0.8,*/*;q=0.5
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: https://kahoot.it/theme/kahoot/css/style.css?v1.3.61
+Cookie: no.mobitroll.session=12
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+
+HTTP/1.1 200 OK
+server: nginx/1.4.6 (Ubuntu)
+date: Fri, 19 Sep 2014 23:22:58 GMT
+content-type: image/svg+xml
+content-length: 8482
+last-modified: Wed, 17 Sep 2014 08:42:44 GMT
+connection: keep-alive
+etag: "54194984-2122"
+accept-ranges: bytes
+
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="297.532px" height="104.62px" viewBox="0 0 297.532 104.62" enable-background="new 0 0 297.532 104.62"
+	 xml:space="preserve">
+<g id="Logo_1_">
+	<g opacity="0.35">
+		<path d="M154.936,38.759c-12.526,0.221-23.294,10.848-24.053,23.737c-0.759,12.889,9.396,24.41,22.681,25.732
+			c13.286,1.322,24.053-9.306,24.053-23.738S167.462,38.54,154.936,38.759z M156.492,76.06c-6.89,0.813-12.753-5.488-12.357-13.506
+			c0.39-8.022,3.597-13.036,10.095-13.173c6.496-0.137,10.425,7.321,9.683,16.042C163.346,72.1,159.21,75.74,156.492,76.06z"/>
+		<path d="M180.046,65.809c0,14.432,10.769,25.059,24.054,23.738c13.285-1.323,23.44-12.844,22.682-25.732
+			c-0.757-12.891-11.528-23.5
