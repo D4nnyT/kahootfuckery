@@ -3,8 +3,7 @@
 import ssl, socket, select, sys, threading, time
 
 
-def logit(text, connid):
-	global logdir
+def logit(text, connid, logdir):
 	with open(logdir+"/log."+str(connid)+".txt", "a") as myfile:
 		myfile.write(text)
 		t = time.time()
