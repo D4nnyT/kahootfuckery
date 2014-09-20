@@ -102,55 +102,77 @@ def server(data, connid, clientsock):
 
 	this = info[connid]
 
+	if (not "server" in this) or (this["expect"] == 'serverreply'):
+		this["server"] = {}
+
+	srv = this["server"]
+
+	if "sbuf" in this:
+		data = this["sbuf"]+data
+		this["sbuf"] = ""
+	else:
+		this["sbuf"] = ""
+
 	if this["expect"] == "serverreply":
+		if not "\n" in data:
+			this["sbuf"] += data
+			return
+
 		line, data = data.split("\n", 1)
 		line = line.rstrip("\r").split(" ", 2)
 
-		this["server"] = {}
-
-		this["server"]["ver"] = line[0]
-		this["server"]["errcode"] = line[1]
-		this["server"]["errstr"] = line[2]
+		srv["ver"] = line[0]
+		srv["errcode"] = line[1]
+		srv["errstr"] = line[2]
 
 		this["expect"] = "serverheaders"
 
 		if data:
 			return server(data,connid,clientsock)
 	elif this["expect"] == "serverheaders":
+		if not "\n" in data:
+			this["sbuf"] += data
+			return
+
 		line, data = data.split("\n", 1)
 		line = line.rstrip("\r").split(":", 1)
 
 		if line == [""]:
 			# TODO What if there is data to process even if no content-length?
 			# TODO what if the 'upgrade: websocket' header is present at the webserver
-			if "content-length" in this["server"]["headers"]:
+			if "content-length" in srv["headers"]:
 				this["expect"] = "serverdata"
+			elif "transfer-encoding" in srv["headers"] and srv["headers"]["transfer-encoding"] == "chunked":
+				this["expect"] = "serverdata-chunked"
+			elif "upgrade" in srv["headers"] and srv["headers"]["upgrade"] == "WebSocket":
+				this["expect"] = "websockets"
 			else:
-				server_forward(this["server"], clientsock)
+				server_forward(srv, clientsock)
 				this["expect"] = "clientstart"
 		else:
-			if not "headers" in this["server"]:
-				this["server"]["headers"] = {}
+			if not "headers" in srv:
+				srv["headers"] = {}
 
-			this["server"]["headers"][line[0].lower()] = line[1].lstrip(" ")
+			srv["headers"][line[0].lower()] = line[1].lstrip(" ")
 
 		if data != "":
 			return server(data, connid, clientsock)
 	elif this["expect"] == "serverdata":
-		if not "remain" in this["server"]:
-			this["server"]["remain"] = int(this["server"]["headers"]["content-length"])
-			this["server"]["data"] = ""
-		rem = this["server"]["remain"]
+		if not "remain" in srv:
+			srv["remain"] = int(srv["headers"]["content-length"])
+			srv["data"] = ""
+		rem = srv["remain"]
 		if len(data) > rem:
 			# TODO implement caching or discard.. you decide
 			print "Got served more bytes than we expect"
 			sleep(2)
 		elif len(data) == rem:
-			this["server"]["data"] += data
+			srv["data"] += data
 			requestcomplete(connid, clientsock)
 		else:
-			this["server"]["data"] += data
-			this["server"]["remain"] -= len(data)
+			srv["data"] += data
+			srv["remain"] -= len(data)
+	#elif this["expect"] == "serverdata-chunked":
 	else:
 		print "Unexpected state when receiving data from server: "+this["expect"]
 		pprint(this)
