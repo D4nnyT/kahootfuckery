@@ -1,14 +1,11 @@
 #!/usr/bin/python
 
-import ssl, socket, select, sys, threading, time
-
+import ssl, socket, select, sys, threading, time, mrparser
 
 def logit(text, connid, logdir, direction):
 	with open(logdir+"/log."+str(connid)+".txt", "a") as myfile:
 		myfile.write(text)
 		t = time.time()
-		sys.stdout.write("cid "+str(connid)+" at "+str(t)+": "+direction+"\n")
-		sys.stdout.flush()
 
 
 def handle_conn(nssl, client_addr, connid, remote, logdir):
@@ -18,24 +15,26 @@ def handle_conn(nssl, client_addr, connid, remote, logdir):
 	ins = [rssl, nssl]
 	outs = []
 	while ins:
-		print "Waiting for select"
+		# print "Waiting for select"
 		read, write, exc = select.select(ins, outs, ins)
 		for s in read:
 			if s == rssl:
-				data = rssl.recv()
-#				print "server -> client ("+str(connid)+"): "+str(len(data))
+				data = rssl.read(1024**3)
+				#print "server -> client ("+str(connid)+"): "+str(len(data))+": '"+data+"'"
 				if len(data) == 0:
 					ins = []
 				else:
-					nssl.send(data)
+					#nssl.send(data)
+					mrparser.server(data, connid, nssl)
 					logit(data, connid, logdir, "server->client")
 			elif s == nssl:
-				data = nssl.recv()
-#				print "client -> server ("+str(connid)+"): "+str(len(data))
+				data = nssl.read(1024**3)
+				#print "client -> server ("+str(connid)+"): "+str(len(data))+": '"+data+"'"
 				if len(data) == 0:
 					ins = []
 				else:
-					rssl.send(data)
+					#rssl.send(data)
+					mrparser.client(data, connid, rssl)
 					logit(data, connid, logdir, "client->server")
 	rssl.close()
 	nssl.close()
@@ -58,5 +57,5 @@ def run(local, remote, cert, key, logdir):
 			t.daemon = True
 			t.start()
 			connid = connid+1
-		except:
-			print "Problems caught :("
+		except ssl.SSLError, e:
+			print "SSL problems caught: "+str(e)

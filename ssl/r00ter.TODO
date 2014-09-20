@@ -1,0 +1,10 @@
+Todo:
+mrparser.py:
+[ ] Client: needs to handle payloads
+	- Forward request first, and then forward every time we see payload, won't break on large files
+[ ] Client: What if client does not send content-length but still posts?
+[ ] Server: Implement buffer
+[ ] Server: Forward headers with no payloads
+[ ] Server: Forward payloads - same as client way of doing it
+[ ] Server: What if no content-length but still payload?
+[ ] Server/Client: Start working on websockets

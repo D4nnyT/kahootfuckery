@@ -1,0 +1,7 @@
+Serverapi for http requests:
+
+GET /reserve/test/<pin>
+	true / false
+
+GET /cometd...
+	coming soon
