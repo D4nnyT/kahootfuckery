@@ -99,7 +99,6 @@ def ws_packetize(data, dest):
 		if len(data) < (offset+8):
 			return offset+8
 
-		print data[offset:offset+8]
 		pllen = (data[offset+0]<<56) | (data[offset+1]<<48) | (data[offset+2]<<40) | (data[offset+3]<<32) | (data[offset+4]<<24) | (data[offset+5]<<16) | (data[offset+6]<<8) | data[offset+7]
 		offset += 8
 	dest["pllen"] = pllen
@@ -130,7 +129,7 @@ def init():
 	return ret
 
 
-def client_forward(request, ssock):
+def client_forward_header(request, ssock):
 	print "client -> server: "+request["method"]+" "+request["path"]
 
 	req = []
@@ -142,6 +141,10 @@ def client_forward(request, ssock):
 	req.append("")
 	req = "\r\n".join(req)+"\r\n"
 	ssock.send(req)
+
+def client_forward_data(data, ssock):
+	print "client -> server: content with length "+str(len(data))
+	ssock.send(data)
 
 def client_forward_ws(wsdata, ssock):
 	print "client->server forward ws: "+str(wsdata["payload"])
@@ -196,11 +199,21 @@ def client(data, connid, serversock):
 
 		if line == [""]:
 			if cli["method"] == "GET":
-				client_forward(cli, serversock)
+				client_forward_header(cli, serversock)
 				this["expect"] = "serverreply"
 			else:
-				# print "Expecting clientdata"
-				this["expect"] = "clientdata"
+				if "content-length" in cli["headers"] and int(cli["headers"]["content-length"]) > 0:
+					this["expect"] = "clientdata"
+					cli["remain"] = int(cli["headers"]["content-length"])
+					cli["data"] = ""
+					client_forward_header(cli, serversock)
+				elif "transfer-encoding" in cli["headers"] and cli["headers"]["transfer-encoding"] == "chunked":
+					this["expect"] = "client-chunkstart"
+					cli["cnr"] = 0
+					cli["chunks"] = {}
+					client_forward_header(cli, serversock)
+				else:
+					this["expect"] = "serverreply"
 		else:
 			if not "headers" in cli:
 				cli["headers"] = {}
@@ -212,6 +225,18 @@ def client(data, connid, serversock):
 
 		if data != "":
 			return client(data, connid, serversock)
+	elif this["expect"] == "clientdata":
+		if len(data) > cli["remain"]:
+			# TODO implement caching or discard.. you decide
+			raise BaseException('client->clientdata: Got more bytes than expected, TODO to handle this')
+		elif len(data) == cli["remain"]:
+			cli["data"] += data
+			client_forward_data(cli["data"], serversock)
+			cli["remain"] = 0
+			this["expect"] = "serverreply"
+		else:
+			cli["data"] += data
+			cli["remain"] -= len(data)
 	elif this["expect"] == "websockets":
 		new = {}
 		lenreq = ws_packetize(data, new)
@@ -223,10 +248,10 @@ def client(data, connid, serversock):
 		if len(data):
 			return client(data, connid, serversock)
 	else:
-		# TODO: Clientdata
 		pprint(this)
 		pprint(data)
 		raise BaseException("Unexpected state when receiving data from client: "+this["expect"]+", see dump above")
+	print "Current expect (after client): "+this["expect"]
 
 def server_forward_header(data, csock):
 	print "server -> client: "+data["errcode"]+" "+data["errstr"]
@@ -297,10 +322,10 @@ def server(data, connid, clientsock):
 		line = line.rstrip("\r").split(":", 1)
 
 		if line == [""]:
-			# TODO What if there is data to process even if no content-length?
-			# TODO what if the 'upgrade: websocket' header is present at the webserver
-			if "content-length" in srv["headers"]:
+			if "content-length" in srv["headers"] and int(srv["headers"]["content-length"]) > 0:
 				this["expect"] = "serverdata"
+				srv["remain"] = int(srv["headers"]["content-length"])
+				srv["data"] = ""
 				server_forward_header(srv, clientsock)
 			elif "transfer-encoding" in srv["headers"] and srv["headers"]["transfer-encoding"] == "chunked":
 				this["expect"] = "server-chunkstart"
@@ -323,16 +348,13 @@ def server(data, connid, clientsock):
 		if data != "":
 			return server(data, connid, clientsock)
 	elif this["expect"] == "serverdata":
-		if not "remain" in srv:
-			srv["remain"] = int(srv["headers"]["content-length"])
-			srv["data"] = ""
-		rem = srv["remain"]
-		if len(data) > rem:
+		if len(data) > srv["remain"]:
 			# TODO implement caching or discard.. you decide
 			raise BaseException('server->serverdata: Got more bytes than expected, TODO to handle this')
-		elif len(data) == rem:
+		elif len(data) == srv["remain"]:
 			srv["data"] += data
 			server_forward_data(srv["data"], clientsock)
+			srv["remain"] = 0
 			this["expect"] = "clientstart"
 		else:
 			srv["data"] += data
@@ -403,3 +425,4 @@ def server(data, connid, clientsock):
 		pprint(this)
 		pprint(data)
 		raise BaseException("Unexpected state when receiving data from server: "+this["expect"]+", see dump above")
+	print "Current expect (after server): "+this["expect"]

@@ -1,16 +1,13 @@
 Todo:
 mrparser.py:
-[ ] Client: needs to handle payloads
-	- Forward request first, and then forward every time we see payload, won't break on large files
-	- Time to fix
-[ ] Client: What if client does not send content-length but still posts? (chunked encoding for client)
-	- delayed until it causes trouble
+[x] Client: needs to handle payloads
+[ ] Client: POST transfer-encoding: chunked
+	- wait until demand
 [x] Server: Implement buffer
 [x] Server: Forward headers with no payloads
 [x] Server: Forward payloads - same as client way of doing it
-[x] Server: What if no content-length but still payload?
-	- chunked encoding: ok
-[ ] Server/Client: Start working on websockets
+[x] Server: chunked encoding
+[x] Server/Client: Start working on websockets
 
 [ ] Complain if websocket handshake mismatches
 [ ] Complain if anyone use a reserved field without reason (The other side should fail the connection in such case)
