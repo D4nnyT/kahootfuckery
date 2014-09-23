@@ -6,6 +6,124 @@ from time import sleep
 
 info = {}
 
+def ws_reconstruct(wsdata):
+	data = []
+
+	pllen = len(wsdata["payload"])
+
+	byte1 = 0
+	if "fin" in wsdata:
+		byte1 |= 128
+	if "rsv1" in wsdata:
+		byte1 |= 64
+	if "rsv2" in wsdata:
+		byte1 |= 32
+	if "rsv3" in wsdata:
+		byte1 |= 16
+	byte1 |= wsdata["opcode"] & 0xf
+	data.append(byte1)
+
+	byte2 = 0
+	if "mask" in wsdata:
+		byte2 |= 128
+
+	if pllen < 126:
+		# no extra
+		byte2 |= pllen
+		data.append(byte2)
+	elif pllen < 65536:
+		# 16 bit
+		byte2 |= 126
+		data.append(byte2)
+		data.append((pllen>>8) & 0xff)
+		data.append((pllen   ) & 0xff)
+	else:
+		# 64 bit
+		byte2 |= 127
+		data.append(byte2)
+		data.append((pllen>>56) & 0xff)
+		data.append((pllen>>48) & 0xff)
+		data.append((pllen>>40) & 0xff)
+		data.append((pllen>>32) & 0xff)
+		data.append((pllen>>24) & 0xff)
+		data.append((pllen>>16) & 0xff)
+		data.append((pllen>> 8) & 0xff)
+		data.append((pllen    ) & 0xff)
+
+	if "mask" in wsdata:
+		data.extend(wsdata["maskkey"])
+
+	payload = [ord(n) for n in wsdata["payload"]]
+
+	if "mask" in wsdata:
+		for i in range(0,len(payload)):
+			payload[i] = payload[i] ^ (wsdata["maskkey"][i%4])
+	data.extend(payload)
+
+	return "".join([chr(n) for n in data])
+
+def ws_packetize(data, dest):
+	# Policy:
+	# 1: Check that offset+<n> bytes are available
+	# 2: Spend <n> bytes
+	# 3: add <n> to offset
+	data = [ord(n) for n in data]
+
+	offset = 0
+	if len(data) < 2:
+		return 2
+	# We have 2 bytes
+	byte1 = data[0]
+	if byte1 & 128:
+		dest["fin"] = True
+	if byte1 & 64:
+		dest["rsv1"] = True
+	if byte1 & 32:
+		dest["rsv2"] = True
+	if byte1 & 16:
+		dest["rsv3"] = True
+	dest["opcode"] = byte1 & 0xf
+	byte2 = data[1]
+	if byte2 & 128:
+		dest["mask"] = True
+	pllen = byte2 & 0x7f
+	offset = 2
+	if pllen == 126:
+		# 2 bytes
+		if len(data) < (offset+2):
+			return offset+2
+		pllen = (data[offset]<<8) | data[offset+1]
+		offset += 2
+	elif pllen == 127:
+		# 8 bytes
+		if len(data) < (offset+8):
+			return offset+8
+
+		print data[offset:offset+8]
+		pllen = (data[offset+0]<<56) | (data[offset+1]<<48) | (data[offset+2]<<40) | (data[offset+3]<<32) | (data[offset+4]<<24) | (data[offset+5]<<16) | (data[offset+6]<<8) | data[offset+7]
+		offset += 8
+	dest["pllen"] = pllen
+
+	if "mask" in dest:
+		if len(data) < offset+4:
+			return offset+4
+		dest["maskkey"] = data[offset:offset+4]
+		offset += 4
+
+	if len(data) < offset+dest["pllen"]:
+		return offset+dest["pllen"]
+
+	dest["payload"] = data[offset:offset+dest["pllen"]]
+
+	if "mask" in dest:
+		for i in range(0,len(dest["payload"])):
+			dest["payload"][i] = dest["payload"][i] ^ (dest["maskkey"][i%4])
+
+	dest["payload"] = "".join([chr(n) for n in dest["payload"]])
+
+	offset += dest["pllen"]
+	return offset
+
 def init():
 	ret = {}
 	ret["expect"] = "clientstart"
@@ -24,6 +142,11 @@ def client_forward(request, ssock):
 	req.append("")
 	req = "\r\n".join(req)+"\r\n"
 	ssock.send(req)
+
+def client_forward_ws(wsdata, ssock):
+	print "client->server forward ws: "+str(wsdata["payload"])
+	data = ws_reconstruct(wsdata)
+	ssock.send(data)
 
 
 def client(data, connid, serversock):
@@ -90,9 +213,15 @@ def client(data, connid, serversock):
 		if data != "":
 			return client(data, connid, serversock)
 	elif this["expect"] == "websockets":
-		# TODO: websockets
-		pprint(data)
-		raise BaseException("Client websocket data not understood!")
+		new = {}
+		lenreq = ws_packetize(data, new)
+		if lenreq > len(data):
+			this["cbuf"] += data
+			return
+		data = data[lenreq:]
+		client_forward_ws(new, serversock)
+		if len(data):
+			return client(data, connid, serversock)
 	else:
 		# TODO: Clientdata
 		pprint(this)
@@ -119,10 +248,10 @@ def server_forward_chunk(chunk, csock):
 	csock.send(str(l)+"\r\n")
 	csock.send(chunk+"\r\n")
 
-def server_forward_ws(wsdata, clientsock):
-	print "server forward ws: "
-	pprint(wsdata)
-	raise BaseException('Websockets from server not implemented')
+def server_forward_ws(wsdata, csock):
+	print "server->client forward ws: "+str(wsdata["payload"])
+	data = ws_reconstruct(wsdata)
+	csock.send(data)
 
 def server(data, connid, clientsock):
 	connid = str(connid)
@@ -261,9 +390,15 @@ def server(data, connid, clientsock):
 			if len(data):
 				return server(data, connid, clientsock)
 	elif this["expect"] == "websockets":
-		# TODO: websockets
-		pprint(data)
-		raise BaseException("Server websocket data not understood!")
+		new = {}
+		lenreq = ws_packetize(data, new)
+		if lenreq > len(data):
+			this["sbuf"] += data
+			return
+		server_forward_ws(new, clientsock)
+		data = data[lenreq:]
+		if len(data):
+			return server(data, connid, clientsock)
 	else:
 		pprint(this)
 		pprint(data)
