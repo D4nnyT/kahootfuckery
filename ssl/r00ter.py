@@ -2,13 +2,15 @@
 
 import ssl, socket, select, sys, threading, time, mrparser
 
-def logit(text, connid, logdir, direction):
+def logit(text, connid, direction, logdir=False):
+	if not logdir:
+		return
 	with open(logdir+"/log."+str(connid)+".txt", "a") as myfile:
 		myfile.write(text)
 		t = time.time()
 
 
-def handle_conn(nssl, client_addr, connid, remote, logdir):
+def handle_conn(nssl, client_addr, connid, remote, logdir=False):
 	rsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	rssl = ssl.wrap_socket(rsock)
 	rssl.connect(remote)
@@ -26,7 +28,7 @@ def handle_conn(nssl, client_addr, connid, remote, logdir):
 				else:
 					#nssl.send(data)
 					mrparser.server(data, connid, nssl)
-					logit(data, connid, logdir, "server->client")
+					logit(data, connid, "server->client", logdir)
 			elif s == nssl:
 				data = nssl.read(1024**3)
 				#print "client -> server ("+str(connid)+"): "+str(len(data))+": '"+data+"'"
@@ -35,12 +37,12 @@ def handle_conn(nssl, client_addr, connid, remote, logdir):
 				else:
 					#rssl.send(data)
 					mrparser.client(data, connid, rssl)
-					logit(data, connid, logdir, "client->server")
+					logit(data, connid, "client->server", logdir)
 	rssl.close()
 	nssl.close()
 
 
-def run(local, remote, cert, key, logdir):
+def run(local, remote, cert, key, logdir=False):
 	lsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 	lsock.bind(local)

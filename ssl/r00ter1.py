@@ -2,7 +2,8 @@
 
 import r00ter
 
-logdir = "r00terlog1"
+#logdir = "r00terlog1"
+logdir = False
 
 local = ('0.0.0.0', 4002)
 remote = ('kahoot.it', 443)
