@@ -18,7 +18,7 @@ def client_forward(request, ssock):
 	req = []
 	req.append(request["method"]+" "+request["path"]+" "+request["ver"])
 	for k in request["headers"]:
-		print "  "+k+": "+request["headers"][k]
+		# print "  "+k+": "+request["headers"][k]
 		req.append(k+": "+request["headers"][k])
 
 	req.append("")
@@ -76,7 +76,7 @@ def client(data, connid, serversock):
 				client_forward(cli, serversock)
 				this["expect"] = "serverreply"
 			else:
-				print "Expecting clientdata"
+				# print "Expecting clientdata"
 				this["expect"] = "clientdata"
 		else:
 			if not "headers" in cli:
@@ -87,12 +87,35 @@ def client(data, connid, serversock):
 		if data != "":
 			return client(data, connid, serversock)
 	else:
-		print "Unexpected state when receiving data from client: "+this["expect"]
+		# TODO: Clientdata
 		pprint(this)
+		pprint(data)
+		raise BaseException("Unexpected state when receiving data from client: "+this["expect"]+", see dump above")
 
-def server_forward(data, clientsock):
-	print "Server forward:"
-	pprint(data)
+def server_forward_header(data, csock):
+	print "Server header: "+data["errcode"]+" "+data["errstr"]
+
+	line = data["ver"]+" "+data["errcode"]+" "+data["errstr"]+"\r\n"
+	for h in data["headers"]:
+		c = data["headers"][h]
+		line += h+": "+c+"\r\n"
+	line += "\r\n"
+	csock.send(line)
+
+def server_forward_data(data, csock):
+	print "Server forward data with length "+str(len(data))
+	csock.send(data)
+
+def server_forward_chunk(chunk, csock):
+	# print "Server forward chunk len="+str(len(chunk))
+	l =  hex(len(chunk))[2:]
+	csock.send(str(l)+"\r\n")
+	csock.send(chunk+"\r\n")
+
+def server_forward_ws(wsdata, clientsock):
+	print "server forward ws: "
+	pprint(wsdata)
+	raise BaseException('Websockets from server not implemented')
 
 def server(data, connid, clientsock):
 	connid = str(connid)
@@ -142,12 +165,17 @@ def server(data, connid, clientsock):
 			# TODO what if the 'upgrade: websocket' header is present at the webserver
 			if "content-length" in srv["headers"]:
 				this["expect"] = "serverdata"
+				server_forward_header(srv, clientsock)
 			elif "transfer-encoding" in srv["headers"] and srv["headers"]["transfer-encoding"] == "chunked":
-				this["expect"] = "serverdata-chunked"
+				this["expect"] = "server-chunkstart"
+				srv["cnr"] = 0
+				srv["chunks"] = {}
+				server_forward_header(srv, clientsock)
 			elif "upgrade" in srv["headers"] and srv["headers"]["upgrade"] == "WebSocket":
 				this["expect"] = "websockets"
+				server_forward_header(srv, clientsock)
 			else:
-				server_forward(srv, clientsock)
+				server_forward_header(srv, clientsock)
 				this["expect"] = "clientstart"
 		else:
 			if not "headers" in srv:
@@ -164,15 +192,68 @@ def server(data, connid, clientsock):
 		rem = srv["remain"]
 		if len(data) > rem:
 			# TODO implement caching or discard.. you decide
-			print "Got served more bytes than we expect"
-			sleep(2)
+			raise BaseException('server->serverdata: Got more bytes than expected, TODO to handle this')
 		elif len(data) == rem:
 			srv["data"] += data
-			requestcomplete(connid, clientsock)
+			server_forward_data(srv["data"], clientsock)
+			this["expect"] = "clientstart"
 		else:
 			srv["data"] += data
 			srv["remain"] -= len(data)
-	#elif this["expect"] == "serverdata-chunked":
+	elif this["expect"] == "server-chunkstart":
+		# srv["cnr"] = chunk id counter
+		srv["chunks"][srv["cnr"]] = ""
+		if not "\n" in data:
+			this["sbuf"] += data
+			return
+		line, data = data.split("\n", 1)
+		line = line.rstrip("\r")
+		srv["clen"] = int(line, 16)
+		# print "server-chunkstart, got chunk length = "+str(srv["clen"])
+
+		this["expect"] = "server-chunkdata"
+		if len(data):
+			return server(data, connid, clientsock)
+	elif this["expect"] == "server-chunkdata":
+		if srv["clen"] <= 0:
+			if not "\n" in data:
+				this["sbuf"] += data
+				return
+			line, data = data.split("\n", 1)
+
+			# print "Last chunk.. going back to clientstart"
+			server_forward_chunk("", clientsock)
+			this["expect"] = "clientstart"
+			srv["cnr"] = srv["cnr"]+1
+
+			if len(data):
+				return server(data, connid, clientsock)
+		else:
+
+			# chunk data
+			newdata = data[:srv["clen"]]
+			# remaining
+			data = data[srv["clen"]:]
+
+			srv["chunks"][srv["cnr"]] += newdata
+			srv["clen"] -= len(newdata)
+			# print "chunk body, got "+str(len(newdata))+" bytes, expecting "+str(srv["clen"])+" more"
+
+			if srv["clen"] <= 0:
+				# We do expect \r\n here before the next chunk
+				if len(data) < 2:
+					raise BaseException("Expecting \r\n in chunk>0, after data scenario, but seems we must let it go.. this leads to errors")
+				else:
+					data = data[2:]
+				# signify that we expect another chunk
+				server_forward_chunk(srv["chunks"][srv["cnr"]], clientsock)
+				srv["cnr"] = srv["cnr"]+1
+				this["expect"] = "server-chunkstart"
+			# Finally, if we have leftover data
+			if len(data):
+				return server(data, connid, clientsock)
+
 	else:
-		print "Unexpected state when receiving data from server: "+this["expect"]
 		pprint(this)
+		pprint(data)
+		raise BaseException("Unexpected state when receiving data from server: "+this["expect"]+", see dump above")

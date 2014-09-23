@@ -2,10 +2,10 @@ Todo:
 mrparser.py:
 [ ] Client: needs to handle payloads
 	- Forward request first, and then forward every time we see payload, won't break on large files
-[ ] Client: What if client does not send content-length but still posts?
+[ ] Client: What if client does not send content-length but still posts? (chunked encoding for client)
 [x] Server: Implement buffer
-[ ] Server: Forward headers with no payloads
-[ ] Server: Forward payloads - same as client way of doing it
-[ ] Server: What if no content-length but still payload?
-	- chunked encoding: transfer-encoding: chunked\r\n\r\n<len in hex>\r\n<lenbytes>\r\n<len in hex>\r\n<lenbytes>\r\n0\r\n
+[x] Server: Forward headers with no payloads
+[x] Server: Forward payloads - same as client way of doing it
+[x] Server: What if no content-length but still payload?
+	- chunked encoding: ok
 [ ] Server/Client: Start working on websockets
