@@ -82,10 +82,17 @@ def client(data, connid, serversock):
 			if not "headers" in cli:
 				cli["headers"] = {}
 
-			cli["headers"][line[0].lower()] = line[1].lstrip(" ")
+			k = line[0].lower()
+			v = line[1].lstrip(" ")
+
+			cli["headers"][k] = v
 
 		if data != "":
 			return client(data, connid, serversock)
+	elif this["expect"] == "websockets":
+		# TODO: websockets
+		pprint(data)
+		raise BaseException("Client websocket data not understood!")
 	else:
 		# TODO: Clientdata
 		pprint(this)
@@ -93,7 +100,7 @@ def client(data, connid, serversock):
 		raise BaseException("Unexpected state when receiving data from client: "+this["expect"]+", see dump above")
 
 def server_forward_header(data, csock):
-	print "Server header: "+data["errcode"]+" "+data["errstr"]
+	print "server -> client: "+data["errcode"]+" "+data["errstr"]
 
 	line = data["ver"]+" "+data["errcode"]+" "+data["errstr"]+"\r\n"
 	for h in data["headers"]:
@@ -103,11 +110,11 @@ def server_forward_header(data, csock):
 	csock.send(line)
 
 def server_forward_data(data, csock):
-	print "Server forward data with length "+str(len(data))
+	print "server -> client: content with length "+str(len(data))
 	csock.send(data)
 
 def server_forward_chunk(chunk, csock):
-	# print "Server forward chunk len="+str(len(chunk))
+	print "server -> client: chunk with length "+str(len(chunk))
 	l =  hex(len(chunk))[2:]
 	csock.send(str(l)+"\r\n")
 	csock.send(chunk+"\r\n")
@@ -175,6 +182,7 @@ def server(data, connid, clientsock):
 				this["expect"] = "websockets"
 				server_forward_header(srv, clientsock)
 			else:
+				# Bodyless request
 				server_forward_header(srv, clientsock)
 				this["expect"] = "clientstart"
 		else:
@@ -252,7 +260,10 @@ def server(data, connid, clientsock):
 			# Finally, if we have leftover data
 			if len(data):
 				return server(data, connid, clientsock)
-
+	elif this["expect"] == "websockets":
+		# TODO: websockets
+		pprint(data)
+		raise BaseException("Server websocket data not understood!")
 	else:
 		pprint(this)
 		pprint(data)
